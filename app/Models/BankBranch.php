@@ -14,4 +14,14 @@ class BankBranch extends Model
         'name',
         'code'
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany(BankAccount::class, 'branch_id', 'id');
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
 }
