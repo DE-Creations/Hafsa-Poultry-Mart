@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->unsignedBigInteger('grn_id')->nullable();
             $table->unsignedBigInteger('account_id')->nullable();
-            $table->decimal('price', 15, 2);
+            $table->decimal('price', 15, 2)->nullable();
             $table->string('status')->nullable();
             $table->string('memo')->nullable();
 
