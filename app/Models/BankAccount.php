@@ -27,4 +27,9 @@ class BankAccount extends Model
     {
         return $this->belongsTo(BankBranch::class, 'branch_id', 'id');
     }
+
+    public function supplier()
+    {
+        return $this->hasOne(Supplier::class, 'bank_account_id', 'id');
+    }
 }
