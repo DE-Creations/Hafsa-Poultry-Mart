@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('serial')->nullable();
             $table->date('date')->nullable();
             $table->string('memo')->nullable();
-            $table->decimal('discount_rate', 15, 2);
-            $table->decimal('discount_amount', 15, 2);
-            $table->decimal('total', 15, 2);
+            $table->decimal('discount_rate', 15, 2)->nullable();
+            $table->decimal('discount_amount', 15, 2)->nullable();
+            $table->decimal('total', 15, 2)->nullable();
 
             $table->timestamps();
         });
