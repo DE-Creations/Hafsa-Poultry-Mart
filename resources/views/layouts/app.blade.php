@@ -66,12 +66,6 @@
                         <div class="col-md-9 col-10">
                             <!-- App header actions start -->
                             <div class="header-actions col">
-                                <!-- Search container start -->
-                                <div class="search-container d-none d-lg-block">
-                                    <input type="text" id="search" class="form-control" placeholder="Search" />
-                                    <i class="icon-search"></i>
-                                </div>
-                                <!-- Search container end -->
 
                                 <div class="d-sm-flex d-none align-items-center gap-2">
                                     <div class="dropdown">
