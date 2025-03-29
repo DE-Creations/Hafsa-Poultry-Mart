@@ -10,7 +10,7 @@
             <div class="login-form">
                 <a href="{{ route('dashboard') }}" class="mb-3 d-flex">
                     {{--  <img src="{{ asset('assets/images/logo-dark.svg') }}" class="img-fluid login-logo" alt="logo" />  --}}
-                    <h2 class="fs-3 fw-semibold text-gray-500">Hafsa Poultry Mart</h2>
+                    <h2 class="fs-2 fw-semibold text-gray-500">Hafsa Poultry Mart</h2>
                 </a>
                 <h2 class="mt-4 mb-3 fs-3 fw-semibold">Login</h2>
                 <div class="mb-3">
