@@ -12,8 +12,7 @@
                             <i class="icon-house_siding lh-1"></i>
                             <a href="index.html" class="text-decoration-none">Home</a>
                         </li>
-                        <li class="breadcrumb-item">Dashboards</li>
-                        <li class="breadcrumb-item">Analytics</li>
+                        <li class="breadcrumb-item">Profile</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -23,7 +22,7 @@
             <div class="row">
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="space-y-6">
-                        <div class="p-4 sm:p-8 card shadow sm:rounded-lg">
+                        <div class="p-2 card shadow rounded-3">
                             <div class="card-body">
                                 @include('profile.partials.update-profile-information-form')
                             </div>
@@ -33,7 +32,7 @@
 
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="space-y-6">
-                        <div class="p-4 sm:p-8 card shadow sm:rounded-lg">
+                        <div class="p-2 card shadow rounded-3">
                             <div class="card-body">
                                 @include('profile.partials.update-password-form')
                             </div>

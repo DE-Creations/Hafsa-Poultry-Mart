@@ -189,8 +189,8 @@
                                         class="dropdown-toggle d-flex py-2 align-items-center text-decoration-none"
                                         href="#!" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                        {{--  <img src="assets/images/user2.png" class="rounded-2 img-3x"
-                                            alt="Bootstrap Gallery" />  --}}
+                                        <img src="assets/images/user2.png" class="rounded-2 img-3x"
+                                            alt="Bootstrap Gallery" />
                                         <div class="ms-2 text-truncate d-lg-block d-none text-white">
                                             <span class="d-flex fs-6 fw-bold">{{ Auth::user()->name }}</span>
                                         </div>
@@ -251,7 +251,7 @@
                             </li>
 
                             <li class="nav-item {{ request()->routeIs('customers*') ? 'active-link' : '' }}">
-                                <a class="nav-link" href="{{ route('customers') }}"><i
+                                <a class="nav-link" href="{{ route('customers.index') }}"><i
                                         class="icon-supervised_user_circle"></i>
                                     Customers
                                 </a>

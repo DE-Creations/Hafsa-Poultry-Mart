@@ -6,7 +6,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/customers', [CustomersController::class, 'index'])->name('customers');
+
+Route::prefix('customers')->group(function () {
+    Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

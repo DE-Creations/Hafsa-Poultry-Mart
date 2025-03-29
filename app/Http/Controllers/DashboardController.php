@@ -9,6 +9,6 @@ class DashboardController extends ParentController
 {
     public function index()
     {
-        return view('pages.dashboard', Auth::user());
+        return view('pages.dashboard.index', Auth::user());
     }
 }
