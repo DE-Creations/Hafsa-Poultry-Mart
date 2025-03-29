@@ -244,14 +244,15 @@
                             </button>
                         </div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            {{-- <li class="nav-item {{ request()->routeIs('dashboard*') ? 'active-link' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('dashboard*') ? 'active-link' : '' }}">
                                 <a class="nav-link" href="{{ route('dashboard') }}">
                                     <i class="icon-stacked_line_chart"></i>Dashboard
                                 </a>
-                            </li> --}}
+                            </li>
 
                             <li class="nav-item {{ request()->routeIs('customers*') ? 'active-link' : '' }}">
-                                <a class="nav-link" href="{{ route('customers') }}"><i class="icon-supervised_user_circle"></i>
+                                <a class="nav-link" href="{{ route('customers') }}"><i
+                                        class="icon-supervised_user_circle"></i>
                                     Customers
                                 </a>
                             </li>
