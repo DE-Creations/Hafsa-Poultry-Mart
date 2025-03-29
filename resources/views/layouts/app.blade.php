@@ -244,24 +244,12 @@
                             </button>
                         </div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown active-link">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="icon-stacked_line_chart"></i> Dashboards
+                            <li class="nav-item {{ request()->routeIs('dashboard*') ? 'active-link' : '' }}">
+                                <a class="nav-link" href="{{ route('dashboard') }}">
+                                    <i class="icon-stacked_line_chart"></i>Dashboard
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item current-page" href="index.html">
-                                            <span>Analytics</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="reports.html">
-                                            <span>Reports</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
