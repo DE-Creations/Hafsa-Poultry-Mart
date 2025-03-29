@@ -534,39 +534,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="icon-login"></i>Login
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="login.html">
-                                            <span>Login</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="signup.html">
-                                            <span>Signup</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="forgot-password.html">
-                                            <span>Forgot Password</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="page-not-found.html">
-                                            <span>Page Not Found</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="maintenance.html">
-                                            <span>Maintenance</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
                         </ul>
                     </div>
                 </div>
