@@ -66,7 +66,6 @@
                         <div class="col-md-9 col-10">
                             <!-- App header actions start -->
                             <div class="header-actions col">
-
                                 <div class="d-sm-flex d-none align-items-center gap-2">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle header-action-icon" href="#!" role="button"
