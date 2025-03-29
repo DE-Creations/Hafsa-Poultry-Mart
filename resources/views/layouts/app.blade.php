@@ -189,16 +189,16 @@
                                         class="dropdown-toggle d-flex py-2 align-items-center text-decoration-none"
                                         href="#!" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                        <img src="assets/images/user2.png" class="rounded-2 img-3x"
-                                            alt="Bootstrap Gallery" />
+                                        {{--  <img src="assets/images/user2.png" class="rounded-2 img-3x"
+                                            alt="Bootstrap Gallery" />  --}}
                                         <div class="ms-2 text-truncate d-lg-block d-none text-white">
-                                            <span class="d-flex">{{ Auth::user()->name }}</span>
+                                            <span class="d-flex fs-6 fw-bold">{{ Auth::user()->name }}</span>
                                         </div>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div class="header-action-links">
-                                            <a class="dropdown-item" href="profile.html"><i
-                                                    class="icon-user border border-primary text-primary"></i>Profile</a>
+                                            <x-dropdown-link class="dropdown-item" :href="route('profile.edit')"><i
+                                                    class="icon-user border border-primary text-primary"></i>Profile</x-dropdown-link>
                                             <a class="dropdown-item" href="settings.html"><i
                                                     class="icon-settings border border-danger text-danger"></i>Settings</a>
                                             <a class="dropdown-item" href="widgets.html"><i
