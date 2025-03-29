@@ -13,19 +13,26 @@
                     <h2 class="fs-2 fw-semibold text-gray-500">Hafsa Poultry Mart</h2>
                 </a>
                 <h2 class="mt-4 mb-3 fs-3 fw-semibold">Login</h2>
-                <div class="mb-3">
-                    <x-input-label for="email" :value="__('Email')" class="form-label" />
-                    <x-text-input id="email" class="block mt-1 w-full h-50" type="email" name="email"
-                        :value="old('email')" required autofocus autocomplete="username" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                <div class="d-flex align-items-center row">
+                    <label for="email" class="col-4 fw-bold">Email</label>
+                    <div>
+                        <x-text-input id="email" class="mt-1 form-control col-12" type="email" name="email"
+                            :value="old('email')" required autofocus autocomplete="username" />
+                    </div>
+                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                 </div>
-                <div class="mb-3">
-                    <x-input-label for="password" :value="__('Password')" class="form-label" />
-                    <x-text-input id="password" class="block mt-1 w-full h-50" type="password" name="password" required
-                        autocomplete="current-password" />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
+                <div class="d-flex align-items-center row mt-3">
+                    <label for="password" class="col-4 fw-bold">Password</label>
+                    <div>
+                        <x-text-input id="password" class="mt-1 form-control col-12" type="password" name="password"
+                            required autocomplete="current-password" />
+                    </div>
+                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
                 </div>
-                <div class="d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
                     <div class="form-check ms-n3">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox"

@@ -1,0 +1,3 @@
+.navbar .active-link::before {
+    background: transparent !important;
+}
