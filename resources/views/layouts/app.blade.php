@@ -192,8 +192,7 @@
                                         <img src="assets/images/user2.png" class="rounded-2 img-3x"
                                             alt="Bootstrap Gallery" />
                                         <div class="ms-2 text-truncate d-lg-block d-none text-white">
-                                            <span class="d-flex opacity-50 small">Admin</span>
-                                            <span>Taylor Franklin</span>
+                                            <span class="d-flex">{{ Auth::user()->name }}</span>
                                         </div>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
@@ -206,7 +205,14 @@
                                                     class="icon-box border border-info text-info"></i>Widgets</a>
                                         </div>
                                         <div class="mx-3 mt-2 d-grid">
-                                            <a href="login.html" class="btn btn-outline-danger">Logout</a>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <a class="btn btn-outline-danger w-100" :href="route('logout')"
+                                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                                    {{ __('Log Out') }}
+                                                </a>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
