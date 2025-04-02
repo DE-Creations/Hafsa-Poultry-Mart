@@ -258,7 +258,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="agents.html">
-                                    <i class="icon-support_agent"></i>Agents
+                                    <i class="icon-support_agent"></i>Invoice
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="agents.html">
+                                    <i class="icon-support_agent"></i>GRN
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
