@@ -1,5 +1,5 @@
 <x-app-layout>
-    <!-- App body starts -->
+
     <div class="app-body">
 
         <!-- Container starts -->
@@ -25,76 +25,320 @@
             <div class="row gx-3">
                 <div class="col-12">
                     <div class="card mb-3">
-                        <div class="card-header d-flex justify-content-between">
-                            <h3 class="card-title">Customers List</h3>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addNewCustomerModal">Add new</button>
-                        </div>
                         <div class="card-body">
                             <!-- Search container start -->
-                            <div class="row">
-                                <div class="col-sm-4 col-12">
+                            <div class="row mb-3">
+                                <div class="col-10">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" />
                                     </div>
                                 </div>
+                                <div class="col-2 text-end">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addNewCustomerModal">Add new</button>
+                                </div>
                             </div>
                             <!-- Search container end -->
 
-                            <!-- Contacts Container Start -->
-                            <div class="contacts-container mt-3">
-                                <div class="contact-list">
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user.png" alt="Bootstrap Gallery"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Angelica Ramos</h6>
-                                            <small class="opacity-50">Software Engineer</small>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user2.png" alt="Bootstrap Gallery"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Brenden Wagner</h6>
-                                            <small class="opacity-50">Chief Operating Officer</small>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user3.png" alt="Bootstrap Themes"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Cedric Kelly</h6>
-                                            <small class="opacity-50">Senior Javascript Developer</small>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user4.png" alt="Bootstrap Dashboards"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Howard Hatfield</h6>
-                                            <small class="opacity-50">Senior Marketing Designer</small>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user4.png" alt="Bootstrap Themes"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Jenette Caldwell</h6>
-                                            <small class="opacity-50">Senior Marketing Designer</small>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)" class="px-3 py-2 d-flex align-items-center gap-3">
-                                        <img src="assets/images/user5.png" alt="Bootstrap Dashboards"
-                                            class="img-3x rounded-circle" />
-                                        <div class="flex-1 flex flex-col">
-                                            <h6 class="fw-bold m-0">Olivia Liang</h6>
-                                            <small class="opacity-50">Systems Administrator</small>
-                                        </div>
-                                    </a>
+                            <div class="table-outer">
+                                <div class="table-responsive">
+                                    <table class="table table-striped align-middle m-0">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Tickets</th>
+                                                <th>Status</th>
+                                                <th>Country</th>
+                                                <th>Email Sent</th>
+                                                <th>Calls</th>
+                                                <th>Reviews</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox" value="option1" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Araceli Zhang
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>248</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>United States</td>
+                                                <td>98</td>
+                                                <td>86</td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox" value="option2" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user1.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Carmen Mccall
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>230</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>India</td>
+                                                <td>65</td>
+                                                <td>39</td>
+                                                <td>
+                                                    <div class="starReadOnly2 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox" value="option3" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Gino Watson
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>200</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-dark fs-5"></i>
+                                                        Offline
+                                                    </div>
+                                                </td>
+                                                <td>Turkey</td>
+                                                <td>76</td>
+                                                <td>44</td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox" value="option4" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user3.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Edwardo Manning
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>198</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>Indonesia</td>
+                                                <td>72</td>
+                                                <td>39</td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        value="option5" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user4.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Rolf Weeks
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>187</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>Brazil</td>
+                                                <td>44</td>
+                                                <td>12</td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        value="option6" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user5.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Maria Oliver
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>181</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>Saudi Arabia</td>
+                                                <td>73</td>
+                                                <td>33</td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <th>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        value="option2" />
+                                                </th>
+                                                <td>
+                                                    <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
+                                                        alt="Bootstrap Gallery" />
+                                                    Mitzi Stark
+                                                </td>
+                                                <td>info@example.com</td>
+                                                <td>176</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
+                                                        Online
+                                                    </div>
+                                                </td>
+                                                <td>France</td>
+                                                <td>65</td>
+                                                <td>39</td>
+                                                <td>
+                                                    <div class="starReadOnly2 rating-stars"></div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-primary"
+                                                        data-bs-title="Edit">
+                                                        <i class="icon-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip-danger"
+                                                        data-bs-title="Delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <!-- Contacts Container End -->
                         </div>
                     </div>
                 </div>
@@ -105,12 +349,12 @@
         <!-- Container ends -->
 
     </div>
-    <!-- App body ends -->
 
+    <!-- Modals -->
 
     <!-- Customer add modal start -->
-    <div class="modal fade" id="addNewCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -133,3 +377,40 @@
     </div>
     <!-- Customer add modal end -->
 </x-app-layout>
+
+
+
+{{--  <div class="app-body">
+
+    <!-- Container starts -->
+    <div class="container">
+
+        <!-- Row start -->
+        <div class="row gx-3">
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="card-title">Customers List</h3>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#addNewCustomerModal">Add new</button>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search container start -->
+                        <div class="row">
+                            <div class="col-sm-4 col-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search container end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+
+    </div>
+    <!-- Container ends -->
+
+</div>  --}}
