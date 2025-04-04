@@ -14,7 +14,7 @@
                             <i class="icon-house_siding lh-1"></i>
                             <a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a>
                         </li>
-                        <li class="breadcrumb-item">Customers</li>
+                        <li class="breadcrumb-item">Invoice</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>

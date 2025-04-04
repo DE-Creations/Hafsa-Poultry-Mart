@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GRNController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +11,14 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
+});
+
+Route::prefix('invoice')->group(function () {
+    Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
+});
+
+Route::prefix('grn')->group(function () {
+    Route::get('/', [GRNController::class, 'index'])->name('grn.index');
 });
 
 Route::middleware('auth')->group(function () {
