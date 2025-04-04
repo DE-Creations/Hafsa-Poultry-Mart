@@ -14,7 +14,7 @@
                             <i class="icon-house_siding lh-1"></i>
                             <a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a>
                         </li>
-                        <li class="breadcrumb-item">Invoice</li>
+                        <li class="breadcrumb-item">Expenses</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -376,4 +376,5 @@
         </div>
     </div>
     <!-- Customer add modal end -->
+
 </x-app-layout>

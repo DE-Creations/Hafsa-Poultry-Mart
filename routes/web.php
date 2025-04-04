@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,10 @@ Route::prefix('invoice')->group(function () {
 
 Route::prefix('grn')->group(function () {
     Route::get('/', [GRNController::class, 'index'])->name('grn.index');
+});
+
+Route::prefix('expenses')->group(function () {
+    Route::get('/', [ExpensesController::class, 'index'])->name('expenses.index');
 });
 
 Route::middleware('auth')->group(function () {
