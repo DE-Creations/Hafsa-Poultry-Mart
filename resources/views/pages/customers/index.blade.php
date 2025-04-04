@@ -363,15 +363,40 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        Save
-                    </button>
-                </div>
+                <form method="post" action="{{ route('customers.store') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Name</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Name" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" class="form-control mt-2" placeholder="Enter Email" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Mobile</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Address</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Address" />
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
