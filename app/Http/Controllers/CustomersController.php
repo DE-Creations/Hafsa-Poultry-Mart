@@ -10,4 +10,8 @@ class CustomersController extends ParentController
     {
         return view('pages.customers.index');
     }
+
+    public function store(){
+        dd("Okey");
+    }
 }

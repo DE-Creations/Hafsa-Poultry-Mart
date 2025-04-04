@@ -12,6 +12,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
+    Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
 });
 
 Route::prefix('invoice')->group(function () {
