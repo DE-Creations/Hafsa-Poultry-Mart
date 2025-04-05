@@ -77,12 +77,10 @@
                                                 </td>  --}}
                                                         <td>{{ $customer->mobile }}</td>
                                                         <td>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Edit">
+                                                            <a class="btn btn-outline-primary btn-sm"
+                                                            data-bs-toggle="modal" data-bs-target="#editCustomerModal" :href="route('customers.edit')">
                                                                 <i class="icon-edit"></i>
-                                                            </button>
+                                                            </a>
                                                             <button class="btn btn-outline-danger btn-sm"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
@@ -203,4 +201,57 @@
         </div>
     </div>
     <!-- Customer add modal end -->
+
+        <!-- Customer edit modal start -->
+        <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Edit customer
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="{{ route('customers.store') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Name</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" value="{{ $customer->name }}"/>
+                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email" value="{{ $customer->email }}"/>
+                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Mobile</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" value="{{ $customer->mobile }}" />
+                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        </div>
+
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Address</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Address"
+                                name="address" value="{{ $customer->address }}"/>
+                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Customer edit modal end -->
 </x-app-layout>
