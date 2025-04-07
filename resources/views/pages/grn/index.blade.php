@@ -34,8 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#addNewCustomerModal">Add new</button>
+                                    <a type="button" class="btn btn-primary" href="{{route('grn.create')}}">Add new</a>
                                 </div>
                             </div>
                             <!-- Search container end -->
