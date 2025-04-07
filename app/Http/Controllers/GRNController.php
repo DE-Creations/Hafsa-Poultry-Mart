@@ -10,4 +10,9 @@ class GRNController extends ParentController
     {
         return view('pages.grn.index');
     }
+
+    public function add()
+    {
+        return view('pages.grn.create-grn');
+    }
 }

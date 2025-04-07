@@ -18,10 +18,12 @@ Route::prefix('customers')->group(function () {
 
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/add',[InvoiceController::class, 'add'])->name('invoice.create');
 });
 
 Route::prefix('grn')->group(function () {
     Route::get('/', [GRNController::class, 'index'])->name('grn.index');
+    Route::get('/add',[InvoiceController::class, 'add'])->name('grn.create');
 });
 
 Route::prefix('expenses')->group(function () {
