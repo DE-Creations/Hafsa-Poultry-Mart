@@ -11,8 +11,8 @@ class GRNController extends ParentController
         return view('pages.grn.index');
     }
 
-    public function add()
+    public function create()
     {
-        return view('pages.grn.create-grn');
+        return view('pages.grn.create');
     }
 }
