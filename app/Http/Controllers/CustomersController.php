@@ -23,10 +23,17 @@ class CustomersController extends ParentController
         return redirect()->route('customers.index');
     }
 
-    public function edit(Request $request): View
+    public function get(Request $request)
     {
-        return view('customers.edit', [
-            'customers' => $request->customers(),
-        ]);
+        dd($request);
+        return $request->customer_id;
+        // return CustomerFacade::get($request->all());
     }
+
+    // public function edit(Request $request): View
+    // {
+    //     return view('customers.edit', [
+    //         'customers' => $request->customers(),
+    //     ]);
+    // }
 }
