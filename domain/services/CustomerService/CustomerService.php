@@ -24,4 +24,10 @@ class CustomerService
         $customer_id = $this->customer->create($details);
         return $customer_id;
     }
+
+    public function get($customer_id)
+    {
+        dd($customer_id);
+        // return $this->customer->find($customer_id);
+    }
 }

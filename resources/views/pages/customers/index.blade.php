@@ -77,10 +77,20 @@
                                                 </td>  --}}
                                                         <td>{{ $customer->mobile }}</td>
                                                         <td>
-                                                            <a class="btn btn-outline-primary btn-sm"
-                                                            data-bs-toggle="modal" data-bs-target="#editCustomerModal" :href="route('customers.edit')">
+                                                            {{--  <a class="btn btn-outline-primary btn-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editCustomerModal"
+                                                                href="route('customers.edit')">
                                                                 <i class="icon-edit"></i>
-                                                            </a>
+                                                            </a>  --}}
+                                                            <button
+                                                                class="btn btn-outline-primary btn-sm edit-customer-btn"
+                                                                data-customer-id="{{ $customer->id }}"
+                                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                data-bs-custom-class="custom-tooltip-primary"
+                                                                data-bs-title="Edit">
+                                                                <i class="icon-edit"></i>
+                                                            </button>
                                                             <button class="btn btn-outline-danger btn-sm"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
@@ -202,13 +212,13 @@
     </div>
     <!-- Customer add modal end -->
 
-        <!-- Customer edit modal start -->
-        <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Customer edit modal start -->
+    <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="editCustomerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">
+                    <h5 class="modal-title" id="editCustomerModalLabel">
                         Edit customer
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -218,26 +228,29 @@
                     <div class="modal-body">
                         <div class="m-2">
                             <label class="form-label fw-bold">Name</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" value="{{ $customer->name }}"/>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                                value="{{ $customer->name }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email" value="{{ $customer->email }}"/>
+                            <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                                value="{{ $customer->email }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Mobile</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" value="{{ $customer->mobile }}" />
+                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile"
+                                name="mobile" value="{{ $customer->mobile }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Address</label>
                             <input type="text" class="form-control mt-2" placeholder="Enter Address"
-                                name="address" value="{{ $customer->address }}"/>
+                                name="address" value="{{ $customer->address }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
                     </div>
@@ -254,4 +267,42 @@
         </div>
     </div>
     <!-- Customer edit modal end -->
+
+    <script>
+        const getCustomerRoute = @json(route('customers.get', ['customer_id' => 'CUSTOMER_ID']));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.edit-customer-btn');
+            const modalElement = document.getElementById('editCustomerModal');
+            const bootstrapModal = new bootstrap.Modal(modalElement);
+
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const customerId = $(this).data('customer-id');
+                    alert(customerId);
+
+                    const url = getCustomerRoute.replace('CUSTOMER_ID', customerId);
+
+                    $.ajax({
+                        url: url,
+                        method: 'GET',
+                        success: function(data) {
+                            $('#customer-name').text(data.name);
+                            $('#customer-email').text(data.email);
+                            // Set other fields here
+
+                            // Show Bootstrap modal
+                            const modal = new bootstrap.Modal(document
+                                .getElementById(
+                                    'customerModal'));
+                            modal.show();
+                        },
+                        error: function() {
+                            alert('Failed to fetch customer data.');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </x-app-layout>

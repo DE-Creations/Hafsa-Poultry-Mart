@@ -13,7 +13,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
     Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
-    Route::get('/edit', [CustomersController::class, 'edit'])->name('customers.edit');
+    Route::get('/get/{customer_id}', [CustomersController::class, 'get'])->name('customers.get');
 });
 
 Route::prefix('invoice')->group(function () {
