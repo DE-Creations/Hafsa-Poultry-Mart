@@ -52,11 +52,11 @@
                         <div class="col-md-3 col-2">
                             <!-- App brand starts -->
                             <div class="app-brand">
-                                <a href="index.html" class="d-lg-block d-none">
+                                <a href="/" class="d-lg-block d-none">
                                     <!-- <img src="assets/images/logo.svg" class="logo" alt="Bootstrap Gallery" /> -->
                                     <h2 class="text-white mt-3"><b>Hafsa Poultry Mart</b></h2>
                                 </a>
-                                <a href="index.html" class="d-lg-none d-md-block">
+                                <a href="/" class="d-lg-none d-md-block">
                                     <img src="assets/images/logo-sm.svg" class="logo" alt="Bootstrap Gallery" />
                                 </a>
                             </div>
@@ -189,7 +189,7 @@
                                         class="dropdown-toggle d-flex py-2 align-items-center text-decoration-none"
                                         href="#!" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                        <img src="assets/images/user2.png" class="rounded-2 img-3x"
+                                        <img src="{{ asset('assets/images/user2.png') }}" class="rounded-2 img-3x"
                                             alt="Bootstrap Gallery" />
                                         <div class="ms-2 text-truncate d-lg-block d-none text-white">
                                             <span class="d-flex fs-6 fw-bold">{{ Auth::user()->name }}</span>
