@@ -79,6 +79,7 @@
                                                             <button
                                                                 class="btn btn-outline-primary btn-sm edit-customer-btn"
                                                                 onclick="showSupplierEditModal({{ $supplier->id }})"
+                                                                onclick="showSupplierEditModal({{ $supplier->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
                                                                 data-bs-title="Edit">
@@ -248,9 +249,11 @@
     <script>
         var edit_supplier_id = 0;
         var modal;
+        var edit_supplier_id = 0;
+        var modal;
 
         async function showSupplierEditModal(id) {
-            resetFields();
+            resetFilds();
             try {
 
                 const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
@@ -262,6 +265,13 @@
                 name.value = supplier.name;
                 nic.value = supplier.nic;
                 edit_supplier_id = supplier.id;
+                var nic = document.getElementById("edit_nic");
+
+                name.value = supplier.name;
+                nic.value = supplier.nic;
+                edit_supplier_id = supplier.id;
+
+                openModal("editSupplierModal");
 
                 openModal("editSupplierModal");
 
@@ -284,13 +294,45 @@
                 const response = await axios.post("{{ url('/suppliers/update') }}/" + edit_supplier_id,
                     edit_supplier_details);
                 const supplier = response.data;
+                const response = await axios.post("{{ url('/suppliers/update') }}/" + edit_supplier_id,
+                    edit_supplier_details);
+                const supplier = response.data;
 
+                await axios.get("{{ url('/suppliers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Supplier updated successfully.");
                 await axios.get("{{ url('/suppliers/list') }}/");
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier updated successfully.");
             } catch (error) {
                 viewErrors(error);
             }
+        }
+
+        function openModal(modalName) {
+            modal = new bootstrap.Modal(document.getElementById(modalName));
+            modal.show();
+        }
+
+        function resetFields() {
+            document.getElementById("name_error").textContent = "";
+            document.getElementById("nic_error").textContent = "";
+        }
+
+        function viewErrors(error) {
+            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
+        }
+
+        function showAlert(alertType, alertSpan, alertText) {
+            document.getElementById(alertSpan).textContent = alertText;
+            const alert = document.getElementById(alertType);
+            alert.classList.add("show");
+            setTimeout(() => {
+                alert.classList.remove("show");
+            }, 5000);
+            viewErrors(error);
+        }
         }
 
         function openModal(modalName) {
