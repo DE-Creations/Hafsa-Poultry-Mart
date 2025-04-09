@@ -27,6 +27,7 @@ Route::prefix('suppliers')->group(function () {
     Route::post('/store', [SuppliersController::class, 'store'])->name('suppliers.store');
     Route::get('/get/{supplier_id}', [SuppliersController::class, 'get'])->name('suppliers.get');
     Route::post('/update/{supplier_id}', [SuppliersController::class, 'update'])->name('suppliers.update');
+    Route::delete('/delete/{supplier_id}', [SuppliersController::class, 'delete'])->name('suppliers.delete');
 });
 
 Route::prefix('invoice')->group(function () {
