@@ -250,7 +250,7 @@
         var modal;
 
         async function showSupplierEditModal(id) {
-            resetFields();
+            resetFilds();
             try {
 
                 const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
@@ -264,7 +264,6 @@
                 edit_supplier_id = supplier.id;
 
                 openModal("editSupplierModal");
-
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
