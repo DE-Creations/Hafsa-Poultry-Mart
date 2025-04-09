@@ -275,8 +275,8 @@
         var edit_supplier_id = 0;
         var modal;
 
-        async function showSupplierEditModal(id) {
-            resetFilds();
+        async function showSupplierEditModal(id) {         
+            resetFields();
             try {
 
                 const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
@@ -343,13 +343,13 @@
         }
 
         function showDeleteSupplierModal(id) {
-            selected_customer_id = id;
+            edit_supplier_id = id;
             openModal("deleteSupplierModal");
         }
 
         async function deleteCustomer() {
             try {
-                const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
+                const response = await axios.delete("{{ url('/suppliers/delete') }}/" + edit_supplier_id);
                 const customer = response.data;
                 console.log(customer);
 
