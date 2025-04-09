@@ -85,6 +85,7 @@
                                                                 <i class="icon-edit"></i>
                                                             </button>
                                                             <button class="btn btn-outline-danger btn-sm"
+                                                                onclick="showDeleteSupplierModal({{ $supplier->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
                                                                 data-bs-title="Delete">
@@ -233,6 +234,31 @@
     </div>
     <!-- Customer edit modal end -->
 
+        <!-- Delete modal start -->
+        <div class="modal center fade" id="deleteSupplierModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="deleteSupplierModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="text-danger">Confirm Delete</h5>
+                    <p class="mb-0">
+                        Are you sure you want to delete this customer?
+                    </p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
+                        onclick="deleteCustomer()">
+                        <strong>Delete</strong>
+                    </button>
+                    <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete modal end -->
+
     <!--Alerts start-->
     <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
         style="z-index: 10000;">
@@ -315,5 +341,27 @@
                 alert.classList.remove("show");
             }, 5000);
         }
+
+        async function showDeleteSupplierModal(id) {
+            openModal("deleteSupplierModal");
+            {{--  modal = new bootstrap.Modal(document.getElementById("deleteSupplierModal"));
+            modal.show();  --}}
+        }
+
+        function deleteCustomer() {
+            alert("delete");
+            {{--  try {
+                const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
+                const customer = response.data;
+                console.log(customer);
+
+                await axios.get("{{ url('/suppliers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }  --}}
+        }
+
     </script>
 </x-app-layout>
