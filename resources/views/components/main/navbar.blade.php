@@ -45,9 +45,6 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="form-inputs.html"><span>Expenses</span></a>
-                        </li>
-                        <li>
                             <a class="dropdown-item" href="form-checkbox-radio.html"><span>Profit &amp; loss</span></a>
                         </li>
                     </ul>
