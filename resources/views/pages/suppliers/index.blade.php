@@ -290,6 +290,7 @@
                 edit_supplier_id = supplier.id;
 
                 openModal("editSupplierModal");
+
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
