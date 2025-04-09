@@ -14,16 +14,17 @@ Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
     Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
     Route::get('/get/{customer_id}', [CustomersController::class, 'get'])->name('customers.get');
+    Route::post('/update/{customer_id}', [CustomersController::class, 'update'])->name('customers.update');
 });
 
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
-    Route::get('/create',[InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
 });
 
 Route::prefix('grn')->group(function () {
     Route::get('/', [GRNController::class, 'index'])->name('grn.index');
-    Route::get('/create',[InvoiceController::class, 'create'])->name('grn.create');
+    Route::get('/create', [InvoiceController::class, 'create'])->name('grn.create');
 });
 
 Route::prefix('expenses')->group(function () {
