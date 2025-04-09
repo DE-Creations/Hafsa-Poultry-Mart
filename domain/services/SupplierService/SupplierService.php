@@ -31,5 +31,11 @@ class SupplierService
     public function edit(Supplier $supplier, array $data){
         return array_merge($supplier->toArray(), $data);
     }
+
+    public function delete($supplier_id)
+    {
+        $supplier = $this->supplier->find($supplier_id);
+        return $supplier->delete();
+    }
 }
 ?>

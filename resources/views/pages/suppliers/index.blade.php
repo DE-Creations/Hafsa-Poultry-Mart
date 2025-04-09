@@ -342,25 +342,23 @@
             }, 5000);
         }
 
-        async function showDeleteSupplierModal(id) {
+        function showDeleteSupplierModal(id) {
+            selected_customer_id = id;
             openModal("deleteSupplierModal");
-            {{--  modal = new bootstrap.Modal(document.getElementById("deleteSupplierModal"));
-            modal.show();  --}}
         }
 
-        function deleteCustomer() {
-            alert("delete");
-            {{--  try {
+        async function deleteCustomer() {
+            try {
                 const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
                 console.log(customer);
 
                 await axios.get("{{ url('/suppliers/list') }}/");
                 modal.hide();
-                showAlert("success-modal", "success-text", "Customer deleted successfully.");
+                showAlert("success-modal", "success-text", "Supplier deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
-            }  --}}
+            } 
         }
 
     </script>
