@@ -273,7 +273,7 @@
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
-                        onclick="deleteCustomer">
+                        onclick="deleteCustomer()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
@@ -301,6 +301,34 @@
         var selected_customer_id = 0;
         var modal;
 
+        {{--  function openModal(modalName) {
+            modal = new bootstrap.Modal(document.getElementById(modalName));
+            modal.show();
+        }  --}}
+
+        function resetFields() {
+            document.getElementById("name_error").textContent = "";
+            document.getElementById("email_error").textContent = "";
+            document.getElementById("mobile_error").textContent = "";
+            document.getElementById("address_error").textContent = "";
+        }
+
+        function viewErrors(error) {
+            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            document.getElementById("email_error").textContent = error.response.data.errors.email[0];
+            document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
+            document.getElementById("address_error").textContent = error.response.data.errors.address[0];
+        }
+
+        function showAlert(alertType, alertSpan, alertText) {
+            document.getElementById(alertSpan).textContent = alertText;
+            const alert = document.getElementById(alertType);
+            alert.classList.add("show");
+            setTimeout(() => {
+                alert.classList.remove("show");
+            }, 5000);
+        }
+
         async function showCustomerEditModal(id) {
             resetFields();
 
@@ -318,7 +346,9 @@
                 address.value = customer.address;
                 selected_customer_id = customer.id;
 
-                openModal("editCustomerModal");
+                {{--  openModal("editCustomerModal");  --}}
+                modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
+                modal.show();
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
@@ -352,13 +382,14 @@
         }
 
         function showDeleteCustomerModal(id) {
-            alert(id);
-            {{--  openModal("deleteCustomerModal");  --}}
+            modal = new bootstrap.Modal(document.getElementById("deleteCustomerModal"));
+            modal.show();
         }
 
         function deleteCustomer() {
-            try {
-                const response = await axios.post("{{ url('/customers/delete') }}/" + selected_customer_id);
+            alert("delete");
+            {{--  try {
+                const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
                 console.log(customer);
 
@@ -367,35 +398,7 @@
                 showAlert("success-modal", "success-text", "Customer deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
-            }
-        }
-
-        function openModal(modalName) {
-            modal = new bootstrap.Modal(document.getElementById(modalName));
-            modal.show();
-        }
-
-        function resetFields() {
-            document.getElementById("name_error").textContent = "";
-            document.getElementById("email_error").textContent = "";
-            document.getElementById("mobile_error").textContent = "";
-            document.getElementById("address_error").textContent = "";
-        }
-
-        function viewErrors(error) {
-            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("email_error").textContent = error.response.data.errors.email[0];
-            document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
-            document.getElementById("address_error").textContent = error.response.data.errors.address[0];
-        }
-
-        function showAlert(alertType, alertSpan, alertText) {
-            document.getElementById(alertSpan).textContent = alertText;
-            const alert = document.getElementById(alertType);
-            alert.classList.add("show");
-            setTimeout(() => {
-                alert.classList.remove("show");
-            }, 5000);
+            }  --}}
         }
     </script>
 </x-app-layout>
