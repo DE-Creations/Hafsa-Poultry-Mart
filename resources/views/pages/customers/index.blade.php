@@ -347,8 +347,6 @@
                 selected_customer_id = customer.id;
 
                 openModal("editCustomerModal");
-                {{--  modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
-                modal.show();  --}}
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
@@ -382,24 +380,21 @@
         }
 
         function showDeleteCustomerModal(id) {
+            selected_customer_id = id;
             openModal("deleteCustomerModal");
-            {{--  modal = new bootstrap.Modal(document.getElementById("deleteCustomerModal"));
-            modal.show();  --}}
         }
 
-        function deleteCustomer() {
-            alert("delete");
-            {{--  try {
+        async function deleteCustomer() {
+            try {
                 const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
-                console.log(customer);
 
                 await axios.get("{{ url('/customers/list') }}/");
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
-            }  --}}
+            }
         }
     </script>
 </x-app-layout>
