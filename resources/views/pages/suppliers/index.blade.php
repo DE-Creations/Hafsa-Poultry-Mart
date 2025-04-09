@@ -78,7 +78,7 @@
                                                         <td>
                                                             <button
                                                                 class="btn btn-outline-primary btn-sm edit-customer-btn"
-                                                                onclick="showCustomerEditModal({{ $supplier->id }})"
+                                                                onclick="showSupplierEditModal({{ $supplier->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
                                                                 data-bs-title="Edit">
@@ -209,14 +209,14 @@
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="edit_name" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="name_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter NIC" id="edit_nic"
                             name="nic" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="nic_error"></span>
                     </div>
 
                 </div>
@@ -233,6 +233,18 @@
     </div>
     <!-- Customer edit modal end -->
 
+    <!--Alerts start-->
+    <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
+        style="z-index: 10000;">
+        <span id="danger-text" class="fs-6"></span>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade w-full m-3 fixed-bottom" role="alert" id="success-modal"
+        style="z-index: 10000;">
+        <span id="success-text" class="fs-6"></span>
+    </div>
+    <!--Alerts end-->
+
     <script>
         var edit_supplier_id = 0;
         var modal;
@@ -240,8 +252,9 @@
         async function showSupplierEditModal(id) {
             resetFilds();
             try {
-                const response = await axios.get("{{ url('/customers/get') }}/" + id);
-                const customer = response.data;
+
+                const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
+                const supplier = response.data;
 
                 var name = document.getElementById("edit_name");
                 var nic = document.getElementById("edit_nic");
@@ -250,9 +263,8 @@
                 nic.value = supplier.nic;
                 edit_supplier_id = supplier.id;
 
-                // Show Bootstrap modal
-                const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
-                modal.show();
+                openModal("editSupplierModal");
+
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
