@@ -29,10 +29,8 @@ class CustomersController extends ParentController
         return response()->json($customer);
     }
 
-    // public function edit(Request $request): View
-    // {
-    //     return view('customers.edit', [
-    //         'customers' => $request->customers(),
-    //     ]);
-    // }
+    public function update(Request $request, $customer_id)
+    {
+        return CustomerFacade::update($request->all(), $customer_id);
+    }
 }

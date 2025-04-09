@@ -77,15 +77,9 @@
                                                 </td>  --}}
                                                         <td>{{ $customer->mobile }}</td>
                                                         <td>
-                                                            {{--  <a class="btn btn-outline-primary btn-sm"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editCustomerModal"
-                                                                href="route('customers.edit')">
-                                                                <i class="icon-edit"></i>
-                                                            </a>  --}}
                                                             <button
                                                                 class="btn btn-outline-primary btn-sm edit-customer-btn"
-                                                                onclick="showPaymentModal({{ $customer->id }})"
+                                                                onclick="showCustomerEditModal({{ $customer->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
                                                                 data-bs-title="Edit">
@@ -223,53 +217,52 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="{{ route('customers.store') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="m-2">
-                            <label class="form-label fw-bold">Name</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
-                                id="edit_name" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
-                        </div>
-
-                        <div class="m-2">
-                            <label class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                                id="edit_email" value="{{ $customer->email }}" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
-                        </div>
-
-                        <div class="m-2">
-                            <label class="form-label fw-bold">Mobile</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile"
-                                id="edit_mobile" name="mobile" value="{{ $customer->mobile }}" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
-                        </div>
-
-                        <div class="m-2">
-                            <label class="form-label fw-bold">Address</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Address"
-                                id="edit_address" name="address" value="{{ $customer->address }}" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
-                        </div>
+                <div class="modal-body">
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Name</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                            id="edit_name" />
+                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            Save
-                        </button>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Email</label>
+                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                            id="edit_email" />
+                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                     </div>
-                </form>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Mobile</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" id="edit_mobile"
+                            name="mobile" />
+                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Address</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Address"
+                            id="edit_address" name="address" />
+                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button onclick="updateCustomer()" class="btn btn-primary">
+                        Save
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <!-- Customer edit modal end -->
 
     <script>
-        async function showPaymentModal(id) {
+        var edit_customer_id = 0;
+
+        async function showCustomerEditModal(id) {
             try {
                 const response = await axios.get("{{ url('/customers/get') }}/" + id);
                 const customer = response.data;
@@ -282,6 +275,7 @@
                 email.value = customer.email;
                 mobile.value = customer.mobile;
                 address.value = customer.address;
+                edit_customer_id = customer.id;
 
                 // Show Bootstrap modal
                 const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
@@ -292,23 +286,25 @@
             }
         }
 
-        async function updateCustomer(id) {
+        async function updateCustomer() {
+            var name = document.getElementById("edit_name").value;
+            var email = document.getElementById("edit_email").value;
+            var mobile = document.getElementById("edit_mobile").value;
+            var address = document.getElementById("edit_address").value;
+
+            edit_customer_details = {
+                name: name,
+                email: email,
+                mobile: mobile,
+                address: address
+            }
+
             try {
-                const response = await axios.get("{{ url('/customers/get') }}/" + id);
+                const response = await axios.post("{{ url('/customers/update') }}/" + edit_customer_id,
+                    edit_customer_details);
                 const customer = response.data;
 
-                var name = document.getElementById("edit_name");
-                var email = document.getElementById("edit_email");
-                var mobile = document.getElementById("edit_mobile");
-                var address = document.getElementById("edit_address");
-                name.value = customer.name;
-                email.value = customer.email;
-                mobile.value = customer.mobile;
-                address.value = customer.address;
-
-                // Show Bootstrap modal
-                const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
-                modal.show();
+                window.location.reload();
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
