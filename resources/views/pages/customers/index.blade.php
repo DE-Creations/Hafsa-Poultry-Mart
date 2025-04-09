@@ -77,8 +77,7 @@
                                                 </td>  --}}
                                                         <td>{{ $customer->mobile }}</td>
                                                         <td>
-                                                            <button
-                                                                class="btn btn-outline-primary btn-sm edit-customer-btn"
+                                                            <button class="btn btn-outline-primary btn-sm"
                                                                 onclick="showCustomerEditModal({{ $customer->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
@@ -86,6 +85,7 @@
                                                                 <i class="icon-edit"></i>
                                                             </button>
                                                             <button class="btn btn-outline-danger btn-sm"
+                                                                onclick="showDeleteCustomerModal({{ $customer->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
                                                                 data-bs-title="Delete">
@@ -260,6 +260,31 @@
     </div>
     <!-- Customer edit modal end -->
 
+    <!-- Delete modal start -->
+    <div class="modal center fade" id="deleteCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="text-danger">Confirm Delete</h5>
+                    <p class="mb-0">
+                        Are you sure you want to delete this customer?
+                    </p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
+                        onclick="deleteCustomer">
+                        <strong>Delete</strong>
+                    </button>
+                    <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete modal end -->
+
     <!--Alerts start-->
     <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
         style="z-index: 10000;">
@@ -273,7 +298,7 @@
     <!--Alerts end-->
 
     <script>
-        var edit_customer_id = 0;
+        var selected_customer_id = 0;
         var modal;
 
         async function showCustomerEditModal(id) {
@@ -291,7 +316,7 @@
                 email.value = customer.email;
                 mobile.value = customer.mobile;
                 address.value = customer.address;
-                edit_customer_id = customer.id;
+                selected_customer_id = customer.id;
 
                 openModal("editCustomerModal");
             } catch (error) {
@@ -314,7 +339,7 @@
             }
 
             try {
-                const response = await axios.post("{{ url('/customers/update') }}/" + edit_customer_id,
+                const response = await axios.post("{{ url('/customers/update') }}/" + selected_customer_id,
                     edit_customer_details);
                 const customer = response.data;
 
@@ -323,6 +348,25 @@
                 showAlert("success-modal", "success-text", "Customer updated successfully.");
             } catch (error) {
                 viewErrors(error);
+            }
+        }
+
+        function showDeleteCustomerModal(id) {
+            alert(id);
+            {{--  openModal("deleteCustomerModal");  --}}
+        }
+
+        function deleteCustomer() {
+            try {
+                const response = await axios.post("{{ url('/customers/delete') }}/" + selected_customer_id);
+                const customer = response.data;
+                console.log(customer);
+
+                await axios.get("{{ url('/customers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
             }
         }
 
