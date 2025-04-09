@@ -23,6 +23,7 @@ Route::prefix('customers')->group(function () {
 
 Route::prefix('suppliers')->group(function () {
     Route::get('/', [SuppliersController::class, 'index'])->name('suppliers.index');
+    Route::get('/list', [SuppliersController::class, 'list'])->name('suppliers.list');
     Route::post('/store', [SuppliersController::class, 'store'])->name('suppliers.store');
     Route::get('/get/{supplier_id}', [SuppliersController::class, 'get'])->name('suppliers.get');
     Route::post('/update/{supplier_id}', [SuppliersController::class, 'update'])->name('suppliers.update');

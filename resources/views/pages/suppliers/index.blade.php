@@ -209,14 +209,14 @@
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="edit_name" />
-                            <span class="text-danger" id="name_error"></span>
+                        <span class="text-danger" id="name_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter NIC" id="edit_nic"
                             name="nic" />
-                            <span class="text-danger" id="nic_error"></span>
+                        <span class="text-danger" id="nic_error"></span>
                     </div>
 
                 </div>
@@ -233,8 +233,8 @@
     </div>
     <!-- Customer edit modal end -->
 
-        <!--Alerts start-->
-        <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
+    <!--Alerts start-->
+    <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
         style="z-index: 10000;">
         <span id="danger-text" class="fs-6"></span>
     </div>
@@ -250,9 +250,9 @@
         var modal;
 
         async function showSupplierEditModal(id) {
-            resetFilds();
+            resetFields();
             try {
-                
+
                 const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
                 const supplier = response.data;
 
@@ -316,6 +316,5 @@
                 alert.classList.remove("show");
             }, 5000);
         }
-
     </script>
 </x-app-layout>
