@@ -14,6 +14,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
+    Route::get('/list', [CustomersController::class, 'list'])->name('customers.list');
     Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
     Route::get('/get/{customer_id}', [CustomersController::class, 'get'])->name('customers.get');
     Route::post('/update/{customer_id}', [CustomersController::class, 'update'])->name('customers.update');

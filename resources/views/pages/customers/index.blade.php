@@ -222,29 +222,30 @@
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="edit_name" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="name_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Email</label>
                         <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
                             id="edit_email" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="email_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Mobile" id="edit_mobile"
                             name="mobile" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="mobile_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Address</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Address"
                             id="edit_address" name="address" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                        <span class="text-danger" id="address_error"></span>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -259,10 +260,25 @@
     </div>
     <!-- Customer edit modal end -->
 
+    <!--Alerts start-->
+    <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
+        style="z-index: 10000;">
+        <span id="danger-text" class="fs-6"></span>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade w-full m-3 fixed-bottom" role="alert" id="success-modal"
+        style="z-index: 10000;">
+        <span id="success-text" class="fs-6"></span>
+    </div>
+    <!--Alerts end-->
+
     <script>
         var edit_customer_id = 0;
+        var modal;
 
         async function showCustomerEditModal(id) {
+            resetFields();
+
             try {
                 const response = await axios.get("{{ url('/customers/get') }}/" + id);
                 const customer = response.data;
@@ -277,9 +293,7 @@
                 address.value = customer.address;
                 edit_customer_id = customer.id;
 
-                // Show Bootstrap modal
-                const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
-                modal.show();
+                openModal("editCustomerModal");
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
@@ -304,11 +318,40 @@
                     edit_customer_details);
                 const customer = response.data;
 
-                window.location.reload();
+                await axios.get("{{ url('/customers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer updated successfully.");
             } catch (error) {
-                console.error(error);
-                alert("Failed to fetch payment data.");
+                viewErrors(error);
             }
+        }
+
+        function openModal(modalName) {
+            modal = new bootstrap.Modal(document.getElementById(modalName));
+            modal.show();
+        }
+
+        function resetFields() {
+            document.getElementById("name_error").textContent = "";
+            document.getElementById("email_error").textContent = "";
+            document.getElementById("mobile_error").textContent = "";
+            document.getElementById("address_error").textContent = "";
+        }
+
+        function viewErrors(error) {
+            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            document.getElementById("email_error").textContent = error.response.data.errors.email[0];
+            document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
+            document.getElementById("address_error").textContent = error.response.data.errors.address[0];
+        }
+
+        function showAlert(alertType, alertSpan, alertText) {
+            document.getElementById(alertSpan).textContent = alertText;
+            const alert = document.getElementById(alertType);
+            alert.classList.add("show");
+            setTimeout(() => {
+                alert.classList.remove("show");
+            }, 5000);
         }
     </script>
 </x-app-layout>
