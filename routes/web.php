@@ -6,6 +6,8 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuppliersController;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -15,6 +17,13 @@ Route::prefix('customers')->group(function () {
     Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
     Route::get('/get/{customer_id}', [CustomersController::class, 'get'])->name('customers.get');
     Route::post('/update/{customer_id}', [CustomersController::class, 'update'])->name('customers.update');
+});
+
+Route::prefix('suppliers')->group(function () {
+    Route::get('/', [SuppliersController::class, 'index'])->name('suppliers.index');
+    Route::post('/store', [SuppliersController::class, 'store'])->name('suppliers.store');
+    Route::get('/get/{supplier_id}',[SuppliersController::class, 'get'])->name('suppliers.get');
+    Route::post('/update/{supplier_id}', [SuppliersController::class, 'update'])->name('suppliers.update');
 });
 
 Route::prefix('invoice')->group(function () {

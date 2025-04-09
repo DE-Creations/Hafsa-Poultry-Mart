@@ -20,6 +20,12 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ request()->routeIs('suppliers*') ? 'active-link' : '' }}">
+                    <a class="nav-link" href="{{ route('suppliers.index') }}">
+                        <i class="icon-support_agent"></i>Suppliers
+                    </a>
+                </li>
+
                 <li class="nav-item {{ request()->routeIs('invoice*') ? 'active-link' : '' }}">
                     <a class="nav-link" href="{{ route('invoice.index') }}">
                         <i class="icon-support_agent"></i>Invoice
