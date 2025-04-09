@@ -38,4 +38,9 @@ class SuppliersController extends ParentController
     {
         return SupplierFacade::update($request->all(), $supplier_id);
     }
+
+    public function delete($supplier_id)
+    {
+        return SupplierFacade::delete($supplier_id);
+    }
 }
