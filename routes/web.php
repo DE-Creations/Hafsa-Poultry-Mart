@@ -18,12 +18,13 @@ Route::prefix('customers')->group(function () {
     Route::post('/store', [CustomersController::class, 'store'])->name('customers.store');
     Route::get('/get/{customer_id}', [CustomersController::class, 'get'])->name('customers.get');
     Route::post('/update/{customer_id}', [CustomersController::class, 'update'])->name('customers.update');
+    Route::post('/delete/{customer_id}', [CustomersController::class, 'delete'])->name('customers.delete');
 });
 
 Route::prefix('suppliers')->group(function () {
     Route::get('/', [SuppliersController::class, 'index'])->name('suppliers.index');
     Route::post('/store', [SuppliersController::class, 'store'])->name('suppliers.store');
-    Route::get('/get/{supplier_id}',[SuppliersController::class, 'get'])->name('suppliers.get');
+    Route::get('/get/{supplier_id}', [SuppliersController::class, 'get'])->name('suppliers.get');
     Route::post('/update/{supplier_id}', [SuppliersController::class, 'update'])->name('suppliers.update');
 });
 

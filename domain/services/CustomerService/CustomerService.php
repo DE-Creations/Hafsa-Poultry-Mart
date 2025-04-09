@@ -40,4 +40,10 @@ class CustomerService
     {
         return array_merge($customer->toArray(), $data);
     }
+
+    public function delete($customer_id)
+    {
+        $customer = $this->customer->find($customer_id);
+        return $customer->delete();
+    }
 }

@@ -40,4 +40,9 @@ class CustomersController extends ParentController
     {
         return CustomerFacade::update($request->all(), $customer_id);
     }
+
+    public function delete($customer_id)
+    {
+        return CustomerFacade::delete($customer_id);
+    }
 }
