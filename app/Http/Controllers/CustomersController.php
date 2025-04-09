@@ -23,11 +23,10 @@ class CustomersController extends ParentController
         return redirect()->route('customers.index');
     }
 
-    public function get(Request $request)
+    public function get($customer_id)
     {
-        dd($request);
-        return $request->customer_id;
-        // return CustomerFacade::get($request->all());
+        $customer = CustomerFacade::get($customer_id);
+        return response()->json($customer);
     }
 
     // public function edit(Request $request): View

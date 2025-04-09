@@ -85,7 +85,7 @@
                                                             </a>  --}}
                                                             <button
                                                                 class="btn btn-outline-primary btn-sm edit-customer-btn"
-                                                                data-customer-id="{{ $customer->id }}"
+                                                                onclick="showPaymentModal({{ $customer->id }})"
                                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
                                                                 data-bs-title="Edit">
@@ -229,28 +229,28 @@
                         <div class="m-2">
                             <label class="form-label fw-bold">Name</label>
                             <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
-                                value="{{ $customer->name }}" />
+                                id="edit_name" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Email</label>
                             <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                                value="{{ $customer->email }}" />
+                                id="edit_email" value="{{ $customer->email }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Mobile</label>
                             <input type="text" class="form-control mt-2" placeholder="Enter Mobile"
-                                name="mobile" value="{{ $customer->mobile }}" />
+                                id="edit_mobile" name="mobile" value="{{ $customer->mobile }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">Address</label>
                             <input type="text" class="form-control mt-2" placeholder="Enter Address"
-                                name="address" value="{{ $customer->address }}" />
+                                id="edit_address" name="address" value="{{ $customer->address }}" />
                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
                         </div>
                     </div>
@@ -269,40 +269,50 @@
     <!-- Customer edit modal end -->
 
     <script>
-        const getCustomerRoute = @json(route('customers.get', ['customer_id' => 'CUSTOMER_ID']));
+        async function showPaymentModal(id) {
+            try {
+                const response = await axios.get("{{ url('/customers/get') }}/" + id);
+                const customer = response.data;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.edit-customer-btn');
-            const modalElement = document.getElementById('editCustomerModal');
-            const bootstrapModal = new bootstrap.Modal(modalElement);
+                var name = document.getElementById("edit_name");
+                var email = document.getElementById("edit_email");
+                var mobile = document.getElementById("edit_mobile");
+                var address = document.getElementById("edit_address");
+                name.value = customer.name;
+                email.value = customer.email;
+                mobile.value = customer.mobile;
+                address.value = customer.address;
 
-            buttons.forEach(button => {
-                button.addEventListener('click', async () => {
-                    const customerId = $(this).data('customer-id');
-                    alert(customerId);
+                // Show Bootstrap modal
+                const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
+                modal.show();
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch payment data.");
+            }
+        }
 
-                    const url = getCustomerRoute.replace('CUSTOMER_ID', customerId);
+        async function updateCustomer(id) {
+            try {
+                const response = await axios.get("{{ url('/customers/get') }}/" + id);
+                const customer = response.data;
 
-                    $.ajax({
-                        url: url,
-                        method: 'GET',
-                        success: function(data) {
-                            $('#customer-name').text(data.name);
-                            $('#customer-email').text(data.email);
-                            // Set other fields here
+                var name = document.getElementById("edit_name");
+                var email = document.getElementById("edit_email");
+                var mobile = document.getElementById("edit_mobile");
+                var address = document.getElementById("edit_address");
+                name.value = customer.name;
+                email.value = customer.email;
+                mobile.value = customer.mobile;
+                address.value = customer.address;
 
-                            // Show Bootstrap modal
-                            const modal = new bootstrap.Modal(document
-                                .getElementById(
-                                    'customerModal'));
-                            modal.show();
-                        },
-                        error: function() {
-                            alert('Failed to fetch customer data.');
-                        }
-                    });
-                });
-            });
-        });
+                // Show Bootstrap modal
+                const modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
+                modal.show();
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch payment data.");
+            }
+        }
     </script>
 </x-app-layout>
