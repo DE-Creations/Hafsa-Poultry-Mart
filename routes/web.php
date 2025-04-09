@@ -28,6 +28,7 @@ Route::prefix('grn')->group(function () {
 
 Route::prefix('expenses')->group(function () {
     Route::get('/', [ExpensesController::class, 'index'])->name('expenses.index');
+    Route::get('/create', [ExpensesController::class, 'create'])->name('expenses.create');
 });
 
 Route::middleware('auth')->group(function () {

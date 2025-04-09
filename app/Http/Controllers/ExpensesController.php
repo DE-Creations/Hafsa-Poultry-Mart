@@ -10,4 +10,9 @@ class ExpensesController extends ParentController
     {
         return view('pages.expenses.index');
     }
+
+    public function create()
+    {
+        return view('pages.expenses.create');
+    }
 }

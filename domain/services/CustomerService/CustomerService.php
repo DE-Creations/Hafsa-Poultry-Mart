@@ -27,7 +27,6 @@ class CustomerService
 
     public function get($customer_id)
     {
-        dd($customer_id);
-        // return $this->customer->find($customer_id);
+        return $this->customer->find($customer_id);
     }
 }
