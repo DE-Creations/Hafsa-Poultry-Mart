@@ -16,6 +16,12 @@ class SuppliersController extends ParentController
         ]);
     }
 
+    public function list()
+    {
+        $supplier = SupplierFacade::getSuppliers();
+        return response()->json($supplier);
+    }
+
     public function store(Request $request)
     {
         SupplierFacade::store($request->all());

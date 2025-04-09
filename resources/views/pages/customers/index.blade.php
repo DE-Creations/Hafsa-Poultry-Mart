@@ -301,10 +301,10 @@
         var selected_customer_id = 0;
         var modal;
 
-        {{--  function openModal(modalName) {
+        function openModal(modalName) {
             modal = new bootstrap.Modal(document.getElementById(modalName));
             modal.show();
-        }  --}}
+        }
 
         function resetFields() {
             document.getElementById("name_error").textContent = "";
@@ -346,9 +346,9 @@
                 address.value = customer.address;
                 selected_customer_id = customer.id;
 
-                {{--  openModal("editCustomerModal");  --}}
-                modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
-                modal.show();
+                openModal("editCustomerModal");
+                {{--  modal = new bootstrap.Modal(document.getElementById("editCustomerModal"));
+                modal.show();  --}}
             } catch (error) {
                 console.error(error);
                 alert("Failed to fetch payment data.");
@@ -382,8 +382,9 @@
         }
 
         function showDeleteCustomerModal(id) {
-            modal = new bootstrap.Modal(document.getElementById("deleteCustomerModal"));
-            modal.show();
+            openModal("deleteCustomerModal");
+            {{--  modal = new bootstrap.Modal(document.getElementById("deleteCustomerModal"));
+            modal.show();  --}}
         }
 
         function deleteCustomer() {
