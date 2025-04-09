@@ -11,8 +11,8 @@ class InvoiceController extends ParentController
         return view('pages.invoice.index');
     }
 
-    public function add()
+    public function create()
     {
-        return view('pages.invoice.create-invoice');
+        return view('pages.invoice.create');
     }
 }
