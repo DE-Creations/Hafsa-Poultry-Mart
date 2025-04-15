@@ -285,18 +285,6 @@
     </div>
     <!-- Delete modal end -->
 
-    <!--Alerts start-->
-    <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
-        style="z-index: 10000;">
-        <span id="danger-text" class="fs-6"></span>
-    </div>
-
-    <div class="alert alert-success alert-dismissible fade w-full m-3 fixed-bottom" role="alert" id="success-modal"
-        style="z-index: 10000;">
-        <span id="success-text" class="fs-6"></span>
-    </div>
-    <!--Alerts end-->
-
     <script>
         var selected_customer_id = 0;
         var modal;
