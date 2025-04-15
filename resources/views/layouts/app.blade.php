@@ -253,6 +253,19 @@
     </div>
     <!-- Page wrapper end -->
 
+    <!--Alerts start-->
+    {{--  <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
+        style="z-index: 10000;">
+        <span id="danger-text" class="fs-6"></span>
+    </div>  --}}
+
+    <div class="alert alert-success alert-dismissible fade w-100 text-center fixed-top" role="alert"
+        id="success-modal" style="z-index: 10000;">
+        <span class="icon-alert-circle"></span>
+        <span id="success-text" class="fs-5"></span>
+    </div>
+    <!--Alerts end-->
+
     <!-- Required jQuery first, then Bootstrap Bundle JS -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
