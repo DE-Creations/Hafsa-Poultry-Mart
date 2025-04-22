@@ -164,19 +164,19 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="{{ route('suppliers.store') }}">
+                {{-- <form method="post" action="{{ route('suppliers.store') }}"> --}}
                     @csrf
                     <div class="modal-body">
                         <div class="m-2">
                             <label class="form-label fw-bold">Name</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" id="add_name"/>
+                            <span class="text-danger" id="name_error"></span>
                         </div>
 
                         <div class="m-2">
                             <label class="form-label fw-bold">NIC</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic" />
-                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
+                            <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic" id="add_nic" />
+                            <span class="text-danger" id="nic_error"></span>
                         </div>
 
                     </div>
@@ -184,11 +184,11 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button class="btn btn-primary" onclick="addSupplier()">
                             Save
                         </button>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -210,14 +210,14 @@
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="edit_name" />
-                        <span class="text-danger" id="name_error"></span>
+                        <span class="text-danger" id="edit_name_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter NIC" id="edit_nic"
                             name="nic" />
-                        <span class="text-danger" id="nic_error"></span>
+                        <span class="text-danger" id="edit_nic_error"></span>
                     </div>
 
                 </div>
@@ -242,12 +242,12 @@
                 <div class="modal-body p-4 text-center">
                     <h5 class="text-danger">Confirm Delete</h5>
                     <p class="mb-0">
-                        Are you sure you want to delete this customer?
+                        Are you sure you want to delete this supplier?
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
                     <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
-                        onclick="deleteCustomer()">
+                        onclick="deleteSupplier()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
@@ -272,66 +272,33 @@
     <!--Alerts end-->
 
     <script>
-        var edit_supplier_id = 0;
+
+        var selected_supplier_id = 0;
         var modal;
-
-        async function showSupplierEditModal(id) {         
-            resetFields();
-            try {
-
-                const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
-                const supplier = response.data;
-
-                var name = document.getElementById("edit_name");
-                var nic = document.getElementById("edit_nic");
-
-                name.value = supplier.name;
-                nic.value = supplier.nic;
-                edit_supplier_id = supplier.id;
-
-                openModal("editSupplierModal");
-
-            } catch (error) {
-                console.error(error);
-                alert("Failed to fetch payment data.");
-            }
-        }
-
-        async function updateSupplier() {
-            var name = document.getElementById("edit_name").value;
-            var nic = document.getElementById("edit_nic").value;
-
-            edit_supplier_details = {
-                name: name,
-                nic: nic,
-            }
-
-            try {
-                const response = await axios.post("{{ url('/suppliers/update') }}/" + edit_supplier_id,
-                    edit_supplier_details);
-                const supplier = response.data;
-
-                await axios.get("{{ url('/suppliers/list') }}/");
-                modal.hide();
-                showAlert("success-modal", "success-text", "Supplier updated successfully.");
-            } catch (error) {
-                viewErrors(error);
-            }
-        }
 
         function openModal(modalName) {
             modal = new bootstrap.Modal(document.getElementById(modalName));
             modal.show();
         }
 
-        function resetFields() {
+        function addResetFields() {
             document.getElementById("name_error").textContent = "";
             document.getElementById("nic_error").textContent = "";
         }
 
-        function viewErrors(error) {
+        function editResetFields() {
+            document.getElementById("edit_name_error").textContent = "";
+            document.getElementById("edit_nic_error").textContent = "";
+        }
+
+        function viewAddErrors(error) {
             document.getElementById("name_error").textContent = error.response.data.errors.name[0];
             document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
+        }
+
+        function viewEditErrors(error) {
+            document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
+            document.getElementById("edit_nic_error").textContent = error.response.data.errors.nic[0];
         }
 
         function showAlert(alertType, alertSpan, alertText) {
@@ -343,24 +310,185 @@
             }, 5000);
         }
 
+        function showSupplierAddModal() {
+            addResetFields();
+            openModal("addNewSupplierModal");
+        }
+
+        async function addSupplier(){
+
+            var name = document.getElementById("add_name").value;
+            var nic = document.getElementById("add_nic").value;
+
+            add_supplier_details = {
+                name: name,
+                nic: nic
+            }
+            
+            try {
+                const response = await axios.post("{{ url('/suppliers/store') }}/",
+                    add_supplier_details);
+                const supplier = response.data;
+
+                await axios.get("{{ url('/suppliers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Supplier added successfully.");
+            } catch (error) {
+                viewAddErrors(error);
+            }
+        }
+
+        async function showSupplierEditModal(id) {
+            editResetFields();
+
+            try{
+                const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
+                const supplier = response.data;
+
+                var name = document.getElementById("edit_name");
+                var nic = document.getElementById("edit_nic");
+
+                name.value = supplier.name;
+                nic.value = supplier.nic;
+                selected_supplier_id = supplier.id;
+
+                openModal("editSupplierModal");
+
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Failed to fetch supplier data.");
+            }
+        }
+
+        async function updateSupplier() {
+            var name = document.getElementById("edit_name").value;
+            var nic = document.getElementById("edit_nic").value;
+
+            edit_supplier_details = {
+                name: name,
+                nic: nic
+            }
+
+            try {
+                const response = await axios.post("{{ url('/suppliers/update') }}/" + selected_supplier_id,
+                    edit_supplier_details);
+                const supplier = response.data;
+
+                await axios.get("{{ url('/suppliers/list') }}/");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Supplier updated successfully.");
+            } catch (error) {
+                viewEditErrors(error);
+            }
+        }
+
         function showDeleteSupplierModal(id) {
-            edit_supplier_id = id;
+            selected_customer_id = id;
             openModal("deleteSupplierModal");
         }
 
-        async function deleteCustomer() {
+        async function deleteSupplier(){
             try {
-                const response = await axios.delete("{{ url('/suppliers/delete') }}/" + edit_supplier_id);
+                const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
-                console.log(customer);
 
                 await axios.get("{{ url('/suppliers/list') }}/");
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
-            } 
+            }
         }
+
+        // var edit_supplier_id = 0;
+        // var modal;
+
+        // async function showSupplierEditModal(id) {         
+        //     resetFields();
+        //     try {
+
+        //         const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
+        //         const supplier = response.data;
+
+        //         var name = document.getElementById("edit_name");
+        //         var nic = document.getElementById("edit_nic");
+
+        //         name.value = supplier.name;
+        //         nic.value = supplier.nic;
+        //         edit_supplier_id = supplier.id;
+
+        //         openModal("editSupplierModal");
+
+        //     } catch (error) {
+        //         console.error(error);
+        //         alert("Failed to fetch payment data.");
+        //     }
+        // }
+
+        // async function updateSupplier() {
+        //     var name = document.getElementById("edit_name").value;
+        //     var nic = document.getElementById("edit_nic").value;
+
+        //     edit_supplier_details = {
+        //         name: name,
+        //         nic: nic,
+        //     }
+
+        //     try {
+        //         const response = await axios.post("{{ url('/suppliers/update') }}/" + edit_supplier_id,
+        //             edit_supplier_details);
+        //         const supplier = response.data;
+
+        //         await axios.get("{{ url('/suppliers/list') }}/");
+        //         modal.hide();
+        //         showAlert("success-modal", "success-text", "Supplier updated successfully.");
+        //     } catch (error) {
+        //         viewErrors(error);
+        //     }
+        // }
+
+        // function openModal(modalName) {
+        //     modal = new bootstrap.Modal(document.getElementById(modalName));
+        //     modal.show();
+        // }
+
+        // function resetFields() {
+        //     document.getElementById("name_error").textContent = "";
+        //     document.getElementById("nic_error").textContent = "";
+        // }
+
+        // function viewErrors(error) {
+        //     document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+        //     document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
+        // }
+
+        // function showAlert(alertType, alertSpan, alertText) {
+        //     document.getElementById(alertSpan).textContent = alertText;
+        //     const alert = document.getElementById(alertType);
+        //     alert.classList.add("show");
+        //     setTimeout(() => {
+        //         alert.classList.remove("show");
+        //     }, 5000);
+        // }
+
+        // function showDeleteSupplierModal(id) {
+        //     edit_supplier_id = id;
+        //     openModal("deleteSupplierModal");
+        // }
+
+        // async function deleteCustomer() {
+        //     try {
+        //         const response = await axios.delete("{{ url('/suppliers/delete') }}/" + edit_supplier_id);
+        //         const customer = response.data;
+        //         console.log(customer);
+
+        //         await axios.get("{{ url('/suppliers/list') }}/");
+        //         modal.hide();
+        //         showAlert("success-modal", "success-text", "Supplier deleted successfully.");
+        //     } catch (error) {
+        //         showAlert("danger-modal", "danger-text", error);
+        //     } 
+        // }
 
     </script>
 </x-app-layout>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Supplier\StoreSupplierRequest;
+use App\Http\Requests\Supplier\UpdateSupplierRequest;
 use domain\facades\SupplierFacade\SupplierFacade;
 use Illuminate\Http\Request;
 
@@ -22,9 +24,9 @@ class SuppliersController extends ParentController
         return response()->json($supplier);
     }
 
-    public function store(Request $request)
+    public function store(StoreSupplierRequest $request)
     {
-        SupplierFacade::store($request->all());
+        $supplier_id = SupplierFacade::store($request->all());
         return redirect()->route('suppliers.index');
     }
 
@@ -34,7 +36,7 @@ class SuppliersController extends ParentController
         return response()->json($supplier);
     }
 
-    public function update(Request $request, $supplier_id)
+    public function update(UpdateSupplierRequest $request, $supplier_id)
     {
         return SupplierFacade::update($request->all(), $supplier_id);
     }
