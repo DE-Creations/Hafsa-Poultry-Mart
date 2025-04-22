@@ -18,13 +18,34 @@ class CustomersController extends ParentController
         ]);
     }
 
+    // public function all(Request $request){
+    //     $query = Attendance::query()->where('tenant_id', Auth::user()->tenant_id)->orderBy('start_date_time', 'desc');
+
+    //     $payload = $query->where(function ($query) use ($request) {
+    //         if (isset($request->search_member)) {
+    //             $query->where('member_id', $request->search_member['id']);
+    //         }
+    //         if (isset($request->search_package)) {
+    //             $query->where('package_id', $request->search_package['id']);
+    //         }
+    //         if (isset($request->search_start_date_time)) {
+    //             $query->whereDate('start_date_time', '>=', $request->search_start_date_time);
+    //         }
+    //     });
+
+    //     $payload = QueryBuilder::for($query)
+    //         ->allowedSorts(['id'])
+    //         ->paginate(request('per_page', config('basic.pagination_per_page')));
+    //     return AttendanceResource::collection($payload);
+    // }
+
     public function list()
     {
         $customers = CustomerFacade::getCustomers();
         return response()->json($customers);
     }
 
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         $customer_id = CustomerFacade::store($request->all());
         return redirect()->route('customers.index');
