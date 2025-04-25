@@ -30,7 +30,8 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" />
+                                        <input id="search" type="text" class="form-control" placeholder="Search"
+                                            onkeyup="getCustomers()" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -41,105 +42,11 @@
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive">
-                                    <table class="table table-striped align-middle m-0">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                {{--  <th></th>  --}}
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                {{--  <th>Status</th>  --}}
-                                                <th>Mobile</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($customers->count() > 0)
-                                                @foreach ($customers as $customer)
-                                                    <tr>
-                                                        <td>{{ $customer->id }}</td>
-                                                        {{--  <th>
-                                                            <input class="form-check-input" type="checkbox"
-                                                                value="option1" />
-                                                        </th>  --}}
-                                                        <td>
-                                                            {{--  <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />  --}}
-                                                            {{ $customer->name }}
-                                                        </td>
-                                                        <td>{{ $customer->email }}</td>
-                                                        {{--  <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>  --}}
-                                                        <td>{{ $customer->mobile }}</td>
-                                                        <td>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                onclick="showCustomerEditModal({{ $customer->id }})"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Edit">
-                                                                <i class="icon-edit"></i>
-                                                            </button>
-                                                            <button class="btn btn-outline-danger btn-sm"
-                                                                onclick="showDeleteCustomerModal({{ $customer->id }})"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Delete">
-                                                                <i class="icon-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
+                                <div class="table-responsive" id="all_customer_table">
 
-                                            {{--  <tr>
-                                                <td>3</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option3" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Gino Watson
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>200</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-dark fs-5"></i>
-                                                        Offline
-                                                    </div>
-                                                </td>
-                                                <td>Turkey</td>
-                                                <td>76</td>
-                                                <td>44</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>  --}}
-
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -207,8 +114,8 @@
     <!-- Customer add modal end -->
 
     <!-- Customer edit modal start -->
-    <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="editCustomerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -294,6 +201,20 @@
             modal.show();
         }
 
+        function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+            document.getElementById("add_email").value = "";
+            document.getElementById("add_mobile").value = "";
+            document.getElementById("add_address").value = "";
+        }
+
+        function resetEditInputFields() {
+            document.getElementById("edit_name").value = "";
+            document.getElementById("edit_email").value = "";
+            document.getElementById("edit_mobile").value = "";
+            document.getElementById("edit_address").value = "";
+        }
+
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
             document.getElementById("email_error").textContent = "";
@@ -354,7 +275,8 @@
                     add_customer_details);
                 const customer = response.data;
 
-                await axios.get("{{ url('/customers/list') }}/");
+                resetAddInputFields();
+                getCustomers();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer added successfully.");
             } catch (error) {
@@ -404,7 +326,8 @@
                     edit_customer_details);
                 const customer = response.data;
 
-                await axios.get("{{ url('/customers/list') }}/");
+                resetEditInputFields();
+                getCustomers();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer updated successfully.");
             } catch (error) {
@@ -422,12 +345,49 @@
                 const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
 
-                await axios.get("{{ url('/customers/list') }}/");
+                getCustomers();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
             }
         }
+
+        function getCustomers(page = 1) {
+            //$('#pre_stop').show();
+            var search = $('#search').val();
+            var count = 25;
+
+            var data = {
+                search: search,
+                count: count,
+            };
+
+            //$('#pre_stop').show();
+            $.ajax({
+                url: '/customers/ajax/list?page=' + page,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#all_customer_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            getCustomers();
+        });
     </script>
+
+    <style>
+        .paginate_button {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </x-app-layout>
