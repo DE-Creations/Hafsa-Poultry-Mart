@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\StoreCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
+use App\Models\Customer;
 use domain\facades\CustomerFacade\CustomerFacade;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,32 +13,28 @@ class CustomersController extends ParentController
 {
     public function index()
     {
-        $customers = CustomerFacade::getCustomers();
-        return view('pages.customers.index', [
-            'customers' => $customers,
-        ]);
+        return view('pages.customers.index');
     }
 
-    // public function all(Request $request){
-    //     $query = Attendance::query()->where('tenant_id', Auth::user()->tenant_id)->orderBy('start_date_time', 'desc');
+    public function loadCustomers(Request $request)
+    {
+        $query = Customer::query();
 
-    //     $payload = $query->where(function ($query) use ($request) {
-    //         if (isset($request->search_member)) {
-    //             $query->where('member_id', $request->search_member['id']);
-    //         }
-    //         if (isset($request->search_package)) {
-    //             $query->where('package_id', $request->search_package['id']);
-    //         }
-    //         if (isset($request->search_start_date_time)) {
-    //             $query->whereDate('start_date_time', '>=', $request->search_start_date_time);
-    //         }
-    //     });
+        if (isset($request['search'])) {
+            $query = $query->where('id', 'like', '%' . $request['search'] . '%')
+                ->orWhere('name', 'like', '%' . $request['search'] . '%')
+                ->orWhere('email', 'like', '%' . $request['search'] . '%')
+                ->orWhere('mobile', 'like', '%' . $request['search'] . '%');
+        }
 
-    //     $payload = QueryBuilder::for($query)
-    //         ->allowedSorts(['id'])
-    //         ->paginate(request('per_page', config('basic.pagination_per_page')));
-    //     return AttendanceResource::collection($payload);
-    // }
+        if (isset($request['count'])) {
+            $response['customers'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+        } else {
+            $response['customers'] = $query->orderBy('id', 'desc')->paginate(20);
+        }
+
+        return view('pages.customers.components.table')->with($response);
+    }
 
     public function list()
     {
