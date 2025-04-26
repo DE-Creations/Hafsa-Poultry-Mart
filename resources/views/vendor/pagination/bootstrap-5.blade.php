@@ -9,7 +9,8 @@
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $paginator->previousPageUrl() }}"
+                        <a class="page-link" href="javascript:void(0)"
+                            onclick="getCustomers({{ $paginator->currentPage() }}-1)"
                             rel="prev">@lang('pagination.previous')</a>
                     </li>
                 @endif
@@ -17,7 +18,9 @@
                 {{-- Next Page Link --}}
                 @if ($paginator->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next')</a>
+                        <a class="page-link" href="javascript:void(0)"
+                            onclick="getCustomers({{ $paginator->currentPage() }}+1)"
+                            rel="next">@lang('pagination.next')</a>
                     </li>
                 @else
                     <li class="page-item disabled" aria-disabled="true">
@@ -50,7 +53,7 @@
                     @else
                         <li class="page-item">
                             <a class="page-link" href="javascript:void(0)"
-                                onclick="getCustomers({{ $paginator->previousPageUrl() }})" rel="prev"
+                                onclick="getCustomers({{ $paginator->currentPage() }}-1)" rel="prev"
                                 aria-label="@lang('pagination.previous')">&lsaquo;</a>
                         </li>
                     @endif
@@ -80,8 +83,9 @@
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="javascript:void(0)" onclick="getCustomers({{ $page }})"
-                                rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                            <a class="page-link" href="javascript:void(0)"
+                                onclick="getCustomers({{ $paginator->currentPage() }}+1)" rel="next"
+                                aria-label="@lang('pagination.next')">&rsaquo;</a>
                         </li>
                     @else
                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
