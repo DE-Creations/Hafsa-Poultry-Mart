@@ -30,7 +30,7 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" />
+                                        <input type="text" class="form-control" placeholder="Search" onkeyup="getSupplier()" id="search"/>
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -41,103 +41,8 @@
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive">
-                                    <table class="table table-striped align-middle m-0">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                {{--  <th></th>  --}}
-                                                <th>Name</th>
-                                                <th>NIC</th>
-                                                {{--  <th>Status</th>  --}}
-                                                {{-- <th>Mobile</th> --}}
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($suppliers->count() > 0)
-                                                @foreach ($suppliers as $supplier)
-                                                    <tr>
-                                                        <td>{{ $supplier->id }}</td>
-                                                        {{--  <th>
-                                                            <input class="form-check-input" type="checkbox"
-                                                                value="option1" />
-                                                        </th>  --}}
-                                                        <td>
-                                                            {{--  <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />  --}}
-                                                            {{ $supplier->name }}
-                                                        </td>
-                                                        <td>{{ $supplier->nic }}</td>
-                                                        {{--  <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>  --}}
-                                                        <td>
-                                                            <button
-                                                                class="btn btn-outline-primary btn-sm edit-customer-btn"
-                                                                onclick="showSupplierEditModal({{ $supplier->id }})"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Edit">
-                                                                <i class="icon-edit"></i>
-                                                            </button>
-                                                            <button class="btn btn-outline-danger btn-sm"
-                                                                onclick="showDeleteSupplierModal({{ $supplier->id }})"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Delete">
-                                                                <i class="icon-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
+                                <div class="table-responsive" id="all_supplier_table">
 
-                                            {{--  <tr>
-                                                <td>3</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option3" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Gino Watson
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>200</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-dark fs-5"></i>
-                                                        Offline
-                                                    </div>
-                                                </td>
-                                                <td>Turkey</td>
-                                                <td>76</td>
-                                                <td>44</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>  --}}
-
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -281,6 +186,16 @@
             modal.show();
         }
 
+        function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+            document.getElementById("add_nic").value = "";
+        }
+
+        function resetEditInputFields() {
+            document.getElementById("edit_name").value = "";
+            document.getElementById("edit_nic").value = "";
+        }
+
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
             document.getElementById("nic_error").textContent = "";
@@ -330,7 +245,8 @@
                     add_supplier_details);
                 const supplier = response.data;
 
-                await axios.get("{{ url('/suppliers/list') }}/");
+                resetAddInputFields();
+                getSupplier();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier added successfully.");
             } catch (error) {
@@ -374,7 +290,8 @@
                     edit_supplier_details);
                 const supplier = response.data;
 
-                await axios.get("{{ url('/suppliers/list') }}/");
+                resetEditInputFields();
+                getSupplier();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier updated successfully.");
             } catch (error) {
@@ -392,7 +309,7 @@
                 const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
 
-                await axios.get("{{ url('/suppliers/list') }}/");
+                getSupplier();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier deleted successfully.");
             } catch (error) {
@@ -400,95 +317,35 @@
             }
         }
 
-        // var edit_supplier_id = 0;
-        // var modal;
+        function getSupplier(page = 1) {
+            //$('#pre_stop').show();
+            var search = $('#search').val();
+            var count = 25;
 
-        // async function showSupplierEditModal(id) {         
-        //     resetFields();
-        //     try {
+            var data = {
+                search: search,
+                count: count,
+            };
 
-        //         const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
-        //         const supplier = response.data;
+            //$('#pre_stop').show();
+            $.ajax({
+                url: '/suppliers/ajax/list?page=' + page,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#all_supplier_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
 
-        //         var name = document.getElementById("edit_name");
-        //         var nic = document.getElementById("edit_nic");
-
-        //         name.value = supplier.name;
-        //         nic.value = supplier.nic;
-        //         edit_supplier_id = supplier.id;
-
-        //         openModal("editSupplierModal");
-
-        //     } catch (error) {
-        //         console.error(error);
-        //         alert("Failed to fetch payment data.");
-        //     }
-        // }
-
-        // async function updateSupplier() {
-        //     var name = document.getElementById("edit_name").value;
-        //     var nic = document.getElementById("edit_nic").value;
-
-        //     edit_supplier_details = {
-        //         name: name,
-        //         nic: nic,
-        //     }
-
-        //     try {
-        //         const response = await axios.post("{{ url('/suppliers/update') }}/" + edit_supplier_id,
-        //             edit_supplier_details);
-        //         const supplier = response.data;
-
-        //         await axios.get("{{ url('/suppliers/list') }}/");
-        //         modal.hide();
-        //         showAlert("success-modal", "success-text", "Supplier updated successfully.");
-        //     } catch (error) {
-        //         viewErrors(error);
-        //     }
-        // }
-
-        // function openModal(modalName) {
-        //     modal = new bootstrap.Modal(document.getElementById(modalName));
-        //     modal.show();
-        // }
-
-        // function resetFields() {
-        //     document.getElementById("name_error").textContent = "";
-        //     document.getElementById("nic_error").textContent = "";
-        // }
-
-        // function viewErrors(error) {
-        //     document.getElementById("name_error").textContent = error.response.data.errors.name[0];
-        //     document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
-        // }
-
-        // function showAlert(alertType, alertSpan, alertText) {
-        //     document.getElementById(alertSpan).textContent = alertText;
-        //     const alert = document.getElementById(alertType);
-        //     alert.classList.add("show");
-        //     setTimeout(() => {
-        //         alert.classList.remove("show");
-        //     }, 5000);
-        // }
-
-        // function showDeleteSupplierModal(id) {
-        //     edit_supplier_id = id;
-        //     openModal("deleteSupplierModal");
-        // }
-
-        // async function deleteCustomer() {
-        //     try {
-        //         const response = await axios.delete("{{ url('/suppliers/delete') }}/" + edit_supplier_id);
-        //         const customer = response.data;
-        //         console.log(customer);
-
-        //         await axios.get("{{ url('/suppliers/list') }}/");
-        //         modal.hide();
-        //         showAlert("success-modal", "success-text", "Supplier deleted successfully.");
-        //     } catch (error) {
-        //         showAlert("danger-modal", "danger-text", error);
-        //     } 
-        // }
+        window.addEventListener('load', () => {
+            getSupplier();
+        });
 
     </script>
 </x-app-layout>
