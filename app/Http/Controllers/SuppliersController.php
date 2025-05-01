@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Supplier\StoreSupplierRequest;
 use App\Http\Requests\Supplier\UpdateSupplierRequest;
+use App\Models\Supplier;
 use domain\facades\SupplierFacade\SupplierFacade;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,23 @@ class SuppliersController extends ParentController
 {
     public function index()
     {
-        $suppliers = SupplierFacade::getSuppliers();
-        return view('pages.suppliers.index', [
-            'suppliers' => $suppliers,
-        ]);
+        return view('pages.suppliers.index');
+    }
+
+    public function loadSuppliers(Request $request)
+    {
+        $query = Supplier::query();
+        if(isset($request['search'])){
+            $query = $query->where('id', 'like', '%' . $request['search'] . '%');
+        }
+
+        if(isset($request['count'])){
+            $response['suppliers'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+        } else {
+            $response['suppliers'] = $query->orderBy('id', 'desc')->paginate(20);
+        }
+
+        return view('pages.suppliers.components.table')->with($response);
     }
 
     public function list()
