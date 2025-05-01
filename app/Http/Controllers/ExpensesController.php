@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Expense\StoreExpenseRequest;
+use App\Models\Expense;
+use domain\facades\ExpenseFacade\ExpenseFacade;
 use Illuminate\Http\Request;
 
 class ExpensesController extends ParentController
@@ -14,5 +17,48 @@ class ExpensesController extends ParentController
     public function create()
     {
         return view('pages.expenses.create');
+    }
+
+    public function loadExpenses(Request $request)
+    {
+        $query = Expense::query();
+
+        if (isset($request['search'])) {
+            $query = $query->where('code', 'like', '%' . $request['search'] . '%')
+                ->orWhere('description', 'like', '%' . $request['search'] . '%')
+                ->orWhere('note', 'like', '%' . $request['search'] . '%')
+                ->orWhere('date', 'like', '%' . $request['search'] . '%')
+                ->orWhere('amount', 'like', '%' . $request['search'] . '%');
+        }
+
+        if (isset($request['count'])) {
+            $response['expenses'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+        } else {
+            $response['expenses'] = $query->orderBy('id', 'desc')->paginate(20);
+        }
+
+        return view('pages.expenses.components.table')->with($response);
+    }
+
+    public function store(StoreExpenseRequest $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '.' . $file->extension();
+            $file->move(public_path('storage/expenses'), $fileName);
+            $request['file_path'] = 'storage/expenses/' . $fileName;
+        }
+        return ExpenseFacade::store($request->all());
+    }
+
+    public function edit($expense_id)
+    {
+        $expense = ExpenseFacade::get($expense_id);
+        return view('pages.expenses.edit')->with(['expense' => $expense]);
+    }
+
+    public function delete($expense_id)
+    {
+        return ExpenseFacade::delete($expense_id);
     }
 }

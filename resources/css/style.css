@@ -1,3 +1,31 @@
 .navbar .active-link::before {
     background: transparent !important;
 }
+
+/* Desktop view border*/
+.image-chooser-border {
+    border: 2px solid var(--bs-gray-300);
+}
+
+.image-input-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Mobile view border*/
+.image-chooser-border-mobile {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bs-gray-300);
+}
+
+.image-input-wrapper-mobile {
+    position: relative;
+    overflow: hidden;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
