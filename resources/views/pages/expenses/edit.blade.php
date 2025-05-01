@@ -15,7 +15,7 @@
                             <a href="index.html" class="text-decoration-none">Home</a>
                         </li>
                         <li class="breadcrumb-item">Expenses</li>
-                        <li class="breadcrumb-item">Create New Expense</li>
+                        <li class="breadcrumb-item">Update Expense - {{ $expense->code }}</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -27,7 +27,7 @@
                 <div class="col-xxl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h5 class="card-title">Create New Expense</h5>
+                            <h5 class="card-title">Update Expense - {{ $expense->code }}</h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
@@ -46,27 +46,29 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Date</label>
-                                            <input type="date" class="form-control" id="expense_date" />
+                                            <input type="date" class="form-control" id="expense_date"
+                                                value="{{ $expense->date }}" />
                                             <span class="text-danger" id="expense_date_error"></span>
                                         </div>
 
                                         <div class="col-12">
                                             <label class="form-label">Description</label>
                                             <input type="text" class="form-control" id="expense_description"
-                                                placeholder="Enter expense description" />
+                                                placeholder="Enter expense description"
+                                                value="{{ $expense->description }}" />
                                             <span class="text-danger" id="expense_description_error"></span>
                                         </div>
 
                                         <div class="col-12">
                                             <label class="form-label">Amount</label>
                                             <input type="text" class="form-control" id="expense_amount"
-                                                placeholder="Amount" />
+                                                placeholder="Amount" value="{{ $expense->amount }}" />
                                             <span class="text-danger" id="expense_amount_error"></span>
                                         </div>
 
                                         <div class="col-12">
                                             <label class="form-label">Note</label>
-                                            <textarea class="form-control" placeholder="Expense note" rows="3" id="expense_note"></textarea>
+                                            <textarea class="form-control" placeholder="Expense note" rows="3" id="expense_note" value="{{ $expense->note }}"></textarea>
                                             <span class="text-danger" id="expense_note_error"></span>
                                         </div>
                                     </div>
@@ -220,6 +222,20 @@
             modal.show();
         }
 
+        {{--  function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+            document.getElementById("add_email").value = "";
+            document.getElementById("add_mobile").value = "";
+            document.getElementById("add_address").value = "";
+        }  --}}
+
+        {{--  function resetEditInputFields() {
+            document.getElementById("edit_name").value = "";
+            document.getElementById("edit_email").value = "";
+            document.getElementById("edit_mobile").value = "";
+            document.getElementById("edit_address").value = "";
+        }  --}}
+
         function addResetFields() {
             document.getElementById("expense_category_error").textContent = "";
             document.getElementById("expense_date_error").textContent = "";
@@ -227,6 +243,13 @@
             document.getElementById("expense_amount_error").textContent = "";
             document.getElementById("expense_note_error").textContent = "";
         }
+
+        {{--  function editResetFields() {
+            document.getElementById("edit_name_error").textContent = "";
+            document.getElementById("edit_email_error").textContent = "";
+            document.getElementById("edit_mobile_error").textContent = "";
+            document.getElementById("edit_address_error").textContent = "";
+        }  --}}
 
         function viewAddErrors(error) {
             if (error.response.data.errors.expense_category_id) {
@@ -248,6 +271,13 @@
             }
         }
 
+        {{--  function viewEditErrors(error) {
+            document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
+            document.getElementById("edit_email_error").textContent = error.response.data.errors.email[0];
+            document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
+            document.getElementById("edit_address_error").textContent = error.response.data.errors.address[0];
+        }  --}}
+
         function showAlert(alertType, alertSpan, alertText) {
             document.getElementById(alertSpan).textContent = alertText;
             const alert = document.getElementById(alertType);
@@ -256,6 +286,99 @@
                 alert.classList.remove("show");
             }, 5000);
         }
+
+        {{--  function showCustomerAddModal() {
+            addResetFields();
+            openModal("addNewCustomerModal");
+        }  --}}
+
+        {{--  async function showCustomerEditModal(id) {
+            editResetFields();
+
+            try {
+                const response = await axios.get("{{ url('/customers/get') }}/" + id);
+                const customer = response.data;
+
+                var name = document.getElementById("edit_name");
+                var email = document.getElementById("edit_email");
+                var mobile = document.getElementById("edit_mobile");
+                var address = document.getElementById("edit_address");
+                name.value = customer.name;
+                email.value = customer.email;
+                mobile.value = customer.mobile;
+                address.value = customer.address;
+                selected_customer_id = customer.id;
+
+                openModal("editCustomerModal");
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Failed to fetch customer data.");
+            }
+        }  --}}
+
+        {{--  async function updateCustomer() {
+            var name = document.getElementById("edit_name").value;
+            var email = document.getElementById("edit_email").value;
+            var mobile = document.getElementById("edit_mobile").value;
+            var address = document.getElementById("edit_address").value;
+
+            edit_customer_details = {
+                name: name,
+                email: email,
+                mobile: mobile,
+                address: address
+            }
+
+            try {
+                const response = await axios.post("{{ url('/customers/update') }}/" + selected_customer_id,
+                    edit_customer_details);
+                const customer = response.data;
+
+                resetEditInputFields();
+                getCustomers();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer updated successfully.");
+            } catch (error) {
+                viewEditErrors(error);
+            }
+        }  --}}
+
+        {{--  function showDeleteCustomerModal(id) {
+            selected_customer_id = id;
+            openModal("deleteCustomerModal");
+        }  --}}
+
+        {{--  async function deleteCustomer() {
+            try {
+                const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
+                const customer = response.data;
+
+                getCustomers();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }
+        }  --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         function openImageFile() {
             var expense_category = document.getElementById('expense_category').value;
@@ -328,8 +451,20 @@
             var expense_amount = document.getElementById("expense_amount").value;
             var expense_note = document.getElementById("expense_note").value;
 
-            var fileInput = document.getElementById('expense_image');
-            var file = fileInput.files[0];
+            const imagePreview = document.getElementById('imagePreview');
+            const pdfPreview = document.getElementById('pdfPreview');
+
+            var imageUrl = "";
+
+            if (imagePreview.src === placeholderImage) {
+                console.log("image added");
+                imageUrl = imagePreview.files[0];
+            } else if (pdfPreview.src === placeholderImage) {
+                console.log("pdf added");
+                imageUrl = pdfPreview.files[0];
+            } else {
+                console.log("no image or pdf added");
+            }
 
             add_expense_details = {
                 expense_category_id: expense_category,
@@ -337,7 +472,7 @@
                 description: expense_description,
                 amount: expense_amount,
                 note: expense_note,
-                file: file,
+                image: imageUrl,
             }
 
             try {
@@ -347,7 +482,7 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     });
-                window.location.href = "/expenses";
+                {{--  window.location.href = "/expenses";  --}}
             } catch (error) {
                 viewAddErrors(error);
             }

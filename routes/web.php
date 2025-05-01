@@ -44,6 +44,10 @@ Route::prefix('grn')->group(function () {
 Route::prefix('expenses')->group(function () {
     Route::get('/', [ExpensesController::class, 'index'])->name('expenses.index');
     Route::get('/create', [ExpensesController::class, 'create'])->name('expenses.create');
+    Route::get('ajax/list', [ExpensesController::class, 'loadExpenses'])->name('expenses.all.list');
+    Route::post('/store', [ExpensesController::class, 'store'])->name('expenses.store');
+    Route::get('/edit/{expense_id}', [ExpensesController::class, 'edit'])->name('expenses.edit');
+    Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('expenses.delete');
 });
 
 Route::middleware('auth')->group(function () {
