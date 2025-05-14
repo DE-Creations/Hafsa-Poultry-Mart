@@ -66,6 +66,12 @@
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
+                                            <label class="form-label">Discount Amount</label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="mb-3">
                                             <label class="form-label">Total</label>
                                             <input type="text" class="form-control"/>
                                         </div>
