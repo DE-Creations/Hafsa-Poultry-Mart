@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('stock_validation_items', function (Blueprint $table) {
             $table->id();
-
-            $table->string('name')->nullable();
-            $table->string('nickname')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->string('note')->nullable();
-
+            $table->unsignedBigInteger('stock_validation_id')->nullable();
+            $table->unsignedBigInteger('output_item_id')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
+
+        // 'stock_validation_id',
+        // 'output_item_id',
+        // 'qty',
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('stock_validation_items');
     }
 };

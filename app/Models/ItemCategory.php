@@ -19,4 +19,5 @@ class ItemCategory extends Model
     {
         return $this->hasMany(Item::class, 'item_category_id', 'id');
     }
+    //look and delete
 }

@@ -11,28 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grn_pays', function (Blueprint $table) {
+        Schema::create('invoice_payments', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('grn_id')->nullable();
-            $table->double('balance_foward')->nullable();
-            $table->double('paid')->nullable();          
+            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->double('balance_forward')->nullable();
+            $table->double('paid')->nullable();
             $table->text('memo')->nullable();
             $table->date('paid_date')->nullable();
             $table->dateTime('date_added')->nullable();
-            $table->unsignedBigInteger('payment_method_id')->nullable();
+            $table->unsignedBigInteger('payment_method')->nullable();
             $table->unsignedBigInteger('bank_acc_id')->nullable();
-            
-        // 'grn_id',
-        // 'balance-foward',
+            $table->timestamps();
+
+        // 'invoice_id',
+        // 'balance_forward',
         // 'paid',
         // 'memo',
         // 'paid_date',
         // 'date_added',
-        // 'payment_method_id',
-        // 'bank_acc_id',
-
-            $table->timestamps();
+        // 'payment_method',
+        // 'bank_acc_id'
         });
     }
 
@@ -41,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('grn_pays');
+        Schema::dropIfExists('invoice_payments');
     }
 };

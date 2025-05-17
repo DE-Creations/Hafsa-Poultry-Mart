@@ -5,43 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GrnItem extends Model
+class StockValidation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'grn_id',
+        'date',
+        'date_added',
         'input_item_id',
-        'description',
         'qty',
-        'rate',
-        'amount',
-        'discount',
-        'total',
     ];
-
-    public function grn()
-    {
-        return $this->belongsTo(Grn::class, 'id', 'grn_id');
-    }
-    //our code
-
-    // public function grn()
-    // {
-    //     return $this->belongsTo(Grn::class, 'grn_id', 'id');
-    // }
-    //AI code
 
     public function inputItem()
     {
         return $this->belongsTo(InputItem::class, 'id', 'input_item_id');
     }
     //our code
-
+    
     // public function inputItem()
     // {
     //     return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
     // }
     //AI code
 
+    public function stockvalidationitem()
+    {
+        return $this->hasMany(StockValidationItem::class, 'stock_validation_id', 'id');
+    }
 }

@@ -10,18 +10,22 @@ class BankBranch extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
         'code'
     ];
 
-    public function accounts()
+    public function bankAccounts()
     {
         return $this->hasMany(BankAccount::class, 'branch_id', 'id');
     }
 
-    public function bank()
-    {
-        return $this->belongsTo(Bank::class, 'bank_id', 'id');
-    }
+    // public function accounts()
+    // {
+    //     return $this->hasMany(BankAccount::class, 'branch_id', 'id');
+    // }
+
+    // public function bank()
+    // {
+    //     return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    // }
 }

@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('invoice_items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->unsignedBigInteger('stock_item_id')->nullable();
+            $table->string('item_name')->nullable();
+            $table->text('description')->nullable();
+            $table->double('qty')->nullable();
+            $table->double('rate')->nullable();
+            $table->double('amount')->nullable();
+            $table->double('discount')->nullable();
+            $table->double('total')->nullable();
+            $table->timestamps();
+
+        // 'invoice_id',
+        // 'stock_item_id',
+        // 'item_name',
+        // 'description',
+        // 'qty',
+        // 'rate',
+        // 'amount',
+        // 'discount',
+        // 'total'
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('invoice_items');
+    }
+};

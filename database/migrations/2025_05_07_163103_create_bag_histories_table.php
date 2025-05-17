@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('bag_histories', function (Blueprint $table) {
             $table->id();
-
-            $table->string('name')->nullable();
-            $table->string('nickname')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->string('note')->nullable();
-
+            $table->unsignedBigInteger('bags_category_id')->nullable();
+            $table->dateTime('date_time')->nullable();
+            $table->string('description')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('bag_histories');
     }
 };
