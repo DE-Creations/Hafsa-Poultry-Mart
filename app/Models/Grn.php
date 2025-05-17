@@ -10,28 +10,28 @@ class Grn extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
+        'grn_no',
         'supplier_id',
-        'serial',
         'date',
-        'memo',
-        'discount_rate',
-        'discount_amount',
+        'delivary_address',
+        'sub_total',
+        'discount',
         'total',
+        'is_paid',
     ];
 
-    public function items()
-    {
-        return $this->hasMany(GrnItem::class, 'grn_id', 'id');
+    public function grnpay(){
+        return $this->hasMany(GrnPay::class, 'id', 'grn_id');
     }
 
-    public function payments()
-    {
-        return $this->hasMany(GrnPay::class, 'grn_id', 'id');
+    public function grnitem(){
+        return $this->hasMany(GrnItem::class,'id', 'grn_id');
     }
 
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
+
+
 }

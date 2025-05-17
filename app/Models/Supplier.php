@@ -10,15 +10,16 @@ class Supplier extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
-        'nic',
-        'description',
-        'bank_account_id',
+        'nick_name',
+        'mobile',
+        'address',
+        'note',
+        'date_registered',
     ];
 
-    public function bankAccount()
+    public function grn()
     {
-        return $this->belongsTo(BankAccount::class, 'bank_account_id', 'id');
+        return $this->hasMany(GRN::class, 'supplier_id', 'id');
     }
 }

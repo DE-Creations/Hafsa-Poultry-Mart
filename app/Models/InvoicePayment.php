@@ -5,29 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GrnPay extends Model
+class InvoicePayment extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'grn_id',
-        'balance_foward',
+        'invoice_id',
+        'balance_forward',
         'paid',
         'memo',
         'paid_date',
         'date_added',
-        'payment_method_id',
-        'bank_acc_id',
+        'payment_method',
+        'bank_acc_id'
     ];
 
-    public function grn()
+    public function invoice()
     {
-        return $this->belongsTo(Grn::class, 'id', 'grn_id');
+        return $this->belongsTo(Invoice::class, 'id', 'invoice_id');
     }
     //our code
     public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class, 'id', 'payment_method_id');
+        return $this->belongsTo(PaymentMethod::class, 'id', 'payment_method');
     }
     //our code
     public function bankAccount()
@@ -36,14 +35,14 @@ class GrnPay extends Model
     }
     //our code
 
-    // public function grn()
+    // public function invoice()
     // {
-    //     return $this->belongsTo(Grn::class, 'grn_id', 'id');
+    //     return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
     // }
     //AI code
     // public function paymentMethod()
     // {
-    //     return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
+    //     return $this->belongsTo(PaymentMethod::class, 'payment_method', 'id');
     // }
     //AI code
     // public function bankAccount()
