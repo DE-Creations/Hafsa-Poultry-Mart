@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('grn_id')->nullable();
-            $table->double('balance_foward')->nullable();
-            $table->double('paid')->nullable();          
+            $table->decimal('balance_foward' ,15,2)->nullable();
+            $table->decimal('paid' ,15,2)->nullable();          
             $table->text('memo')->nullable();
             $table->date('paid_date')->nullable();
             $table->dateTime('date_added')->nullable();

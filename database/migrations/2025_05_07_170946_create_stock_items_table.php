@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('stock_id')->nullable();
             $table->unsignedBigInteger('output_item_id')->nullable();
-            $table->double('selling_price')->nullable();
+            $table->decimal('selling_price', 15, 2)->nullable();
             $table->integer('available_qty')->nullable();
             $table->timestamps();
         // 'stock_id',
