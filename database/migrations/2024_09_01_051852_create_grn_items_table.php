@@ -14,14 +14,23 @@ return new class extends Migration
         Schema::create('grn_items', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('grn_item_id')->nullable();
-            $table->unsignedBigInteger('item_id')->nullable();
+            $table->unsignedBigInteger('grn_id')->nullable();
+            $table->unsignedBigInteger('input_item_id')->nullable();
             $table->string('description')->nullable();
-            $table->decimal('weight', 10, 2)->nullable();
-            $table->decimal('unit_price', 10, 2)->nullable();
-            $table->decimal('discount_rate', 15, 2)->nullable();
-            $table->decimal('discount_amount', 15, 2)->nullable();
+            $table->integer('qty')->nullable();
+            $table->decimal('rate', 15, 2)->nullable();
+            $table->decimal('amount', 15, 2)->nullable();
+            $table->decimal('discount',15,2)->nullable();
             $table->decimal('total', 15, 2)->nullable();
+
+        //             'grn_id',
+        // 'input_item_id',
+        // 'description',
+        // 'qty',
+        // 'rate',
+        // 'amount',
+        // 'discount',
+        // 'total',
 
             $table->timestamps();
         });

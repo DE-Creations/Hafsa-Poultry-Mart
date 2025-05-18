@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemCategory extends Model
+class BagsCategory extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'id',
-        'name',
-        'status',
+        'category',
+        'qty',
     ];
 
-    public function items()
+    public function bagHistory()
     {
-        return $this->hasMany(Item::class, 'item_category_id', 'id');
+        return $this->hasMany(BagHistory::class, 'bags_category_id', 'id');
     }
+    
 }

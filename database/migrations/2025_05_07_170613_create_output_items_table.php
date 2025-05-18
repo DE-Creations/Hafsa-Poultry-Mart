@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_categories', function (Blueprint $table) {
+        Schema::create('output_items', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('input_item_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('status')->nullable();
-
+            $table->text('description')->nullable();
+            $table->decimal('avg_presentage',3,2)->nullable();
             $table->timestamps();
+
+        // 'input_item_id',
+        // 'name',
+        // 'description',
+        // 'avg_presentage',
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_categories');
+        Schema::dropIfExists('output_items');
     }
 };

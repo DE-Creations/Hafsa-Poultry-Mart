@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('input_items', function (Blueprint $table) {
             $table->id();
-
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->unsignedBigInteger('item_category_id')->nullable();
-            $table->decimal('price', 15, 2)->nullable();
-
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
+
+            // 'name',
+            // 'description',
+            // 'is_active',
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('input_items');
     }
 };

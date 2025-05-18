@@ -15,11 +15,20 @@ return new class extends Migration
             $table->id();
 
             $table->string('name')->nullable();
-            $table->string('nic')->nullable();
-            $table->string('description')->nullable();
-            $table->unsignedBigInteger('bank_account_id')->nullable();
+            $table->string('nick_name')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('address')->nullable();
+            $table->text('note')->nullable();
+            $table->date('date_registered')->nullable();
 
             $table->timestamps();
+
+        // 'name',
+        // 'nick_name',
+        // 'mobile',
+        // 'address',
+        // 'note',
+        // 'date_registered',
         });
     }
 
