@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('invoice_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id')->nullable();
-            $table->double('balance_forward')->nullable();
-            $table->double('paid')->nullable();
+            $table->decimal('balance_forward', 15,2)->nullable();
+            $table->decimal('paid', 15,2)->nullable();
             $table->text('memo')->nullable();
             $table->date('paid_date')->nullable();
             $table->dateTime('date_added')->nullable();

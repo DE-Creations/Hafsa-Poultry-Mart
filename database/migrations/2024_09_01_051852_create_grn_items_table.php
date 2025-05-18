@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('qty')->nullable();
             $table->decimal('rate', 15, 2)->nullable();
             $table->decimal('amount', 15, 2)->nullable();
-            $table->decimal('discount')->nullable();
+            $table->decimal('discount',15,2)->nullable();
             $table->decimal('total', 15, 2)->nullable();
 
         //             'grn_id',

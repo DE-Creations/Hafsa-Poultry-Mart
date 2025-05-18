@@ -17,11 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('stock_item_id')->nullable();
             $table->string('item_name')->nullable();
             $table->text('description')->nullable();
-            $table->double('qty')->nullable();
-            $table->double('rate')->nullable();
-            $table->double('amount')->nullable();
-            $table->double('discount')->nullable();
-            $table->double('total')->nullable();
+            $table->decimal('qty',6,3)->nullable();
+            $table->decimal('rate',6,3)->nullable();
+            $table->decimal('amount',15,2)->nullable();
+            $table->decimal('discount',15,2)->nullable();
+            $table->decimal('total',15,2)->nullable();
             $table->timestamps();
 
         // 'invoice_id',

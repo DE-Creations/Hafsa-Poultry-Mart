@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('input_item_id')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->double('avg_presentage')->nullable();
+            $table->decimal('avg_presentage',3,2)->nullable();
             $table->timestamps();
 
         // 'input_item_id',

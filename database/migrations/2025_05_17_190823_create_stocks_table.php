@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('stock_name')->nullable();
             $table->unsignedBigInteger('grn_item_id')->nullable();
-            $table->double('input_qty')->nullable();
-            $table->double('output_qty')->nullable();
-            $table->double('wastage_qty')->nullable();
+            $table->decimal('input_qty',6,3)->nullable();
+            $table->decimal('output_qty',6,3)->nullable();
+            $table->decimal('wastage_qty', 15, 3)->nullable();
             $table->dateTime('update_time')->nullable();
             $table->boolean('is_stock_closed')->default(0);
             $table->timestamps();
