@@ -81,7 +81,7 @@
                                                     {{--  <form @submit.prevent="saveExpense" enctype="multipart/form-data">  --}}
                                                     <div class="row mt-2">
                                                         <div class="col-md-12">
-                                                            <div class="form-label text-gray-600">Receipt Image
+                                                            <div class="form-label text-gray-600">Receipt
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 pt-2 d-flex justify-content-center">
