@@ -81,5 +81,76 @@
             </div>
         </div>
     </div>
-    <!-- Customer add modal end -->
+    <!-- Invoice add modal end -->
+
+    <script>
+        var selected_invoice_id = 0;
+        var modal;
+
+        function openModal(modalName) {
+            modal = new bootstrap.Modal(document.getElementById(modalName));
+            modal.show();
+        }
+
+        function showAlert(alertType, alertSpan, alertText) {
+            document.getElementById(alertSpan).textContent = alertText;
+            const alert = document.getElementById(alertType);
+            alert.classList.add("show");
+            setTimeout(() => {
+                alert.classList.remove("show");
+            }, 5000);
+        }
+
+        function goToExpenseEdit(id) {
+            window.location.href = '/expenses/edit/' + id;
+        }
+
+        function showDeleteInvoiceModal(id) {
+            selected_invoice_id = id;
+            openModal("deleteExpenseModal");
+        }
+
+        async function deleteExpense() {
+            try {
+                const response = await axios.delete("{{ url('/expenses/delete') }}/" + selected_invoice_id);
+                const customer = response.data;
+
+                getExpenses();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Expense deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }
+        }
+
+        function getInvoices(page = 1) {
+            //$('#pre_stop').show();
+            var search = $('#search').val();
+            var count = 25;
+
+            var data = {
+                search: search,
+                count: count,
+            };
+
+            //$('#pre_stop').show();
+            $.ajax({
+                url: '/invoice/ajax/list?page=' + page,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#all_invoice_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            getInvoices();
+        });
+    </script>
 </x-app-layout>
