@@ -35,6 +35,10 @@ Route::prefix('suppliers')->group(function () {
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('ajax/list', [InvoiceController::class, 'loadInvoices'])->name('invoice.all.list');
+    Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
+    Route::get('/edit/{expense_id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::delete('/delete/{expense_id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
 });
 
 Route::prefix('grn')->group(function () {
