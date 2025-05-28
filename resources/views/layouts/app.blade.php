@@ -285,10 +285,13 @@
     <script src="assets/vendor/apex/custom/home/callsByCountry.js"></script>
     <script src="assets/vendor/apex/custom/home/sparkline.js"></script>
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Custom JS files -->
     <script src="assets/js/custom.js"></script>
 
-    {{--  <div class="min-h-screen bg-gray-100">
+    {{-- <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
     </div>  --}}
 </body>
