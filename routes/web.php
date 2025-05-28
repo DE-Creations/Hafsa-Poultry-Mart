@@ -7,7 +7,6 @@ use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuppliersController;
-use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

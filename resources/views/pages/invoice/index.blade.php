@@ -30,7 +30,8 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" />
+                                        <input type="text" class="form-control" placeholder="Search"
+                                            id="search" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -41,7 +42,7 @@
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive" id="all_expense_table">
+                                <div class="table-responsive" id="all_invoices_table">
 
                                 </div>
                             </div>
@@ -143,7 +144,7 @@
                 dataType: '',
                 data: data,
                 success: function(response) {
-                    $('#all_invoice_table').html(response);
+                    $('#all_invoices_table').html(response);
                     //$('#pre_stop').hide();
                 }
             });

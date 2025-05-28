@@ -10,8 +10,10 @@ class InvoicePayment extends Model
     use HasFactory;
     protected $fillable = [
         'invoice_id',
-        'balance_forward',
-        'paid',
+        'customer_id',
+        'balance',
+        'paid_amount',
+        'invoice_total',
         'memo',
         'paid_date',
         'date_added',
