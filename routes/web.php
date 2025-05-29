@@ -38,6 +38,7 @@ Route::prefix('invoice')->group(function () {
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
     Route::get('/edit/{expense_id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::delete('/delete/{expense_id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::get('/customer/balance/{customer_id}', [InvoiceController::class, 'getCustomerBalanceForward'])->name('invoice.customer.balance');
 });
 
 Route::prefix('grn')->group(function () {

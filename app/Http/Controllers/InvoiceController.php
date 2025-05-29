@@ -50,6 +50,11 @@ class InvoiceController extends ParentController
         return InvoiceFacade::store($request->all());
     }
 
+    public function getCustomerBalanceForward($customer_id)
+    {
+        return InvoiceFacade::getCustomerBalanceForward($customer_id);
+    }
+
     public function edit($invoice_id)
     {
         $invoice = InvoiceFacade::get($invoice_id);

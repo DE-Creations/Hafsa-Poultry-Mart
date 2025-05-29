@@ -44,7 +44,8 @@
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Customer</label>
-                                            <select id="customer_id" class="form-control form-control-sm">
+                                            <select id="customer_id" class="form-control form-control-sm"
+                                                onchange="getCustomerBalanceForward();">
                                                 @foreach ($customers as $customer)
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}
                                                     </option>
@@ -122,7 +123,8 @@
                                                                 id="t1_amount<?php echo $i; ?>" type="text"
                                                                 class="form-control form-control-sm formatNumber"
                                                                 value=""
-                                                                style="width: 100%;height:30px;text-align: right;"></td>
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                disabled></td>
                                                         <td class="text-blue text-center"> <button
                                                                 class="btn btn-outline-danger btn-sm"
                                                                 onclick="deleteTableRow('my_data_table_material','<?php echo $i; ?>')"><i
@@ -144,9 +146,9 @@
                                                                 Forward
                                                                 &nbsp;</label>
                                                         </td>
-                                                        <td><input name="t1_sub_total" id="t1_sub_total" type="text"
-                                                                readonly class="form-control form-control-sm"
-                                                                value=""
+                                                        <td><input name="t1_pre_bal_for" id="t1_pre_bal_for"
+                                                                type="text" disabled
+                                                                class="form-control form-control-sm"
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
@@ -187,14 +189,15 @@
 
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Weight</label>
-                                            <input type="number" class="form-control" />
+                                            <label class="form-label">Payment</label>
+                                            <input type="number" class="form-control" id="paid_amount"
+                                                onchange="calculateNewBalance();" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Price per 1kg</label>
-                                            <input type="text" class="form-control" />
+                                            <label class="form-label">Balance</label>
+                                            <input type="text" class="form-control" id="new_balance" disabled />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
@@ -251,6 +254,7 @@
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function deleteTableRow(tableID, rownum) {
             $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove();
+            calculateSubTotalWhenDeleteRow();
         }
         // Add rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function addNewLineT1() {
@@ -298,6 +302,8 @@
             var customer_id = document.getElementById("customer_id").value;
             var sub_total = parseFloat(document.getElementById("t1_sub_total").value) || 0;
             var total = parseFloat(document.getElementById("t1_total").value) || 0;
+            var paid_amount = parseFloat(document.getElementById("paid_amount").value) || 0;
+            var balance = parseFloat(document.getElementById("new_balance").value) || 0;
 
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
@@ -318,6 +324,8 @@
                 customer_id: customer_id,
                 subtotal: sub_total,
                 total: total,
+                paid_amount: paid_amount,
+                balance: balance,
                 items: items
             }
 
@@ -329,5 +337,95 @@
                 viewAddErrors(error);
             }
         }
+
+        // calculate amount
+        function calAmount(tableId, index) {
+            const weight = parseFloat(document.getElementById(`t${tableId}_weight${index}`).value) || 0;
+            const unitPrice = parseFloat(document.getElementById(`t${tableId}_unit_price${index}`).value) || 0;
+            const amount = weight * unitPrice;
+
+            document.getElementById(`t${tableId}_amount${index}`).value = amount.toFixed(2); // or desired decimal places
+
+            calculateSubTotal(tableId);
+        }
+
+        function calculateSubTotal(tableId) {
+            let subTotal = 0;
+            let i = 0;
+
+            while (true) {
+                const amountField = document.getElementById(`t${tableId}_amount${i}`);
+                if (!amountField) break; // Stop when no more rows
+
+                const amount = parseFloat(amountField.value) || 0;
+                subTotal += amount;
+                i++;
+            }
+
+            // Update the subtotal and total fields
+            const subTotalField = document.getElementById(`t${tableId}_sub_total`);
+
+            if (subTotalField) subTotalField.value = subTotal.toFixed(2);
+
+            calculateTotal();
+        }
+
+        //calculate total, balance+sub total
+        function calculateTotal() {
+            const balance = parseFloat(document.getElementById("t1_pre_bal_for").value) || 0;
+            const subTotal = parseFloat(document.getElementById("t1_sub_total").value) || 0;
+            const total = balance + subTotal;
+
+            document.getElementById("t1_total").value = total.toFixed(2);
+        }
+
+        function calculateSubTotalWhenDeleteRow() {
+            //calculate amount for each row with getting table amount fields
+            let subTotal = 0;
+            let i = 0;
+            while (true) {
+                const amountField = document.getElementById(`t1_amount${i}`);
+                if (!amountField) break; // Stop when no more rows
+
+                const amount = parseFloat(amountField.value) || 0;
+                subTotal += amount;
+                i++;
+            }
+            // Update the subtotal and total fields
+            const subTotalField = document.getElementById("t1_sub_total");
+
+            if (subTotalField) subTotalField.value = subTotal.toFixed(2);
+            calculateTotal();
+        }
+
+        function calculateNewBalance() {
+            const total = parseFloat(document.getElementById("t1_total").value) || 0;
+            const paidAmount = parseFloat(document.getElementById("paid_amount").value) || 0;
+            const newBalance = total - paidAmount;
+
+            document.getElementById("new_balance").value = newBalance.toFixed(2);
+        }
+
+        async function getCustomerBalanceForward() {
+            const customerId = document.getElementById("customer_id").value;
+            try {
+                const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
+                console.log(response.data);
+                document.getElementById("t1_pre_bal_for").value = response.data;
+                //calculateTotal();
+            } catch (error) {
+                console.error("Error fetching customer balance forward:", error);
+            }
+
+            {{--  if (customerId == 1) {
+                document.getElementById("t1_pre_bal_for").disabled = true;
+            } else {
+                document.getElementById("t1_pre_bal_for").disabled = false;
+            }  --}}
+        }
+
+        window.addEventListener('load', () => {
+            getCustomerBalanceForward();
+        });
     </script>
 </x-app-layout>
