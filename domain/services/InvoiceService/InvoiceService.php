@@ -27,7 +27,7 @@ class InvoiceService
         $invoice_data['date'] = $data['invoice_date'];
         $invoice_data['customer_id'] = $data['customer_id'];
         $invoice_data['subtotal'] = $data['subtotal'];
-        $invoice_data['total'] = $data['total'];
+        $invoice_data['total'] = $data['subtotal'];
 
         $created_invoice = $this->invoice->create($invoice_data);
         $created_invoice->save();
@@ -48,18 +48,35 @@ class InvoiceService
         }
 
         // insert invoice payments
-        // 'invoice_id',
-        // 'customer_id',
-        // 'balance',
-        // 'paid_amount',
-        // 'invoice_total',
-        // 'memo',
-        // 'paid_date',
-        // 'date_added',
-        // 'payment_method',
-        // 'bank_acc_id'
+        $payment_data = [
+            'invoice_id' => $created_invoice->id,
+            'customer_id' => $data['customer_id'],
+            'balance' => $data['balance'], // Assuming initial balance is the total amount
+            'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
+            'invoice_total' => $data['total'],
+            // 'memo' => isset($data['memo']) ? $data['memo'] : '',
+            // 'paid_date' => null, // No payment made yet
+            // 'date_added' => now(),
+            // 'payment_method' => isset($data['payment_method']) ? $data['payment_method'] : null,
+            // 'bank_acc_id' => isset($data['bank_acc_id']) ? $data['bank_acc_id'] : null,
+        ];
+        $this->invoice_payment->create($payment_data);
 
         return $created_invoice->id;
+    }
+
+    public function getCustomerBalanceForward($customer_id)
+    {
+        if ($customer_id === "1") {
+            return 0;
+        } else {
+            $last_payment = $this->invoice_payment->where('customer_id', $customer_id)->orderBy('id', 'desc')->first();
+            if ($last_payment) {
+                return $last_payment->balance;
+            } else {
+                return 0;
+            }
+        }
     }
 
     public function get($id)
