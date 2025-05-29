@@ -20,18 +20,29 @@ class Grn extends Model
         'is_paid',
     ];
 
-    public function grnpay(){
+    public static function generateGrnNumber()
+    {
+        $lastGrn = Grn::orderBy('id', 'desc')->withTrashed()->first();
+        if ($lastGrn) {
+            $lastGrnNumber = $lastGrn->grn_no;
+            $newGrnNumber = (int)str_replace('GRN', '', $lastGrnNumber) + 1;
+            return 'GRN' . str_pad($newGrnNumber, 5, '0', STR_PAD_LEFT);
+        }
+        return 'GRN00001';
+    }
+
+    public function grnpay()
+    {
         return $this->hasMany(GrnPay::class, 'id', 'grn_id');
     }
 
-    public function grnitem(){
-        return $this->hasMany(GrnItem::class,'id', 'grn_id');
+    public function grnitem()
+    {
+        return $this->hasMany(GrnItem::class, 'id', 'grn_id');
     }
 
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
-
-
 }
