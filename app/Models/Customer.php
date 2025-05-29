@@ -18,7 +18,13 @@ class Customer extends Model
         'note'
     ];
 
-    public function invoices(){
+    public function getById($id)
+    {
+        return $this->where('id', $id)->first();
+    }
+
+    public function invoices()
+    {
         return $this->hasMany(Invoice::class, 'customer_id', 'id');
     }
 }

@@ -37,20 +37,26 @@
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Invoice No.</label>
-                                            <input type="text" class="form-control" disabled
-                                                value="{{ $invoice_no }}" />
+                                            <input id="invoice_number" type="text" class="form-control" disabled
+                                                value="{{ $invoice_number }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter name" />
+                                            <label class="form-label">Customer</label>
+                                            <select id="customer_id" class="form-control form-control-sm">
+                                                @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Date</label>
-                                            <input type="date" class="form-control" value="{{ $date }}" />
+                                            <input id="invoice_date" type="date" class="form-control"
+                                                value="{{ $invoice_date }}" />
                                         </div>
                                     </div>
 
@@ -72,8 +78,8 @@
                                                     <tr>
                                                         <th>Item</th>
                                                         <th>Item Description</th>
-                                                        <th>Qty</th>
-                                                        <th>Rate</th>
+                                                        <th>Weight (Kg)</th>
+                                                        <th>Unit price</th>
                                                         <th>Amount</th>
                                                         <th></th>
                                                     </tr>
@@ -81,7 +87,7 @@
 
                                                 <tbody>
                                                     <?php
-                                                    $t1NumRows = 2;
+                                                    $t1NumRows = 1;
 
                                                     for ($i = 0; $i < $t1NumRows; $i++) {
 
@@ -92,21 +98,21 @@
                                                                 class="form-control form-control-sm"
                                                                 onchange="getItemData('1','<?php echo $i; ?>');"
                                                                 style="width: 100%;">
-                                                                <option></option>
+                                                                <option>a</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
                                                                 rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
                                                         </td>
-                                                        <td><input name="t1_qty<?php echo $i; ?>"
-                                                                id="t1_qty<?php echo $i; ?>" type="number"
+                                                        <td><input name="t1_weight<?php echo $i; ?>"
+                                                                id="t1_weight<?php echo $i; ?>" type="number"
                                                                 step="any" min="0"
                                                                 class="form-control form-control-sm" value=""
                                                                 style="width: 100%;height:30px;text-align: center;"
                                                                 onchange="calAmount('1','<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_rate<?php echo $i; ?>"
-                                                                id="t1_rate<?php echo $i; ?>" type="text"
+                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
                                                                 step="any"
                                                                 class="form-control form-control-sm formatNumber"
                                                                 value=""
@@ -128,8 +134,14 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <td colspan="4" style="text-align: right">
-                                                            <label style="text-align: right" class="">Sub Total
+                                                        <td colspan="3" class="text-right">
+                                                            <button type="button" onclick="addNewLineT1();"
+                                                                class="btn btn-sm btn-success "><i
+                                                                    class="fa fa-eraser"></i> Add new item</button>
+                                                        </td>
+                                                        <td style="text-align: right">
+                                                            <label style="text-align: right" class="">Balance
+                                                                Forward
                                                                 &nbsp;</label>
                                                         </td>
                                                         <td><input name="t1_sub_total" id="t1_sub_total" type="text"
@@ -140,11 +152,28 @@
                                                         <td colspan="1"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="6" class="text-right">
-                                                            <button type="button" onclick="addNewLineT1();"
-                                                                class="btn btn-sm btn-success "><i
-                                                                    class="fa fa-eraser"></i> Add new item</button>
+                                                        <td colspan="4" style="text-align: right">
+                                                            <label style="text-align: right" class="">Sub Total
+                                                                &nbsp;</label>
                                                         </td>
+                                                        <td><input name="t1_sub_total" id="t1_sub_total"
+                                                                type="text" readonly
+                                                                class="form-control form-control-sm" value=""
+                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
+                                                        </td>
+                                                        <td colspan="1"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" style="text-align: right">
+                                                            <label style="text-align: right" class="">Total
+                                                                &nbsp;</label>
+                                                        </td>
+                                                        <td><input name="t1_total" id="t1_total" type="text"
+                                                                readonly class="form-control form-control-sm"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
+                                                        </td>
+                                                        <td colspan="1"></td>
                                                     </tr>
                                                 </tfoot>
 
@@ -198,8 +227,9 @@
                                     </div>
                                     <div class="col-12 mt-3">
                                         <div class="d-flex gap-2 justify-content-end">
-                                            <button type="button" class="btn btn-success col-3">
-                                                Submit
+                                            <button type="button" class="btn btn-success col-3"
+                                                onclick="createInvoice()">
+                                                Create
                                             </button>
                                         </div>
                                     </div>
@@ -244,10 +274,10 @@
                            </select>`;
             cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
                 `" class="form-control form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
-            cell3.innerHTML = `<input name="t1_qty` + (item_row) + `" id="t1_qty` + (item_row) +
+            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `" id="t1_weight` + (item_row) +
                 `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('1','` +
                 (item_row) + `');">`;
-            cell4.innerHTML = `<input name="t1_rate` + (item_row) + `" id="t1_rate` + (item_row) +
+            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `" id="t1_unit_price` + (item_row) +
                 `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('1','` +
                 (item_row) + `');">`;
             cell5.innerHTML = `<input name="t1_amount` + (item_row) + `" id="t1_amount` + (item_row) +
@@ -260,5 +290,44 @@
             document.getElementById("t1NumRows").value = item_row + 1;
 
         };
+
+        //Create invoice
+        async function createInvoice() {
+            var invoice_number = document.getElementById("invoice_number").value;
+            var invoice_date = document.getElementById("invoice_date").value;
+            var customer_id = document.getElementById("customer_id").value;
+            var sub_total = parseFloat(document.getElementById("t1_sub_total").value) || 0;
+            var total = parseFloat(document.getElementById("t1_total").value) || 0;
+
+            var items = [];
+            var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
+            for (var i = 0; i < t1NumRows; i++) {
+                var item = {
+                    item_name: document.getElementById("t1_item" + i).value,
+                    description: document.getElementById("t1_desc" + i).value,
+                    weight: parseFloat(document.getElementById("t1_weight" + i).value) || 0,
+                    unit_price: parseFloat(document.getElementById("t1_unit_price" + i).value) || 0,
+                    amount: parseFloat(document.getElementById("t1_amount" + i).value) || 0
+                };
+                items.push(item);
+            }
+
+            add_invoice_details = {
+                invoice_number: invoice_number,
+                invoice_date: invoice_date,
+                customer_id: customer_id,
+                subtotal: sub_total,
+                total: total,
+                items: items
+            }
+
+            try {
+                const response = await axios.post("{{ url('/invoice/store') }}/",
+                    add_invoice_details);
+                window.location.reload();
+            } catch (error) {
+                viewAddErrors(error);
+            }
+        }
     </script>
 </x-app-layout>
