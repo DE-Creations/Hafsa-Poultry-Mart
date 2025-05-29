@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
 use App\Models\Invoice;
+use Carbon\Carbon;
 use domain\facades\InvoiceFacade\InvoiceFacade;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class InvoiceController extends ParentController
 
     public function create()
     {
-        return view('pages.invoice.create');
+        $response['date'] = Carbon::now()->format('Y-m-d');
+        $response['invoice_no'] = Invoice::generateInvoiceNumber();
+        return view('pages.invoice.create', $response);
     }
 
     public function loadInvoices(Request $request)

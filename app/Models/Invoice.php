@@ -25,15 +25,15 @@ class Invoice extends Model
         'customer',
     ];
 
-    public function generateInvoiceNumber()
+    public static function generateInvoiceNumber()
     {
         $lastInvoice = Invoice::orderBy('id', 'desc')->withTrashed()->first();
         if ($lastInvoice) {
             $lastInvoiceNumber = $lastInvoice->invoice_number;
-            $newInvoiceNumber = str_replace('INV-', '', $lastInvoiceNumber) + 1;
-            return 'INV-' . str_pad($newInvoiceNumber, 5, '0', STR_PAD_LEFT);
+            $newInvoiceNumber = (int)str_replace('INV', '', $lastInvoiceNumber) + 1;
+            return 'INV' . str_pad($newInvoiceNumber, 5, '0', STR_PAD_LEFT);
         }
-        return 'INV-00001';
+        return 'INV00001';
     }
 
     public function invoiceItems()
