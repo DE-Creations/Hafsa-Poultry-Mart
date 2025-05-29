@@ -14,11 +14,9 @@ class Invoice extends Model
         'invoice_number',
         'date',
         'customer_id',
-        'delivery_address',
         'subtotal',
         'discount',
         'total',
-        'is_paid',
     ];
 
     protected $appends = [

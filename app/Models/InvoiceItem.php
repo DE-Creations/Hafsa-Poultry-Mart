@@ -13,8 +13,8 @@ class InvoiceItem extends Model
         'stock_item_id',
         'item_name',
         'description',
-        'qty',
-        'rate',
+        'weight',
+        'unit_price',
         'amount',
         'discount',
         'total'
@@ -25,7 +25,7 @@ class InvoiceItem extends Model
         return $this->belongsTo(Invoice::class, 'id', 'invoice_id');
     }
     //our code
-    
+
     public function stockItem()
     {
         return $this->belongsTo(StockItem::class, 'id', 'stock_item_id');

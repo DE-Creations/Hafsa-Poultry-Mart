@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
 use App\Models\Invoice;
 use Carbon\Carbon;
+use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class InvoiceController extends ParentController
 
     public function create()
     {
-        $response['date'] = Carbon::now()->format('Y-m-d');
-        $response['invoice_no'] = Invoice::generateInvoiceNumber();
+        $response['invoice_date'] = Carbon::now()->format('Y-m-d');
+        $response['invoice_number'] = Invoice::generateInvoiceNumber();
+        $response['customers'] = CustomerFacade::getCustomers();
         return view('pages.invoice.create', $response);
     }
 
@@ -45,12 +47,6 @@ class InvoiceController extends ParentController
 
     public function store(StoreInvoiceRequest $request)
     {
-        // if ($request->hasFile('file')) {
-        //     $file = $request->file('file');
-        //     $fileName = time() . '.' . $file->extension();
-        //     $file->move(public_path('storage/expenses'), $fileName);
-        //     $request['file_path'] = 'storage/expenses/' . $fileName;
-        // }
         return InvoiceFacade::store($request->all());
     }
 
