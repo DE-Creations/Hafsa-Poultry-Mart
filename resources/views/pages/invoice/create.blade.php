@@ -159,8 +159,8 @@
                                                                 &nbsp;</label>
                                                         </td>
                                                         <td><input name="t1_sub_total" id="t1_sub_total"
-                                                                type="text" readonly
-                                                                class="form-control form-control-sm" value=""
+                                                                type="text" disabled
+                                                                class="form-control form-control-sm" value="0.00"
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
@@ -171,7 +171,7 @@
                                                                 &nbsp;</label>
                                                         </td>
                                                         <td><input name="t1_total" id="t1_total" type="text"
-                                                                readonly class="form-control form-control-sm"
+                                                                disabled class="form-control form-control-sm"
                                                                 value=""
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
@@ -191,7 +191,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Payment</label>
                                             <input type="number" class="form-control" id="paid_amount"
-                                                onchange="calculateNewBalance();" />
+                                                value="0.00" onchange="calculateNewBalance();" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
@@ -347,6 +347,7 @@
             document.getElementById(`t${tableId}_amount${index}`).value = amount.toFixed(2); // or desired decimal places
 
             calculateSubTotal(tableId);
+            calculateNewBalance();
         }
 
         function calculateSubTotal(tableId) {
@@ -383,13 +384,11 @@
             //calculate amount for each row with getting table amount fields
             let subTotal = 0;
             let i = 0;
-            while (true) {
-                const amountField = document.getElementById(`t1_amount${i}`);
+            for (i = 0; true; i++) {
+                const amountField = document.getElementById(`t${tableId}_amount${i}`);
                 if (!amountField) break; // Stop when no more rows
-
                 const amount = parseFloat(amountField.value) || 0;
                 subTotal += amount;
-                i++;
             }
             // Update the subtotal and total fields
             const subTotalField = document.getElementById("t1_sub_total");
@@ -411,17 +410,14 @@
             try {
                 const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
                 console.log(response.data);
-                document.getElementById("t1_pre_bal_for").value = response.data;
+                document.getElementById("t1_pre_bal_for").value = parseFloat(response.data).toFixed(2);
                 //calculateTotal();
             } catch (error) {
                 console.error("Error fetching customer balance forward:", error);
             }
 
-            {{--  if (customerId == 1) {
-                document.getElementById("t1_pre_bal_for").disabled = true;
-            } else {
-                document.getElementById("t1_pre_bal_for").disabled = false;
-            }  --}}
+            calculateTotal();
+            calculateNewBalance();
         }
 
         window.addEventListener('load', () => {
