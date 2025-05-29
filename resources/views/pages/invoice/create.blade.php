@@ -36,7 +36,7 @@
                                 <div class="row gx-3">
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Invoice No:</label>
+                                            <label class="form-label">Invoice No.</label>
                                             <input type="text" class="form-control" disabled
                                                 value="{{ $invoice_no }}" />
                                         </div>
@@ -88,31 +88,34 @@
                                                     ?> <tr id="tr<?php echo $i; ?>">
                                                         <td>
                                                             <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>" class="form-control"
+                                                                id="t1_item<?php echo $i; ?>"
+                                                                class="form-control form-control-sm"
                                                                 onchange="getItemData('1','<?php echo $i; ?>');"
                                                                 style="width: 100%;">
                                                                 <option></option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control-sm" rows="1"
-                                                                style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
                                                         </td>
                                                         <td><input name="t1_qty<?php echo $i; ?>"
                                                                 id="t1_qty<?php echo $i; ?>" type="number"
-                                                                step="any" min="0" class="form-control-sm"
-                                                                value=""
+                                                                step="any" min="0"
+                                                                class="form-control form-control-sm" value=""
                                                                 style="width: 100%;height:30px;text-align: center;"
                                                                 onchange="calAmount('1','<?php echo $i; ?>');"></td>
                                                         <td><input name="t1_rate<?php echo $i; ?>"
                                                                 id="t1_rate<?php echo $i; ?>" type="text"
-                                                                step="any" class="form-control-sm formatNumber"
+                                                                step="any"
+                                                                class="form-control form-control-sm formatNumber"
                                                                 value=""
                                                                 style="width: 100%;height:30px;text-align: right;"
                                                                 onchange="calAmount('1','<?php echo $i; ?>');"></td>
                                                         <td><input name="t1_amount<?php echo $i; ?>"
                                                                 id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control-sm formatNumber" value=""
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
                                                                 style="width: 100%;height:30px;text-align: right;"></td>
                                                         <td class="text-blue text-center"> <button
                                                                 class="btn btn-outline-danger btn-sm"
@@ -130,7 +133,8 @@
                                                                 &nbsp;</label>
                                                         </td>
                                                         <td><input name="t1_sub_total" id="t1_sub_total" type="text"
-                                                                readonly class="form-control-sm" value=""
+                                                                readonly class="form-control form-control-sm"
+                                                                value=""
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
@@ -139,7 +143,7 @@
                                                         <td colspan="6" class="text-right">
                                                             <button type="button" onclick="addNewLineT1();"
                                                                 class="btn btn-sm btn-success "><i
-                                                                    class="fa fa-eraser"></i> Add Lines</button>
+                                                                    class="fa fa-eraser"></i> Add new item</button>
                                                         </td>
                                                     </tr>
                                                 </tfoot>
@@ -235,19 +239,19 @@
             var cell6 = row.insertCell(5);
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `" id="t1_item` + (item_row) +
-                `" class="form-control selectize" onchange="getItemData('1','` + (item_row) + `');" style="width: 100%;">
+                `" class="form-control form-control-sm selectize" onchange="getItemData('1','` + (item_row) + `');" style="width: 100%;">
                             <option></option>
                            </select>`;
             cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
-                `" class="form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
+                `" class="form-control form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
             cell3.innerHTML = `<input name="t1_qty` + (item_row) + `" id="t1_qty` + (item_row) +
-                `" type="number" step="any" min="0" class="form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('1','` +
+                `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('1','` +
                 (item_row) + `');">`;
             cell4.innerHTML = `<input name="t1_rate` + (item_row) + `" id="t1_rate` + (item_row) +
-                `" type="text" step="any" class="form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('1','` +
+                `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('1','` +
                 (item_row) + `');">`;
             cell5.innerHTML = `<input name="t1_amount` + (item_row) + `" id="t1_amount` + (item_row) +
-                `" type="text" class="form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;">`;
+                `" type="text" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;">`;
             cell6.innerHTML =
                 `<button class="btn btn-outline-danger btn-sm" onclick="deleteTableRow('my_data_table_material','` + (
                     item_row) + `')"><i class="icon-trash"></i></button>`;
