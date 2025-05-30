@@ -33,11 +33,12 @@ class InvoiceService
     public function store(array $data)
     {
         // insert invoice
-        $invoice_data['invoice_number'] = $data['invoice_number'];
-        $invoice_data['date'] = $data['invoice_date'];
-        $invoice_data['customer_id'] = $data['customer_id'];
-        $invoice_data['subtotal'] = $data['subtotal'];
-        $invoice_data['total'] = $data['subtotal'];
+        $invoice_data = [
+            'invoice_number' => $data['invoice_number'],
+            'date' => $data['invoice_date'],
+            'customer_id' => $data['customer_id'],
+            'sub_total' => $data['sub_total'],
+        ];
 
         $created_invoice = $this->invoice->create($invoice_data);
         $created_invoice->save();
@@ -60,15 +61,15 @@ class InvoiceService
         // insert invoice payments
         $payment_data = [
             'invoice_id' => $created_invoice->id,
+            'invoice_date' => $data['invoice_date'],
             'customer_id' => $data['customer_id'],
-            'balance' => $data['balance'], // Assuming initial balance is the total amount
-            'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
-            'invoice_total' => $data['total'],
-            // 'memo' => isset($data['memo']) ? $data['memo'] : '',
-            // 'paid_date' => null, // No payment made yet
-            // 'date_added' => now(),
-            // 'payment_method' => isset($data['payment_method']) ? $data['payment_method'] : null,
-            // 'bank_acc_id' => isset($data['bank_acc_id']) ? $data['bank_acc_id'] : null,
+            'sub_total' => $data['sub_total'],
+            'discount_amount' => $data['discount_amount'],
+            'previous_balance_forward' => $data['previous_balance_forward'],
+            'to_pay' => $data['to_pay'],
+            'paid_amount' => $data['paid_amount'],
+            'new_balance' => $data['new_balance'],
+            'memo' => $data['memo'],
         ];
         $this->invoice_payment->create($payment_data);
 

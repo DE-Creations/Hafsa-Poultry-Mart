@@ -23,21 +23,21 @@ class StoreInvoiceRequest extends FormRequest
     {
         // dd($this);
         return [
-            'invoice_number' => ['required'],
-            'invoice_date' => ['required', 'date'],
-            'customer_id' => ['required', 'exists:customers,id'],
-            'subtotal' => ['required'],
-            'total' => ['required'],
-            'paid_amount' => ['required'],
-            'balance' => ['required'],
-            'items' => ['required', 'array'],
+            // 'invoice_number' => ['required'],
+            // 'invoice_date' => ['required', 'date'],
+            // 'customer_id' => ['required', 'exists:customers,id'],
+            // 'sub_total' => ['required'],
+            // 'total' => ['required'],
+            // 'paid_amount' => ['required'],
+            // 'balance' => ['required'],
+            // 'items' => ['required', 'array'],
 
-            'items.*.item_id' => ['required', 'exists:items,id'],
-            'items.*.item_name' => ['required', 'string'],
-            'items.*.description' => ['nullable', 'string'],
-            'items.*.weight' => ['nullable', 'numeric'],
-            'items.*.unit_price' => ['required', 'numeric'],
-            'items.*.amount' => ['required', 'numeric'],
+            // 'items.*.item_id' => ['required', 'exists:items,id'],
+            // 'items.*.item_name' => ['required', 'string'],
+            // 'items.*.description' => ['nullable', 'string'],
+            // 'items.*.weight' => ['nullable', 'numeric'],
+            // 'items.*.unit_price' => ['required', 'numeric'],
+            // 'items.*.amount' => ['required', 'numeric'],
         ];
     }
 }

@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id')->nullable();
-            $table->unsignedBigInteger('stock_item_id')->nullable();
             $table->string('item_name')->nullable();
             $table->text('description')->nullable();
             $table->decimal('weight', 6, 3)->nullable();
             $table->decimal('unit_price', 15, 2)->nullable();
             $table->decimal('amount', 15, 2)->nullable();
-            $table->decimal('discount', 15, 2)->nullable();
-            $table->decimal('total', 15, 2)->nullable();
             $table->timestamps();
         });
     }

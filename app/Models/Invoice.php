@@ -14,13 +14,12 @@ class Invoice extends Model
         'invoice_number',
         'date',
         'customer_id',
-        'subtotal',
-        'discount',
-        'total',
+        'sub_total',
     ];
 
     protected $appends = [
         'customer',
+        'invoice_payment',
     ];
 
     public static function generateInvoiceNumber()
@@ -57,5 +56,10 @@ class Invoice extends Model
     public function getCustomerAttribute()
     {
         return $this->customer_id ? Customer::find($this->customer_id) : null;
+    }
+
+    public function getInvoicePaymentAttribute()
+    {
+        return $this->id ? InvoicePayment::where('invoice_id', $this->id)->first() : null;
     }
 }

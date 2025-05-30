@@ -10,15 +10,15 @@ class InvoicePayment extends Model
     use HasFactory;
     protected $fillable = [
         'invoice_id',
+        'invoice_date',
         'customer_id',
-        'balance',
+        'sub_total',
+        'discount_amount',
+        'previous_balance_forward',
+        'to_pay',
         'paid_amount',
-        'invoice_total',
+        'new_balance',
         'memo',
-        'paid_date',
-        'date_added',
-        'payment_method',
-        'bank_acc_id'
     ];
 
     public function invoice()
