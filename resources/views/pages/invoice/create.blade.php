@@ -44,7 +44,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Customer</label>
-                                            <select id="customer_id" class="form-control form-control-sm"
+                                            <select id="customer_id" class="form-control"
                                                 onchange="getCustomerBalanceForward();">
                                                 @foreach ($customers as $customer)
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}
@@ -142,7 +142,7 @@
                                                     <tr>
                                                         <td colspan="3" class="text-right">
                                                             <button type="button" onclick="addNewLineT1();"
-                                                                class="btn btn-sm btn-success "><i
+                                                                class="btn btn-sm btn-primary "><i
                                                                     class="fa fa-eraser"></i> Add new item</button>
                                                         </td>
                                                         <td style="text-align: right">
@@ -232,7 +232,7 @@
 
                                     <div class="col-12 mt-3">
                                         <div class="d-flex gap-2 justify-content-end">
-                                            <button type="button" class="btn btn-success col-3"
+                                            <button type="button" class="btn btn-primary col-3"
                                                 onclick="createInvoice()">
                                                 Create
                                             </button>
