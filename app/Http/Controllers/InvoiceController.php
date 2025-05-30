@@ -21,6 +21,7 @@ class InvoiceController extends ParentController
         $response['invoice_date'] = Carbon::now()->format('Y-m-d');
         $response['invoice_number'] = Invoice::generateInvoiceNumber();
         $response['customers'] = CustomerFacade::getCustomers();
+        $response['newInvoiceItems'] = CustomerFacade::getCustomers();
         return view('pages.invoice.create', $response);
     }
 
