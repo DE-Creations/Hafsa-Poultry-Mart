@@ -99,7 +99,11 @@
                                                                 class="form-control form-control-sm"
                                                                 onchange="getItemData('1','<?php echo $i; ?>');"
                                                                 style="width: 100%;">
-                                                                <option>a</option>
+                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                                    <option value="{{ $newInvoiceItem->id }}">
+                                                                        {{ $newInvoiceItem->name }}
+                                                                    </option>
+                                                                @endforeach
                                                             </select>
                                                         </td>
                                                         <td>
@@ -145,9 +149,9 @@
                                                             <label style="text-align: right" class="">Sub Total
                                                                 &nbsp;</label>
                                                         </td>
-                                                        <td><input name="t1_sub_total" id="t1_sub_total" type="text"
-                                                                disabled class="form-control form-control-sm"
-                                                                value="0.00"
+                                                        <td><input name="t1_sub_total" id="t1_sub_total"
+                                                                type="text" disabled
+                                                                class="form-control form-control-sm" value="0.00"
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
@@ -400,6 +404,10 @@
             const newBalance = total - paidAmount;
 
             document.getElementById("new_balance").value = newBalance.toFixed(2);
+        }
+
+        function getItemData() {
+            //show unit price when select an item
         }
 
         async function getCustomerBalanceForward() {
