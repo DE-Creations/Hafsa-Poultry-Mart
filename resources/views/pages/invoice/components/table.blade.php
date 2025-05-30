@@ -12,14 +12,14 @@
     </thead>
     <tbody>
         @foreach ($invoices as $invoice)
-            {{ $invoice }}
+            {{--  {{ $invoice }}  --}}
             <tr>
                 <td>{{ $invoice->invoice_number }}</td>
                 <td>{{ $invoice->customer->name }}</td>
                 <td>{{ $invoice->date }}</td>
-                <td>{{ $invoice->invoice_payments->balance }}</td>
-                <td>{{ $invoice->invoice_payments->paid_amount }}</td>
-                <td>{{ $invoice->invoice_payments->balance }}</td>
+                <td>{{ $invoice->invoice_payment->to_pay }}</td>
+                <td>{{ $invoice->invoice_payment->paid_amount }}</td>
+                <td>{{ $invoice->invoice_payment->new_balance }}</td>
                 <td>
                     <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $invoice->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('invoice_number')->nullable();
             $table->date('date')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->decimal('subtotal', 15, 2)->nullable();
-            $table->decimal('discount', 15, 2)->nullable();
-            $table->decimal('total', 15, 2)->nullable();
+            $table->decimal('sub_total', 15, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
