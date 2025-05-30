@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('grns', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('grn_no')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->date('date')->nullable();
@@ -23,16 +22,7 @@ return new class extends Migration
             $table->boolean('is_paid')->default(0);
             $table->decimal('discount_amount', 15, 2)->nullable();
             $table->decimal('total', 15, 2)->nullable();
-
-        //             'grn_no',
-        // 'supplier_id',
-        // 'date',
-        // 'delivary_address',
-        // 'sub_total',
-        // 'discount',
-        // 'total',
-        // 'is_paid',
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

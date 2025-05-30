@@ -1,297 +1,412 @@
 <x-app-layout>
+
     <!-- App body starts -->
     <div class="app-body">
 
         <!-- Container starts -->
         <div class="container">
 
-          <!-- Row start -->
-          <div class="row gx-3">
-            <div class="col-12">
-              <!-- Breadcrumb start -->
-              <ol class="breadcrumb mb-3">
-                <li class="breadcrumb-item">
-                  <i class="icon-house_siding lh-1"></i>
-                  <a href="index.html" class="text-decoration-none">Home</a>
-                </li>
-                <li class="breadcrumb-item">GRN</li>
-                <li class="breadcrumb-item">Create New GRN</li>
-              </ol>
-              <!-- Breadcrumb end -->
+            <!-- Row start -->
+            <div class="row gx-3">
+                <div class="col-12">
+                    <!-- Breadcrumb start -->
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item">
+                            <i class="icon-house_siding lh-1"></i>
+                            <a href="index.html" class="text-decoration-none">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">GRN</li>
+                        <li class="breadcrumb-item">Create New GRN</li>
+                    </ol>
+                    <!-- Breadcrumb end -->
+                </div>
             </div>
-          </div>
-          <!-- Row end -->
+            <!-- Row end -->
 
-          <!-- Row start -->
-          <div class="row gx-3">
-            <div class="col-xxl-12">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="card-title">Inline Forms</h5>
+            <!-- Row start -->
+            <div class="row gx-3">
+                <div class="col-xxl-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title">GRN</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <!-- Row start -->
+                                <div class="row gx-3">
+                                    <div class="col-md-6 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">GRN No.</label>
+                                            <input id="grn_no" type="text" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Customer</label>
+                                            <select id="customer_id" class="form-control"
+                                                onchange="getCustomerBalanceForward();">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Date</label>
+                                            <input id="invoice_date" type="date" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+
+                                            <table id="my_data_table_material" name="my_data_table_material"
+                                                class="table table-bordered table-striped table-hover table-responsive ">
+                                                <colgroup>
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 27%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 3%;">
+                                                </colgroup>
+
+                                                <thead class="form-group-sm">
+                                                    <tr>
+                                                        <th>Item</th>
+                                                        <th>Item Description</th>
+                                                        <th>Weight (Kg)</th>
+                                                        <th>Unit price</th>
+                                                        <th>Amount</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <?php
+                                                    $t1NumRows = 1;
+
+                                                    for ($i = 0; $i < $t1NumRows; $i++) {
+
+                                                    ?> <tr id="tr<?php echo $i; ?>">
+                                                        <td>
+                                                            <select name="t1_item<?php echo $i; ?>"
+                                                                id="t1_item<?php echo $i; ?>"
+                                                                class="form-control form-control-sm"
+                                                                onchange="getItemData('1','<?php echo $i; ?>');"
+                                                                style="width: 100%;">
+
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                        </td>
+                                                        <td><input name="t1_weight<?php echo $i; ?>"
+                                                                id="t1_weight<?php echo $i; ?>" type="number"
+                                                                step="any" min="0"
+                                                                class="form-control form-control-sm" value=""
+                                                                style="width: 100%;height:30px;text-align: center;"
+                                                                onchange="calAmount('1','<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                                step="any"
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                onchange="calAmount('1','<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_amount<?php echo $i; ?>"
+                                                                id="t1_amount<?php echo $i; ?>" type="text"
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                disabled></td>
+                                                        <td class="text-blue text-center"> <button
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                onclick="deleteTableRow('my_data_table_material','<?php echo $i; ?>')"><i
+                                                                    class="icon-trash"></i></button></td>
+                                                    </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3" class="text-right">
+                                                            <button type="button" onclick="addNewLineT1();"
+                                                                class="btn btn-sm btn-primary "><i
+                                                                    class="fa fa-eraser"></i> Add new item</button>
+                                                        </td>
+                                                        <td style="text-align: right">
+                                                            <label style="text-align: right" class="">Sub Total
+                                                                &nbsp;</label>
+                                                        </td>
+                                                        <td><input name="t1_sub_total" id="t1_sub_total" type="text"
+                                                                disabled class="form-control form-control-sm"
+                                                                value="0.00"
+                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
+                                                        </td>
+                                                        <td colspan="1"></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                            <input type="hidden" id="t1NumRows" name="t1NumRows"
+                                                value="<?php echo $t1NumRows; ?>">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Message</label>
+                                                    <textarea class="form-control" placeholder="Enter Note" rows="12"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Discount Amount</label>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Total</label>
+                                                    <input type="text" class="form-control" name="t1_total"
+                                                        id="t1_total" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Balance Forward</label>
+                                                    <input type="text" class="form-control" name="t1_pre_bal_for"
+                                                        id="t1_pre_bal_for" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">To Pay</label>
+                                                    <input type="text" class="form-control" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12"></div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Payment</label>
+                                                    <input type="text" class="form-control"
+                                                        id="paid_amount"value="0.00"
+                                                        onchange="calculateNewBalance();" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12"></div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Balance</label>
+                                                    <input type="text" class="form-control" id="new_balance"
+                                                        disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-3">
+                                        <div class="d-flex gap-2 justify-content-end">
+                                            <button type="button" class="btn btn-primary col-3"
+                                                onclick="createInvoice()">
+                                                Create
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Row end -->
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <!-- Row start -->
-                  <form class="row row-cols-lg-auto g-3 align-items-center">
-                    <div class="col-12">
-                      <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
-                      <div class="input-group">
-                        <div class="input-group-text">@</div>
-                        <input type="text" class="form-control" id="inlineFormInputGroupUsername"
-                          placeholder="Username" />
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-                      <select class="form-select" id="inlineFormSelectPref">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="inlineFormCheck" />
-                        <label class="form-check-label" for="inlineFormCheck">
-                          Remember me
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-success">
-                        Submit
-                      </button>
-                    </div>
-                  </form>
-                  <!-- Row end -->
-                </div>
-              </div>
             </div>
-          </div>
-          <!-- Row end -->
-
-          <!-- Row start -->
-          <div class="row gx-3">
-            <div class="col-xxl-12">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="card-title">Form Layout</h5>
-                </div>
-                <div class="card-body">
-                  <form>
-                    <!-- Row start -->
-                    <div class="row gx-3">
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Name</label>
-                          <input type="text" class="form-control" placeholder="Enter fullname" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Email</label>
-                          <input type="email" class="form-control" placeholder="Enter email address" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Phone</label>
-                          <input type="number" class="form-control" placeholder="Enter phone number" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Company</label>
-                          <input type="text" class="form-control" placeholder="Enter company name" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Business Address</label>
-                          <input type="text" class="form-control" placeholder="Enter business address" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Province/Territory</label>
-                          <input type="text" class="form-control" placeholder="Enter province/territory" />
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Industry Type</label>
-                          <select class="form-select">
-                            <option value="0">Select</option>
-                            <option value="1">One</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-sm-4 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Postal Code</label>
-                          <input type="number" class="form-control" placeholder="Enter postal code" />
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-12">
-                        <div class="mb-3">
-                          <label class="form-label">Message</label>
-                          <textarea class="form-control" placeholder="Enter message" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="d-flex gap-2 justify-content-end">
-                          <button type="button" class="btn btn-outline-light">
-                            Cancel
-                          </button>
-                          <button type="button" class="btn btn-success">
-                            Submit
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Row end -->
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Row end -->
-
-          <!-- Row start -->
-          <div class="row gx-3">
-            <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="card-title">Form Layout 2</h5>
-                </div>
-                <div class="card-body">
-                  <!-- Row start -->
-                  <form class="row g-3">
-                    <div class="col-md-6">
-                      <label for="inputEmail4" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="inputEmail4" />
-                    </div>
-                    <div class="col-md-6">
-                      <label for="inputPassword4" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="inputPassword4" />
-                    </div>
-                    <div class="col-12">
-                      <label for="inputAddress" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" />
-                    </div>
-                    <div class="col-12">
-                      <label for="inputAddress2" class="form-label">Address 2</label>
-                      <input type="text" class="form-control" id="inputAddress2"
-                        placeholder="Apartment, studio, or floor" />
-                    </div>
-                    <div class="col-md-6">
-                      <label for="inputCity" class="form-label">City</label>
-                      <input type="text" class="form-control" id="inputCity" />
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputState" class="form-label">State</label>
-                      <select id="inputState" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                      </select>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputZip" class="form-label">Zip</label>
-                      <input type="text" class="form-control" id="inputZip" />
-                    </div>
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck" />
-                        <label class="form-check-label" for="gridCheck">
-                          Check me out
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-success">
-                        Sign in
-                      </button>
-                    </div>
-                  </form>
-                  <!-- Row end -->
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="card-title">Horizontal Form</h5>
-                </div>
-                <div class="card-body">
-                  <!-- Row start -->
-                  <form>
-                    <div class="row mb-3">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-                      <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3" />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-                      <div class="col-sm-9">
-                        <input type="password" class="form-control" id="inputPassword3" />
-                      </div>
-                    </div>
-                    <fieldset class="row mb-3">
-                      <legend class="col-form-label col-sm-3 pt-0">
-                        Radios
-                      </legend>
-                      <div class="col-sm-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-                            value="option1" checked />
-                          <label class="form-check-label" for="gridRadios1">
-                            First radio
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-                            value="option2" />
-                          <label class="form-check-label" for="gridRadios2">
-                            Second radio
-                          </label>
-                        </div>
-                        <div class="form-check disabled">
-                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-                            value="option3" disabled />
-                          <label class="form-check-label" for="gridRadios3">
-                            Third disabled radio
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                    <div class="row mb-3">
-                      <div class="col-sm-9 offset-sm-3">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck1" />
-                          <label class="form-check-label" for="gridCheck1">
-                            Example checkbox
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">
-                      Sign in
-                    </button>
-                  </form>
-                  <!-- Row end -->
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Row end -->
+            <!-- Row end -->
 
         </div>
         <!-- Container ends -->
+    </div>
+    <!-- App body ends -->
+    <script>
+        // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        function deleteTableRow(tableID, rownum) {
+            $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove();
+            calculateSubTotalWhenDeleteRow();
+        }
+        // Add rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        function addNewLineT1() {
+            var item_row = parseInt(document.getElementById("t1NumRows").value);
 
-      </div>
-      <!-- App body ends -->
+            var table = document.querySelector('#my_data_table_material tbody');
+            var row = table.insertRow(table.rows.length);
+
+            row.id = "tr" + item_row;
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+
+            cell1.innerHTML = `<select name="t1_item` + (item_row) + `" id="t1_item` + (item_row) +
+                `" class="form-control form-control-sm selectize" onchange="getItemData('1','` + (item_row) + `');" style="width: 100%;">
+                            <option></option>
+                           </select>`;
+            cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
+                `" class="form-control form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
+            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `" id="t1_weight` + (item_row) +
+                `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('1','` +
+                (item_row) + `');">`;
+            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `" id="t1_unit_price` + (item_row) +
+                `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('1','` +
+                (item_row) + `');">`;
+            cell5.innerHTML = `<input name="t1_amount` + (item_row) + `" id="t1_amount` + (item_row) +
+                `" type="text" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;">`;
+            cell6.innerHTML =
+                `<button class="btn btn-outline-danger btn-sm" onclick="deleteTableRow('my_data_table_material','` + (
+                    item_row) + `')"><i class="icon-trash"></i></button>`;
+            cell6.className = "text-blue text-center";
+
+            document.getElementById("t1NumRows").value = item_row + 1;
+
+        };
+
+        //Create invoice
+        async function createInvoice() {
+            console.log("Creating invoice...");
+            var items = [{
+                    item_id: '1',
+                    description: 'desc',
+                    weight: 80.05,
+                    unit_price: 10,
+                    amount: 100,
+                },
+                {
+                    item_id: '1',
+                    description: 'desc',
+                    weight: 120,
+                    unit_price: 10,
+                    amount: 100
+                }
+            ];
+
+            add_invoice_details = {
+                items: items
+            }
+
+            try {
+                const response = await axios.post("{{ url('/grn/store') }}/",
+                    add_invoice_details);
+                window.location.reload();
+            } catch (error) {
+                viewAddErrors(error);
+            }
+        }
+
+        // calculate amount
+        function calAmount(tableId, index) {
+            const weight = parseFloat(document.getElementById(`t${tableId}_weight${index}`).value) || 0;
+            const unitPrice = parseFloat(document.getElementById(`t${tableId}_unit_price${index}`).value) || 0;
+            const amount = weight * unitPrice;
+
+            document.getElementById(`t${tableId}_amount${index}`).value = amount.toFixed(2); // or desired decimal places
+
+            calculateSubTotal(tableId);
+            calculateNewBalance();
+        }
+
+        function calculateSubTotal(tableId) {
+            let subTotal = 0;
+            let i = 0;
+
+            while (true) {
+                const amountField = document.getElementById(`t${tableId}_amount${i}`);
+                if (!amountField) break; // Stop when no more rows
+
+                const amount = parseFloat(amountField.value) || 0;
+                subTotal += amount;
+                i++;
+            }
+
+            // Update the subtotal and total fields
+            const subTotalField = document.getElementById(`t${tableId}_sub_total`);
+
+            if (subTotalField) subTotalField.value = subTotal.toFixed(2);
+
+            calculateTotal();
+        }
+
+        //calculate total, balance+sub total
+        function calculateTotal() {
+            const balance = parseFloat(document.getElementById("t1_pre_bal_for").value) || 0;
+            const subTotal = parseFloat(document.getElementById("t1_sub_total").value) || 0;
+            const total = balance + subTotal;
+
+            document.getElementById("t1_total").value = total.toFixed(2);
+        }
+
+        function calculateSubTotalWhenDeleteRow() {
+            //calculate amount for each row with getting table amount fields
+            let subTotal = 0;
+            let i = 0;
+            for (i = 0; true; i++) {
+                const amountField = document.getElementById(`t${tableId}_amount${i}`);
+                if (!amountField) break; // Stop when no more rows
+                const amount = parseFloat(amountField.value) || 0;
+                subTotal += amount;
+            }
+            // Update the subtotal and total fields
+            const subTotalField = document.getElementById("t1_sub_total");
+
+            if (subTotalField) subTotalField.value = subTotal.toFixed(2);
+            calculateTotal();
+        }
+
+        function calculateNewBalance() {
+            const total = parseFloat(document.getElementById("t1_total").value) || 0;
+            const paidAmount = parseFloat(document.getElementById("paid_amount").value) || 0;
+            const newBalance = total - paidAmount;
+
+            document.getElementById("new_balance").value = newBalance.toFixed(2);
+        }
+
+        function getItemData() {
+            //show unit price when select an item
+        }
+
+        async function getCustomerBalanceForward() {
+            const customerId = document.getElementById("customer_id").value;
+            try {
+                const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
+                console.log(response.data);
+                document.getElementById("t1_pre_bal_for").value = parseFloat(response.data).toFixed(2);
+                //calculateTotal();
+            } catch (error) {
+                console.error("Error fetching customer balance forward:", error);
+            }
+
+            calculateTotal();
+            calculateNewBalance();
+        }
+
+        window.addEventListener('load', () => {
+            getCustomerBalanceForward();
+        });
+    </script>
 </x-app-layout>

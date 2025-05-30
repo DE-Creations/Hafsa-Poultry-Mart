@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GRN\StoreGRNRequest;
 use App\Models\Grn;
+use domain\facades\GRNFacade\GRNFacade;
 use Illuminate\Http\Request;
 
 class GRNController extends ParentController
@@ -40,15 +42,9 @@ class GRNController extends ParentController
         return view('pages.grn.components.table')->with($response);
     }
 
-    public function store(StoreInvoiceRequest $request)
+    public function store(StoreGRNRequest $request)
     {
-        // if ($request->hasFile('file')) {
-        //     $file = $request->file('file');
-        //     $fileName = time() . '.' . $file->extension();
-        //     $file->move(public_path('storage/expenses'), $fileName);
-        //     $request['file_path'] = 'storage/expenses/' . $fileName;
-        // }
-        return InvoiceFacade::store($request->all());
+        return GRNFacade::store($request->all());
     }
 
     public function edit($invoice_id)

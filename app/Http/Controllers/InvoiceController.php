@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
+use domain\services\InvoiceService\InvoiceService;
 use Illuminate\Http\Request;
 
 class InvoiceController extends ParentController
@@ -21,7 +22,7 @@ class InvoiceController extends ParentController
         $response['invoice_date'] = Carbon::now()->format('Y-m-d');
         $response['invoice_number'] = Invoice::generateInvoiceNumber();
         $response['customers'] = CustomerFacade::getCustomers();
-        $response['newInvoiceItems'] = CustomerFacade::getCustomers();
+        $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
         return view('pages.invoice.create', $response);
     }
 
