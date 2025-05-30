@@ -64,7 +64,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
 
-                                            <table id="my_data_table_material" name="my_data_table_material"
+                                            <table id="invoice_item_table" name="invoice_item_table"
                                                 class="table table-bordered table-striped table-hover table-responsive ">
                                                 <colgroup>
                                                     <col style="width: 20%;">
@@ -97,10 +97,11 @@
                                                                 <select name="t1_item<?php echo $i; ?>"
                                                                     id="t1_item<?php echo $i; ?>"
                                                                     class="form-control form-control-sm"
-                                                                    onchange="getItemData('1','<?php echo $i; ?>');"
+                                                                    onchange="getItemData(this ,'<?php echo $i; ?>');"
                                                                     style="width: 100%;">
+                                                                    <option value="0">Select</option>
                                                                     @foreach ($newInvoiceItems as $newInvoiceItem)
-                                                                    <option value="{{ $newInvoiceItem->id }}">
+                                                                    <option value="{{ $newInvoiceItem->id }}" data-description="{{ e($newInvoiceItem->description) }}" data-unit_price="{{ $newInvoiceItem->unit_price }}">
                                                                         {{ $newInvoiceItem->name }}
                                                                     </option>
                                                                     @endforeach
@@ -129,9 +130,9 @@
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     disabled></td>
-                                                            <td class="text-blue text-center"> <button
+                                                            <td class="text-center"> <button
                                                                     class="btn btn-outline-danger btn-sm"
-                                                                    onclick="deleteTableRow('my_data_table_material','<?php echo $i; ?>')"><i
+                                                                    onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
                                                                         class="icon-trash"></i></button></td>
                                                         </tr>
                                                     <?php
@@ -263,7 +264,7 @@
         function addNewLineT1() {
             var item_row = parseInt(document.getElementById("t1NumRows").value);
 
-            var table = document.querySelector('#my_data_table_material tbody');
+            var table = document.querySelector('#invoice_item_table tbody');
             var row = table.insertRow(table.rows.length);
 
             row.id = "tr" + item_row;
@@ -275,24 +276,43 @@
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
 
-            cell1.innerHTML = `<select name="t1_item` + (item_row) + `" id="t1_item` + (item_row) +
-                `" class="form-control form-control-sm selectize" onchange="getItemData('1','` + (item_row) + `');" style="width: 100%;">
-                            <option></option>
-                           </select>`;
-            cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
-                `" class="form-control form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
-            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `" id="t1_weight` + (item_row) +
-                `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('` +
-                (item_row) + `');">`;
-            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `" id="t1_unit_price` + (item_row) +
-                `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('` +
-                (item_row) + `');">`;
-            cell5.innerHTML = `<input name="t1_amount` + (item_row) + `" id="t1_amount` + (item_row) +
-                `" type="text" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;">`;
-            cell6.innerHTML =
-                `<button class="btn btn-outline-danger btn-sm" onclick="deleteTableRow('my_data_table_material','` + (
-                    item_row) + `')"><i class="icon-trash"></i></button>`;
-            cell6.className = "text-blue text-center";
+            cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
+                                                                    id="t1_item` + (item_row) + `"
+                                                                    class="form-control form-control-sm"
+                                                                    onchange="getItemData(this ,` + (item_row) + `);"
+                                                                    style="width: 100%;">
+                                                                    <option value="0">Select</option>
+                                                                    @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                                    <option value="{{ $newInvoiceItem->id }}" data-description="{{ e($newInvoiceItem->description) }}" data-unit_price="{{ $newInvoiceItem->unit_price }}">
+                                                                        {{ $newInvoiceItem->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>`;
+            cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) + `" class="form-control form-control-sm"
+                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
+            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `"
+                                                                    id="t1_weight` + (item_row) + `" type="number"
+                                                                    step="any" min="0"
+                                                                    class="form-control form-control-sm" value=""
+                                                                    style="width: 100%;height:30px;text-align: center;"
+                                                                    onchange="calAmount('` + (item_row) + `');">`;
+            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
+                                                                    id="t1_unit_price` + (item_row) + `" type="text"
+                                                                    step="any"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    onchange="calAmount('` + (item_row) + `');">`;
+            cell5.innerHTML = `<input name="t1_amount` + (item_row) + `"
+                                                                    id="t1_amount` + (item_row) + `" type="text"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    disabled>`;
+            cell6.innerHTML = `<button class="btn btn-outline-danger btn-sm"
+                                                                    onclick="deleteTableRow('invoice_item_table','` + (item_row) + `')"><i
+                                                                        class="icon-trash"></i></button>`;
+            cell6.className = "text-center";
 
             document.getElementById("t1NumRows").value = item_row + 1;
 
@@ -340,6 +360,43 @@
                 viewAddErrors(error);
             }
         }
+
+
+        //  set description & unit price 
+        function getItemData(selectElement, number) {
+
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            const itemId = selectedOption.value;
+
+            var tableSize = parseInt($('#t1NumRows').val());
+
+            // check if select existing item
+            for ($i = 0; $i < tableSize; $i++) {
+                if (number == $i) continue;
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '') { //check if have element and select item
+                    if (itemId == $('#t1_item' + $i).val()) {
+                        $('#t1_item' + number).val(0);
+                        $('#t1_desc' + number).html("");
+                        $('#t1_unit_price' + number).val(0);
+                        calAmount(number);
+                        alert("This item is already selected.");
+                        return;
+                    }
+                } else continue;
+            }
+
+            // when select final row add new line
+            if (tableSize == (number + 1)) {
+                addNewLineT1();
+            }
+
+            // set description & ubit price
+            document.getElementById("t1_desc" + number).innerHTML = selectedOption.getAttribute('data-description');
+            document.getElementById("t1_unit_price" + number).value = selectedOption.getAttribute('data-unit_price');
+
+            calAmount(number);
+        }
+
 
         // calculate amount
         function calAmount(index) {
@@ -410,9 +467,7 @@
         }
 
 
-        function getItemData() {
-            //show unit price when select an item
-        }
+
 
         window.addEventListener('load', () => {
             getCustomerBalanceForward();
