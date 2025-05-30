@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('output_items', function (Blueprint $table) {
+        Schema::create('invoice_grn_calculations', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->text('description')->nullable();
-            $table->decimal('unit_price', 16, 2)->nullable();
+            $table->decimal('invoice_total', 20, 3)->nullable();
+            $table->decimal('grn_total', 20, 3)->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('output_items');
+        Schema::dropIfExists('invoice_grn_calculations');
     }
 };
