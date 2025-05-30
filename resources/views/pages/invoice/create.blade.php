@@ -47,8 +47,8 @@
                                             <select id="customer_id" class="form-control"
                                                 onchange="getCustomerBalanceForward();">
                                                 @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}">{{ $customer->name }}
-                                                    </option>
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -93,47 +93,47 @@
                                                     for ($i = 0; $i < $t1NumRows; $i++) {
 
                                                     ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>"
-                                                                class="form-control form-control-sm"
-                                                                onchange="getItemData('1','<?php echo $i; ?>');"
-                                                                style="width: 100%;">
-                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                            <td>
+                                                                <select name="t1_item<?php echo $i; ?>"
+                                                                    id="t1_item<?php echo $i; ?>"
+                                                                    class="form-control form-control-sm"
+                                                                    onchange="getItemData('1','<?php echo $i; ?>');"
+                                                                    style="width: 100%;">
+                                                                    @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                     <option value="{{ $newInvoiceItem->id }}">
                                                                         {{ $newInvoiceItem->name }}
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                        </td>
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm" value=""
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('1','<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('1','<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                disabled></td>
-                                                        <td class="text-blue text-center"> <button
-                                                                class="btn btn-outline-danger btn-sm"
-                                                                onclick="deleteTableRow('my_data_table_material','<?php echo $i; ?>')"><i
-                                                                    class="icon-trash"></i></button></td>
-                                                    </tr>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                            </td>
+                                                            <td><input name="t1_weight<?php echo $i; ?>"
+                                                                    id="t1_weight<?php echo $i; ?>" type="number"
+                                                                    step="any" min="0"
+                                                                    class="form-control form-control-sm" value=""
+                                                                    style="width: 100%;height:30px;text-align: center;"
+                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                    id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                                    step="any"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            <td><input name="t1_amount<?php echo $i; ?>"
+                                                                    id="t1_amount<?php echo $i; ?>" type="text"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    disabled></td>
+                                                            <td class="text-blue text-center"> <button
+                                                                    class="btn btn-outline-danger btn-sm"
+                                                                    onclick="deleteTableRow('my_data_table_material','<?php echo $i; ?>')"><i
+                                                                        class="icon-trash"></i></button></td>
+                                                        </tr>
                                                     <?php
                                                     }
                                                     ?>
@@ -151,7 +151,7 @@
                                                         </td>
                                                         <td><input name="t1_sub_total" id="t1_sub_total"
                                                                 type="text" disabled
-                                                                class="form-control form-control-sm" value="0.00"
+                                                                class="form-control form-control-sm formatNumber" value="0.00"
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
@@ -181,14 +181,14 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Discount Amount</label>
-                                                    <input type="text" class="form-control" />
+                                                    <input type="text" class="form-control formatNumber" id="discount" onchange="calculateTotal();" style="text-align: right" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Total</label>
-                                                    <input type="text" class="form-control" name="t1_total"
-                                                        id="t1_total" disabled />
+                                                    <input type="text" class="form-control formatNumber" name="t1_total"
+                                                        id="t1_total" disabled style="text-align: right" />
                                                 </div>
                                             </div>
                                         </div>
@@ -196,14 +196,14 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Balance Forward</label>
-                                                    <input type="text" class="form-control" name="t1_pre_bal_for"
-                                                        id="t1_pre_bal_for" disabled />
+                                                    <input type="text" class="form-control formatNumber" name="t1_pre_bal_for"
+                                                        id="t1_pre_bal_for" disabled style="text-align: right" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">To Pay</label>
-                                                    <input type="text" class="form-control" disabled />
+                                                    <input type="text" class="form-control formatNumber" id="t1_to_pay" disabled style="text-align: right" />
                                                 </div>
                                             </div>
                                         </div>
@@ -212,9 +212,9 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Payment</label>
-                                                    <input type="text" class="form-control"
-                                                        id="paid_amount"value="0.00"
-                                                        onchange="calculateNewBalance();" />
+                                                    <input type="text" class="form-control formatNumber"
+                                                        id="paid_amount" value="0.00"
+                                                        onchange="calculateBalance();" style="text-align: right" />
                                                 </div>
                                             </div>
                                         </div>
@@ -223,8 +223,8 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Balance</label>
-                                                    <input type="text" class="form-control" id="new_balance"
-                                                        disabled />
+                                                    <input type="text" class="form-control formatNumber" id="new_balance"
+                                                        disabled style="text-align: right" />
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +255,9 @@
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function deleteTableRow(tableID, rownum) {
             $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove();
-            calculateSubTotalWhenDeleteRow();
+
+            calculateSubTotal();
+            // calculateSubTotalWhenDeleteRow();
         }
         // Add rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function addNewLineT1() {
@@ -280,10 +282,10 @@
             cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
                 `" class="form-control form-control-sm" rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
             cell3.innerHTML = `<input name="t1_weight` + (item_row) + `" id="t1_weight` + (item_row) +
-                `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('1','` +
+                `" type="number" step="any" min="0" class="form-control form-control-sm" style="width: 100%;height:30px;text-align: center;" onchange="calAmount('` +
                 (item_row) + `');">`;
             cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `" id="t1_unit_price` + (item_row) +
-                `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('1','` +
+                `" type="text" step="any" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;" onchange="calAmount('` +
                 (item_row) + `');">`;
             cell5.innerHTML = `<input name="t1_amount` + (item_row) + `" id="t1_amount` + (item_row) +
                 `" type="text" class="form-control form-control-sm formatNumber" style="width: 100%;height:30px;text-align: right;">`;
@@ -301,10 +303,10 @@
             var invoice_number = document.getElementById("invoice_number").value;
             var invoice_date = document.getElementById("invoice_date").value;
             var customer_id = document.getElementById("customer_id").value;
-            var sub_total = parseFloat(document.getElementById("t1_sub_total").value) || 0;
-            var total = parseFloat(document.getElementById("t1_total").value) || 0;
-            var paid_amount = parseFloat(document.getElementById("paid_amount").value) || 0;
-            var balance = parseFloat(document.getElementById("new_balance").value) || 0;
+            var sub_total = getNumber("t1_sub_total");
+            var total = getNumber("t1_total");
+            var paid_amount = getNumber("paid_amount");
+            var balance = getNumber("new_balance");
 
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
@@ -312,9 +314,9 @@
                 var item = {
                     item_name: document.getElementById("t1_item" + i).value,
                     description: document.getElementById("t1_desc" + i).value,
-                    weight: parseFloat(document.getElementById("t1_weight" + i).value) || 0,
-                    unit_price: parseFloat(document.getElementById("t1_unit_price" + i).value) || 0,
-                    amount: parseFloat(document.getElementById("t1_amount" + i).value) || 0
+                    weight: getNumber("t1_weight" + i),
+                    unit_price: getNumber("t1_unit_price" + i),
+                    amount: getNumber("t1_amount" + i),
                 };
                 items.push(item);
             }
@@ -340,75 +342,81 @@
         }
 
         // calculate amount
-        function calAmount(tableId, index) {
-            const weight = parseFloat(document.getElementById(`t${tableId}_weight${index}`).value) || 0;
-            const unitPrice = parseFloat(document.getElementById(`t${tableId}_unit_price${index}`).value) || 0;
+        function calAmount(index) {
+
+            const weight = getNumber(`t1_weight${index}`);
+            const unitPrice = getNumber(`t1_unit_price${index}`);
+
             const amount = weight * unitPrice;
 
-            document.getElementById(`t${tableId}_amount${index}`).value = amount.toFixed(2); // or desired decimal places
+            document.getElementById(`t1_amount${index}`).value = amount.toFixed(2); // or desired decimal places
 
-            calculateSubTotal(tableId);
-            calculateNewBalance();
+            calculateSubTotal();
         }
 
-        function calculateSubTotal(tableId) {
+        function calculateSubTotal() {
             let subTotal = 0;
             let i = 0;
 
-            while (true) {
-                const amountField = document.getElementById(`t${tableId}_amount${i}`);
-                if (!amountField) break; // Stop when no more rows
+            var tableSize = $('#t1NumRows').val();
+            for ($i = 0; $i < tableSize; $i++) {
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '') { //check if have element and select item
 
-                const amount = parseFloat(amountField.value) || 0;
-                subTotal += amount;
-                i++;
+                    subTotal += getNumber('t1_amount' + $i);
+
+                } else {
+                    continue;
+                }
             }
 
             // Update the subtotal and total fields
-            const subTotalField = document.getElementById(`t${tableId}_sub_total`);
+            const subTotalField = document.getElementById(`t1_sub_total`);
 
             if (subTotalField) subTotalField.value = subTotal.toFixed(2);
 
             calculateTotal();
+        }
+
+        //calculate discount
+        function calculateTotal() {
+            const subTotal = getNumber('t1_sub_total');
+            const discount = getNumber('discount');
+            const total = subTotal - discount;
+
+            document.getElementById("t1_total").value = total.toFixed(2);
+
+            calculateToPay();
         }
 
         //calculate total, balance+sub total
-        function calculateTotal() {
-            const balance = parseFloat(document.getElementById("t1_pre_bal_for").value) || 0;
-            const subTotal = parseFloat(document.getElementById("t1_sub_total").value) || 0;
-            const total = balance + subTotal;
+        function calculateToPay() {
+            const balance = getNumber('t1_pre_bal_for');
+            const total = getNumber('t1_total');
+            const toPay = balance + total;
 
-            document.getElementById("t1_total").value = total.toFixed(2);
+            document.getElementById("t1_to_pay").value = toPay.toFixed(2);
+
+            calculateBalance();
         }
 
-        function calculateSubTotalWhenDeleteRow() {
-            //calculate amount for each row with getting table amount fields
-            let subTotal = 0;
-            let i = 0;
-            for (i = 0; true; i++) {
-                const amountField = document.getElementById(`t${tableId}_amount${i}`);
-                if (!amountField) break; // Stop when no more rows
-                const amount = parseFloat(amountField.value) || 0;
-                subTotal += amount;
-            }
-            // Update the subtotal and total fields
-            const subTotalField = document.getElementById("t1_sub_total");
-
-            if (subTotalField) subTotalField.value = subTotal.toFixed(2);
-            calculateTotal();
-        }
-
-        function calculateNewBalance() {
-            const total = parseFloat(document.getElementById("t1_total").value) || 0;
-            const paidAmount = parseFloat(document.getElementById("paid_amount").value) || 0;
+        function calculateBalance() {
+            const total = getNumber('t1_to_pay');
+            const paidAmount = getNumber('paid_amount');
             const newBalance = total - paidAmount;
 
             document.getElementById("new_balance").value = newBalance.toFixed(2);
+
+            formatNumbers(); // ------------------------------------------------------------------------------------------------------------------------------
         }
+
 
         function getItemData() {
             //show unit price when select an item
         }
+
+        window.addEventListener('load', () => {
+            getCustomerBalanceForward();
+        });
 
         async function getCustomerBalanceForward() {
             const customerId = document.getElementById("customer_id").value;
@@ -422,11 +430,7 @@
             }
 
             calculateTotal();
-            calculateNewBalance();
+            calculateBalance();
         }
-
-        window.addEventListener('load', () => {
-            getCustomerBalanceForward();
-        });
     </script>
 </x-app-layout>

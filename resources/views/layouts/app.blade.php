@@ -288,8 +288,32 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- For format numbers & money -->
+    <!-- <script src="assets/js/accounting.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+
+
     <!-- Custom JS files -->
     <script src="assets/js/custom.js"></script>
+
+    <script>
+        // common function ===================================================================================================================================================================
+        // format numbers 
+        function getNumber(id) {
+            var numberToGet = $('#' + id).val();
+            numberToGet = parseFloat(numberToGet.replace(/[^0-9-.]/g, ''));
+            numberToGet = isNaN(numberToGet) ? 0 : numberToGet;
+            return numberToGet;
+        }
+
+        function formatNumbers() {
+            var elements = $('.formatNumber');
+            elements.each(function(index, element) {
+                element.value = (accounting.formatNumber(element.value, 2, ","));
+            });
+        }
+        // common function End =============================================================================================================================================================== 
+    </script>
 
     {{-- <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
