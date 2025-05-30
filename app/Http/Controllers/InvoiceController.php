@@ -28,7 +28,7 @@ class InvoiceController extends ParentController
 
     public function loadInvoices(Request $request)
     {
-        $query = Invoice::query();
+        $query = Invoice::query()->with('invoicePayments');
 
         // if (isset($request['search'])) {
         //     $query = $query->where('code', 'like', '%' . $request['search'] . '%')
