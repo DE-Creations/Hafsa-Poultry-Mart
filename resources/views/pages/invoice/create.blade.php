@@ -142,43 +142,17 @@
                                                                     class="fa fa-eraser"></i> Add new item</button>
                                                         </td>
                                                         <td style="text-align: right">
-                                                            <label style="text-align: right" class="">Balance
-                                                                Forward
-                                                                &nbsp;</label>
-                                                        </td>
-                                                        <td><input name="t1_pre_bal_for" id="t1_pre_bal_for"
-                                                                type="text" disabled
-                                                                class="form-control form-control-sm"
-                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
-                                                        </td>
-                                                        <td colspan="1"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" style="text-align: right">
                                                             <label style="text-align: right" class="">Sub Total
                                                                 &nbsp;</label>
                                                         </td>
-                                                        <td><input name="t1_sub_total" id="t1_sub_total"
-                                                                type="text" disabled
-                                                                class="form-control form-control-sm" value="0.00"
-                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
-                                                        </td>
-                                                        <td colspan="1"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" style="text-align: right">
-                                                            <label style="text-align: right" class="">Total
-                                                                &nbsp;</label>
-                                                        </td>
-                                                        <td><input name="t1_total" id="t1_total" type="text"
+                                                        <td><input name="t1_sub_total" id="t1_sub_total" type="text"
                                                                 disabled class="form-control form-control-sm"
-                                                                value=""
+                                                                value="0.00"
                                                                 style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                         </td>
                                                         <td colspan="1"></td>
                                                     </tr>
                                                 </tfoot>
-
                                             </table>
 
                                             <input type="hidden" id="t1NumRows" name="t1NumRows"
@@ -187,47 +161,71 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Payment</label>
-                                            <input type="number" class="form-control" id="paid_amount"
-                                                value="0.00" onchange="calculateNewBalance();" />
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Message</label>
+                                                    <textarea class="form-control" placeholder="Enter Note" rows="12"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Balance</label>
-                                            <input type="text" class="form-control" id="new_balance" disabled />
+
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Discount Amount</label>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Total</label>
+                                                    <input type="text" class="form-control" name="t1_total"
+                                                        id="t1_total" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Balance Forward</label>
+                                                    <input type="text" class="form-control" name="t1_pre_bal_for"
+                                                        id="t1_pre_bal_for" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">To Pay</label>
+                                                    <input type="text" class="form-control" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12"></div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Payment</label>
+                                                    <input type="text" class="form-control"
+                                                        id="paid_amount"value="0.00"
+                                                        onchange="calculateNewBalance();" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12"></div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Balance</label>
+                                                    <input type="text" class="form-control" id="new_balance"
+                                                        disabled />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Discount Amount</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Total</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Payment Method</label>
-                                            <select class="form-select">
-                                                <option value="0">Cash</option>
-                                                <option value="1">Card</option>
-                                                <option value="2">Bank Transfer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Message</label>
-                                            <textarea class="form-control" placeholder="Enter Note" rows="3"></textarea>
-                                        </div>
-                                    </div>
+
                                     <div class="col-12 mt-3">
                                         <div class="d-flex gap-2 justify-content-end">
                                             <button type="button" class="btn btn-success col-3"
@@ -247,7 +245,6 @@
 
         </div>
         <!-- Container ends -->
-
     </div>
     <!-- App body ends -->
     <script>
