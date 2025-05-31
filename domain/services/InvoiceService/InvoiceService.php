@@ -45,7 +45,6 @@ class InvoiceService
 
     public function store(array $data)
     {
-        // dd($data['bags']);
         // insert invoice
         $invoice_data = [
             'invoice_number' => $data['invoice_number'],
