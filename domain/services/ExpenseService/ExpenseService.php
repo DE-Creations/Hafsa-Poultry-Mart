@@ -3,7 +3,7 @@
 namespace domain\services\ExpenseService;
 
 use App\Models\Expense;
-use App\Models\ExpenseCategory;
+use App\Models\ExpensesCategory;
 use App\Models\Image;
 use Carbon\Carbon;
 use DateTime;
@@ -18,15 +18,13 @@ class ExpenseService
     public function __construct()
     {
         $this->expense = new Expense();
-        $this->expense_category = new ExpenseCategory();
+        $this->expense_category = new ExpensesCategory();
         $this->image = new Image();
     }
 
     public function getExpensesCategories()
     {
-        
-        $x = $this->expense_category->get();
-        dd($x);
+        return $this->expense_category->get();
     }
 
     public function store(array $data)
