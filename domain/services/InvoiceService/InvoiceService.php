@@ -96,7 +96,8 @@ class InvoiceService
         } else {
             $last_payment = $this->invoice_payment->where('customer_id', $customer_id)->orderBy('id', 'desc')->first();
             if ($last_payment) {
-                return $last_payment->balance;
+                // dd($last_payment);
+                return $last_payment->new_balance;
             } else {
                 return "none";
             }
