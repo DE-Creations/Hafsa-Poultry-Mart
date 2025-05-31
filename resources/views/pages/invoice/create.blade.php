@@ -178,6 +178,59 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <table class="table table-bordered table-striped table-hover table-responsive ">
+                                                    <colgroup>
+                                                        <col style="width: 70%;">
+                                                        <col style="width: 30%;">
+                                                    </colgroup>
+
+                                                    <thead class="form-group-sm">
+                                                        <tr>
+                                                            <th>Bag Type</th>
+                                                            <th>Count</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <?php
+                                                        $t2NumRows = 0;
+                                                        ?>
+                                                        @foreach ($customers as $customer)
+                                                        <tr>
+                                                            <td>{{ $customer->name }}</td>
+                                                            <td><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                    id="t2_count<?php echo $t2NumRows; ?>" type="number"
+                                                                    step="1" min="0"
+                                                                    class="form-control form-control-sm" value="0"
+                                                                    style="width: 100%;height:30px;text-align: center;"
+                                                                    onchange="bags_caltotal();">
+
+                                                                <input name="t2_id<?php echo $t2NumRows; ?>" id="t2_id<?php echo $t2NumRows; ?>" type="hidden" value="{{ $customer->id }}">
+
+                                                            </td>
+                                                        </tr>
+                                                        <?php $t2NumRows += 1; ?>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="1">Total</td>
+                                                            <td colspan="1"> <input type="text" class="form-control"
+                                                                    name="t2_bags_total" id="t2_bags_total" disabled
+                                                                    style="text-align: right" /></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+
+                                                <input type="hidden" id="t2NumRows" name="t2NumRows"
+                                                    value="<?php echo $t2NumRows; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-4">
@@ -379,6 +432,20 @@
                 return;
             }
 
+
+            var bags = [];
+            var t1NumRows = parseInt(document.getElementById("t2NumRows").value);
+            for (var i = 0; i < t1NumRows; i++) {
+                var bag = {
+                    id: document.getElementById("t2_id" + i).value,
+                    count: parseInt(document.getElementById("t2_count" + i).value),
+                };
+
+                if (bag.count != 0) {
+                    bags.push(bag);
+                }
+            }
+
             add_invoice_details = {
                 invoice_number: invoice_number,
                 invoice_date: invoice_date,
@@ -391,7 +458,9 @@
                 new_balance: new_balance,
                 memo: memo,
 
-                items: items
+                items: items,
+
+                bags: bags
             }
 
             try {
@@ -506,10 +575,19 @@
 
             document.getElementById("new_balance").value = newBalance.toFixed(2);
 
-            formatNumbers
-                (); // ------------------------------------------------------------------------------------------------------------------------------
+            formatNumbers(); // ------------------------------------------------------------------------------------------------------------------------------
         }
 
+        function bags_caltotal() {
+            let bagTotal = 0;
+
+            var tableSize = $('#t2NumRows').val();
+            for ($i = 0; $i < tableSize; $i++) {
+                bagTotal += (getNumber('t2_count' + $i));
+            }
+
+            document.getElementById("t2_bags_total").value = bagTotal.toFixed(0);
+        }
 
 
 
