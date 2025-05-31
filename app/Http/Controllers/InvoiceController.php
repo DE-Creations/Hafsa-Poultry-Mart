@@ -23,17 +23,7 @@ class InvoiceController extends ParentController
         $response['invoice_number'] = Invoice::generateInvoiceNumber();
         $response['customers'] = CustomerFacade::getCustomers();
         $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
-
-        // get from BagsCategory
-        $bags = [
-            ['id' => 1, 'name' => 'Bag 1', 'unit_price' => 100],
-            ['id' => 2, 'name' => 'Bag 2', 'unit_price' => 200],
-            ['id' => 3, 'name' => 'Bag 3', 'unit_price' => 300],
-            ['id' => 4, 'name' => 'Bag 4', 'unit_price' => 400],
-            ['id' => 5, 'name' => 'Bag 5', 'unit_price' => 500],
-        ];
-
-        $response['bags'] = $bags;
+        $response['bags'] = InvoiceFacade::getBagsCategory();
         return view('pages.invoice.create', $response);
     }
 

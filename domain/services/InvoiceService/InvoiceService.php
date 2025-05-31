@@ -2,6 +2,8 @@
 
 namespace domain\services\InvoiceService;
 
+use App\Models\BagHistory;
+use App\Models\BagsCategory;
 use App\Models\Invoice;
 use App\Models\InvoiceGrnCalculation;
 use App\Models\InvoiceItem;
@@ -16,6 +18,9 @@ class InvoiceService
     protected $output_item;
     protected $invoice_grn_calculation;
 
+    protected $bags_category;
+    protected $bags_history;
+
     public function __construct()
     {
         $this->invoice = new Invoice();
@@ -23,11 +28,19 @@ class InvoiceService
         $this->invoice_payment = new InvoicePayment();
         $this->output_item = new OutputItem();
         $this->invoice_grn_calculation = new InvoiceGrnCalculation();
+
+        $this->bags_category = new BagsCategory();
+        $this->bags_history = new BagHistory();
     }
 
     function getSavedInvoiceItems()
     {
         return $this->output_item->get();
+    }
+
+    function getBagsCategory()
+    {
+        return $this->bags_category->get();
     }
 
     public function store(array $data)
@@ -55,6 +68,20 @@ class InvoiceService
                     'amount' => $item['amount'],
                 ];
                 $this->invoice_item->create($item_data);
+            }
+        }
+
+        // update the bags history
+        $bag_history_data = [];
+
+        if (isset($data['bags']) && is_array($data['bags'])) {
+            foreach ($data['bags'] as $bag) {
+                $bag_history_data[] = [
+                    'bags_category_id' => $bag['id'],
+                    'invoice_id' => $created_invoice->id,
+                    'count' => $bag['count'],
+                ];
+                $this->bags_history->create($bag_history_data);
             }
         }
 
