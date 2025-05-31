@@ -36,10 +36,10 @@ class Expense extends Model
         return $this->hasOne(Image::class, 'id', 'image_id');
     }
 
-    public function getCategoryNameAttribute()
-    {
-        return $this->expenseCategory ? $this->expenseCategory->name : 'N/A';
-    }
+    // public function getCategoryNameAttribute()
+    // {
+    //     return $this->expenseCategory ? $this->expenseCategory->name : 'N/A';
+    // }
 
     // public function ExpenseCategory()
     // {
