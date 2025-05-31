@@ -12,7 +12,6 @@
     </thead>
     <tbody>
         @foreach ($invoices as $invoice)
-            {{--  {{ $invoice }}  --}}
             <tr>
                 <td>{{ $invoice->invoice_number }}</td>
                 <td>{{ $invoice->customer->name }}</td>
