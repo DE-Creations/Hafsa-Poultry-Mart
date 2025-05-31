@@ -31,225 +31,225 @@
                             <h5 class="card-title">Invoice</h5>
                         </div>
                         <div class="card-body">
-                            <form>
-                                <!-- Row start -->
-                                <div class="row gx-3">
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Invoice No.</label>
-                                            <input id="invoice_number" type="text" class="form-control" disabled
-                                                value="{{ $invoice_number }}" />
-                                        </div>
+
+                            <!-- Row start -->
+                            <div class="row gx-3">
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Invoice No.</label>
+                                        <input id="invoice_number" type="text" class="form-control" disabled
+                                            value="{{ $invoice_number }}" />
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Customer</label>
-                                            <select id="customer_id" class="form-control"
-                                                onchange="getCustomerBalanceForward();">
-                                                @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Date</label>
+                                        <input id="invoice_date" type="date" class="form-control"
+                                            value="{{ $invoice_date }}" />
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Date</label>
-                                            <input id="invoice_date" type="date" class="form-control"
-                                                value="{{ $invoice_date }}" />
-                                        </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Customer</label>
+                                        <select id="customer_id" class="form-control"
+                                            onchange="getCustomerBalanceForward();">
+                                            @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <div class="col-12">
-                                        <div class="mb-3">
+                                <div class="col-12">
+                                    <div class="mb-3">
 
-                                            <table id="invoice_item_table" name="invoice_item_table"
-                                                class="table table-bordered table-striped table-hover table-responsive ">
-                                                <colgroup>
-                                                    <col style="width: 20%;">
-                                                    <col style="width: 27%;">
-                                                    <col style="width: 10%;">
-                                                    <col style="width: 10%;">
-                                                    <col style="width: 10%;">
-                                                    <col style="width: 3%;">
-                                                </colgroup>
+                                        <table id="invoice_item_table" name="invoice_item_table"
+                                            class="table table-bordered table-striped table-hover table-responsive ">
+                                            <colgroup>
+                                                <col style="width: 20%;">
+                                                <col style="width: 27%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 3%;">
+                                            </colgroup>
 
-                                                <thead class="form-group-sm">
-                                                    <tr>
-                                                        <th>Item</th>
-                                                        <th>Item Description</th>
-                                                        <th>Weight (Kg)</th>
-                                                        <th>Unit price</th>
-                                                        <th>Amount</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
+                                            <thead class="form-group-sm">
+                                                <tr>
+                                                    <th>Item</th>
+                                                    <th>Item Description</th>
+                                                    <th>Weight (Kg)</th>
+                                                    <th>Unit price</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
 
-                                                <tbody>
-                                                    <?php
-                                                    $t1NumRows = 1;
+                                            <tbody>
+                                                <?php
+                                                $t1NumRows = 1;
 
-                                                    for ($i = 0; $i < $t1NumRows; $i++) {
+                                                for ($i = 0; $i < $t1NumRows; $i++) {
 
-                                                    ?> <tr id="tr<?php echo $i; ?>">
-                                                            <td>
-                                                                <select name="t1_item<?php echo $i; ?>"
-                                                                    id="t1_item<?php echo $i; ?>"
-                                                                    class="form-control form-control-sm"
-                                                                    onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                                    style="width: 100%;">
-                                                                    <option value="0">Select</option>
-                                                                    @foreach ($newInvoiceItems as $newInvoiceItem)
-                                                                    <option value="{{ $newInvoiceItem->id }}"
-                                                                        data-description="{{ e($newInvoiceItem->description) }}"
-                                                                        data-unit_price="{{ $newInvoiceItem->unit_price }}">
-                                                                        {{ $newInvoiceItem->name }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                            </td>
-                                                            <td><input name="t1_weight<?php echo $i; ?>"
-                                                                    id="t1_weight<?php echo $i; ?>" type="number"
-                                                                    step="any" min="0"
-                                                                    class="form-control form-control-sm" value=""
-                                                                    style="width: 100%;height:30px;text-align: center;"
-                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                            <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                    id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                    step="any"
-                                                                    class="form-control form-control-sm formatNumber"
-                                                                    value=""
-                                                                    style="width: 100%;height:30px;text-align: right;"
-                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                            <td><input name="t1_amount<?php echo $i; ?>"
-                                                                    id="t1_amount<?php echo $i; ?>" type="text"
-                                                                    class="form-control form-control-sm formatNumber"
-                                                                    value=""
-                                                                    style="width: 100%;height:30px;text-align: right;"
-                                                                    disabled></td>
-                                                            <td class="text-center"> <button
-                                                                    class="btn btn-outline-danger btn-sm"
-                                                                    onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
-                                                                        class="icon-trash"></i></button></td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="3" class="text-right">
-                                                            <button type="button" onclick="addNewLineT1();"
-                                                                class="btn btn-sm btn-primary "><i
-                                                                    class="fa fa-eraser"></i> Add new item</button>
+                                                ?> <tr id="tr<?php echo $i; ?>">
+                                                        <td>
+                                                            <select name="t1_item<?php echo $i; ?>"
+                                                                id="t1_item<?php echo $i; ?>"
+                                                                class="form-control form-control-sm"
+                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                                style="width: 100%;">
+                                                                <option value="0">Select</option>
+                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                                <option value="{{ $newInvoiceItem->id }}"
+                                                                    data-description="{{ e($newInvoiceItem->description) }}"
+                                                                    data-unit_price="{{ $newInvoiceItem->unit_price }}">
+                                                                    {{ $newInvoiceItem->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
                                                         </td>
-                                                        <td style="text-align: right">
-                                                            <label style="text-align: right" class="">Sub Total
-                                                                &nbsp;</label>
+                                                        <td>
+                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
                                                         </td>
-                                                        <td><input name="t1_sub_total" id="t1_sub_total"
-                                                                type="text" disabled
+                                                        <td><input name="t1_weight<?php echo $i; ?>"
+                                                                id="t1_weight<?php echo $i; ?>" type="number"
+                                                                step="any" min="0"
+                                                                class="form-control form-control-sm" value=""
+                                                                style="width: 100%;height:30px;text-align: center;"
+                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                                step="any"
                                                                 class="form-control form-control-sm formatNumber"
-                                                                value="0.00"
-                                                                style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
-                                                        </td>
-                                                        <td colspan="1"></td>
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_amount<?php echo $i; ?>"
+                                                                id="t1_amount<?php echo $i; ?>" type="text"
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                disabled></td>
+                                                        <td class="text-center"> <button type="button"
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
+                                                                    class="icon-trash"></i></button></td>
                                                     </tr>
-                                                </tfoot>
-                                            </table>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="text-right">
+                                                        <button type="button" onclick="addNewLineT1();"
+                                                            class="btn btn-sm btn-primary "><i
+                                                                class="fa fa-eraser"></i> Add new item</button>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <label style="text-align: right" class="">Sub Total
+                                                            &nbsp;</label>
+                                                    </td>
+                                                    <td><input name="t1_sub_total" id="t1_sub_total"
+                                                            type="text" disabled
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value="0.00"
+                                                            style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
+                                                    </td>
+                                                    <td colspan="1"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
 
-                                            <input type="hidden" id="t1NumRows" name="t1NumRows"
-                                                value="<?php echo $t1NumRows; ?>">
+                                        <input type="hidden" id="t1NumRows" name="t1NumRows"
+                                            value="<?php echo $t1NumRows; ?>">
 
-                                        </div>
                                     </div>
+                                </div>
 
-                                    <div class="col-8">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Message</label>
-                                                    <textarea class="form-control" placeholder="Enter Note" rows="12" id="memo"></textarea>
-                                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Message</label>
+                                                <textarea class="form-control" placeholder="Enter Note" rows="5" id="memo"></textarea>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="row">
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Discount Amount</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        id="discount" onchange="calculateTotal();"
-                                                        style="text-align: right" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Total</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        name="t1_total" id="t1_total" disabled
-                                                        style="text-align: right" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Balance Forward</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        name="t1_pre_bal_for" id="t1_pre_bal_for" disabled
-                                                        style="text-align: right" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">To Pay</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        id="t1_to_pay" disabled style="text-align: right" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-12"></div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Payment</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        id="paid_amount" value="0.00"
-                                                        onchange="calculateBalance();" style="text-align: right" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-12"></div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Balance</label>
-                                                    <input type="text" class="form-control formatNumber"
-                                                        id="new_balance" disabled style="text-align: right" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 mt-3">
-                                        <div class="d-flex gap-2 justify-content-end">
-                                            <button type="button" class="btn btn-primary col-3"
-                                                onclick="createInvoice()">
-                                                Create
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Row end -->
-                            </form>
+
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Discount Amount</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    id="discount" onchange="calculateTotal();"
+                                                    style="text-align: right" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Total</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    name="t1_total" id="t1_total" disabled
+                                                    style="text-align: right" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Balance Forward</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    name="t1_pre_bal_for" id="t1_pre_bal_for" disabled
+                                                    style="text-align: right" onchange="calculateToPay();" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">To Pay</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    id="t1_to_pay" disabled style="text-align: right" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12"></div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Payment</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    id="paid_amount" value="0.00"
+                                                    onchange="calculateBalance();" style="text-align: right" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12"></div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Balance</label>
+                                                <input type="text" class="form-control formatNumber"
+                                                    id="new_balance" disabled style="text-align: right" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <div class="d-flex gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-primary col-3"
+                                            onclick="createInvoice()">
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row end -->
+
                         </div>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     disabled>`;
-            cell6.innerHTML = `<button class="btn btn-outline-danger btn-sm"
+            cell6.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm"
                                                                     onclick="deleteTableRow('invoice_item_table','` + (
                 item_row) + `')"><i
                                                                         class="icon-trash"></i></button>`;
@@ -393,7 +393,7 @@
 
                 items: items
             }
-            
+
             try {
                 const response = await axios.post("{{ url('/invoice/store') }}/",
                     add_invoice_details);
@@ -521,8 +521,15 @@
             const customerId = document.getElementById("customer_id").value;
             try {
                 const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
-                console.log(response.data);
-                document.getElementById("t1_pre_bal_for").value = parseFloat(response.data).toFixed(2);
+                // console.log(response.data);
+
+                if (response.data == "none") {
+                    document.getElementById("t1_pre_bal_for").disabled = false;
+                    document.getElementById("t1_pre_bal_for").value = parseFloat(0).toFixed(2);
+                } else {
+                    document.getElementById("t1_pre_bal_for").disabled = true;
+                    document.getElementById("t1_pre_bal_for").value = parseFloat(response.data).toFixed(2);
+                }
                 //calculateTotal();
             } catch (error) {
                 console.error("Error fetching customer balance forward:", error);
