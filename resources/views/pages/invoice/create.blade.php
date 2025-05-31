@@ -198,9 +198,9 @@
                                                         <?php
                                                         $t2NumRows = 0;
                                                         ?>
-                                                        @foreach ($customers as $customer)
+                                                        @foreach ($bags as $bag)
                                                         <tr>
-                                                            <td>{{ $customer->name }}</td>
+                                                            <td>{{ $bag->name }}</td>
                                                             <td><input name="t2_count<?php echo $t2NumRows; ?>"
                                                                     id="t2_count<?php echo $t2NumRows; ?>" type="number"
                                                                     step="1" min="0"
@@ -208,7 +208,7 @@
                                                                     style="width: 100%;height:30px;text-align: center;"
                                                                     onchange="bags_caltotal();">
 
-                                                                <input name="t2_id<?php echo $t2NumRows; ?>" id="t2_id<?php echo $t2NumRows; ?>" type="hidden" value="{{ $customer->id }}">
+                                                                <input name="t2_id<?php echo $t2NumRows; ?>" id="t2_id<?php echo $t2NumRows; ?>" type="hidden" value="{{ $bag->id }}">
 
                                                             </td>
                                                         </tr>
