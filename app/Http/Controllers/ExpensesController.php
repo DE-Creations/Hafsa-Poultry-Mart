@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Expense\StoreExpenseRequest;
 use App\Models\Expense;
+use Carbon\Carbon;
+use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\ExpenseFacade\ExpenseFacade;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,11 @@ class ExpensesController extends ParentController
 
     public function create()
     {
-        return view('pages.expenses.create');
+        $response['expense_date'] = Carbon::now()->format('Y-m-d'); 
+        $response['expenses_categories'] = ExpenseFacade::getExpensesCategories();
+        //$response['expense_categories'] = ExpenseFacade::getExpensesCategories();
+        $response['customers'] = CustomerFacade::getCustomers();
+        return view('pages.expenses.create', $response);
     }
 
     public function loadExpenses(Request $request)

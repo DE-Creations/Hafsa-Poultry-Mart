@@ -36,17 +36,23 @@
                                         <div class="col-12">
                                             <label class="form-label">Category</label>
                                             <select class="form-select" id="expense_category">
-                                                <option selected>Select category</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                @foreach ($expenses_categories as $expense_category)
+                                                    {{-- <option value="Select category">Select category</option> --}}
+                                                    <option value="{{ $expense_category->id }}">{{ $expense_category->name }}
+                                                    </option>
+                                                    
+                                                @endforeach
+                                                {{-- @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                    </option>
+                                                @endforeach --}}
                                             </select>
                                             <span class="text-danger" id="expense_category_error"></span>
                                         </div>
 
                                         <div class="col-12">
                                             <label class="form-label">Date</label>
-                                            <input type="date" class="form-control" id="expense_date" />
+                                            <input type="date" class="form-control" id="expense_date" value="{{ $expense_date }}"/>
                                             <span class="text-danger" id="expense_date_error"></span>
                                         </div>
 

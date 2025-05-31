@@ -22,6 +22,13 @@ class ExpenseService
         $this->image = new Image();
     }
 
+    public function getExpensesCategories()
+    {
+        
+        $x = $this->expense_category->get();
+        dd($x);
+    }
+
     public function store(array $data)
     {
         $count = $this->expense->withTrashed()->count();
