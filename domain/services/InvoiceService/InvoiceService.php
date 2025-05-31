@@ -98,7 +98,7 @@ class InvoiceService
             if ($last_payment) {
                 return $last_payment->balance;
             } else {
-                return 0;
+                return "none";
             }
         }
     }
