@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('bag_histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('bags_category_id')->nullable();
             $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->unsignedBigInteger('bags_category_id')->nullable();
             $table->integer('count')->nullable();
             $table->timestamps();
         });

@@ -71,17 +71,15 @@ class InvoiceService
             }
         }
 
-        // update the bags history
-        $bag_history_data = [];
-
+        // insert bags count
         if (isset($data['bags']) && is_array($data['bags'])) {
             foreach ($data['bags'] as $bag) {
-                $bag_history_data[] = [
+                $bag_data = [
                     'bags_category_id' => $bag['id'],
                     'invoice_id' => $created_invoice->id,
                     'count' => $bag['count'],
                 ];
-                $this->bags_history->create($bag_history_data);
+                $this->bags_history->create($bag_data);
             }
         }
 
