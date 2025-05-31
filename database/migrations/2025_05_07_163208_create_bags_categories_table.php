@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('bags_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category')->nullable();
-            $table->integer('qty')->nullable();
-            $table->timestamps();
+            $table->string('name')->nullable();
         });
     }
 

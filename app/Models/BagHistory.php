@@ -10,12 +10,12 @@ class BagHistory extends Model
     use HasFactory;
     protected $fillable = [
         'bags_category_id',
-        'date_time',
-        'description',
-        'qty',
+        'invoice_id',
+        'count',
     ];
 
-    public function bagCategory(){
+    public function bagCategory()
+    {
         return $this->belongsTo(BagsCategory::class, 'id', 'bags_category_id');
     }
     //our code
