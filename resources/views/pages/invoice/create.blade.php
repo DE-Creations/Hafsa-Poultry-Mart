@@ -54,8 +54,8 @@
                                         <select id="customer_id" class="form-control"
                                             onchange="getCustomerBalanceForward();">
                                             @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->name }}
-                                            </option>
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -93,50 +93,50 @@
                                                 for ($i = 0; $i < $t1NumRows; $i++) {
 
                                                 ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>"
-                                                                class="form-control form-control-sm"
-                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                                style="width: 100%;">
-                                                                <option value="0">Select</option>
-                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                    <td>
+                                                        <select name="t1_item<?php echo $i; ?>"
+                                                            id="t1_item<?php echo $i; ?>"
+                                                            class="form-control form-control-sm"
+                                                            onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                            style="width: 100%;">
+                                                            <option value="0">Select</option>
+                                                            @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                 <option value="{{ $newInvoiceItem->id }}"
                                                                     data-description="{{ e($newInvoiceItem->description) }}"
                                                                     data-unit_price="{{ $newInvoiceItem->unit_price }}">
                                                                     {{ $newInvoiceItem->name }}
                                                                 </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                        </td>
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm" value=""
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                disabled></td>
-                                                        <td class="text-center"> <button type="button"
-                                                                class="btn btn-outline-danger btn-sm"
-                                                                onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
-                                                                    class="icon-trash"></i></button></td>
-                                                    </tr>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                    </td>
+                                                    <td><input name="t1_weight<?php echo $i; ?>"
+                                                            id="t1_weight<?php echo $i; ?>" type="number"
+                                                            step="any" min="0"
+                                                            class="form-control form-control-sm" value=""
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                            id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                            step="any"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value=""
+                                                            style="width: 100%;height:30px;text-align: right;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_amount<?php echo $i; ?>"
+                                                            id="t1_amount<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value=""
+                                                            style="width: 100%;height:30px;text-align: right;" disabled>
+                                                    </td>
+                                                    <td class="text-center"> <button type="button"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
+                                                                class="icon-trash"></i></button></td>
+                                                </tr>
                                                 <?php
                                                 }
                                                 ?>
@@ -145,16 +145,15 @@
                                                 <tr>
                                                     <td colspan="3" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary "><i
-                                                                class="fa fa-eraser"></i> Add new item</button>
+                                                            class="btn btn-sm btn-primary "><i class="fa fa-eraser"></i>
+                                                            Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">
                                                         <label style="text-align: right" class="">Sub Total
                                                             &nbsp;</label>
                                                     </td>
-                                                    <td><input name="t1_sub_total" id="t1_sub_total"
-                                                            type="text" disabled
-                                                            class="form-control form-control-sm formatNumber"
+                                                    <td><input name="t1_sub_total" id="t1_sub_total" type="text"
+                                                            disabled class="form-control form-control-sm formatNumber"
                                                             value="0.00"
                                                             style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                     </td>
@@ -181,7 +180,8 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <table class="table table-bordered table-striped table-hover table-responsive ">
+                                                <table
+                                                    class="table table-bordered table-striped table-hover table-responsive ">
                                                     <colgroup>
                                                         <col style="width: 70%;">
                                                         <col style="width: 30%;">
@@ -199,28 +199,32 @@
                                                         $t2NumRows = 0;
                                                         ?>
                                                         @foreach ($bags as $bag)
-                                                        <tr>
-                                                            <td>{{ $bag->name }}</td>
-                                                            <td><input name="t2_count<?php echo $t2NumRows; ?>"
-                                                                    id="t2_count<?php echo $t2NumRows; ?>" type="number"
-                                                                    step="1" min="0"
-                                                                    class="form-control form-control-sm" value="0"
-                                                                    style="width: 100%;height:30px;text-align: center;"
-                                                                    onchange="bags_caltotal();">
+                                                            <tr>
+                                                                <td>{{ $bag->name }}</td>
+                                                                <td><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                        id="t2_count<?php echo $t2NumRows; ?>"
+                                                                        type="number" step="1" min="0"
+                                                                        class="form-control form-control-sm"
+                                                                        value="0"
+                                                                        style="width: 100%;height:30px;text-align: center;"
+                                                                        onchange="bags_caltotal();">
 
-                                                                <input name="t2_id<?php echo $t2NumRows; ?>" id="t2_id<?php echo $t2NumRows; ?>" type="hidden" value="{{ $bag->id }}">
+                                                                    <input name="t2_id<?php echo $t2NumRows; ?>"
+                                                                        id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
+                                                                        value="{{ $bag->id }}">
 
-                                                            </td>
-                                                        </tr>
-                                                        <?php $t2NumRows += 1; ?>
+                                                                </td>
+                                                            </tr>
+                                                            <?php $t2NumRows += 1; ?>
                                                         @endforeach
 
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <td colspan="1">Total</td>
-                                                            <td colspan="1"> <input type="text" class="form-control"
-                                                                    name="t2_bags_total" id="t2_bags_total" disabled
+                                                            <td colspan="1"> <input type="text"
+                                                                    class="form-control" name="t2_bags_total"
+                                                                    id="t2_bags_total" disabled
                                                                     style="text-align: right" /></td>
                                                         </tr>
                                                     </tfoot>
@@ -275,8 +279,8 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Payment</label>
                                                 <input type="text" class="form-control formatNumber"
-                                                    id="paid_amount" value="0.00"
-                                                    onchange="calculateBalance();" style="text-align: right" />
+                                                    id="paid_amount" value="0.00" onchange="calculateBalance();"
+                                                    style="text-align: right" />
                                             </div>
                                         </div>
                                     </div>
@@ -397,7 +401,8 @@
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
             for (var i = 0; i < t1NumRows; i++) {
-                if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() != '0') { //check if have element and select item
+                if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() !=
+                    '0') { //check if have element and select item
                     var item = {
                         item_name: document.getElementById("t1_item" + i).value,
                         description: document.getElementById("t1_desc" + i).value,
@@ -437,7 +442,7 @@
             var t1NumRows = parseInt(document.getElementById("t2NumRows").value);
             for (var i = 0; i < t1NumRows; i++) {
                 var bag = {
-                    id: document.getElementById("t2_id" + i).value,
+                    id: parseInt(document.getElementById("t2_id" + i).value),
                     count: parseInt(document.getElementById("t2_count" + i).value),
                 };
 
@@ -459,7 +464,6 @@
                 memo: memo,
 
                 items: items,
-
                 bags: bags
             }
 
@@ -484,7 +488,8 @@
             // check if select existing item
             for ($i = 0; $i < tableSize; $i++) {
                 if (number == $i) continue;
-                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '0') { //check if have element and select item
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() !=
+                    '0') { //check if have element and select item
                     if (itemId == $('#t1_item' + $i).val()) {
                         $('#t1_item' + number).val(0);
                         $('#t1_desc' + number).html("");
@@ -529,7 +534,8 @@
             var tableSize = $('#t1NumRows').val();
             for ($i = 0; $i < tableSize; $i++) {
 
-                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '0') { //check if have element and select item
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() !=
+                    '0') { //check if have element and select item
 
                     subTotal += getNumber('t1_amount' + $i);
 
@@ -575,7 +581,8 @@
 
             document.getElementById("new_balance").value = newBalance.toFixed(2);
 
-            formatNumbers(); // ------------------------------------------------------------------------------------------------------------------------------
+            formatNumbers
+                (); // ------------------------------------------------------------------------------------------------------------------------------
         }
 
         function bags_caltotal() {

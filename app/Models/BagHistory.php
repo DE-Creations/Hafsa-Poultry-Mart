@@ -9,8 +9,8 @@ class BagHistory extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'bags_category_id',
         'invoice_id',
+        'bags_category_id',
         'count',
     ];
 
