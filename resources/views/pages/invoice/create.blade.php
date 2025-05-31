@@ -47,8 +47,8 @@
                                             <select id="customer_id" class="form-control"
                                                 onchange="getCustomerBalanceForward();">
                                                 @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}">{{ $customer->name }}
-                                                    </option>
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -93,50 +93,50 @@
                                                     for ($i = 0; $i < $t1NumRows; $i++) {
 
                                                     ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>"
-                                                                class="form-control form-control-sm"
-                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                                style="width: 100%;">
-                                                                <option value="0">Select</option>
-                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                            <td>
+                                                                <select name="t1_item<?php echo $i; ?>"
+                                                                    id="t1_item<?php echo $i; ?>"
+                                                                    class="form-control form-control-sm"
+                                                                    onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                                    style="width: 100%;">
+                                                                    <option value="0">Select</option>
+                                                                    @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                     <option value="{{ $newInvoiceItem->id }}"
                                                                         data-description="{{ e($newInvoiceItem->description) }}"
                                                                         data-unit_price="{{ $newInvoiceItem->unit_price }}">
                                                                         {{ $newInvoiceItem->name }}
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                        </td>
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm" value=""
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                disabled></td>
-                                                        <td class="text-center"> <button
-                                                                class="btn btn-outline-danger btn-sm"
-                                                                onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
-                                                                    class="icon-trash"></i></button></td>
-                                                    </tr>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                            </td>
+                                                            <td><input name="t1_weight<?php echo $i; ?>"
+                                                                    id="t1_weight<?php echo $i; ?>" type="number"
+                                                                    step="any" min="0"
+                                                                    class="form-control form-control-sm" value=""
+                                                                    style="width: 100%;height:30px;text-align: center;"
+                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                    id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                                    step="any"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            <td><input name="t1_amount<?php echo $i; ?>"
+                                                                    id="t1_amount<?php echo $i; ?>" type="text"
+                                                                    class="form-control form-control-sm formatNumber"
+                                                                    value=""
+                                                                    style="width: 100%;height:30px;text-align: right;"
+                                                                    disabled></td>
+                                                            <td class="text-center"> <button
+                                                                    class="btn btn-outline-danger btn-sm"
+                                                                    onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
+                                                                        class="icon-trash"></i></button></td>
+                                                        </tr>
                                                     <?php
                                                     }
                                                     ?>
@@ -344,14 +344,39 @@
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
             for (var i = 0; i < t1NumRows; i++) {
-                var item = {
-                    item_name: document.getElementById("t1_item" + i).value,
-                    description: document.getElementById("t1_desc" + i).value,
-                    weight: getNumber("t1_weight" + i),
-                    unit_price: getNumber("t1_unit_price" + i),
-                    amount: getNumber("t1_amount" + i),
-                };
-                items.push(item);
+                if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() != '0') { //check if have element and select item
+                    var item = {
+                        item_name: document.getElementById("t1_item" + i).value,
+                        description: document.getElementById("t1_desc" + i).value,
+                        weight: getNumber("t1_weight" + i),
+                        unit_price: getNumber("t1_unit_price" + i),
+                        amount: getNumber("t1_amount" + i),
+                    };
+
+                    if (item.item_name != 0) {
+                        if (item.weight > 0) {
+                            items.push(item);
+                        } else {
+                            const select = document.getElementById("t1_item" + i);
+                            const options = select.options;
+                            var selectedItem;
+
+                            for (let i = 0; i < options.length; i++) {
+                                if (item.item_name == options[i].value) {
+                                    selectedItem = options[i].text;
+                                }
+                            }
+
+                            alert("Please Add weight for " + selectedItem);
+                            return;
+                        }
+                    }
+                } else continue;
+            }
+
+            if (items.length === 0) {
+                alert("Please Enter At least 1 Item to proceed");
+                return;
             }
 
             add_invoice_details = {
@@ -368,7 +393,7 @@
 
                 items: items
             }
-
+            
             try {
                 const response = await axios.post("{{ url('/invoice/store') }}/",
                     add_invoice_details);
@@ -390,8 +415,7 @@
             // check if select existing item
             for ($i = 0; $i < tableSize; $i++) {
                 if (number == $i) continue;
-                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() !=
-                    '') { //check if have element and select item
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '0') { //check if have element and select item
                     if (itemId == $('#t1_item' + $i).val()) {
                         $('#t1_item' + number).val(0);
                         $('#t1_desc' + number).html("");
@@ -435,8 +459,8 @@
 
             var tableSize = $('#t1NumRows').val();
             for ($i = 0; $i < tableSize; $i++) {
-                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() !=
-                    '') { //check if have element and select item
+
+                if ($('#t1_item' + $i).length > 0 && $('#t1_item' + $i).val() != '0') { //check if have element and select item
 
                     subTotal += getNumber('t1_amount' + $i);
 
