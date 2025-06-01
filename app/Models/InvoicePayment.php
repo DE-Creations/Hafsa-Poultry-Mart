@@ -22,6 +22,11 @@ class InvoicePayment extends Model
         'memo',
     ];
 
+    protected $appends = [
+        'invoice',
+        'customer',
+    ];
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class, 'id', 'invoice_id');
@@ -53,4 +58,14 @@ class InvoicePayment extends Model
     //     return $this->belongsTo(BankAccount::class, 'bank_acc_id', 'id');
     // }
     //AI code
+
+    public function getInvoiceAttribute()
+    {
+        return $this->invoice_id ? Invoice::find($this->invoice_id) : null;
+    }
+
+    public function getCustomerAttribute()
+    {
+        return $this->customer_id ? Customer::find($this->customer_id) : null;
+    }
 }
