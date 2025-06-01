@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::prefix('/')->group(function () {
+    Route::get('dashboardDetails', [DashboardController::class, 'dashboardDetails'])->name('dashboard.dashboard_details');
+    Route::get('paymentsToCollect', [DashboardController::class, 'paymentsToCollect'])->name('dashboard.payments_to_collect');
+});
+
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomersController::class, 'index'])->name('customers.index');
     Route::get('/list', [CustomersController::class, 'list'])->name('customers.list');

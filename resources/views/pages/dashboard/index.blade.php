@@ -83,47 +83,8 @@
                         </div>
                         <div class="card-body">
                             <div class="table-outer">
-                                <div class="table-responsive">
-                                    <table class="table truncate align-middle">
-                                        <thead>
-                                            <tr>
-                                                <th>Invoice No.</th>
-                                                <th>Name</th>
-                                                <th>Invoice Date</th>
-                                                <th>Due Date</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>00001</td>
-                                                <td>Name</td>
-                                                <td>2025/05/01</td>
-                                                <td>
-                                                    <span class="badge bg-danger">2025/05/10</span>
-                                                </td>
-                                                <td>2500.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>00002</td>
-                                                <td>Name</td>
-                                                <td>2025/05/01</td>
-                                                <td>
-                                                    <span class="badge bg-danger">2025/05/10</span>
-                                                </td>
-                                                <td>2500.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>00003</td>
-                                                <td>Name</td>
-                                                <td>2025/05/01</td>
-                                                <td>
-                                                    <span class="badge bg-danger">2025/05/10</span>
-                                                </td>
-                                                <td>2500.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="table-responsive" id="payments_to_collect_table">
+
                                 </div>
                             </div>
                         </div>
@@ -136,7 +97,7 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        function renderSalesInMonth(sales_in_month, month_dates, year) {
             var options = {
                 chart: {
                     type: 'line',
@@ -146,15 +107,12 @@
                     }
                 },
                 series: [{
-                    name: '2024',
-                    data: [120, 150, 180, 160, 200, 230, 250, 300, 350, 400, 5000],
+                    name: year,
+                    data: sales_in_month,
                     color: '#3B82F6' // blue
                 }],
                 xaxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14',
-                        '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28',
-                        '29', '30', '31'
-                    ],
+                    categories: month_dates,
                     labels: {
                         style: {
                             fontSize: '14px'
@@ -175,7 +133,7 @@
 
             var chart = new ApexCharts(document.querySelector("#sales_in_month"), options);
             chart.render();
-        });
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
             var options = {
@@ -205,7 +163,7 @@
             chart.render();
         });
 
-        document.addEventListener("DOMContentLoaded", function() {
+        function renderMonthlySalesChart(monthly_sales) {
             var options = {
                 chart: {
                     type: 'bar',
@@ -213,9 +171,7 @@
                 },
                 series: [{
                     name: 'Sales',
-                    data: [10, 30, 50, 70, 20, 30, 45, 85, 55, 52,
-                        25, 25
-                    ]
+                    data: monthly_sales
                 }],
                 xaxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov',
@@ -247,7 +203,55 @@
 
             var chart = new ApexCharts(document.querySelector("#monthly_sales"), options);
             chart.render();
+        };
+
+        async function getDashboardDetails() {
+            try {
+                const response = await axios.get("{{ url('/dashboardDetails') }}");
+                renderSalesInMonth(response.data.sales_in_month, response.data.month_dates, response.data.year);
+                renderMonthlySalesChart(response.data.monthly_sales);
+            } catch (error) {
+                console.error("Error fetching dashboard details :", error);
+            }
+        }
+
+        function getPaymentsToCollect(page = 1) {
+            try {
+                {{--  const response = await axios.get("{{ url('/paymentsToCollect') }}");
+                $('#payments_to_collect_table').html(response);  --}}
+
+
+                $.ajax({
+                    url: '/paymentsToCollect',
+                    success: function(response) {
+                        console.log(response);
+                        $('#payments_to_collect_table').html(response);
+                        //$('#pre_stop').hide();
+                    }
+                });
+            } catch (error) {
+                console.error("Error fetching payments to collect :", error);
+            }
+
+
+
+
+
+
+            {{--  //$('#pre_stop').show();
+            $.ajax({
+                url: '/customers/ajax/list?page=',
+                success: function(response) {
+                    console.log(response);
+                    $('#payments_to_collect_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });  --}}
+        }
+
+        window.addEventListener("load", function() {
+            getDashboardDetails();
+            getPaymentsToCollect();
         });
     </script>
-
 </x-app-layout>
