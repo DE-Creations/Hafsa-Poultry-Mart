@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GRN\StoreGRNRequest;
 use App\Models\Grn;
 use domain\facades\GRNFacade\GRNFacade;
+use domain\facades\SupplierFacade\SupplierFacade;
 use Illuminate\Http\Request;
 
 class GRNController extends ParentController
@@ -16,8 +17,9 @@ class GRNController extends ParentController
 
     public function create()
     {
-        $response['date'] = now()->format('Y-m-d');
+        $response['grn_date'] = now()->format('Y-m-d');
         $response['grn_no'] = Grn::generateGrnNumber();
+        $response['suppliers'] = SupplierFacade::getSuppliers();
         return view('pages.grn.create');
     }
 
