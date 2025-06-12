@@ -18,9 +18,9 @@ class GRNController extends ParentController
     public function create()
     {
         $response['grn_date'] = now()->format('Y-m-d');
-        $response['grn_no'] = Grn::generateGrnNumber();
+        $response['grn_number'] = Grn::generateGrnNumber();
         $response['suppliers'] = SupplierFacade::getSuppliers();
-        return view('pages.grn.create');
+        return view('pages.grn.create', $response);
     }
 
     public function loadGRNs(Request $request)
