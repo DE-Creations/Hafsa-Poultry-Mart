@@ -7,7 +7,6 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
-use domain\services\InvoiceService\InvoiceService;
 use Illuminate\Http\Request;
 
 class InvoiceController extends ParentController
@@ -31,19 +30,18 @@ class InvoiceController extends ParentController
     {
         $query = Invoice::query();
 
-        // if (isset($request['search'])) {
-        //     $query = $query->where('code', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('description', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('note', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('date', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('amount', 'like', '%' . $request['search'] . '%');
-        // }
+        if (isset($request['search'])) {
+            $query = $query->where('invoice_number', 'like', '%' . $request['search'] . '%')
+                ->orWhere('date', 'like', '%' . $request['search'] . '%');
+        }
 
         if (isset($request['count'])) {
             $response['invoices'] = $query->orderBy('id', 'desc')->paginate($request['count']);
         } else {
             $response['invoices'] = $query->orderBy('id', 'desc')->paginate(20);
         }
+
+        // dd($response['invoices']);
 
         return view('pages.invoice.components.table')->with($response);
     }

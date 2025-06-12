@@ -30,8 +30,8 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search"
-                                            id="search" />
+                                        <input type="text" class="form-control" placeholder="Search" id="search"
+                                            onkeyup="getInvoices()" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
