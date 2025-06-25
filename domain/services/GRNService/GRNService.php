@@ -2,70 +2,65 @@
 
 namespace domain\services\GRNService;
 
-use App\Models\Invoice;
+use App\Models\Grn;
+use App\Models\GrnItem;
+use App\Models\GrnPay;
 use App\Models\InvoiceGrnCalculation;
-use App\Models\InvoiceItem;
-use App\Models\InvoicePayment;
-use App\Models\OutputItem;
 
 class GRNService
 {
-    // protected $invoice;
-    // protected $invoice_item;
-    // protected $invoice_payment;
-    // protected $output_item;
+    protected $grn;
+    protected $grn_item;
+    protected $grn_payment;
     protected $invoice_grn_calculation;
 
     public function __construct()
     {
-        // $this->invoice = new Invoice();
-        // $this->invoice_item = new InvoiceItem();
-        // $this->invoice_payment = new InvoicePayment();
-        // $this->output_item = new OutputItem();
+        $this->grn = new Grn();
+        $this->grn_item = new GrnItem();
+        $this->grn_payment = new GrnPay();
         $this->invoice_grn_calculation = new InvoiceGrnCalculation();
     }
 
     public function store(array $data)
     {
-        // insert invoice
-        // $invoice_data['invoice_number'] = $data['invoice_number'];
-        // $invoice_data['date'] = $data['invoice_date'];
-        // $invoice_data['customer_id'] = $data['customer_id'];
-        // $invoice_data['subtotal'] = $data['subtotal'];
-        // $invoice_data['total'] = $data['subtotal'];
+        // insert grn
+        $grn_data['grn_number'] = $data['grn_number'];
+        $grn_data['date'] = $data['grn_date'];
+        $grn_data['supplier_id'] = $data['supplier_id'];
+        $grn_data['subtotal'] = $data['subtotal'];
+        $grn_data['total'] = $data['subtotal'];
 
-        // $created_invoice = $this->invoice->create($invoice_data);
-        // $created_invoice->save();
+        $created_grn = $this->grn->create($grn_data);
+        $created_grn->save();
 
         // insert invoice items
-        // if (isset($data['items']) && is_array($data['items'])) {
-        //     foreach ($data['items'] as $item) {
-        //         $item_data = [
-        //             'invoice_id' => $created_invoice->id,
-        //             'item_name' => $item['item_name'],
-        //             'description' => $item['description'],
-        //             'weight' => $item['weight'],
-        //             'unit_price' => $item['unit_price'],
-        //             'amount' => $item['amount'],
-        //         ];
-        //         $this->invoice_item->create($item_data);
-        //     }
-        // }
+        if (isset($data['items']) && is_array($data['items'])) {
+            foreach ($data['items'] as $item) {
+                $item_data = [
+                    'grn_id' => $created_grn->id,
+                    'weight' => $item['weight'],
+                    'unit_price' => $item['unit_price'],
+                    'amount' => $item['amount'],
+                ];
+                $this->grn_item->create($item_data);
+            }
+        }
 
         // insert invoice payments
-        // $payment_data = [
-        //     'invoice_id' => $created_invoice->id,
-        //     'customer_id' => $data['customer_id'],
-        //     'balance' => $data['balance'], // Assuming initial balance is the total amount
-        //     'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
-        //     'invoice_total' => $data['total'],
-        //     // 'memo' => isset($data['memo']) ? $data['memo'] : '',
-        //     // 'paid_date' => null, // No payment made yet
-        //     // 'date_added' => now(),
-        //     // 'payment_method' => isset($data['payment_method']) ? $data['payment_method'] : null,
-        //     // 'bank_acc_id' => isset($data['bank_acc_id']) ? $data['bank_acc_id'] : null,
-        // ];
-        // $this->invoice_payment->create($payment_data);
+        $payment_data = [
+            'invoice_id' => $created_grn->id,
+            'supplier_id' => $data['supplier_id'],
+            'balance' => $data['balance'], // Assuming initial balance is the total amount
+            'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
+            'invoice_total' => $data['total'],
+            // 'memo' => isset($data['memo']) ? $data['memo'] : '',
+            // 'paid_date' => null, // No payment made yet
+            // 'date_added' => now(),
+            // 'payment_method' => isset($data['payment_method']) ? $data['payment_method'] : null,
+            // 'bank_acc_id' => isset($data['bank_acc_id']) ? $data['bank_acc_id'] : null,
+        ];
+        $this->grn_payment->create($payment_data);
 
         // update the grn_total with weight
         $total_grn_weight = 0;
@@ -80,20 +75,16 @@ class GRNService
         $data['grn_total'] = $calculation['grn_total'] + $total_grn_weight;
         $calculation->update($data);
 
-        // return $created_invoice->id;
+        return $created_grn->id;
     }
 
-    public function getCustomerBalanceForward($customer_id)
+    public function getCustomerBalanceForward($supplier_id)
     {
-        if ($customer_id === "1") {
-            return 0;
+        $last_payment = $this->grn_payment->where('supplier_id', $supplier_id)->orderBy('id', 'desc')->first();
+        if ($last_payment) {
+            return $last_payment->balance;
         } else {
-            $last_payment = $this->invoice_payment->where('customer_id', $customer_id)->orderBy('id', 'desc')->first();
-            if ($last_payment) {
-                return $last_payment->balance;
-            } else {
-                return 0;
-            }
+            return 0;
         }
     }
 

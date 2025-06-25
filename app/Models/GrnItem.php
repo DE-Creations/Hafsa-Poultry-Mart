@@ -11,13 +11,9 @@ class GrnItem extends Model
 
     protected $fillable = [
         'grn_id',
-        'input_item_id',
-        'description',
-        'qty',
-        'rate',
+        'weight',
+        'unit_price',
         'amount',
-        'discount',
-        'total',
     ];
 
     public function grn()
