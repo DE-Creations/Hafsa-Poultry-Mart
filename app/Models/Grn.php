@@ -11,21 +11,18 @@ class Grn extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'grn_no',
+        'grn_number',
         'supplier_id',
         'date',
-        'delivary_address',
         'sub_total',
-        'discount',
         'total',
-        'is_paid',
     ];
 
     public static function generateGrnNumber()
     {
         $lastGrn = Grn::orderBy('id', 'desc')->withTrashed()->first();
         if ($lastGrn) {
-            $lastGrnNumber = $lastGrn->grn_no;
+            $lastGrnNumber = $lastGrn->grn_number;
             $newGrnNumber = (int)str_replace('GRN', '', $lastGrnNumber) + 1;
             return 'GRN' . str_pad($newGrnNumber, 5, '0', STR_PAD_LEFT);
         }

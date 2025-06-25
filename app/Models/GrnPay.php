@@ -11,13 +11,15 @@ class GrnPay extends Model
 
     protected $fillable = [
         'grn_id',
-        'balance_foward',
-        'paid',
+        'grn_date',
+        'supplier_id',
+        'sub_total',
+        'discount_amount',
+        'previous_balance_forward',
+        'to_pay',
+        'paid_amount',
+        'new_balance',
         'memo',
-        'paid_date',
-        'date_added',
-        'payment_method_id',
-        'bank_acc_id',
     ];
 
     public function grn()

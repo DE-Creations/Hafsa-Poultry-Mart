@@ -13,14 +13,10 @@ return new class extends Migration
     {
         Schema::create('grns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('grn_no')->nullable();
+            $table->unsignedBigInteger('grn_number')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->date('date')->nullable();
-            $table->string('delivary_address')->nullable();
             $table->decimal('sub_total', 15, 2)->nullable();
-            $table->decimal('discount', 15, 2)->nullable();
-            $table->boolean('is_paid')->default(0);
-            $table->decimal('discount_amount', 15, 2)->nullable();
             $table->decimal('total', 15, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
