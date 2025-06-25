@@ -25,11 +25,12 @@ class GRNService
     public function store(array $data)
     {
         // insert grn
-        $grn_data['grn_number'] = $data['grn_number'];
-        $grn_data['date'] = $data['grn_date'];
-        $grn_data['supplier_id'] = $data['supplier_id'];
-        $grn_data['subtotal'] = $data['subtotal'];
-        $grn_data['total'] = $data['subtotal'];
+        $grn_data = [
+            'grn_number' => $data['grn_number'],
+            'date' => $data['grn_date'],
+            'supplier_id' => $data['supplier_id'],
+            'sub_total' => $data['sub_total'],
+        ];
 
         $created_grn = $this->grn->create($grn_data);
         $created_grn->save();
