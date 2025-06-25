@@ -55,11 +55,7 @@ class GRNService
             'balance' => $data['balance'], // Assuming initial balance is the total amount
             'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
             'invoice_total' => $data['total'],
-            // 'memo' => isset($data['memo']) ? $data['memo'] : '',
-            // 'paid_date' => null, // No payment made yet
-            // 'date_added' => now(),
-            // 'payment_method' => isset($data['payment_method']) ? $data['payment_method'] : null,
-            // 'bank_acc_id' => isset($data['bank_acc_id']) ? $data['bank_acc_id'] : null,
+            'memo' => $data['memo'],
         ];
         $this->grn_payment->create($payment_data);
 
