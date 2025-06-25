@@ -51,10 +51,10 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Suppliers</label>
-                                        <select id="customer_id" class="form-control"
-                                            onchange="getCustomerBalanceForward();">
+                                        <select id="supplier_id" class="form-control"
+                                            onchange="getSupplierBalanceForward();">
                                             @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -66,18 +66,18 @@
                                         <table id="grn_item_table" name="grn_item_table"
                                             class="table table-bordered table-striped table-hover table-responsive ">
                                             <colgroup>
+                                                <col style="width: 37%;">
+                                                <!-- <col style="width: 27%;"> -->
                                                 <col style="width: 20%;">
-                                                <col style="width: 27%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 10%;">
+                                                <col style="width: 20%;">
+                                                <col style="width: 20%;">
                                                 <col style="width: 3%;">
                                             </colgroup>
 
                                             <thead class="form-group-sm">
                                                 <tr>
                                                     <th>Item</th>
-                                                    <th>Item Description</th>
+                                                    <!-- <th>Item Description</th> -->
                                                     <th>Weight (Kg)</th>
                                                     <th>Unit price</th>
                                                     <th>Amount</th>
@@ -92,52 +92,52 @@
                                                 for ($i = 0; $i < $t1NumRows; $i++) {
 
                                                 ?> <tr id="tr<?php echo $i; ?>">
-                                                    <td>
-                                                        <select name="t1_item<?php echo $i; ?>"
-                                                            id="t1_item<?php echo $i; ?>"
-                                                            class="form-control form-control-sm"
-                                                            onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                            style="width: 100%;">
-                                                            <option value="0">Select</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                    </td>
-                                                    <td><input name="t1_weight<?php echo $i; ?>"
-                                                            id="t1_weight<?php echo $i; ?>" type="number"
-                                                            step="any" min="0"
-                                                            class="form-control form-control-sm" value=""
-                                                            style="width: 100%;height:30px;text-align: center;"
-                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                    <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                            id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                            step="any"
-                                                            class="form-control form-control-sm formatNumber"
-                                                            value=""
-                                                            style="width: 100%;height:30px;text-align: right;"
-                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                    <td><input name="t1_amount<?php echo $i; ?>"
-                                                            id="t1_amount<?php echo $i; ?>" type="text"
-                                                            class="form-control form-control-sm formatNumber"
-                                                            value=""
-                                                            style="width: 100%;height:30px;text-align: right;" disabled>
-                                                    </td>
-                                                    <td class="text-center"> <button type="button"
-                                                            class="btn btn-outline-danger btn-sm"
-                                                            onclick="deleteTableRow('grn_item_table','<?php echo $i; ?>')"><i
-                                                                class="icon-trash"></i></button></td>
-                                                </tr>
+                                                        <td>
+                                                            <select name="t1_item<?php echo $i; ?>"
+                                                                id="t1_item<?php echo $i; ?>"
+                                                                class="form-control form-control-sm"
+                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                                style="width: 100%;">
+                                                                <option value="Live Chicken">Live Chicken</option>
+                                                            </select>
+                                                        </td>
+                                                        <!-- <td >
+                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                        </td> -->
+                                                        <td><input name="t1_weight<?php echo $i; ?>"
+                                                                id="t1_weight<?php echo $i; ?>" type="number"
+                                                                step="any" min="0"
+                                                                class="form-control form-control-sm" value=""
+                                                                style="width: 100%;height:30px;text-align: center;"
+                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                                step="any"
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;"
+                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                        <td><input name="t1_amount<?php echo $i; ?>"
+                                                                id="t1_amount<?php echo $i; ?>" type="text"
+                                                                class="form-control form-control-sm formatNumber"
+                                                                value=""
+                                                                style="width: 100%;height:30px;text-align: right;" disabled>
+                                                        </td>
+                                                        <td class="text-center"> <button type="button"
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                onclick="deleteTableRow('grn_item_table','<?php echo $i; ?>')"><i
+                                                                    class="icon-trash"></i></button></td>
+                                                    </tr>
                                                 <?php
                                                 }
                                                 ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="3" class="text-right">
+                                                    <td colspan="2" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary "><i class="fa fa-eraser"></i>
+                                                            class="btn btn-sm btn-primary " style="display: none;"><i class="fa fa-eraser"></i>
                                                             Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">
@@ -253,13 +253,14 @@
     <script>
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function deleteTableRow(tableID, rownum) {
-            $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove();
+            // $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove(); // removed 
 
             calculateSubTotal();
             // calculateSubTotalWhenDeleteRow();
         }
         // Add rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function addNewLineT1() {
+            return;
             var item_row = parseInt(document.getElementById("t1NumRows").value);
 
             var table = document.querySelector('#grn_item_table tbody');
@@ -279,11 +280,12 @@
                                                                     class="form-control form-control-sm"
                                                                     onchange="getItemData(this ,` + (item_row) + `);"
                                                                     style="width: 100%;">
-                                                                    <option value="0">Select</option>
+                                                                    <option value="Live Chicken">Live Chicken</option>
                                                                 </select>`;
             cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
                 `" class="form-control form-control-sm"
                                                                     rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
+            cell2.style.display = "none";
             cell3.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
@@ -317,7 +319,7 @@
         async function createGrn() {
             var grn_number = document.getElementById("grn_number").value;
             var grn_date = document.getElementById("grn_date").value;
-            var customer_id = document.getElementById("customer_id").value;
+            var supplier_id = document.getElementById("supplier_id").value;
             var sub_total = getNumber("t1_sub_total");
             var discount_amount = getNumber("discount");
             var previous_balance_forward = getNumber("t1_pre_bal_for");
@@ -333,7 +335,7 @@
                     '0') { //check if have element and select item
                     var item = {
                         item_name: document.getElementById("t1_item" + i).value,
-                        description: document.getElementById("t1_desc" + i).value,
+                        // description: document.getElementById("t1_desc" + i).value,
                         weight: getNumber("t1_weight" + i),
                         unit_price: getNumber("t1_unit_price" + i),
                         amount: getNumber("t1_amount" + i),
@@ -369,7 +371,7 @@
             add_grn_details = {
                 grn_number: grn_number,
                 grn_date: grn_date,
-                customer_id: customer_id,
+                supplier_id: supplier_id,
                 sub_total: sub_total,
                 discount_amount: discount_amount,
                 previous_balance_forward: previous_balance_forward,
@@ -378,9 +380,11 @@
                 new_balance: new_balance,
                 memo: memo,
 
-                items: items,
-                bags: bags
+                items: items
             }
+
+            // console.log(add_grn_details);
+            // return;
 
             try {
                 const response = await axios.post("{{ url('/grn/store') }}/",
@@ -407,7 +411,7 @@
                     '0') { //check if have element and select item
                     if (itemId == $('#t1_item' + $i).val()) {
                         $('#t1_item' + number).val(0);
-                        $('#t1_desc' + number).html("");
+                        // $('#t1_desc' + number).html("");
                         $('#t1_unit_price' + number).val(0);
                         calAmount(number);
                         alert("This item is already selected.");
@@ -422,7 +426,7 @@
             }
 
             // set description & ubit price
-            document.getElementById("t1_desc" + number).innerHTML = selectedOption.getAttribute('data-description');
+            // document.getElementById("t1_desc" + number).innerHTML = selectedOption.getAttribute('data-description');
             document.getElementById("t1_unit_price" + number).value = selectedOption.getAttribute('data-unit_price');
 
             calAmount(number);
@@ -502,13 +506,13 @@
 
 
         window.addEventListener('load', () => {
-            getCustomerBalanceForward();
+            getSupplierBalanceForward();
         });
 
-        async function getCustomerBalanceForward() {
-            const customerId = document.getElementById("customer_id").value;
+        async function getSupplierBalanceForward() {
+            const supplierId = document.getElementById("supplier_id").value;
             try {
-                const response = await axios.get("{{ url('/grn/customer/balance') }}/" + customerId);
+                const response = await axios.get("{{ url('/grn/supplier/balance') }}/" + supplierId);
                 // console.log(response.data);
 
                 if (response.data == "none") {
@@ -520,7 +524,7 @@
                 }
                 //calculateTotal();
             } catch (error) {
-                console.error("Error fetching customer balance forward:", error);
+                console.error("Error fetching Supplier balance forward:", error);
             }
 
             calculateTotal();
