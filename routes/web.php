@@ -63,6 +63,9 @@ Route::prefix('expenses')->group(function () {
     Route::post('/store', [ExpensesController::class, 'store'])->name('expenses.store');
     Route::get('/edit/{expense_id}', [ExpensesController::class, 'edit'])->name('expenses.edit');
     Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('expenses.delete');
+
+    Route::get('/category/list', [ExpensesController::class, 'loadExpensesCategories'])->name('expenses.category.list');
+    Route::post('/category/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
 });
 
 Route::middleware('auth')->group(function () {

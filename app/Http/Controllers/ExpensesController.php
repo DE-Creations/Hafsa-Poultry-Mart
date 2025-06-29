@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Expense\StoreExpenseCategoryRequest;
 use App\Http\Requests\Expense\StoreExpenseRequest;
 use App\Models\Expense;
 use Carbon\Carbon;
@@ -18,7 +19,7 @@ class ExpensesController extends ParentController
 
     public function create()
     {
-        $response['expense_date'] = Carbon::now()->format('Y-m-d'); 
+        $response['expense_date'] = Carbon::now()->format('Y-m-d');
         $response['expenses_categories'] = ExpenseFacade::getExpensesCategories();
         //$response['expense_categories'] = ExpenseFacade::getExpensesCategories();
         $response['customers'] = CustomerFacade::getCustomers();
@@ -66,5 +67,16 @@ class ExpensesController extends ParentController
     public function delete($expense_id)
     {
         return ExpenseFacade::delete($expense_id);
+    }
+
+    public function loadExpensesCategories()
+    {
+        $response['expensesCategories'] = ExpenseFacade::getExpensesCategories();
+        return view('pages.expenses.components.expensesCategoryTable')->with($response);
+    }
+
+    public function expenseCategorystore(StoreExpenseCategoryRequest $request)
+    {
+        return ExpenseFacade::expenseCategorystore($request->all());
     }
 }

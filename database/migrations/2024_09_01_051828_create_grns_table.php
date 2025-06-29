@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('grns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('grn_number')->nullable();
+            $table->string('grn_number')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->date('date')->nullable();
             $table->decimal('sub_total', 15, 2)->nullable();
