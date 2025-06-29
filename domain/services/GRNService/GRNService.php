@@ -48,13 +48,18 @@ class GRNService
             }
         }
 
+        // dd($data);
         // insert invoice payments
         $payment_data = [
-            'invoice_id' => $created_grn->id,
+            'grn_id' => $created_grn->id,
+            'grn_date' => $data['grn_date'],
             'supplier_id' => $data['supplier_id'],
-            'balance' => $data['balance'], // Assuming initial balance is the total amount
-            'paid_amount' => $data['paid_amount'], // Initial paid amount is 0
-            'invoice_total' => $data['total'],
+            'sub_total' => $data['sub_total'],
+            'discount_amount' => $data['discount_amount'],
+            'previous_balance_forward' => $data['previous_balance_forward'],
+            'to_pay' => $data['to_pay'],
+            'paid_amount' => $data['paid_amount'],
+            'new_balance' => $data['new_balance'],
             'memo' => $data['memo'],
         ];
         $this->grn_payment->create($payment_data);

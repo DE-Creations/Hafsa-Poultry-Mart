@@ -34,7 +34,7 @@ class StoreExpenseRequest extends FormRequest
     {
         return [
             'expense_category_id.required' => 'Expense category is required',
-            'expense_category_id.numeric' => 'Expense category must be a numeric value',
+            'expense_category_id.numeric' => 'Expense category is required',
             'date.required' => 'Date is required',
             'date.date' => 'Date must be a valid date',
             'amount.required' => 'Amount is required',

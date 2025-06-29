@@ -108,16 +108,7 @@ class ExpenseService
         return $totals;
     }
 
-    public function newCategory(array $data)
-    {
-        $data['tenant_id'] = Auth::user()->tenant_id;
-        $expense_category = $this->expense_category->where('name', $data['name'])->where('tenant_id', $data['tenant_id'])->first();
-        if (!$expense_category) {
-            return $this->expense_category->create($data);
-        } else {
-            return "This category already exists";
-        }
-    }
+
 
     public function getCategory($id)
     {
@@ -135,8 +126,26 @@ class ExpenseService
         return $this->expense_category->find($product_id)->delete();
     }
 
+
+
+
+
+
+
+    // getExpensesCategories
     public function categorySelectAll()
     {
-        return $this->expense_category->where('tenant_id', Auth::user()->tenant_id)->orderBy('name', 'asc')->get();
+        return $this->expense_category->orderBy('name', 'asc')->get();
+    }
+
+    // expenseCategorystore
+    public function newCategory(array $data)
+    {
+        $expense_category = $this->expense_category->where('name', $data['name'])->first();
+        if (!$expense_category) {
+            return $this->expense_category->create($data);
+        } else {
+            return "This category already exists";
+        }
     }
 }

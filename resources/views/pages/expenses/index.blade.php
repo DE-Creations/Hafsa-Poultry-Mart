@@ -28,13 +28,15 @@
                         <div class="card-body">
                             <!-- Search container start -->
                             <div class="row mb-3">
-                                <div class="col-10">
+                                <div class="col">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
                                             onkeyup="getExpenses()" />
                                     </div>
                                 </div>
-                                <div class="col-2 text-end">
+                                <div class="col text-end">
+                                    <button class="btn btn-warning" onclick="openExpensesCategoriesModal()">Expenses
+                                        Categories</button>
                                     <a type="button" class="btn btn-primary" href="{{ route('expenses.create') }}">Add
                                         new</a>
                                 </div>
@@ -58,6 +60,47 @@
     </div>
 
     <!-- Modals -->
+
+    <!-- Expenses Categories modal start -->
+    <div class="modal fade" id="expensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Expenses Categories
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Add new Expense Category</label>
+                        <div class="d-flex mt-2">
+                            <input type="text" class="form-control" placeholder="Enter Name" name="name"
+                                id="add_name" />
+                            <span class="text-danger" id="name_error"></span>
+                            <button onclick="addExpensesCategory()" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-outer">
+                        <div class="table-responsive" id="all_expense_category_table">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Expenses Categories modal end -->
 
     <!-- Delete modal start -->
     <div class="modal center fade" id="deleteExpenseModal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -147,6 +190,58 @@
                     //$('#pre_stop').hide();
                 }
             });
+        }
+
+        function openExpensesCategoriesModal() {
+            console.log("Opening Expenses Categories Modal");
+            {{--  getExpensesCategories();  --}}
+            {{--  const expensesCategoriesModal = new bootstrap.Modal(document.getElementById('expensesCategoriesModal'));  --}}
+            {{--  expensesCategoriesModal.show();  --}}
+        }
+
+        {{--  function getExpensesCategories() {
+            try {
+                $.ajax({
+                    url: '/expenses/category/list',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'GET',
+                    dataType: '',
+                    success: function(response) {
+                        console.log(response);
+                        $('#all_expense_category_table').html(response);
+                        //$('#pre_stop').hide();
+                    }
+                });
+            } catch (error) {
+                console.error("Error fetching expenses categories:", error);
+            }
+        }  --}}
+
+        function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+        }
+
+        function addExpensesCategory() {
+            var name = document.getElementById("add_name").value;
+
+            expenses_category_details = {
+                name: name,
+            }
+
+            try {
+                const response = await axios.post("{{ url('/expenses/category/store') }}/",
+                    expenses_category_details);
+                const expensesCategory = response.data;
+
+                resetAddInputFields();
+                getExpensesCategories();
+                {{--  modal.hide();  --}}
+                showAlert("success-modal", "success-text", "Expense Category added successfully.");
+            } catch (error) {
+                viewAddErrors(error);
+            }
         }
 
         window.addEventListener('load', () => {
