@@ -18,8 +18,8 @@ class Invoice extends Model
     ];
 
     protected $appends = [
-        'customer',
-        'invoice_payment',
+        // 'customer',
+        // 'invoice_payment',
     ];
 
     public static function generateInvoiceNumber()
@@ -38,28 +38,23 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class, 'invoice_id', 'id');
     }
 
-    public function invoicePayments()
+    public function invoicePayment()
     {
         return $this->hasMany(InvoicePayment::class, 'invoice_id', 'id');
     }
 
-    // public function customer(){
-    //     return $this->belongsTo(Customer::class, 'id', 'customer_id');
-    // }
-    //our code
-
-    // public function customer(){
-    //     return $this->belongsTo(Customer::class, 'customer_id', 'id');
-    // }
-    //AI code
-
-    public function getCustomerAttribute()
+    public function customer()
     {
-        return $this->customer_id ? Customer::find($this->customer_id) : null;
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
-    public function getInvoicePaymentAttribute()
-    {
-        return $this->id ? InvoicePayment::where('invoice_id', $this->id)->first() : null;
-    }
+    // public function getCustomerAttribute()
+    // {
+    //     return $this->customer_id ? Customer::find($this->customer_id) : null;
+    // }
+
+    // public function getInvoicePaymentAttribute()
+    // {
+    //     return $this->id ? InvoicePayment::where('invoice_id', $this->id)->first() : null;
+    // }
 }

@@ -36,12 +36,10 @@ class InvoiceController extends ParentController
         }
 
         if (isset($request['count'])) {
-            $response['invoices'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+            $response['invoices'] = $query->with(['customer', 'invoicePayment'])->orderBy('id', 'desc')->paginate($request['count']);
         } else {
-            $response['invoices'] = $query->orderBy('id', 'desc')->paginate(20);
+            $response['invoices'] = $query->with(['customer', 'invoicePayment'])->orderBy('id', 'desc')->paginate(20);
         }
-
-        // dd($response['invoices']);
 
         return view('pages.invoice.components.table')->with($response);
     }
