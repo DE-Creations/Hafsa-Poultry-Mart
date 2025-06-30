@@ -56,8 +56,11 @@ class InvoiceController extends ParentController
 
     public function edit($invoice_id)
     {
-        $invoice = InvoiceFacade::get($invoice_id);
-        return view('pages.invoice.edit')->with(['invoice' => $invoice]);
+        $response['invoice'] = InvoiceFacade::get($invoice_id);
+        $response['customers'] = CustomerFacade::getCustomers();
+        $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
+        $response['bags'] = InvoiceFacade::getBagsCategory();
+        return view('pages.invoice.edit', $response);
     }
 
     public function delete($invoice_id)

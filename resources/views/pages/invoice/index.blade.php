@@ -127,8 +127,8 @@
             }, 5000);
         }
 
-        function goToExpenseEdit(id) {
-            window.location.href = '/expenses/edit/' + id;
+        function goToInvoiceEdit(id) {
+            window.location.href = '/invoice/edit/' + id;
         }
 
         function showDeleteInvoiceModal(id) {
