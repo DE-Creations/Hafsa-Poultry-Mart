@@ -193,10 +193,7 @@
         }
 
         function openExpensesCategoriesModal() {
-            console.log("Opening Expenses Categories Modal");
-            {{--  getExpensesCategories();  --}}
-            {{--  const expensesCategoriesModal = new bootstrap.Modal(document.getElementById('expensesCategoriesModal'));  --}}
-            {{--  expensesCategoriesModal.show();  --}}
+            openModal("expensesCategoriesModal");
         }
 
         {{--  function getExpensesCategories() {
@@ -223,7 +220,7 @@
             document.getElementById("add_name").value = "";
         }
 
-        function addExpensesCategory() {
+        {{--  function addExpensesCategory() {
             var name = document.getElementById("add_name").value;
 
             expenses_category_details = {
@@ -238,10 +235,13 @@
                 resetAddInputFields();
                 getExpensesCategories();
                 {{--  modal.hide();  --}}
-                showAlert("success-modal", "success-text", "Expense Category added successfully.");
-            } catch (error) {
-                viewAddErrors(error);
-            }
+        showAlert("success-modal", "success-text", "Expense Category added successfully.");
+        }
+        catch (error) {
+            viewAddErrors(error);
+        }
+        }--
+        }
         }
 
         window.addEventListener('load', () => {
