@@ -37,15 +37,15 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Invoice No.</label>
-                                        <input id="invoice_number" type="text" class="form-control" disabled
-                                            value="{{ $invoice_number }}" />
+                                        {{--  <input id="invoice_number" type="text" class="form-control" disabled
+                                            value="{{ $invoice_number }}" />  --}}
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
-                                        <input id="invoice_date" type="date" class="form-control"
-                                            value="{{ $invoice_date }}" />
+                                        {{--  <input id="invoice_date" type="date" class="form-control"
+                                            value="{{ $invoice_date }}" />  --}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -298,8 +298,7 @@
 
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-primary col-3"
-                                            onclick="editInvoice()">
+                                        <button type="button" class="btn btn-primary col-3" onclick="editInvoice()">
                                             Create
                                         </button>
                                     </div>
