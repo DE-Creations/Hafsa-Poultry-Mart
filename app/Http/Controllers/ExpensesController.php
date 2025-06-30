@@ -44,6 +44,7 @@ class ExpensesController extends ParentController
             $response['expenses'] = $query->orderBy('id', 'desc')->paginate(20);
         }
 
+        dd($response['expenses']);
         return view('pages.expenses.components.table')->with($response);
     }
 
