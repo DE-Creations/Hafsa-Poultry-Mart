@@ -129,6 +129,13 @@ class InvoiceService
         }
     }
 
+    public function delete(int $invoice_id)
+    {
+        $invoice = $this->invoice->find($invoice_id);
+        return $invoice->delete();
+    }
+
+
     public function get($id)
     {
         return $this->expense->withTrashed()->findOrFail($id);
@@ -150,11 +157,7 @@ class InvoiceService
         return $expense;
     }
 
-    public function delete(int $expense_id)
-    {
-        $expense = $this->expense->find($expense_id);
-        return $expense->delete();
-    }
+
 
     public function restoreExpense(int $expense_id)
     {
