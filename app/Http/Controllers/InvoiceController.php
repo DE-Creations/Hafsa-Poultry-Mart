@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
+use App\Http\Requests\Invoice\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
@@ -61,6 +62,11 @@ class InvoiceController extends ParentController
         $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
         $response['bags'] = InvoiceFacade::getBagsCategory();
         return view('pages.invoice.edit', $response);
+    }
+
+    public function update(UpdateInvoiceRequest $request, $invoice_id)
+    {
+        return InvoiceFacade::update($request->all(), $invoice_id);
     }
 
     public function delete($invoice_id)

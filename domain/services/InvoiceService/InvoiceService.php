@@ -140,11 +140,9 @@ class InvoiceService
         return $invoice->delete();
     }
 
-
-
-
     public function update($id, $data)
     {
+        dd($data);
         $dateString = $data['date'];
         $formattedDate = Carbon::parse($dateString);
 
@@ -157,66 +155,5 @@ class InvoiceService
         $expense->created_at = $expense->date;
         $expense->save();
         return $expense;
-    }
-
-
-
-    public function restoreExpense(int $expense_id)
-    {
-        $deleted_expense = $this->expense->withTrashed()->find($expense_id);
-        $deleted_expense->deleted_at = null;
-        return $deleted_expense->save();
-    }
-
-    public function removeImage(int $id)
-    {
-        $details = $this->expense->find($id);
-        $details->image_id = null;
-        return $details->save();
-    }
-
-    public function calculateTotals($expenses)
-    {
-        $totals = [
-            'total' => 0
-        ];
-
-        foreach ($expenses as $expense) {
-            $totals['total'] += $expense['amount'];
-        }
-
-        return $totals;
-    }
-
-    public function newCategory(array $data)
-    {
-        $data['tenant_id'] = Auth::user()->tenant_id;
-        $expense_category = $this->expense_category->where('name', $data['name'])->where('tenant_id', $data['tenant_id'])->first();
-        if (!$expense_category) {
-            return $this->expense_category->create($data);
-        } else {
-            return "This category already exists";
-        }
-    }
-
-    public function getCategory($id)
-    {
-        return $this->expense_category->findOrFail($id);
-    }
-
-    public function updateCategory($id, $data)
-    {
-        $category = $this->expense_category->findOrFail($id);
-        return $category->update($data);
-    }
-
-    public function deleteCategory(int $product_id)
-    {
-        return $this->expense_category->find($product_id)->delete();
-    }
-
-    public function categorySelectAll()
-    {
-        return $this->expense_category->where('tenant_id', Auth::user()->tenant_id)->orderBy('name', 'asc')->get();
     }
 }
