@@ -48,6 +48,11 @@ class Invoice extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
+    public function bags()
+    {
+        return $this->hasMany(BagHistory::class, 'invoice_id', 'id');
+    }
+
     // public function getCustomerAttribute()
     // {
     //     return $this->customer_id ? Customer::find($this->customer_id) : null;

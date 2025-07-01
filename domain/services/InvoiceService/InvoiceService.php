@@ -131,7 +131,7 @@ class InvoiceService
 
     public function get($id)
     {
-        return $this->invoice->with(['customer', 'invoicePayment', 'invoiceItems'])->withTrashed()->findOrFail($id);
+        return $this->invoice->with(['customer', 'invoicePayment', 'invoiceItems', 'bags'])->withTrashed()->findOrFail($id);
     }
 
     public function delete(int $invoice_id)
