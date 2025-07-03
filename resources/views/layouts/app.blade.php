@@ -254,14 +254,14 @@
     <!-- Page wrapper end -->
 
     <!--Alerts start-->
-    <div class="alert alert-danger alert-dismissible fade w-100 text-center fixed-top" role="alert"
-        id="danger-modal" style="z-index: 10000;">
+    <div class="alert alert-danger alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none" role="alert"
+        id="danger-modal" style="z-index: 10000;margin-top: 20%;">
         <span class="icon-alert-octagon"></span>
         <span id="danger-text" class="fs-6"></span>
     </div>
 
-    <div class="alert alert-success alert-dismissible fade w-100 text-center fixed-top" role="alert"
-        id="success-modal" style="z-index: 10000;">
+    <div class="alert alert-success alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none" role="alert"
+        id="success-modal" style="z-index: 10000;margin-top: 20%;">
         <span class="icon-alert-circle"></span>
         <span id="success-text" class="fs-6"></span>
     </div>

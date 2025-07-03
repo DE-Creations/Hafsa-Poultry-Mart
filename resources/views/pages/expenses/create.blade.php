@@ -255,8 +255,10 @@
             document.getElementById(alertSpan).textContent = alertText;
             const alert = document.getElementById(alertType);
             alert.classList.add("show");
+            alert.classList.remove("d-none");
             setTimeout(() => {
                 alert.classList.remove("show");
+                alert.classList.add("d-none");
             }, 5000);
         }
 
