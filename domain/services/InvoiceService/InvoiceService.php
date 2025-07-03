@@ -121,7 +121,6 @@ class InvoiceService
         } else {
             $last_payment = $this->invoice_payment->where('customer_id', $customer_id)->orderBy('id', 'desc')->first();
             if ($last_payment) {
-                // dd($last_payment);
                 return $last_payment->new_balance;
             } else {
                 return "none";
@@ -136,6 +135,19 @@ class InvoiceService
 
     public function delete(int $invoice_id)
     {
+        $invoice_payment = $this->invoice_payment->where('invoice_id', $invoice_id)->first();
+        $invoice_payment->delete();
+
+        $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+        foreach ($invoice_items as $item) {
+            $item->delete();
+        }
+
+        $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
+        foreach ($bags as $bag) {
+            $bag->delete();
+        }
+
         $invoice = $this->invoice->find($invoice_id);
         return $invoice->delete();
     }

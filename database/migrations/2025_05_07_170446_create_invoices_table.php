@@ -17,7 +17,6 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->decimal('sub_total', 15, 2)->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
