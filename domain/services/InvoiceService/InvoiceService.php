@@ -152,7 +152,7 @@ class InvoiceService
         return $invoice->delete();
     }
 
-    public function update($id, $data)
+    public function update($data, $id)
     {
         dd($data);
         $dateString = $data['date'];
