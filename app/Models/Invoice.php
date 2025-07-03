@@ -24,7 +24,7 @@ class Invoice extends Model
 
     public static function generateInvoiceNumber()
     {
-        $lastInvoice = Invoice::orderBy('id', 'desc')->withTrashed()->first();
+        $lastInvoice = Invoice::orderBy('id', 'desc')->first();
         if ($lastInvoice) {
             $lastInvoiceNumber = $lastInvoice->invoice_number;
             $newInvoiceNumber = (int)str_replace('INV', '', $lastInvoiceNumber) + 1;
