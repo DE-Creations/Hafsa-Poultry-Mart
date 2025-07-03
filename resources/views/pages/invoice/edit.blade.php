@@ -45,7 +45,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
                                         <input id="invoice_date" type="date" class="form-control"
-                                            value="{{ $invoice->date }}" disabled/>
+                                            value="{{ $invoice->date }}" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -56,7 +56,7 @@
                                             @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}" <?php if ($customer->id == $invoice->customer_id) {
                                                                                     echo "selected";
-                                                                                } ?> >{{ $customer->name }}
+                                                                                } ?>>{{ $customer->name }}
                                             </option>
                                             @endforeach
                                         </select>
@@ -403,16 +403,35 @@
 
         //Create invoice
         async function editInvoice() {
-            var invoice_number = document.getElementById("invoice_number").value;
-            var invoice_date = document.getElementById("invoice_date").value;
-            var customer_id = document.getElementById("customer_id").value;
+
             var sub_total = getNumber("t1_sub_total");
             var discount_amount = getNumber("discount");
             var previous_balance_forward = getNumber("t1_pre_bal_for");
             var to_pay = getNumber("t1_to_pay");
             var paid_amount = getNumber("paid_amount");
-            var new_balance = getNumber("new_balance");;
+            var new_balance = getNumber("new_balance");
             var memo = document.getElementById("memo").value;
+
+            var invoice = [];
+            var invoiceDetails = {
+                sub_total: parseInt(sub_total),
+            };
+            invoice.push(invoiceDetails);
+
+
+            var invoice_payment = [];
+            var invoicePaymentDetails = {
+                sub_total: parseInt(sub_total),
+                discount_amount: parseInt(discount_amount),
+                previous_balance_forward: parseInt(previous_balance_forward),
+                to_pay: parseInt(to_pay),
+                paid_amount: parseInt(paid_amount),
+                new_balance: parseInt(new_balance),
+                memo: memo,
+            };
+            invoice_payment.push(invoicePaymentDetails);
+
+
 
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
@@ -467,32 +486,19 @@
                 }
             }
 
-
             add_invoice_details = {
 
-                invoice_date: invoice_date,
-                customer_id: customer_id,
-                sub_total: sub_total,
-                discount_amount: discount_amount,
-                previous_balance_forward: previous_balance_forward,
-                to_pay: to_pay,
-                paid_amount: paid_amount,
-                new_balance: new_balance,
-                memo: memo,
-
+                invoice: invoice,
+                invoice_payment: invoice_payment,
                 items: items,
                 bags: bags
 
             }
 
-            console.log(invoiceId);
-            console.log(add_invoice_details);
-            return;
-
             try {
-                const response = await axios.post("{{ url('/invoice/store') }}/",
+                const response = await axios.post("{{ url('/invoice/update') }}/" + invoiceId,
                     add_invoice_details);
-                window.location.reload();
+                window.location.href = "{{ url('/invoice') }}";
             } catch (error) {
                 viewAddErrors(error);
             }
