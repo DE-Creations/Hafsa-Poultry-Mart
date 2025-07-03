@@ -165,8 +165,8 @@ class InvoiceService
         foreach ($invoice_items as $item) {
             $item->delete();
         }
-        if (isset($data['invoice_items']) && is_array($data['invoice_items'])) {
-            foreach ($data['invoice_items'] as $item) {
+        if (isset($data['items']) && is_array($data['items'])) {
+            foreach ($data['items'] as $item) {
                 $item_data = [
                     'invoice_id' => $invoice_id,
                     'item_name' => $item['item_name'],
@@ -194,6 +194,8 @@ class InvoiceService
                 $this->bags_history->create($bag_data);
             }
         }
+
+        return 'Invoice updated successfully';
     }
 
     public function editInvoice(Invoice $invoice, array $data)
