@@ -42,6 +42,7 @@ Route::prefix('invoice')->group(function () {
     Route::get('ajax/list', [InvoiceController::class, 'loadInvoices'])->name('invoice.all.list');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
     Route::get('/edit/{invoice_id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::post('/update/{invoice_id}', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/delete/{invoice_id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     Route::get('/customer/balance/{customer_id}', [InvoiceController::class, 'getCustomerBalanceForward'])->name('invoice.customer.balance');
 });
