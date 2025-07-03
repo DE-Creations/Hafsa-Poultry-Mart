@@ -152,20 +152,57 @@ class InvoiceService
         return $invoice->delete();
     }
 
-    public function update($data, $id)
+    public function update($data, $invoice_id)
     {
-        dd($data);
-        $dateString = $data['date'];
-        $formattedDate = Carbon::parse($dateString);
+        $invoice = $this->invoice->find($invoice_id);
+        $invoice->update($this->editInvoice($invoice, $data['invoice']));
 
-        if (isset($data['date'])) {
-            $data['date'] = $formattedDate;
-            $data['created_at'] = $formattedDate;
+        $invoice_payment = $this->invoice_payment->where('invoice_id', $invoice_id)->first();
+        $invoice_payment->update($this->editPayment($invoice_payment, $data['invoice_payment']));
+
+        // delete all invoice items and create new invoice items
+        $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+        foreach ($invoice_items as $item) {
+            $item->delete();
         }
-        $expense = $this->expense->findOrFail($id);
-        $expense->update($data);
-        $expense->created_at = $expense->date;
-        $expense->save();
-        return $expense;
+        if (isset($data['invoice_items']) && is_array($data['invoice_items'])) {
+            foreach ($data['invoice_items'] as $item) {
+                $item_data = [
+                    'invoice_id' => $invoice_id,
+                    'item_name' => $item['item_name'],
+                    'description' => $item['description'],
+                    'weight' => $item['weight'],
+                    'unit_price' => $item['unit_price'],
+                    'amount' => $item['amount'],
+                ];
+                $this->invoice_item->create($item_data);
+            }
+        }
+
+        // delete all bags and create new bags
+        $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
+        foreach ($bags as $bag) {
+            $bag->delete();
+        }
+        if (isset($data['bags']) && is_array($data['bags'])) {
+            foreach ($data['bags'] as $bag) {
+                $bag_data = [
+                    'bags_category_id' => $bag['id'],
+                    'invoice_id' => $invoice_id,
+                    'count' => $bag['count'],
+                ];
+                $this->bags_history->create($bag_data);
+            }
+        }
+    }
+
+    public function editInvoice(Invoice $invoice, array $data)
+    {
+        return array_merge($invoice->toArray(), $data);
+    }
+
+    public function editPayment(InvoicePayment $invoicePayment, array $data)
+    {
+        return array_merge($invoicePayment->toArray(), $data);
     }
 }
