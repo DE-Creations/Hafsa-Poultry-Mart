@@ -217,7 +217,7 @@
                                                                     id="t2_count<?php echo $t2NumRows; ?>"
                                                                     type="number" step="1" min="0"
                                                                     class="form-control form-control-sm"
-                                                                    value="{{ $bagsCount[$bag->id] }}"
+                                                                    value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
                                                                     style="width: 100%;height:30px;text-align: center;"
                                                                     onchange="bags_caltotal();">
 
