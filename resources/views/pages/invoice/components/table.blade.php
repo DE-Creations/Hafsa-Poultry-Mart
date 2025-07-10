@@ -21,16 +21,22 @@
                 <td>{{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
                 <td>{{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
                 <td>
-                    <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $invoice->id }})"
-                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
-                        data-bs-title="Edit">
-                        <i class="icon-edit"></i>
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteInvoiceModal({{ $invoice->id }})"
-                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
-                        data-bs-title="Delete">
-                        <i class="icon-trash"></i>
-                    </button>
+                    <?php
+                    // if the invoice is relevant customer's last invoice, show the edit and delete buttons. otherwise, do not show them
+                    $isLastInvoice = $invoice->customer->invoices->last()->id === $invoice->id;
+                    ?>
+                    @if ($isLastInvoice)
+                        <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $invoice->id }})"
+                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
+                            data-bs-title="Edit">
+                            <i class="icon-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm"
+                            onclick="showDeleteInvoiceModal({{ $invoice->id }})" data-bs-toggle="tooltip"
+                            data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger" data-bs-title="Delete">
+                            <i class="icon-trash"></i>
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforeach

@@ -424,6 +424,7 @@
 
             var invoice = {
                 sub_total: parseInt(sub_total),
+                customer_id: parseInt(document.getElementById("customer_id").value),
             };
 
             var invoice_payment = {
