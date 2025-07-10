@@ -154,48 +154,59 @@ class InvoiceService
 
     public function update($data, $invoice_id)
     {
-        $invoice = $this->invoice->find($invoice_id);
-        $invoice->update($this->editInvoice($invoice, $data['invoice']));
+        $last_invoice = $this->invoice_payment->where('customer_id', $data['invoice']['customer_id'])
+            ->orderBy('id', 'desc')
+            ->first();
+        if (!$last_invoice) {
+            return 'This customer has no previous invoices.';
+        } else {
+            if ($last_invoice->invoice_id != $invoice_id) {
+                return 'This invoice is not the last invoice of this customer. You cannot update it.';
+            } else {
+                $invoice = $this->invoice->find($invoice_id);
+                $invoice->update($this->editInvoice($invoice, $data['invoice']));
 
-        $invoice_payment = $this->invoice_payment->where('invoice_id', $invoice_id)->first();
-        $invoice_payment->update($this->editPayment($invoice_payment, $data['invoice_payment']));
+                $invoice_payment = $this->invoice_payment->where('invoice_id', $invoice_id)->first();
+                $invoice_payment->update($this->editPayment($invoice_payment, $data['invoice_payment']));
 
-        // delete all invoice items and create new invoice items
-        $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
-        foreach ($invoice_items as $item) {
-            $item->delete();
-        }
-        if (isset($data['items']) && is_array($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $item_data = [
-                    'invoice_id' => $invoice_id,
-                    'item_name' => $item['item_name'],
-                    'description' => $item['description'],
-                    'weight' => $item['weight'],
-                    'unit_price' => $item['unit_price'],
-                    'amount' => $item['amount'],
-                ];
-                $this->invoice_item->create($item_data);
+                // delete all invoice items and create new invoice items
+                $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+                foreach ($invoice_items as $item) {
+                    $item->delete();
+                }
+                if (isset($data['items']) && is_array($data['items'])) {
+                    foreach ($data['items'] as $item) {
+                        $item_data = [
+                            'invoice_id' => $invoice_id,
+                            'item_name' => $item['item_name'],
+                            'description' => $item['description'],
+                            'weight' => $item['weight'],
+                            'unit_price' => $item['unit_price'],
+                            'amount' => $item['amount'],
+                        ];
+                        $this->invoice_item->create($item_data);
+                    }
+                }
+
+                // delete all bags and create new bags
+                $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
+                foreach ($bags as $bag) {
+                    $bag->delete();
+                }
+                if (isset($data['bags']) && is_array($data['bags'])) {
+                    foreach ($data['bags'] as $bag) {
+                        $bag_data = [
+                            'bags_category_id' => $bag['id'],
+                            'invoice_id' => $invoice_id,
+                            'count' => $bag['count'],
+                        ];
+                        $this->bags_history->create($bag_data);
+                    }
+                }
+
+                return 'Invoice updated successfully';
             }
         }
-
-        // delete all bags and create new bags
-        $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
-        foreach ($bags as $bag) {
-            $bag->delete();
-        }
-        if (isset($data['bags']) && is_array($data['bags'])) {
-            foreach ($data['bags'] as $bag) {
-                $bag_data = [
-                    'bags_category_id' => $bag['id'],
-                    'invoice_id' => $invoice_id,
-                    'count' => $bag['count'],
-                ];
-                $this->bags_history->create($bag_data);
-            }
-        }
-
-        return 'Invoice updated successfully';
     }
 
     public function editInvoice(Invoice $invoice, array $data)
