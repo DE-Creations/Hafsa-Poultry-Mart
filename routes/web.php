@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfitLossReportController;
 use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,20 @@ Route::prefix('expenses')->group(function () {
 
     Route::get('/category/list', [ExpensesController::class, 'loadExpensesCategories'])->name('expenses.category.list');
     Route::post('/category/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
+});
+
+Route::prefix('reports')->group(function () {
+    Route::prefix('/profit_loss')->group(function () {
+        Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
+        Route::get('/create', [ExpensesController::class, 'create'])->name('reports.profit_loss.create');
+        Route::get('ajax/list', [ExpensesController::class, 'loadExpenses'])->name('reports.profit_loss.all.list');
+        Route::post('/store', [ExpensesController::class, 'store'])->name('reports.profit_loss.store');
+        Route::get('/edit/{expense_id}', [ExpensesController::class, 'edit'])->name('reports.profit_loss.edit');
+        Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('reports.profit_loss.delete');
+
+        Route::get('/category/list', [ExpensesController::class, 'loadExpensesCategories'])->name('reports.profit_loss.category.list');
+        Route::post('/category/store', [ExpensesController::class, 'expenseCategorystore'])->name('reports.profit_loss.category.store');
+    });
 });
 
 Route::middleware('auth')->group(function () {

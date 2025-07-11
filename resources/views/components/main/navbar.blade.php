@@ -44,14 +44,15 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ request()->routeIs('reports*') ? 'active-link' : '' }}">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="icon-margin"></i>Reports
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="form-checkbox-radio.html"><span>Profit &amp; loss</span></a>
+                            <a class="dropdown-item" href="{{ route('reports.profit_loss.index') }}"><span>Profit &amp;
+                                    loss</span></a>
                         </li>
                     </ul>
                 </li>
