@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
 use Illuminate\Http\Request;
+use PDF;
 
 class InvoiceController extends ParentController
 {
@@ -72,5 +73,29 @@ class InvoiceController extends ParentController
     public function delete($invoice_id)
     {
         return InvoiceFacade::delete($invoice_id);
+    }
+
+    public function print(Request $request, $invoice_id)
+    {
+        $query = Invoice::with(['customer', 'invoicePayment', 'invoiceItems', 'bags'])->find($invoice_id);
+
+        // $payments_data = $payload->get()->toArray();
+
+        // $total_payment = array_sum(array_column($payments_data, 'price'));
+
+        // Prepare the data to be passed to the PDF view
+        $data = [
+            // 'member' => $memberName,
+            // 'type' => $typeName,
+            // 'search_details_from_date' => $search_details_from_date,
+            // 'search_details_to_date' => $search_details_to_date,
+            // 'payments_data' => $payments_data,
+            // 'total_payment' => $total_payment,
+            'details' => $query,
+        ];
+
+        // Generate the PDF
+        $pdf = PDF::loadView('print.pages.invoice.report', $data);
+        return $pdf->stream("invoice.pdf", ["Attachment" => false]);
     }
 }

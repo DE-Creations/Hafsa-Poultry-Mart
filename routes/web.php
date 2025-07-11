@@ -45,6 +45,7 @@ Route::prefix('invoice')->group(function () {
     Route::post('/update/{invoice_id}', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::delete('/delete/{invoice_id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     Route::get('/customer/balance/{customer_id}', [InvoiceController::class, 'getCustomerBalanceForward'])->name('invoice.customer.balance');
+    Route::post('/print/{invoice_id}', [InvoiceController::class, "print"])->name('invoice.print');
 });
 
 Route::prefix('grn')->group(function () {

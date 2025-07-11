@@ -54,11 +54,11 @@
                                         <select id="customer_id" class="form-control"
                                             onchange="// getCustomerBalanceForward();" disabled>
                                             @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}" <?php if ($customer->id == $invoice->customer_id) {
-                                                                                    echo 'selected';
-                                                                                } ?>>
-                                                {{ $customer->name }}
-                                            </option>
+                                                <option value="{{ $customer->id }}" <?php if ($customer->id == $invoice->customer_id) {
+                                                    echo 'selected';
+                                                } ?>>
+                                                    {{ $customer->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -98,14 +98,14 @@
                                                 for ($i = 0; $i < $t1NumRows; $i++) {
                                                     $invoiceItem = $invoiceItems[$i];
                                                 ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>"
-                                                                class="form-control form-control-sm"
-                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                                style="width: 100%;">
-                                                                <option value="0">Select</option>
-                                                                @foreach ($newInvoiceItems as $newInvoiceItem)
+                                                    <td>
+                                                        <select name="t1_item<?php echo $i; ?>"
+                                                            id="t1_item<?php echo $i; ?>"
+                                                            class="form-control form-control-sm"
+                                                            onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                            style="width: 100%;">
+                                                            <option value="0">Select</option>
+                                                            @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                 <option value="{{ $newInvoiceItem->id }}"
                                                                     data-description="{{ e($newInvoiceItem->description) }}"
                                                                     data-unit_price="{{ $newInvoiceItem->unit_price }}"
@@ -114,38 +114,38 @@
                                                                     } ?>>
                                                                     {{ $newInvoiceItem->name }}
                                                                 </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;">{{ $invoiceItem->description }}</textarea>
-                                                        </td>
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm"
-                                                                value="{{ $invoiceItem->weight }}"
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value="{{ $invoiceItem->unit_price }}"
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value="{{ $invoiceItem->amount }}"
-                                                                style="width: 100%;height:30px;text-align: right;" disabled>
-                                                        </td>
-                                                        <td class="text-center"> <button type="button"
-                                                                class="btn btn-outline-danger btn-sm"
-                                                                onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
-                                                                    class="icon-trash"></i></button></td>
-                                                    </tr>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
+                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;">{{ $invoiceItem->description }}</textarea>
+                                                    </td>
+                                                    <td><input name="t1_weight<?php echo $i; ?>"
+                                                            id="t1_weight<?php echo $i; ?>" type="number"
+                                                            step="any" min="0"
+                                                            class="form-control form-control-sm"
+                                                            value="{{ $invoiceItem->weight }}"
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                            id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                            step="any"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value="{{ $invoiceItem->unit_price }}"
+                                                            style="width: 100%;height:30px;text-align: right;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_amount<?php echo $i; ?>"
+                                                            id="t1_amount<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value="{{ $invoiceItem->amount }}"
+                                                            style="width: 100%;height:30px;text-align: right;" disabled>
+                                                    </td>
+                                                    <td class="text-center"> <button type="button"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
+                                                                class="icon-trash"></i></button></td>
+                                                </tr>
                                                 <?php
                                                 }
                                                 ?>
@@ -206,30 +206,30 @@
                                                     <tbody>
                                                         <?php
                                                         $t2NumRows = 0;
-
+                                                        
                                                         $bagsCount = [];
                                                         foreach ($invoice->bags as $bag) {
                                                             $bagsCount[$bag->bags_category_id] = $bag->count;
                                                         }
                                                         ?>
                                                         @foreach ($bags as $bag)
-                                                        <tr>
-                                                            <td>{{ $bag->name }}</td>
-                                                            <td><input name="t2_count<?php echo $t2NumRows; ?>"
-                                                                    id="t2_count<?php echo $t2NumRows; ?>"
-                                                                    type="number" step="1" min="0"
-                                                                    class="form-control form-control-sm"
-                                                                    value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
-                                                                    style="width: 100%;height:30px;text-align: center;"
-                                                                    onchange="bags_caltotal();">
+                                                            <tr>
+                                                                <td>{{ $bag->name }}</td>
+                                                                <td><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                        id="t2_count<?php echo $t2NumRows; ?>"
+                                                                        type="number" step="1" min="0"
+                                                                        class="form-control form-control-sm"
+                                                                        value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
+                                                                        style="width: 100%;height:30px;text-align: center;"
+                                                                        onchange="bags_caltotal();">
 
-                                                                <input name="t2_id<?php echo $t2NumRows; ?>"
-                                                                    id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
-                                                                    value="{{ $bag->id }}">
+                                                                    <input name="t2_id<?php echo $t2NumRows; ?>"
+                                                                        id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
+                                                                        value="{{ $bag->id }}">
 
-                                                            </td>
-                                                        </tr>
-                                                        <?php $t2NumRows += 1; ?>
+                                                                </td>
+                                                            </tr>
+                                                            <?php $t2NumRows += 1; ?>
                                                         @endforeach
 
                                                     </tbody>
@@ -252,9 +252,6 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <?php
-                                    // print_r($invoice->invoicePayment);
-                                    ?>
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="mb-3">
@@ -323,6 +320,10 @@
 
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-success col-3"
+                                            onclick="printInvoice({{ $invoice->id }})">
+                                            Print
+                                        </button>
                                         <button type="button" class="btn btn-warning col-3" onclick="editInvoice()">
                                             Update
                                         </button>
@@ -514,7 +515,12 @@
             try {
                 const response = await axios.post("{{ url('/invoice/update') }}/" + invoiceId,
                     add_invoice_details);
-                window.location.href = "{{ url('/invoice') }}";
+                console.log(response.data);
+                if (response.data == "Invoice updated successfully") {
+                    window.location.href = "{{ url('/invoice') }}";
+                } else {
+                    showAlert("danger-modal", "danger-text", response.data);
+                }
             } catch (error) {
                 viewAddErrors(error);
             }
@@ -640,34 +646,46 @@
             document.getElementById("t2_bags_total").value = bagTotal.toFixed(0);
         }
 
+        function printInvoice(invoice_id) {
+            console.log(invoice_id);
+            {{--  const response = await axios.post(
+                route("invoice.print"),
+                {
+                    tenant_id: props.auth.user.tenant_id,
+                    search_details_year: selectedYear.value,
+                    payments_data: paymentsData.value,
+                    total_payment_counts: getTotalPaymentCount(),
+                    total_payment: numberFormatter(getTotalPayment()),
+                },
+                { responseType: "blob" }
+            );
+            const blob = new Blob([response.data], { type: "application/pdf" });
+            const url = window.URL.createObjectURL(blob);
+            window.open(url, "_blank");  --}}
 
+
+            axios.post("{{ url('/invoice/print') }}/" + invoice_id, {
+                    responseType: 'blob'
+                })
+                .then(function(response) {
+                    const blob = new Blob([response.data], {
+                        type: 'application/pdf'
+                    });
+                    console.log(blob);
+                    const url = window.URL.createObjectURL(blob);
+                    console.log(url);
+                    {{--  window.open(url, '_blank');  --}}
+                })
+                .catch(function(error) {
+                    console.error(error);
+                    alert('Something went wrong while generating the report.');
+                });
+
+        }
 
         window.addEventListener('load', () => {
-            // getCustomerBalanceForward();
             formatNumbers();
             bags_caltotal();
         });
-
-        // async function getCustomerBalanceForward() {
-        //     const customerId = document.getElementById("customer_id").value;
-        //     try {
-        //         const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
-        //         // console.log(response.data);
-
-        //         if (response.data == "none") {
-        //             document.getElementById("t1_pre_bal_for").disabled = false;
-        //             document.getElementById("t1_pre_bal_for").value = parseFloat(0).toFixed(2);
-        //         } else {
-        //             document.getElementById("t1_pre_bal_for").disabled = true;
-        //             document.getElementById("t1_pre_bal_for").value = parseFloat(response.data).toFixed(2);
-        //         }
-        //         //calculateTotal();
-        //     } catch (error) {
-        //         console.error("Error fetching customer balance forward:", error);
-        //     }
-
-        //     calculateTotal();
-        //     calculateBalance();
-        // }
     </script>
 </x-app-layout>
