@@ -9,11 +9,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Meta -->
-    <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
+    <meta name="description" content="Hafsa Poultry Mart" />
     <link rel="canonical" href="https://www.bootstrap.gallery/" />
     <meta property="og:url" content="https://www.bootstrap.gallery" />
-    <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery" />
-    <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards" />
+    <meta property="og:title" content="Hafsa Poultry Mart" />
+    <meta property="og:description" content="Hafsa Poultry Mart" />
     <meta property="og:type" content="Website" />
     <meta property="og:site_name" content="Bootstrap Gallery" />
     <link rel="shortcut icon" href="assets/images/favicon.svg" />
@@ -254,14 +254,14 @@
     <!-- Page wrapper end -->
 
     <!--Alerts start-->
-    <div class="alert alert-danger alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none" role="alert"
-        id="danger-modal" style="z-index: 10000;margin-top: 20%;">
+    <div class="alert alert-danger alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none"
+        role="alert" id="danger-modal" style="z-index: 10000;margin-top: 20%;">
         <span class="icon-alert-octagon"></span>
         <span id="danger-text" class="fs-6"></span>
     </div>
 
-    <div class="alert alert-success alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none" role="alert"
-        id="success-modal" style="z-index: 10000;margin-top: 20%;">
+    <div class="alert alert-success alert-dismissible fade col-12 col-md-6 offset-md-3 text-center fixed-top d-none"
+        role="alert" id="success-modal" style="z-index: 10000;margin-top: 20%;">
         <span class="icon-alert-circle"></span>
         <span id="success-text" class="fs-6"></span>
     </div>

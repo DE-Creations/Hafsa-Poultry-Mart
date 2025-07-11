@@ -1,98 +1,97 @@
 @extends('print.layouts.template')
 @section('content')
-    <div>invoice</div>
-    <div class="table-responsive">
-        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-            <tbody>
-                <tr>
-                    <td style="width: 50%; padding-left: 0;">
-                        <div class="text-head" style="color: black">
-                            <b>RECEIPT - INV00001</b>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left" class="td-customer-style " style="vertical-align:text-top;padding-left: 0;">
-                        <div style="opacity: 0.5;padding-left: 0;">PAYED BY</div>
-                        <div style="margin-bottom: 4px;margin-top: 4px;">Customer</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div style="padding: 20px">
+        <div class="text-center" style="margin-top: 20px">INVOICE</div>
+        <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
+        <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
+        <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
 
+        {{--  1  --}}
+        {{--  <div style="font-size: 14px; margin-top: 20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
+        <div>
+            <div class="text-left" style="margin-top: 5px;"><span><u>SML</u></span></div>
+            <div style="margin-top: -100px" class="text-right"><span><b>Inv. No:</b> 10</span></div>
+        </div>  --}}
+        {{--  1  --}}
 
-        {{--  <table cellspacing="0" cellpadding="0" border="0" width="40%" style="margin-top: -10px;">
-            <tbody>
-                @if (isset($member))
-                    <tr class="td-customer-style" style="vertical-align:text-top;padding-top: 0;margin-top: 0px">
-                        <div align="left" class="date-row"><span class="customer-section-name">MEMBER : </span><span
-                                style="vertical-align: text-top;">{{ $member }}</span>
-                        </div>
-                    </tr>
-                @endif
-                <tr class="td-customer-style" style="vertical-align:text-top;padding-top: 0;margin-top: 0px">
-                    <div align="left" class="date-row">
-                        @if (isset($search_details_from_date))
-                            <span class="customer-section-name">FROM: </span><span
-                                style="vertical-align: text-top;">{{ \Carbon\Carbon::parse($search_details_from_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}</span>
-                        @endif
-                        @if (isset($search_details_to_date))
-                            <span class="customer-section-name" style="margin-left: 5px">TO: </span><span
-                                style="vertical-align: text-top;">{{ \Carbon\Carbon::parse($search_details_to_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}</span>
-                        @endif
-                    </div>
-                </tr>
-                <tr></tr>
-            </tbody>
-        </table>  --}}
+        {{--  2  --}}
+        <div style="margin-top: 20px;">
+            <div style="font-size: 12px" class="text-left"><span><b>INV. No:</b> INV00001</span></div>
+            <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
+        </div>
+        <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>CUSTOMER:</b> Walking customer</div>
+        {{--  2  --}}
     </div>
 
-    {{--  <table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
-        <thead class="invoice_table_head" style="">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
+        <thead>
             <tr class="row-bg-head"
-                style="line-height:1; white-space:nowrap; color: {{ $business_details->color_code ?? '#000000' }}; background-color: {{ $business_details->color_code ?? '#000000' }}20;">
-                <th width="40%" align="left" class="table_head_data" style="font-size: 11px;">
-                    DATE
+                style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+                <th width="20%" align="left" style="font-size: 10px;">
+                    NO
                 </th>
-                <th width="30%" align="left" class="table_head_data" style="font-size: 11px;">
-                    PAYMENT TYPE
+                <th width="20%" align="left" style="font-size: 10px;">
+                    DESCRI
                 </th>
-                <th width="30%" align="right" class="table_head_data " style="font-size: 11px;">
-                    PAYMENT
+                <th width="20%" align="center" style="font-size: 10px;">
+                    WEIGHT
+                    <br>
+                    (KG)
+                </th>
+                <th width="20%" align="center" style="font-size: 10px;">
+                    UNIT
+                    <br>
+                    PRICE
+                </th>
+                <th width="20%" align="right" style="font-size: 10px;">
+                    AMOUNT
                 </th>
             </tr>
         </thead>
         <tbody>
-
             <tr class="row-bg">
                 <td align="left" class="td-style">
-                    {{ \Carbon\Carbon::parse($payment->payment_date)->format('d M, Y') }}
+                    Name
                 </td>
                 <td align="left" class="td-style">
-                    @if ($payment->payment_type == 0)
-                        OTHER
-                    @endif
-                    @if ($payment->payment_type == 1)
-                        REGISTRATION FEE
-                    @endif
-                    @if ($payment->payment_type == 2)
-                        MEMBERSHIP FEE
-                    @endif
+                    Description
                 </td>
                 <td align="right" class="td-style">
-                    @isset($business_details->currency)
-                        {{ $business_details->currency->code }}
-                    @endisset
-                    {{ number_format($payment->price, 2) }}
+                    20.500
+                    {{--  {{ number_format($payment->price, 2) }}  --}}
+                </td>
+                <td align="right" class="td-style">
+                    1000.00
+                </td>
+                <td align="right" class="td-style">
+                    13500.00
                 </td>
             </tr>
-            <tr class="row-bg " style="border-top: 2px dotted #eee;">
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr class="row-bg">
+                <td align="left" class="td-style">
+                    Name
+                </td>
+                <td align="left" class="td-style">
+                    Description
+                </td>
+                <td align="right" class="td-style">
+                    20.500
+                    {{--  {{ number_format($payment->price, 2) }}  --}}
+                </td>
+                <td align="right" class="td-style">
+                    1000.00
+                </td>
+                <td align="right" class="td-style">
+                    13500.00
+                </td>
             </tr>
+            {{--  <tr class="row-bg " style="border-top: 2px dotted #eee;">
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>  --}}
         </tbody>
-    </table>  --}}
+    </table>
 
     {{--  <table cellspacing="0" cellpadding="0" border="0" width="100%">
         <tbody>
@@ -113,6 +112,16 @@
         </tbody>
     </table>  --}}
 
+    <div style="padding: 20px">
+        <div style="margin-top: 20px; width: 40%" class="text-center">
+            <hr style="background-color: black">
+            <span style="font-size: 11px">ISSUED BY</span>
+        </div>
+        <div style="margin-top: -37.5px;width: 40%; margin-left: 60%" class="text-center">
+            <hr style="background-color: black">
+            <span style="font-size: 11px">RECEIVED BY</span>
+        </div>
+    </div>
 
     <style>
         .page_break {
@@ -136,7 +145,9 @@
         }
 
         .row-bg-head {
-            background-color: #f5f5f5;
+            border: 1px solid #000000;
+            border-left: none;
+            border-right: none;
         }
 
         .row-bg {
@@ -145,7 +156,7 @@
 
         .invoice_table th,
         td {
-            padding: 10px;
+            padding: 0px;
         }
 
         .parameter-table {
@@ -173,11 +184,11 @@
         }
 
         ..invoice_table td {
-            padding: 5px;
+            padding: 0px;
         }
 
         .invoice_table {
-            margin-top: 2rem;
+            margin-top: 0px;
             border-collapse: collapse;
         }
 
@@ -190,10 +201,8 @@
         }
 
         .td-style {
-            font-size: 11px;
+            font-size: 10px;
             line-height: 1;
-            margin: 10px;
-            padding: 10px;
             white-space: nowrap;
             vertical-align: top;
         }
@@ -436,6 +445,69 @@
 
         .note {
             margin-top: -50px !important;
+        }
+
+        .row-bg {
+            background-color: #ffffff;
+        }
+
+        .invoice_table th,
+        td {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .row-bg-subtotal {
+            background-color: #e8e8e8c4;
+        }
+
+        .company_data {
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+
+        .signature {
+            text-align: center;
+            line-height: 10px;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+        }
+
+
+        .brand-logo {
+            width: 150px;
+            padding-bottom: 20px;
+            padding-top: 2px;
+        }
+
+        .text {
+            text-align: left;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        .text-head {
+            font-size: 17px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .d-flex {
+            display: flex;
         }
     </style>
 @endsection
