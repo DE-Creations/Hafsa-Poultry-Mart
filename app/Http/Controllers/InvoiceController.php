@@ -94,8 +94,25 @@ class InvoiceController extends ParentController
             'details' => $query,
         ];
 
-        // Generate the PDF
+        // Generate the PDF 3 inch width
+
+
+
+
+
         $pdf = PDF::loadView('print.pages.invoice.report', $data);
+        $pdf->setPaper([0, 0, 226.77, 500], 'portrait');    // Width: 80mm (226.77pt), Height: 500pt (adjust as needed)
+        // $pdf->setOptions([
+        //     'defaultFont' => 'sans-serif',
+        //     'isHtml5ParserEnabled' => true,
+        //     'isRemoteEnabled' => true,
+        // ]);
+
+        // If you want to download the PDF instead of displaying it in the browser, use:
+        // return $pdf->download("invoice.pdf");
+        // If you want to display the PDF in the browser, use:
+        // return $pdf->stream("invoice.pdf");
+        // If you want to display the PDF in the browser without downloading it, use:
         return $pdf->stream("invoice.pdf", ["Attachment" => false]);
     }
 }
