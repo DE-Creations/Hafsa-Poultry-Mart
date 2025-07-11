@@ -646,41 +646,21 @@
             document.getElementById("t2_bags_total").value = bagTotal.toFixed(0);
         }
 
-        function printInvoice(invoice_id) {
-            console.log(invoice_id);
-            {{--  const response = await axios.post(
-                route("invoice.print"),
-                {
-                    tenant_id: props.auth.user.tenant_id,
-                    search_details_year: selectedYear.value,
-                    payments_data: paymentsData.value,
-                    total_payment_counts: getTotalPaymentCount(),
-                    total_payment: numberFormatter(getTotalPayment()),
-                },
-                { responseType: "blob" }
-            );
-            const blob = new Blob([response.data], { type: "application/pdf" });
-            const url = window.URL.createObjectURL(blob);
-            window.open(url, "_blank");  --}}
-
-
-            axios.post("{{ url('/invoice/print') }}/" + invoice_id, {
+        async function printInvoice(invoice_id) {
+            try {
+                const response = await axios.post("{{ url('/invoice/print') }}/" + invoice_id, {}, {
                     responseType: 'blob'
-                })
-                .then(function(response) {
-                    const blob = new Blob([response.data], {
-                        type: 'application/pdf'
-                    });
-                    console.log(blob);
-                    const url = window.URL.createObjectURL(blob);
-                    console.log(url);
-                    {{--  window.open(url, '_blank');  --}}
-                })
-                .catch(function(error) {
-                    console.error(error);
-                    alert('Something went wrong while generating the report.');
                 });
 
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
+            }
         }
 
         window.addEventListener('load', () => {
