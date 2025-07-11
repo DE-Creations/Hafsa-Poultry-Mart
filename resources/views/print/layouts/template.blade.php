@@ -15,7 +15,7 @@
 
 <body>
     <div
-        style="font-family: Arial, Helvetica, sans-serif;padding-left: 2px; padding-right: 2px;padding-top: 2px;padding-bottom: 30px; background-color: red; margin: -30px">
+        style="font-family: Arial, Helvetica, sans-serif;padding-left: 2px; padding-right: 2px;padding-top: 2px;padding-bottom: 30px; margin: -30px">
         @yield('content')
     </div>
 </body>
