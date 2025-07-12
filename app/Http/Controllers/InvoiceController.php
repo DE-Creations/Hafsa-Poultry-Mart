@@ -18,6 +18,15 @@ class InvoiceController extends ParentController
         return view('pages.invoice.index');
     }
 
+    public function view($invoice_id)
+    {
+        $response['invoice'] = InvoiceFacade::get($invoice_id);
+        $response['customers'] = CustomerFacade::getCustomers();
+        $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
+        $response['bags'] = InvoiceFacade::getBagsCategory();
+        return view('pages.invoice.view', $response);
+    }
+
     public function create()
     {
         $response['invoice_date'] = Carbon::now()->format('Y-m-d');
