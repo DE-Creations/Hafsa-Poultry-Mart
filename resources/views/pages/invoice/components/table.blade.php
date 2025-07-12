@@ -14,21 +14,29 @@
         {{ $invoices }}
         @foreach ($invoices as $invoice)
             <tr>
-                <td>{{ $invoice->invoice_number }}</td>
-                <td>{{ $invoice->customer->name }}</td>
-                <td>{{ $invoice->date }}</td>
-                <td>{{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}</td>
-                <td>{{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
-                <td>{{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">{{ $invoice->invoice_number }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">{{ $invoice->customer->name }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">{{ $invoice->date }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">
+                    {{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">
+                    {{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">
+                    {{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
                 <td>
+                    <button class="btn btn-outline-secondary btn-sm"
+                        onclick="showPrintInvoiceModal({{ $invoice->id }})" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger" data-bs-title="Print">
+                        <i class="icon-printer"></i>
+                    </button>
                     <?php
                     // if the invoice is relevant customer's last invoice, show the edit and delete buttons. otherwise, do not show them
                     $isLastInvoice = $invoice->customer->invoices->last()->id === $invoice->id;
                     ?>
                     @if ($isLastInvoice)
                         <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $invoice->id }})"
-                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
-                            data-bs-title="Edit">
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip-primary" data-bs-title="Edit">
                             <i class="icon-edit"></i>
                         </button>
                         <button class="btn btn-outline-danger btn-sm"

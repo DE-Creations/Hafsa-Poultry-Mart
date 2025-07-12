@@ -39,6 +39,7 @@ Route::prefix('suppliers')->group(function () {
 
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/view/{invoice_id}', [InvoiceController::class, 'view'])->name('invoice.view');
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::get('ajax/list', [InvoiceController::class, 'loadInvoices'])->name('invoice.all.list');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');

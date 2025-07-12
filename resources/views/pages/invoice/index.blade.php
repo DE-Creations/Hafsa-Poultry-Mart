@@ -108,6 +108,29 @@
     </div>
     <!-- Delete modal end -->
 
+    <!-- Delete modal start -->
+    <div class="modal center fade" id="printInvoiceModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="printInvoiceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="text-success">Confirm Print</h5>
+                    <p class="mb-0">
+                        Do you want to print this invoice?
+                    </p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button" class="btn text-success fs-6 col-6 m-0 border-end" onclick="printInvoice()">
+                        <strong>Print</strong>
+                    </button>
+                    <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete modal end -->
 
     <script>
         var selected_invoice_id = 0;
@@ -149,6 +172,33 @@
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
             }
+        }
+
+        function showPrintInvoiceModal(invoice_id) {
+            selected_invoice_id = invoice_id;
+            openModal("printInvoiceModal");
+        }
+
+        async function printInvoice() {
+            modal.hide();
+            try {
+                const response = await axios.post("{{ url('/invoice/print') }}/" + selected_invoice_id, {}, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
+            }
+        }
+
+        function viewInvoice(id) {
+            window.location.href = '/invoice/view/' + id;
         }
 
         function getInvoices(page = 1) {

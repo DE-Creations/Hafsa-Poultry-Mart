@@ -16,7 +16,7 @@
                             <a href="index.html" class="text-decoration-none">Home</a>
                         </li>
                         <li class="breadcrumb-item">Invoice</li>
-                        <li class="breadcrumb-item">Edit Invoice ({{ $invoice->invoice_number }})</li>
+                        <li class="breadcrumb-item">View Invoice ({{ $invoice->invoice_number }})</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -75,7 +75,6 @@
                                                 <col style="width: 10%;">
                                                 <col style="width: 10%;">
                                                 <col style="width: 10%;">
-                                                <col style="width: 3%;">
                                             </colgroup>
 
                                             <thead class="form-group-sm">
@@ -85,7 +84,6 @@
                                                     <th>Weight (Kg)</th>
                                                     <th>Unit price</th>
                                                     <th>Amount</th>
-                                                    <th></th>
                                                 </tr>
                                             </thead>
 
@@ -99,7 +97,7 @@
                                                     $invoiceItem = $invoiceItems[$i];
                                                 ?> <tr id="tr<?php echo $i; ?>">
                                                     <td>
-                                                        <select name="t1_item<?php echo $i; ?>"
+                                                        <select disabled name="t1_item<?php echo $i; ?>"
                                                             id="t1_item<?php echo $i; ?>"
                                                             class="form-control form-control-sm"
                                                             onchange="getItemData(this ,'<?php echo $i; ?>');"
@@ -119,7 +117,7 @@
                                                     </td>
                                                     <td>
                                                         <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;">{{ $invoiceItem->description }}</textarea>
+                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;" disabled>{{ $invoiceItem->description }}</textarea>
                                                     </td>
                                                     <td><input name="t1_weight<?php echo $i; ?>"
                                                             id="t1_weight<?php echo $i; ?>" type="number"
@@ -127,24 +125,20 @@
                                                             class="form-control form-control-sm"
                                                             value="{{ $invoiceItem->weight }}"
                                                             style="width: 100%;height:30px;text-align: center;"
-                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled></td>
                                                     <td><input name="t1_unit_price<?php echo $i; ?>"
                                                             id="t1_unit_price<?php echo $i; ?>" type="text"
                                                             step="any"
                                                             class="form-control form-control-sm formatNumber"
                                                             value="{{ $invoiceItem->unit_price }}"
                                                             style="width: 100%;height:30px;text-align: right;"
-                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled></td>
                                                     <td><input name="t1_amount<?php echo $i; ?>"
                                                             id="t1_amount<?php echo $i; ?>" type="text"
                                                             class="form-control form-control-sm formatNumber"
                                                             value="{{ $invoiceItem->amount }}"
                                                             style="width: 100%;height:30px;text-align: right;" disabled>
                                                     </td>
-                                                    <td class="text-center"> <button type="button"
-                                                            class="btn btn-outline-danger btn-sm"
-                                                            onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
-                                                                class="icon-trash"></i></button></td>
                                                 </tr>
                                                 <?php
                                                 }
@@ -154,7 +148,8 @@
                                                 <tr>
                                                     <td colspan="3" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary "><i class="fa fa-eraser"></i>
+                                                            class="btn btn-sm btn-primary d-none"><i
+                                                                class="fa fa-eraser"></i>
                                                             Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">
@@ -166,7 +161,6 @@
                                                             value="{{ $invoice->sub_total }}"
                                                             style="width: 100%;height:30px;text-align: right;background-color: #eee;border-width: 1px;">
                                                     </td>
-                                                    <td colspan="1"></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -182,7 +176,7 @@
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Message</label>
-                                                <textarea class="form-control" placeholder="Enter Note" rows="5" id="memo">{{ $invoice->invoicePayment[0]->memo }}</textarea>
+                                                <textarea class="form-control" placeholder="Enter Note" rows="5" id="memo" disabled>{{ $invoice->invoicePayment[0]->memo }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -221,7 +215,7 @@
                                                                         class="form-control form-control-sm"
                                                                         value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
                                                                         style="width: 100%;height:30px;text-align: center;"
-                                                                        onchange="bags_caltotal();">
+                                                                        disabled onchange="bags_caltotal();">
 
                                                                     <input name="t2_id<?php echo $t2NumRows; ?>"
                                                                         id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
@@ -259,7 +253,7 @@
                                                 <input type="text" class="form-control formatNumber"
                                                     id="discount"
                                                     value="{{ $invoice->invoicePayment[0]->discount_amount }}"
-                                                    onchange="calculateTotal();" style="text-align: right" />
+                                                    disabled onchange="calculateTotal();" style="text-align: right" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
@@ -300,7 +294,8 @@
                                                 <input type="text" class="form-control formatNumber"
                                                     id="paid_amount"
                                                     value="{{ $invoice->invoicePayment[0]->paid_amount }}"
-                                                    onchange="calculateBalance();" style="text-align: right" />
+                                                    onchange="calculateBalance();" style="text-align: right"
+                                                    disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -323,9 +318,6 @@
                                         <button type="button" class="btn btn-success col-3"
                                             onclick="printInvoice({{ $invoice->id }})">
                                             Print
-                                        </button>
-                                        <button type="button" class="btn btn-warning col-3" onclick="editInvoice()">
-                                            Update
                                         </button>
                                     </div>
                                 </div>
@@ -424,7 +416,7 @@
 
         };
 
-        //Edit invoice
+        //Create invoice
         async function editInvoice() {
 
             var sub_total = getNumber("t1_sub_total");
