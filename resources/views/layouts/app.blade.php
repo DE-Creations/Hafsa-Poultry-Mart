@@ -37,6 +37,44 @@
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <!-- flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <style>
+        /* Make the Select2 selector look like a Bootstrap input */
+
+        .select2-container--default .select2-selection--single {
+            height: 34px;
+            padding: 6px 12px;
+            border: var(--bs-border-width) solid #e2e5ec;;
+            border-radius: 0.375rem;
+            background-color: #fff;
+            font-size: 0.825rem;
+            line-height: 1.5;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        /* Remove default arrow spacing */
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 24px;
+            padding-left: 0;
+        }
+
+        /* Customize the arrow to match Bootstrap input height */
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+            top: 1px;
+            right: 10px;
+        }
+
+        /* Match the focus state like Bootstrap */
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: #b2beb0;
+            outline: 0;
+            box-shadow: 0 0 0 .25rem rgba(101, 124, 96, .25);
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -293,11 +331,25 @@
 
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                dropdownCssClass: "custom-dropdown",
+                selectionCssClass: "custom-selection"
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $(".datepicker").flatpickr({
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            defaultDate: "today"
+        });
+    </script>
 
     <!-- For format numbers & money -->
     <!-- <script src="assets/js/accounting.js"></script> -->

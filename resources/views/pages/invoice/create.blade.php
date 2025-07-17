@@ -44,12 +44,12 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
-                                        <input id="invoice_date" type="date" class="form-control"
+                                        <input id="invoice_date" type="date" class="form-control datepicker"
                                             value="{{ $invoice_date }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-3">
+                                    <div class="mb-3 search-selection">
                                         <label class="form-label">Customer</label>
                                         <select id="customer_id" class="form-control select2" onchange="getCustomerBalanceForward();">
                                             @foreach ($customers as $customer)
@@ -494,7 +494,7 @@
             try {
                 const response = await axios.post("{{ url('/invoice/store') }}/",
                     add_invoice_details);
-                {{--  printInvoice(response.data.invoice_id);  --}}
+                // printInvoice(response.data.invoice_id);
                 window.location.reload();
             } catch (error) {
                 viewAddErrors(error);
