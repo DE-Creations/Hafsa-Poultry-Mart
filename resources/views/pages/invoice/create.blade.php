@@ -68,7 +68,8 @@
                                             class="table table-bordered table-striped table-hover table-responsive ">
                                             <colgroup>
                                                 <col style="width: 20%;">
-                                                <col style="width: 27%;">
+                                                <col style="width: 17%;">
+                                                <col style="width: 10%;">
                                                 <col style="width: 10%;">
                                                 <col style="width: 10%;">
                                                 <col style="width: 10%;">
@@ -78,8 +79,9 @@
                                             <thead class="form-group-sm">
                                                 <tr>
                                                     <th>Item</th>
-                                                    <th>Item Description</th>
-                                                    <th>Weight (Kg)</th>
+                                                    <th>Stock Date</th>
+                                                    <th>Balance (kg)</th>
+                                                    <th>Weight (kg)</th>
                                                     <th>Unit price</th>
                                                     <th>Amount</th>
                                                     <th></th>
@@ -110,8 +112,10 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                            rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
+                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" disabled>
                                                     </td>
                                                     <td><input name="t1_weight<?php echo $i; ?>"
                                                             id="t1_weight<?php echo $i; ?>" type="number"
@@ -326,6 +330,7 @@
         <!-- Container ends -->
     </div>
     <!-- App body ends -->
+
     <script>
         function showAlert(alertType, alertSpan, alertText) {
             document.getElementById(alertSpan).textContent = alertText;
@@ -360,6 +365,7 @@
             var cell4 = row.insertCell(3);
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
                                                                     id="t1_item` + (item_row) + `"
@@ -373,33 +379,32 @@
                                                                     </option>
                                                                     @endforeach
                                                                 </select>`;
-            cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
-                `" class="form-control form-control-sm"
-                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
-            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `"
+            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" disabled>`
+            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" disabled>`
+            cell4.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
                                                                     class="form-control form-control-sm" value=""
                                                                     style="width: 100%;height:30px;text-align: center;"
                                                                     onchange="calAmount('` + (item_row) + `');">`;
-            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
+            cell5.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
                                                                     id="t1_unit_price` + (item_row) + `" type="text"
                                                                     step="any"
                                                                     class="form-control form-control-sm formatNumber"
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     onchange="calAmount('` + (item_row) + `');">`;
-            cell5.innerHTML = `<input name="t1_amount` + (item_row) + `"
+            cell6.innerHTML = `<input name="t1_amount` + (item_row) + `"
                                                                     id="t1_amount` + (item_row) + `" type="text"
                                                                     class="form-control form-control-sm formatNumber"
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     disabled>`;
-            cell6.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm"
+            cell7.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm"
                                                                     onclick="deleteTableRow('invoice_item_table','` + (
                 item_row) + `')"><i
                                                                         class="icon-trash"></i></button>`;
-            cell6.className = "text-center";
+            cell7.className = "text-center";
 
             document.getElementById("t1NumRows").value = item_row + 1;
 
