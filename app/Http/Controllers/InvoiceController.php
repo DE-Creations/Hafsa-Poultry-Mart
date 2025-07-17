@@ -43,6 +43,9 @@ class InvoiceController extends ParentController
 
         if (isset($request['search'])) {
             $query = $query->where('invoice_number', 'like', '%' . $request['search'] . '%')
+                ->orWhereHas('customer', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request['search'] . '%');
+                })
                 ->orWhere('date', 'like', '%' . $request['search'] . '%');
         }
 
