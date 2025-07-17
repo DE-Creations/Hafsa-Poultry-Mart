@@ -274,7 +274,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 col-12"></div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                        <label class="form-label">Customer</label>
+                                        <select class="form-control"
+                                            onchange="getCustomerBalanceForward();">
+                                                <option value="1">Cash</option>
+                                                <option value="2">Bank</option>
+                                                <option value="2">Card</option>
+                                        </select>
+                                    </div>
+                                        </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Payment</label>
