@@ -281,7 +281,7 @@
                                                     onchange="getCustomerBalanceForward();">
                                                     <option value="1">Cash</option>
                                                     <option value="2">Bank</option>
-                                                    <option value="2">Card</option>
+                                                    <option value="3">Card</option>
                                                 </select>
                                             </div>
                                         </div>
