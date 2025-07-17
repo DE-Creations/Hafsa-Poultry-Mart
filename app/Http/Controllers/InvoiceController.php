@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
 use App\Http\Requests\Invoice\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use App\Models\OutputItem;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
@@ -89,7 +90,7 @@ class InvoiceController extends ParentController
 
     public function print(Request $request, $invoice_id)
     {
-        $query = Invoice::with(['customer', 'invoicePayment', 'invoiceItems', 'bags'])->find($invoice_id);
+        $query = Invoice::with(['customer', 'invoicePayment', 'invoiceItems'])->find($invoice_id);
 
         // $payments_data = $payload->get()->toArray();
 
@@ -97,19 +98,18 @@ class InvoiceController extends ParentController
 
         // Prepare the data to be passed to the PDF view
         $data = [
-            // 'member' => $memberName,
-            // 'type' => $typeName,
-            // 'search_details_from_date' => $search_details_from_date,
-            // 'search_details_to_date' => $search_details_to_date,
-            // 'payments_data' => $payments_data,
-            // 'total_payment' => $total_payment,
-            'details' => $query,
+            'invoice_number' => $query->invoice_number,
+            'invoice_date' => $query->date,
+            'sub_total' => $query->sub_total,
+            'customer_name' => $query->customer['name'],
+            'invoicePayment' => $query->invoicePayment,
+            'invoiceItems' => $query->invoiceItems,
         ];
 
-        // dd($data['details']['invoiceItems']);
+        $data = (object) $data;
 
         // Generate the PDF 3 inch width
-        $pdf = PDF::loadView('print.pages.invoice.report', $data);
+        $pdf = PDF::loadView('print.pages.invoice.report', compact('data'));
         $pdf->setPaper([0, 0, 226.77, 500], 'portrait');    // Width: 80mm (226.77pt), Height: 500pt (adjust as needed)
 
         // If you want to download the PDF instead of displaying it in the browser, use:

@@ -16,10 +16,14 @@
 
         {{--  2  --}}
         <div style="margin-top: 20px;">
-            <div style="font-size: 12px" class="text-left"><span><b>INV. No:</b> INV00001</span></div>
-            <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
+            <div style="font-size: 12px" class="text-left"><span><b>INV. No:</b> {{ $data->invoice_number }}</span></div>
+            <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b>
+                {{ \Carbon\Carbon::parse($data->invoice_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}</div>
         </div>
-        <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>CUSTOMER:</b> Walking customer</div>
+        @if ($data->customer_name != 'Walking Customer')
+            <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>CUSTOMER:</b> {{ $data->customer_name }}
+            </div>
+        @endif
         {{--  2  --}}
     </div>
 
@@ -31,16 +35,12 @@
                     NO
                 </th>
                 <th width="20%" align="left" style="font-size: 10px;">
-                    DESCRI
+                    ITEM
                 </th>
                 <th width="20%" align="center" style="font-size: 10px;">
-                    WEIGHT
-                    <br>
-                    (KG)
+                    QTY
                 </th>
                 <th width="20%" align="center" style="font-size: 10px;">
-                    UNIT
-                    <br>
                     PRICE
                 </th>
                 <th width="20%" align="right" style="font-size: 10px;">
@@ -49,42 +49,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="row-bg">
-                <td align="left" class="td-style">
-                    Name
-                </td>
-                <td align="left" class="td-style">
-                    Description
-                </td>
-                <td align="right" class="td-style">
-                    20.500
-                    {{--  {{ number_format($payment->price, 2) }}  --}}
-                </td>
-                <td align="right" class="td-style">
-                    1000.00
-                </td>
-                <td align="right" class="td-style">
-                    13500.00
-                </td>
-            </tr>
-            <tr class="row-bg">
-                <td align="left" class="td-style">
-                    Name
-                </td>
-                <td align="left" class="td-style">
-                    Description
-                </td>
-                <td align="right" class="td-style">
-                    20.500
-                    {{--  {{ number_format($payment->price, 2) }}  --}}
-                </td>
-                <td align="right" class="td-style">
-                    1000.00
-                </td>
-                <td align="right" class="td-style">
-                    13500.00
-                </td>
-            </tr>
+            @foreach ($data->invoiceItems as $item)
+                <tr class="row-bg">
+                    <td align="left" class="td-style">
+                        {{ $loop->iteration }}
+                    </td>
+                    <td align="left" class="td-style">
+                        {{ $item->item_name }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->weight, 3) }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->unit_price, 2) }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->amount, 2) }}
+                    </td>
+                </tr>
+            @endforeach
+
             {{--  <tr class="row-bg " style="border-top: 2px dotted #eee;">
                 <td></td>
                 <td></td>
