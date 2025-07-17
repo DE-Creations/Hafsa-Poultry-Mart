@@ -19,25 +19,11 @@ class InvoiceItem extends Model
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'id', 'invoice_id');
+        return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
     }
-    //our code
 
     public function stockItem()
     {
-        return $this->belongsTo(StockItem::class, 'id', 'stock_item_id');
+        return $this->belongsTo(StockItem::class, 'stock_item_id', 'id');
     }
-    //our code
-
-    // public function invoice()
-    // {
-    //     return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
-    // }
-    //AI code
-
-    // public function stockItem()
-    // {
-    //     return $this->belongsTo(StockItem::class, 'stock_item_id', 'id');
-    // }
-    //AI code
 }
