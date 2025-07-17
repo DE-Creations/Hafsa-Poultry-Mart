@@ -51,8 +51,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Customer</label>
-                                        <select id="customer_id" class="form-control"
-                                            onchange="getCustomerBalanceForward();">
+                                        <select id="customer_id" class="form-control select2" onchange="getCustomerBalanceForward();">
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}
                                                 </option>
