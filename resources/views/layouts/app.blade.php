@@ -46,7 +46,8 @@
         .select2-container--default .select2-selection--single {
             height: 34px;
             padding: 6px 12px;
-            border: var(--bs-border-width) solid #e2e5ec;;
+            border: var(--bs-border-width) solid #e2e5ec;
+            ;
             border-radius: 0.375rem;
             background-color: #fff;
             font-size: 0.825rem;
