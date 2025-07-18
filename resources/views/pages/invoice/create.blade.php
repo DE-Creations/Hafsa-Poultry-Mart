@@ -64,7 +64,7 @@
                                     <div class="mb-3">
 
                                         <table id="invoice_item_table" name="invoice_item_table"
-                                            class="table table-bordered table-striped table-hover table-responsive ">
+                                            class="table table-bordered table-striped table-hover table-responsive">
                                             <colgroup>
                                                 <col style="width: 20%;">
                                                 <col style="width: 17%;">
@@ -97,7 +97,7 @@
                                                     <td>
                                                         <select name="t1_item<?php echo $i; ?>"
                                                             id="t1_item<?php echo $i; ?>"
-                                                            class="form-control form-control-sm"
+                                                            class="form-control form-control-sm select2"
                                                             onchange="getItemData(this ,'<?php echo $i; ?>');"
                                                             style="width: 100%;">
                                                             <option value="0">Select</option>
@@ -111,10 +111,10 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" disabled>
+                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" style="width: 100%;height:30px;text-align: center;" disabled>
                                                     </td>
                                                     <td>
-                                                        <input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" disabled>
+                                                        <input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" style="width: 100%;height:30px;text-align: center;" disabled>
                                                     </td>
                                                     <td><input name="t1_weight<?php echo $i; ?>"
                                                             id="t1_weight<?php echo $i; ?>" type="number"
@@ -184,7 +184,7 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <table
-                                                    class="table table-bordered table-striped table-hover table-responsive ">
+                                                    class="table table-bordered table-hover table-responsive border">
                                                     <colgroup>
                                                         <col style="width: 70%;">
                                                         <col style="width: 30%;">
@@ -203,8 +203,8 @@
                                                         ?>
                                                         @foreach ($bags as $bag)
                                                             <tr>
-                                                                <td>{{ $bag->name }}</td>
-                                                                <td><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                <td class="border">{{ $bag->name }}</td>
+                                                                <td class="border"><input name="t2_count<?php echo $t2NumRows; ?>"
                                                                         id="t2_count<?php echo $t2NumRows; ?>"
                                                                         type="number" step="1" min="0"
                                                                         class="form-control form-control-sm"
@@ -224,8 +224,8 @@
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <td colspan="1">Total</td>
-                                                            <td colspan="1"> <input type="text"
+                                                            <td colspan="1" class="border">Total</td>
+                                                            <td colspan="1" class="border"> <input type="text"
                                                                     class="form-control" name="t2_bags_total"
                                                                     id="t2_bags_total" disabled
                                                                     style="text-align: right" /></td>
@@ -280,7 +280,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Payment Method</label>
-                                                <select class="form-control">
+                                                <select class="form-control select2">
                                                     <option value="1">Cash</option>
                                                     <option value="2">Bank</option>
                                                     <option value="3">Card</option>
@@ -368,7 +368,7 @@
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
                                                                     id="t1_item` + (item_row) + `"
-                                                                    class="form-control form-control-sm"
+                                                                    class="form-control form-control-sm select2"
                                                                     onchange="getItemData(this ,` + (item_row) + `);"
                                                                     style="width: 100%;">
                                                                     <option value="0">Select</option>
@@ -378,8 +378,8 @@
                                                                     </option>
                                                                     @endforeach
                                                                 </select>`;
-            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" disabled>`
-            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" disabled>`
+            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" style="width: 100%;height:30px;text-align: center;" disabled>`
+            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" style="width: 100%;height:30px;text-align: center;" disabled>`
             cell4.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
@@ -407,6 +407,11 @@
 
             document.getElementById("t1NumRows").value = item_row + 1;
 
+            $('.select2').select2({
+                dropdownCssClass: "custom-dropdown",
+                selectionCssClass: "custom-selection"
+            });
+
         };
 
         //Create invoice
@@ -429,7 +434,7 @@
                     '0') { //check if have element and select item
                     var item = {
                         item_name: document.getElementById("t1_item" + i).value,
-                        description: document.getElementById("t1_desc" + i).value,
+                        // description: document.getElementById("t1_desc" + i).value,
                         weight: getNumber("t1_weight" + i),
                         unit_price: getNumber("t1_unit_price" + i),
                         amount: getNumber("t1_amount" + i),
@@ -516,7 +521,7 @@
                     '0') { //check if have element and select item
                     if (itemId == $('#t1_item' + $i).val()) {
                         $('#t1_item' + number).val(0);
-                        $('#t1_desc' + number).html("");
+                        // $('#t1_desc' + number).html("");
                         $('#t1_unit_price' + number).val(0);
                         calAmount(number);
                         showAlert("danger-modal", "danger-text", "This item is already selected.");
@@ -531,7 +536,7 @@
             }
 
             // set description & ubit price
-            document.getElementById("t1_desc" + number).innerHTML = selectedOption.getAttribute('data-description');
+            // document.getElementById("t1_desc" + number).innerHTML = selectedOption.getAttribute('data-description');
             document.getElementById("t1_unit_price" + number).value = selectedOption.getAttribute('data-unit_price');
 
             calAmount(number);
