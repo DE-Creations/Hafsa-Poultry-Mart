@@ -111,10 +111,10 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" style="width: 100%;height:30px;text-align: center;" disabled>
+                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date<?php echo $i; ?>" id="t1_stock_date<?php echo $i; ?>" style="width: 100%;height:30px;text-align: center;" disabled>
                                                     </td>
                                                     <td>
-                                                        <input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" style="width: 100%;height:30px;text-align: center;" disabled>
+                                                        <input type="number" class="form-control form-control-sm" name="t1_balance<?php echo $i; ?>" id="t1_balance<?php echo $i; ?>" style="width: 100%;height:30px;text-align: center;" disabled>
                                                     </td>
                                                     <td><input name="t1_weight<?php echo $i; ?>"
                                                             id="t1_weight<?php echo $i; ?>" type="number"
@@ -378,8 +378,8 @@
                                                                     </option>
                                                                     @endforeach
                                                                 </select>`;
-            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date" id="t1_stock_date" style="width: 100%;height:30px;text-align: center;" disabled>`
-            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance" id="t1_balance" style="width: 100%;height:30px;text-align: center;" disabled>`
+            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date` + (item_row) + `" id="t1_stock_date` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
+            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance` + (item_row) + `" id="t1_balance` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
             cell4.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
