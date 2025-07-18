@@ -97,9 +97,9 @@
                                                     <td>
                                                         <select name="t1_item<?php echo $i; ?>"
                                                             id="t1_item<?php echo $i; ?>"
-                                                            class="form-control form-control-sm select2"
+                                                            class="form-control form-control-sm"
                                                             onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                            style="width: 100%;">
+                                                            style="width: 100%; height:30px">
                                                             <option value="0">Select</option>
                                                             @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                 <option value="{{ $newInvoiceItem->id }}"
@@ -368,9 +368,9 @@
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
                                                                     id="t1_item` + (item_row) + `"
-                                                                    class="form-control form-control-sm select2"
+                                                                    class="form-control form-control-sm"
                                                                     onchange="getItemData(this ,` + (item_row) + `);"
-                                                                    style="width: 100%;">
+                                                                    style="width: 100%; height:30px">
                                                                     <option value="0">Select</option>
                                                                     @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                     <option value="{{ $newInvoiceItem->id }}" data-description="{{ e($newInvoiceItem->description) }}" data-unit_price="{{ $newInvoiceItem->unit_price }}">
@@ -406,12 +406,6 @@
             cell7.className = "text-center";
 
             document.getElementById("t1NumRows").value = item_row + 1;
-
-            $('.select2').select2({
-                dropdownCssClass: "custom-dropdown",
-                selectionCssClass: "custom-selection"
-            });
-
         };
 
         //Create invoice
