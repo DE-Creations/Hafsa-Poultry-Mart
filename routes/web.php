@@ -7,6 +7,7 @@ use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfitLossReportController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::prefix('suppliers')->group(function () {
     Route::get('/get/{supplier_id}', [SuppliersController::class, 'get'])->name('suppliers.get');
     Route::post('/update/{supplier_id}', [SuppliersController::class, 'update'])->name('suppliers.update');
     Route::delete('/delete/{supplier_id}', [SuppliersController::class, 'delete'])->name('suppliers.delete');
+});
+
+Route::prefix('stock')->group(function () {
+    Route::get('/', [StockController::class, 'index'])->name('stock.index');
 });
 
 Route::prefix('invoice')->group(function () {
