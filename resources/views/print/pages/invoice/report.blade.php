@@ -75,6 +75,52 @@
                 <td></td>
             </tr>  --}}
         </tbody>
+
+        <tfoot class="row-bg-footer"
+            style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+            @foreach ($data->invoicePayment as $item)
+                <tr class="row-bg">
+                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                        <b>TOTAL</b>
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->sub_total, 2) }}
+                    </td>
+                </tr>
+                <tr class="row-bg">
+                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                        <b>DISCOUNT</b>
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->discount_amount, 2) }}
+                    </td>
+                </tr>
+                <tr class="row-bg">
+                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                        <b>BALANCE FORWARD</b>
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->previous_balance_forward, 2) }}
+                    </td>
+                </tr>
+                <tr class="row-bg">
+                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                        <b>CASH RECEIVED</b>
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($item->paid_amount, 2) }}
+                    </td>
+                </tr>
+                <tr class="row-bg">
+                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                        <b>BALANCE</b>
+                    </td>
+                    <td align="right" class="td-style row-bg-balance">
+                        {{ number_format($item->new_balance, 2) }}
+                    </td>
+                </tr>
+            @endforeach
+        </tfoot>
     </table>
 
     {{--  <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -130,6 +176,20 @@
 
         .row-bg-head {
             border: 1px solid #000000;
+            border-left: none;
+            border-right: none;
+        }
+
+        .row-bg-footer {
+            border: 1px solid #000000;
+            border-bottom: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .row-bg-balance {
+            border-top: 1px solid #000000;
+            border-bottom: 3px double #000000;
             border-left: none;
             border-right: none;
         }
