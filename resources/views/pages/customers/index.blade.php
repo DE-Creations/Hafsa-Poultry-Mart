@@ -80,13 +80,6 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                            id="add_email" />
-                        <span class="text-danger" id="email_error"></span>
-                    </div>
-
-                    <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
                             id="add_mobile" />
@@ -94,8 +87,15 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Address</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Address" name="address"
+                        <label class="form-label fw-bold">Email (Optional)</label>
+                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                            id="add_email" />
+                        <span class="text-danger" id="email_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">City (Optional)</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
                             id="add_address" />
                         <span class="text-danger" id="address_error"></span>
                     </div>
@@ -133,13 +133,6 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                            id="edit_email" />
-                        <span class="text-danger" id="edit_email_error"></span>
-                    </div>
-
-                    <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Mobile" id="edit_mobile"
                             name="mobile" />
@@ -147,7 +140,14 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Address</label>
+                        <label class="form-label fw-bold">Email (Optional)</label>
+                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                            id="edit_email" />
+                        <span class="text-danger" id="edit_email_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">City (Optional)</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Address"
                             id="edit_address" name="address" />
                         <span class="text-danger" id="edit_address_error"></span>
