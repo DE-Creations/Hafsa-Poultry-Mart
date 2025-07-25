@@ -35,8 +35,8 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <a type="button" class="btn btn-primary" href="{{ route('invoice.create') }}">Add
-                                        new</a>
+                                    <button type="button" class="btn btn-primary" onclick="showStockAddModal()">
+                                        Add new</button>
                                 </div>
                             </div>
                             <!-- Search container end -->
@@ -59,30 +59,58 @@
 
     <!-- Modals -->
 
-    <!-- Invoice add modal start -->
-    <div class="modal fade" id="addNewCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <!-- Stock add modal start -->
+    <div class="modal fade" id="addNewStockModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">
-                        Add new invoice
+                        Add new customer
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body">
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Name</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                            id="add_name" />
+                        <span class="text-danger" id="name_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Mobile</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
+                            id="add_mobile" />
+                        <span class="text-danger" id="mobile_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Email (Optional)</label>
+                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                            id="add_email" />
+                        <span class="text-danger" id="email_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">City (Optional)</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
+                            id="add_city" />
+                        <span class="text-danger" id="city_error"></span>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button onclick="addCustomer()" class="btn btn-primary">
                         Save
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Invoice add modal end -->
+    <!-- Stock add modal end -->
 
     <!-- Delete modal start -->
     <div class="modal center fade" id="deleteInvoiceModal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -96,32 +124,9 @@
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteInvoice()">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
+                        onclick="deleteInvoice()">
                         <strong>Delete</strong>
-                    </button>
-                    <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Delete modal end -->
-
-    <!-- Delete modal start -->
-    <div class="modal center fade" id="printInvoiceModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="printInvoiceModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-4 text-center">
-                    <h5 class="text-success">Confirm Print</h5>
-                    <p class="mb-0">
-                        Do you want to print this invoice?
-                    </p>
-                </div>
-                <div class="modal-footer flex-nowrap p-0">
-                    <button type="button" class="btn text-success fs-6 col-6 m-0 border-end" onclick="printInvoice()">
-                        <strong>Print</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
                         Cancel
@@ -150,6 +155,11 @@
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
             }, 5000);
+        }
+
+        function showStockAddModal() {
+            {{--  addResetFields();  --}}
+            openModal("addNewStockModal");
         }
 
         function goToInvoiceEdit(id) {
