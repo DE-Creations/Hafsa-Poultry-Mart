@@ -72,10 +72,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="m-2">
+<<<<<<< HEAD
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="add_name" />
                         <span class="text-danger" id="name_error"></span>
+=======
+                        <label class="form-label fw-bold">Item</label>
+                        <select name="item" id="add_item" class="form-control mt-2">
+                            <option value="">Select Item</option>
+                            <option value="">Chicken-B</option>
+                            <option value="">Chicken-S</option>
+                        </select>
+                        <!-- <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item" id="add_item" /> -->
+                        <span class="text-danger" id="item_error"></span>
+>>>>>>> 28c7fe1 (Add Stock Design Update)
                     </div>
 
                     <div class="m-2">
