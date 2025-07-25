@@ -200,7 +200,7 @@
                                                     <tbody>
                                                         <?php
                                                         $t2NumRows = 0;
-                                                        
+
                                                         $bagsCount = [];
                                                         foreach ($invoice->bags as $bag) {
                                                             $bagsCount[$bag->bags_category_id] = $bag->count;
@@ -316,7 +316,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
                                         <button type="button" class="btn btn-success col-3"
-                                            onclick="printInvoice({{ $invoice->id }})">
+                                            onclick="printInvoice('{{ $invoice->id }}')">
                                             Print
                                         </button>
                                     </div>
@@ -343,7 +343,7 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
 

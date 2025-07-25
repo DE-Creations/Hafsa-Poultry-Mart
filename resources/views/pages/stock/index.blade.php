@@ -66,38 +66,36 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">
-                        Add new customer
+                        Add new Stock
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="m-2">
-                        <label class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
-                            id="add_name" />
-                        <span class="text-danger" id="name_error"></span>
+                        <label class="form-label fw-bold">Item</label>
+                        <select name="item" id="add_item" class="form-control mt-2">
+                            <option value="">Select Item</option>
+                            <option value="">Chicken-B</option>
+                            <option value="">Chicken-S</option>
+                        </select>
+                        <!-- <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item" id="add_item" /> -->
+                        <span class="text-danger" id="item_error"></span>
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Mobile</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
-                            id="add_mobile" />
-                        <span class="text-danger" id="mobile_error"></span>
+                        <label class="form-label fw-bold">Unit Price</label>
+                        <input type="number" class="form-control mt-2" placeholder="Enter Price" name="price"
+                            id="add_price" />
+                        <span class="text-danger" id="price_error"></span>
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Email (Optional)</label>
-                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                            id="add_email" />
-                        <span class="text-danger" id="email_error"></span>
+                        <label class="form-label fw-bold">Quantity</label>
+                        <input type="number" class="form-control mt-2" placeholder="Enter Email" name="qty"
+                            id="add_qty" />
+                        <span class="text-danger" id="qty_error"></span>
                     </div>
 
-                    <div class="m-2">
-                        <label class="form-label fw-bold">City (Optional)</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
-                            id="add_city" />
-                        <span class="text-danger" id="city_error"></span>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -153,11 +151,11 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
         function showStockAddModal() {
-            {{--  addResetFields();  --}}
+            // addResetFields();
             openModal("addNewStockModal");
         }
 

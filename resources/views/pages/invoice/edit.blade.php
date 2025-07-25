@@ -330,7 +330,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
                                         <button type="button" class="btn btn-success col-3"
-                                            onclick="printInvoice({{ $invoice->id }})">
+                                            onclick="printInvoice('{{ $invoice->id }}')">
                                             Print
                                         </button>
                                         <button type="button" class="btn btn-warning col-3" onclick="editInvoice()">
@@ -360,7 +360,7 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
 

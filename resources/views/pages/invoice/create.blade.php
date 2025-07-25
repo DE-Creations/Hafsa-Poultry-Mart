@@ -280,7 +280,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Payment Method</label>
-                                                <select class="form-control select2">
+                                                <select class="form-control">
                                                     <option value="1">Cash</option>
                                                     <option value="2">Bank</option>
                                                     <option value="3">Card</option>
@@ -339,7 +339,7 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
