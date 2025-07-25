@@ -179,13 +179,13 @@
                         Are you sure you want to delete this supplier?
                     </p>
                 </div>
-                <div class="modal-footer flex-nowrap p-0">
+                <div class="modal-footer flex-nowrap p-0 model-custom">
                     <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
                         onclick="deleteSupplier()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
-                        Cancel
+                        <strong>Cancel</strong>
                     </button>
                 </div>
             </div>
