@@ -18,12 +18,12 @@
                 <td>{{ $customer->email }}</td>
                 <td>{{ $customer->city }}</td>
                 <td>
-                    <button class="btn btn-outline-primary btn-sm" onclick="showCustomerEditModal({{ $customer->id }})"
+                    <button class="btn btn-outline-primary btn-sm" onclick="showCustomerEditModal('{{ $customer->id }}')"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
                         data-bs-title="Edit">
                         <i class="icon-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteCustomerModal({{ $customer->id }})"
+                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteCustomerModal('{{ $customer->id }}')"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
                         data-bs-title="Delete">
                         <i class="icon-trash"></i>

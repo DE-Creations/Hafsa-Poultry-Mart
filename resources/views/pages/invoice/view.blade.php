@@ -200,7 +200,7 @@
                                                     <tbody>
                                                         <?php
                                                         $t2NumRows = 0;
-                                                        
+
                                                         $bagsCount = [];
                                                         foreach ($invoice->bags as $bag) {
                                                             $bagsCount[$bag->bags_category_id] = $bag->count;
@@ -343,7 +343,7 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
 
