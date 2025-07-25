@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('name')->nullable();
-            $table->string('nickname')->nullable();
-            $table->string('email')->nullable();
             $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->string('note')->nullable();
+            $table->string('email')->nullable();
+            $table->string('city')->nullable();
 
             $table->timestamps();
         });

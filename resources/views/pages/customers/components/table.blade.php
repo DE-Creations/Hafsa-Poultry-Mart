@@ -2,35 +2,21 @@
     <thead>
         <tr>
             <th></th>
-            {{--  <th></th>  --}}
             <th>Name</th>
-            <th>Email</th>
-            {{--  <th>Status</th>  --}}
             <th>Mobile</th>
+            <th>Email</th>
+            <th>City</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($customers as $customer)
             <tr>
-                <td>{{ $customer->id }}</td>
-                {{--  <th>
-                        <input class="form-check-input" type="checkbox"
-                            value="option1" />
-                    </th>  --}}
-                <td>
-                    {{--  <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
-                    alt="Bootstrap Gallery" />  --}}
-                    {{ $customer->name }}
-                </td>
-                <td>{{ $customer->email }}</td>
-                {{--  <td>
-                <div class="d-flex align-items-center">
-                    <i class="icon-circle1 me-2 text-success fs-5"></i>
-                    Online
-                </div>
-            </td>  --}}
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $customer->name }}</td>
                 <td>{{ $customer->mobile }}</td>
+                <td>{{ $customer->email }}</td>
+                <td>{{ $customer->city }}</td>
                 <td>
                     <button class="btn btn-outline-primary btn-sm" onclick="showCustomerEditModal({{ $customer->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
