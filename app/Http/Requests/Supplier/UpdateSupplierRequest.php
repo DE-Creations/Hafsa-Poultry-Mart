@@ -23,7 +23,9 @@ class UpdateSupplierRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'nic' => ['required', 'string', 'max:20'],
+            'nic' => ['required', 'string', 'max:12'],
+            'mobile' => ['required', 'string', 'max:15'],
+            'city' => ['required', 'string', 'max:100'],
         ];
     }
 }

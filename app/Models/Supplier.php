@@ -11,11 +11,9 @@ class Supplier extends Model
 
     protected $fillable = [
         'name',
-        'nick_name',
+        'nic',
         'mobile',
-        'address',
-        'note',
-        'date_registered',
+        'city',
     ];
 
     public function grn()

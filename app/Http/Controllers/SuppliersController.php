@@ -19,11 +19,11 @@ class SuppliersController extends ParentController
     public function loadSuppliers(Request $request)
     {
         $query = Supplier::query();
-        if(isset($request['search'])){
+        if (isset($request['search'])) {
             $query = $query->where('id', 'like', '%' . $request['search'] . '%');
         }
 
-        if(isset($request['count'])){
+        if (isset($request['count'])) {
             $response['suppliers'] = $query->orderBy('id', 'desc')->paginate($request['count']);
         } else {
             $response['suppliers'] = $query->orderBy('id', 'desc')->paginate(20);
