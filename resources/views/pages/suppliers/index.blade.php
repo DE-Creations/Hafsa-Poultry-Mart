@@ -30,7 +30,7 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" onkeyup="getSupplier()" id="search"/>
+                                        <input type="text" class="form-control" placeholder="Search" onkeyup="getSupplier()" id="search" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -70,29 +70,41 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 {{-- <form method="post" action="{{ route('suppliers.store') }}"> --}}
-                    @csrf
-                    <div class="modal-body">
-                        <div class="m-2">
-                            <label class="form-label fw-bold">Name</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" id="add_name"/>
-                            <span class="text-danger" id="name_error"></span>
-                        </div>
-
-                        <div class="m-2">
-                            <label class="form-label fw-bold">NIC</label>
-                            <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic" id="add_nic" />
-                            <span class="text-danger" id="nic_error"></span>
-                        </div>
-
+                @csrf
+                <div class="modal-body">
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Name</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" id="add_name" />
+                        <span class="text-danger" id="name_error"></span>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button class="btn btn-primary" onclick="addSupplier()">
-                            Save
-                        </button>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">NIC</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic" id="add_nic" />
+                        <span class="text-danger" id="nic_error"></span>
                     </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Mobile</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" id="add_mobile" />
+                        <span class="text-danger" id="name_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">City</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city" id="add_city" />
+                        <span class="text-danger" id="name_error"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button class="btn btn-primary" onclick="addSupplier()">
+                        Save
+                    </button>
+                </div>
                 {{-- </form> --}}
             </div>
         </div>
@@ -125,6 +137,18 @@
                         <span class="text-danger" id="edit_nic_error"></span>
                     </div>
 
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Mobile</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" id="edit_mobile" />
+                        <span class="text-danger" id="name_error"></span>
+                    </div>
+
+                    <div class="m-2">
+                        <label class="form-label fw-bold">City</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city" id="edit_city" />
+                        <span class="text-danger" id="name_error"></span>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -139,8 +163,8 @@
     </div>
     <!-- Customer edit modal end -->
 
-        <!-- Delete modal start -->
-        <div class="modal center fade" id="deleteSupplierModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    <!-- Delete modal start -->
+    <div class="modal center fade" id="deleteSupplierModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="deleteSupplierModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -177,7 +201,6 @@
     <!--Alerts end-->
 
     <script>
-
         var selected_supplier_id = 0;
         var modal;
 
@@ -232,7 +255,7 @@
             openModal("addNewSupplierModal");
         }
 
-        async function addSupplier(){
+        async function addSupplier() {
 
             var name = document.getElementById("add_name").value;
             var nic = document.getElementById("add_nic").value;
@@ -241,7 +264,7 @@
                 name: name,
                 nic: nic
             }
-            
+
             try {
                 const response = await axios.post("{{ url('/suppliers/store') }}/",
                     add_supplier_details);
@@ -259,7 +282,7 @@
         async function showSupplierEditModal(id) {
             editResetFields();
 
-            try{
+            try {
                 const response = await axios.get("{{ url('/suppliers/get') }}/" + id);
                 const supplier = response.data;
 
@@ -306,7 +329,7 @@
             openModal("deleteSupplierModal");
         }
 
-        async function deleteSupplier(){
+        async function deleteSupplier() {
             try {
                 const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
@@ -348,6 +371,5 @@
         window.addEventListener('load', () => {
             getSupplier();
         });
-
     </script>
 </x-app-layout>
