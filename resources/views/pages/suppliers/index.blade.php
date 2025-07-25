@@ -30,12 +30,13 @@
                             <div class="row mb-3">
                                 <div class="col-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" onkeyup="getSupplier()" id="search" />
+                                        <input type="text" class="form-control" placeholder="Search"
+                                            onkeyup="getSupplier()" id="search" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#addNewSupplierModal">Add new</button>
+                                    <button type="button" class="btn btn-primary" onclick="showSupplierAddModal()">Add
+                                        new</button>
                                 </div>
                             </div>
                             <!-- Search container end -->
@@ -69,31 +70,34 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                {{-- <form method="post" action="{{ route('suppliers.store') }}"> --}}
                 @csrf
                 <div class="modal-body">
                     <div class="m-2">
                         <label class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name" id="add_name" />
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                            id="add_name" />
                         <span class="text-danger" id="name_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic" id="add_nic" />
+                        <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic"
+                            id="add_nic" />
                         <span class="text-danger" id="nic_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" id="add_mobile" />
-                        <span class="text-danger" id="name_error"></span>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
+                            id="add_mobile" />
+                        <span class="text-danger" id="mobile_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">City</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city" id="add_city" />
-                        <span class="text-danger" id="name_error"></span>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
+                            id="add_city" />
+                        <span class="text-danger" id="city_error"></span>
                     </div>
 
                 </div>
@@ -105,7 +109,6 @@
                         Save
                     </button>
                 </div>
-                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -139,14 +142,16 @@
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile" id="edit_mobile" />
-                        <span class="text-danger" id="name_error"></span>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
+                            id="edit_mobile" />
+                        <span class="text-danger" id="edit_mobile_error"></span>
                     </div>
 
                     <div class="m-2">
                         <label class="form-label fw-bold">City</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city" id="edit_city" />
-                        <span class="text-danger" id="name_error"></span>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
+                            id="edit_city" />
+                        <span class="text-danger" id="edit_city_error"></span>
                     </div>
 
                 </div>
@@ -188,18 +193,6 @@
     </div>
     <!-- Delete modal end -->
 
-    <!--Alerts start-->
-    <div class="alert alert-danger alert-dismissible fade w-50 m-3 fixed-bottom" role="alert" id="danger-modal"
-        style="z-index: 10000;">
-        <span id="danger-text" class="fs-6"></span>
-    </div>
-
-    <div class="alert alert-success alert-dismissible fade w-full m-3 fixed-bottom" role="alert" id="success-modal"
-        style="z-index: 10000;">
-        <span id="success-text" class="fs-6"></span>
-    </div>
-    <!--Alerts end-->
-
     <script>
         var selected_supplier_id = 0;
         var modal;
@@ -212,31 +205,75 @@
         function resetAddInputFields() {
             document.getElementById("add_name").value = "";
             document.getElementById("add_nic").value = "";
+            document.getElementById("add_mobile").value = "";
+            document.getElementById("add_city").value = "";
         }
 
         function resetEditInputFields() {
             document.getElementById("edit_name").value = "";
             document.getElementById("edit_nic").value = "";
+            document.getElementById("edit_mobile").value = "";
+            document.getElementById("edit_city").value = "";
         }
 
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
             document.getElementById("nic_error").textContent = "";
+            document.getElementById("mobile_error").textContent = "";
+            document.getElementById("city_error").textContent = "";
         }
 
         function editResetFields() {
             document.getElementById("edit_name_error").textContent = "";
             document.getElementById("edit_nic_error").textContent = "";
+            document.getElementById("edit_mobile_error").textContent = "";
+            document.getElementById("edit_city_error").textContent = "";
         }
 
         function viewAddErrors(error) {
-            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
+            if (error.response.data.errors.name) {
+                document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("name_error").textContent = "";
+            }
+            if (error.response.data.errors.nic) {
+                document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
+            } else {
+                document.getElementById("nic_error").textContent = "";
+            }
+            if (error.response.data.errors.mobile) {
+                document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
+            } else {
+                document.getElementById("mobile_error").textContent = "";
+            }
+            if (error.response.data.errors.city) {
+                document.getElementById("city_error").textContent = error.response.data.errors.city[0];
+            } else {
+                document.getElementById("city_error").textContent = "";
+            }
         }
 
         function viewEditErrors(error) {
-            document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("edit_nic_error").textContent = error.response.data.errors.nic[0];
+            if (error.response.data.errors.name) {
+                document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("edit_name_error").textContent = "";
+            }
+            if (error.response.data.errors.nic) {
+                document.getElementById("edit_nic_error").textContent = error.response.data.errors.nic[0];
+            } else {
+                document.getElementById("edit_nic_error").textContent = "";
+            }
+            if (error.response.data.errors.mobile) {
+                document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
+            } else {
+                document.getElementById("edit_mobile_error").textContent = "";
+            }
+            if (error.response.data.errors.city) {
+                document.getElementById("edit_city_error").textContent = error.response.data.errors.city[0];
+            } else {
+                document.getElementById("edit_city_error").textContent = "";
+            }
         }
 
         function showAlert(alertType, alertSpan, alertText) {
@@ -247,7 +284,7 @@
             setTimeout(() => {
                 alert.classList.remove("show");
                 alert.classList.add("d-none");
-            }, 5000);
+            }, 1500);
         }
 
         function showSupplierAddModal() {
@@ -256,19 +293,21 @@
         }
 
         async function addSupplier() {
-
             var name = document.getElementById("add_name").value;
             var nic = document.getElementById("add_nic").value;
+            var mobile = document.getElementById("add_mobile").value;
+            var city = document.getElementById("add_city").value;
 
             add_supplier_details = {
                 name: name,
-                nic: nic
+                nic: nic,
+                mobile: mobile,
+                city: city
             }
 
             try {
                 const response = await axios.post("{{ url('/suppliers/store') }}/",
                     add_supplier_details);
-                const supplier = response.data;
 
                 resetAddInputFields();
                 getSupplier();
@@ -288,9 +327,13 @@
 
                 var name = document.getElementById("edit_name");
                 var nic = document.getElementById("edit_nic");
+                var mobile = document.getElementById("edit_mobile");
+                var city = document.getElementById("edit_city");
 
                 name.value = supplier.name;
                 nic.value = supplier.nic;
+                mobile.value = supplier.mobile;
+                city.value = supplier.city;
                 selected_supplier_id = supplier.id;
 
                 openModal("editSupplierModal");
@@ -304,10 +347,14 @@
         async function updateSupplier() {
             var name = document.getElementById("edit_name").value;
             var nic = document.getElementById("edit_nic").value;
+            var mobile = document.getElementById("edit_mobile").value;
+            var city = document.getElementById("edit_city").value;
 
             edit_supplier_details = {
                 name: name,
-                nic: nic
+                nic: nic,
+                mobile: mobile,
+                city: city
             }
 
             try {
