@@ -12,6 +12,15 @@ class OutputItem extends Model
     protected $fillable = [
         'name',
         'description',
-        'unit_price',
     ];
+
+    public function getById($id)
+    {
+        return $this->where('id', $id)->first();
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'output_item_id', 'id');
+    }
 }

@@ -13,22 +13,10 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('stock_name')->nullable();
-            $table->unsignedBigInteger('grn_item_id')->nullable();
-            $table->decimal('input_qty',6,3)->nullable();
-            $table->decimal('output_qty',6,3)->nullable();
-            $table->decimal('wastage_qty', 15, 3)->nullable();
-            $table->dateTime('update_time')->nullable();
-            $table->boolean('is_stock_closed')->default(0);
+            $table->unsignedBigInteger('output_item_id')->nullable();
+            $table->decimal('unit_price', 15, 2)->nullable();
+            $table->decimal('balance', 15, 2)->nullable();
             $table->timestamps();
-
-        // 'stock_name',
-        // 'grn_item_id',
-        // 'input_qty',
-        // 'output_qty',
-        // 'wastage_qty',
-        // 'update_time',
-        // 'is_stock_closed',
         });
     }
 
