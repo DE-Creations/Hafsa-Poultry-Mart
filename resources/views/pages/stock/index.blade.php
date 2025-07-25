@@ -76,14 +76,6 @@
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="add_name" />
                         <span class="text-danger" id="name_error"></span>
-                        <label class="form-label fw-bold">Item</label>
-                        <select name="item" id="add_item" class="form-control mt-2">
-                            <option value="">Select Item</option>
-                            <option value="">Chicken-B</option>
-                            <option value="">Chicken-S</option>
-                        </select>
-                        <!-- <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item" id="add_item" /> -->
-                        <span class="text-danger" id="item_error"></span>
                     </div>
 
                     <div class="m-2">
@@ -126,8 +118,7 @@
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0 model-custom">
-                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
-                        onclick="deleteInvoice()">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteInvoice()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
