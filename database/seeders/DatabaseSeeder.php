@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             InvoiceGrnCalculationSeeder::class,
             BagSeeder::class,
+            OutputItemSeeder::class,
         ]);
     }
 }
