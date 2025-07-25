@@ -31,7 +31,7 @@
                                 <div class="col-10">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search"
-                                            onkeyup="getSupplier()" id="search" />
+                                            onkeyup="getTableDetails()" id="search" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -310,7 +310,7 @@
                     add_supplier_details);
 
                 resetAddInputFields();
-                getSupplier();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier added successfully.");
             } catch (error) {
@@ -363,7 +363,7 @@
                 const supplier = response.data;
 
                 resetEditInputFields();
-                getSupplier();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier updated successfully.");
             } catch (error) {
@@ -381,7 +381,7 @@
                 const response = await axios.delete("{{ url('/suppliers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
 
-                getSupplier();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Supplier deleted successfully.");
             } catch (error) {
@@ -389,7 +389,7 @@
             }
         }
 
-        function getSupplier(page = 1) {
+        function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
             var count = 25;
@@ -416,7 +416,7 @@
         }
 
         window.addEventListener('load', () => {
-            getSupplier();
+            getTableDetails();
         });
     </script>
 </x-app-layout>
