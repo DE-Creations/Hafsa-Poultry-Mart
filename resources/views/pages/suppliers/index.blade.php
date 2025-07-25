@@ -392,7 +392,7 @@
         function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
-            var count = 5;
+            var count = 25;
 
             var data = {
                 search: search,

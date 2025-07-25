@@ -31,7 +31,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
-                                            onkeyup="getExpenses()" />
+                                            onkeyup="getTableDetails()" />
                                     </div>
                                 </div>
                                 <div class="col text-end">
@@ -160,7 +160,7 @@
                 const response = await axios.delete("{{ url('/expenses/delete') }}/" + selected_expense_id);
                 const customer = response.data;
 
-                getExpenses();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Expense deleted successfully.");
             } catch (error) {
@@ -168,7 +168,7 @@
             }
         }
 
-        function getExpenses(page = 1) {
+        function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
             var count = 25;
@@ -247,7 +247,7 @@
         }
 
         window.addEventListener('load', () => {
-            getExpenses();
+            getTableDetails();
         });
     </script>
 </x-app-layout>
