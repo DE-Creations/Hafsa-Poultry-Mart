@@ -316,7 +316,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
                                         <button type="button" class="btn btn-success col-3"
-                                            onclick="printInvoice({{ $invoice->id }})">
+                                            onclick="printInvoice('{{ $invoice->id }}')">
                                             Print
                                         </button>
                                     </div>
