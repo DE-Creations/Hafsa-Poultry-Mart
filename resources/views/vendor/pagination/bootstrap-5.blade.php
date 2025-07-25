@@ -10,7 +10,7 @@
                 @else
                     <li class="page-item">
                         <a class="page-link" href="javascript:void(0)"
-                            onclick="getCustomers({{ $paginator->currentPage() }}-1)"
+                            onclick="getTableDetails({{ $paginator->currentPage() }}-1)"
                             rel="prev">@lang('pagination.previous')</a>
                     </li>
                 @endif
@@ -19,7 +19,7 @@
                 @if ($paginator->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="javascript:void(0)"
-                            onclick="getCustomers({{ $paginator->currentPage() }}+1)"
+                            onclick="getTableDetails({{ $paginator->currentPage() }}+1)"
                             rel="next">@lang('pagination.next')</a>
                     </li>
                 @else
@@ -53,7 +53,7 @@
                     @else
                         <li class="page-item">
                             <a class="page-link" href="javascript:void(0)"
-                                onclick="getCustomers({{ $paginator->currentPage() }}-1)" rel="prev"
+                                onclick="getTableDetails({{ $paginator->currentPage() }}-1)" rel="prev"
                                 aria-label="@lang('pagination.previous')">&lsaquo;</a>
                         </li>
                     @endif
@@ -74,7 +74,7 @@
                                             class="page-link">{{ $page }}</span></li>
                                 @else
                                     <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                                            onclick="getCustomers({{ $page }})">{{ $page }}</a></li>
+                                            onclick="getTableDetails({{ $page }})">{{ $page }}</a></li>
                                 @endif
                             @endforeach
                         @endif
@@ -84,7 +84,7 @@
                     @if ($paginator->hasMorePages())
                         <li class="page-item">
                             <a class="page-link" href="javascript:void(0)"
-                                onclick="getCustomers({{ $paginator->currentPage() }}+1)" rel="next"
+                                onclick="getTableDetails({{ $paginator->currentPage() }}+1)" rel="next"
                                 aria-label="@lang('pagination.next')">&rsaquo;</a>
                         </li>
                     @else

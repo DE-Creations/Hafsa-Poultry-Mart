@@ -31,7 +31,7 @@
                                 <div class="col-10">
                                     <div class="input-group">
                                         <input id="search" type="text" class="form-control" placeholder="Search"
-                                            onkeyup="getCustomers()" />
+                                            onkeyup="getTableDetails()" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
@@ -305,7 +305,7 @@
                 const customer = response.data;
 
                 resetAddInputFields();
-                getCustomers();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer added successfully.");
             } catch (error) {
@@ -356,7 +356,7 @@
                 const customer = response.data;
 
                 resetEditInputFields();
-                getCustomers();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer updated successfully.");
             } catch (error) {
@@ -374,7 +374,7 @@
                 const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
                 const customer = response.data;
 
-                getCustomers();
+                getTableDetails();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Customer deleted successfully.");
             } catch (error) {
@@ -382,10 +382,10 @@
             }
         }
 
-        function getCustomers(page = 1) {
+        function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
-            var count = 25;
+            var count = 2;
 
             var data = {
                 search: search,
@@ -409,7 +409,7 @@
         }
 
         window.addEventListener('load', () => {
-            getCustomers();
+            getTableDetails();
         });
     </script>
 
