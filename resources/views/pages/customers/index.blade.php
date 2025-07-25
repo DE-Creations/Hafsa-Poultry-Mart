@@ -96,8 +96,8 @@
                     <div class="m-2">
                         <label class="form-label fw-bold">City (Optional)</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
-                            id="add_address" />
-                        <span class="text-danger" id="address_error"></span>
+                            id="add_city" />
+                        <span class="text-danger" id="city_error"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -148,9 +148,9 @@
 
                     <div class="m-2">
                         <label class="form-label fw-bold">City (Optional)</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Address"
-                            id="edit_address" name="address" />
-                        <span class="text-danger" id="edit_address_error"></span>
+                        <input type="text" class="form-control mt-2" placeholder="Enter City" id="edit_city"
+                            name="city" />
+                        <span class="text-danger" id="edit_city_error"></span>
                     </div>
 
                 </div>
@@ -203,44 +203,71 @@
 
         function resetAddInputFields() {
             document.getElementById("add_name").value = "";
-            document.getElementById("add_email").value = "";
             document.getElementById("add_mobile").value = "";
-            document.getElementById("add_address").value = "";
+            document.getElementById("add_email").value = "";
+            document.getElementById("add_city").value = "";
         }
 
         function resetEditInputFields() {
             document.getElementById("edit_name").value = "";
-            document.getElementById("edit_email").value = "";
             document.getElementById("edit_mobile").value = "";
-            document.getElementById("edit_address").value = "";
+            document.getElementById("edit_email").value = "";
+            document.getElementById("edit_city").value = "";
         }
 
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
-            document.getElementById("email_error").textContent = "";
             document.getElementById("mobile_error").textContent = "";
-            document.getElementById("address_error").textContent = "";
+            document.getElementById("email_error").textContent = "";
+            document.getElementById("city_error").textContent = "";
         }
 
         function editResetFields() {
             document.getElementById("edit_name_error").textContent = "";
             document.getElementById("edit_email_error").textContent = "";
             document.getElementById("edit_mobile_error").textContent = "";
-            document.getElementById("edit_address_error").textContent = "";
+            document.getElementById("edit_city_error").textContent = "";
         }
 
         function viewAddErrors(error) {
-            document.getElementById("name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("email_error").textContent = error.response.data.errors.email[0];
-            document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
-            document.getElementById("address_error").textContent = error.response.data.errors.address[0];
+            if (error.response.data.errors.name) {
+                document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("name_error").textContent = "";
+            }
+            if (error.response.data.errors.mobile) {
+                document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
+            } else {
+                document.getElementById("mobile_error").textContent = "";
+            }
+            if (error.response.data.errors.email) {
+                document.getElementById("email_error").textContent = error.response.data.errors.email[0];
+            } else {
+                document.getElementById("email_error").textContent = "";
+            }
         }
 
         function viewEditErrors(error) {
-            document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("edit_email_error").textContent = error.response.data.errors.email[0];
-            document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
-            document.getElementById("edit_address_error").textContent = error.response.data.errors.address[0];
+            if (error.response.data.errors.name) {
+                document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("edit_name_error").textContent = "";
+            }
+            if (error.response.data.errors.mobile) {
+                document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
+            } else {
+                document.getElementById("edit_mobile_error").textContent = "";
+            }
+            if (error.response.data.errors.email) {
+                document.getElementById("edit_email_error").textContent = error.response.data.errors.email[0];
+            } else {
+                document.getElementById("edit_email_error").textContent = "";
+            }
+            if (error.response.data.errors.city) {
+                document.getElementById("edit_city_error").textContent = error.response.data.errors.city[0];
+            } else {
+                document.getElementById("edit_city_error").textContent = "";
+            }
         }
 
         function showAlert(alertType, alertSpan, alertText) {
@@ -263,13 +290,13 @@
             var name = document.getElementById("add_name").value;
             var email = document.getElementById("add_email").value;
             var mobile = document.getElementById("add_mobile").value;
-            var address = document.getElementById("add_address").value;
+            var city = document.getElementById("add_city").value;
 
             add_customer_details = {
                 name: name,
                 email: email,
                 mobile: mobile,
-                address: address
+                city: city
             }
 
             try {
@@ -296,11 +323,11 @@
                 var name = document.getElementById("edit_name");
                 var email = document.getElementById("edit_email");
                 var mobile = document.getElementById("edit_mobile");
-                var address = document.getElementById("edit_address");
+                var city = document.getElementById("edit_city");
                 name.value = customer.name;
                 email.value = customer.email;
                 mobile.value = customer.mobile;
-                address.value = customer.address;
+                city.value = customer.city;
                 selected_customer_id = customer.id;
 
                 openModal("editCustomerModal");
@@ -314,13 +341,13 @@
             var name = document.getElementById("edit_name").value;
             var email = document.getElementById("edit_email").value;
             var mobile = document.getElementById("edit_mobile").value;
-            var address = document.getElementById("edit_address").value;
+            var city = document.getElementById("edit_city").value;
 
             edit_customer_details = {
                 name: name,
                 email: email,
                 mobile: mobile,
-                address: address
+                city: city
             }
 
             try {

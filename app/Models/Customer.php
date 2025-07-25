@@ -11,11 +11,9 @@ class Customer extends Model
 
     protected $fillable = [
         'name',
-        'nickname',
-        'email',
         'mobile',
-        'address',
-        'note'
+        'email',
+        'city',
     ];
 
     public function getById($id)
