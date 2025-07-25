@@ -66,15 +66,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">
-                        Add new customer
+                        Add new Stock
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="m-2">
                         <label class="form-label fw-bold">Item</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item"
-                            id="add_item" />
+                        <select name="item" id="add_item" class="form-control mt-2">
+                            <option value="">Select Item</option>
+                            <option value="">Chicken-B</option>
+                            <option value="">Chicken-S</option>
+                        </select>
+                        <!-- <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item" id="add_item" /> -->
                         <span class="text-danger" id="item_error"></span>
                     </div>
 
@@ -151,7 +155,7 @@
         }
 
         function showStockAddModal() {
-            {{--  addResetFields();  --}}
+            // addResetFields();
             openModal("addNewStockModal");
         }
 
