@@ -78,6 +78,7 @@
                             <option value="">Chicken-B</option>
                             <option value="">Chicken-S</option>
                         </select>
+                        a
                         <span class="text-danger" id="item_error"></span>
                     </div>
 
