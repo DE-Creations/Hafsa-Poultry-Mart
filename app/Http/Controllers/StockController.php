@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Stock\StoreStockRequest;
 use App\Models\Stock;
+use domain\facades\StockFacade\StockFacade;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
     public function index()
     {
-        return view('pages.stock.index');
+        $response['output_items'] = StockFacade::getOutputItems();
+        return view('pages.stock.index', $response);
     }
 
     public function loadStocks(Request $request)
@@ -31,5 +34,11 @@ class StockController extends Controller
         }
 
         return view('pages.stock.components.table')->with($response);
+    }
+
+    public function store(StoreStockRequest $request)
+    {
+        $stock_id = StockFacade::store($request->all());
+        return redirect()->route('stock.index');
     }
 }
