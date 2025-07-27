@@ -17,7 +17,7 @@ class StockController extends Controller
 
     public function loadStocks(Request $request)
     {
-        $query = Stock::query();
+        $query = Stock::query()->with('outputItem');
 
         // if (isset($request['search'])) {
         //     $query = $query->where('invoice_number', 'like', '%' . $request['search'] . '%')
@@ -32,6 +32,7 @@ class StockController extends Controller
         } else {
             $response['stocks'] = $query->orderBy('id', 'desc')->paginate(20);
         }
+        // dd($response['stocks']);
 
         return view('pages.stock.components.table')->with($response);
     }
