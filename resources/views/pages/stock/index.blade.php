@@ -78,7 +78,6 @@
                             <option value="">Chicken-B</option>
                             <option value="">Chicken-S</option>
                         </select>
-                        <!-- <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item" id="add_item" /> -->
                         <span class="text-danger" id="item_error"></span>
                     </div>
 
