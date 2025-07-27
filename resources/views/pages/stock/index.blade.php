@@ -42,7 +42,7 @@
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive" id="all_invoices_table">
+                                <div class="table-responsive" id="all_stocks_table">
 
                                 </div>
                             </div>
@@ -220,7 +220,7 @@
 
             //$('#pre_stop').show();
             $.ajax({
-                url: '/invoice/ajax/list?page=' + page,
+                url: '/stock/ajax/list?page=' + page,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -228,7 +228,7 @@
                 dataType: '',
                 data: data,
                 success: function(response) {
-                    $('#all_invoices_table').html(response);
+                    $('#all_stocks_table').html(response);
                     //$('#pre_stop').hide();
                 }
             });
