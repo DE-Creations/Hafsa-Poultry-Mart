@@ -87,7 +87,7 @@ class DashboardService
         foreach ($customers as $customer) {
             if ($customer->id != 1) {
                 $payment = InvoicePayment::where('customer_id', $customer->id)->orderBy('id', 'desc')->first();
-                if ($payment->new_balance != 0) {
+                if ($payment != null && $payment->new_balance != 0) {
                     $payments[] = $payment;
                 }
             }

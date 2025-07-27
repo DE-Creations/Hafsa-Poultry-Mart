@@ -9,6 +9,7 @@ use App\Models\InvoiceGrnCalculation;
 use App\Models\InvoiceItem;
 use App\Models\InvoicePayment;
 use App\Models\OutputItem;
+use App\Models\Stock;
 
 class InvoiceService
 {
@@ -17,6 +18,7 @@ class InvoiceService
     protected $invoice_payment;
     protected $output_item;
     protected $invoice_grn_calculation;
+    protected $stock;
 
     protected $bags_category;
     protected $bags_history;
@@ -28,6 +30,7 @@ class InvoiceService
         $this->invoice_payment = new InvoicePayment();
         $this->output_item = new OutputItem();
         $this->invoice_grn_calculation = new InvoiceGrnCalculation();
+        $this->stock = new Stock();
 
         $this->bags_category = new BagsCategory();
         $this->bags_history = new BagHistory();
@@ -35,7 +38,22 @@ class InvoiceService
 
     function getSavedInvoiceItems()
     {
-        return $this->output_item->get();
+        $stocks = $this->stock->with('outputItem')->where('balance', '>', 0)->get();
+
+        $result = [];
+        foreach ($stocks as $stock) {
+            $result[] = [
+                'id' => $stock->id,
+                'name' => $stock->outputItem->name,
+                'description' => $stock->outputItem->description,
+                'unit_price' => $stock->unit_price,
+                'balance' => $stock->balance,
+                'stock_date' => $stock->updated_at->format('Y-m-d'),
+            ];
+        }
+        return collect($result);
+        // return $result;
+        // return response()->json($result);
     }
 
     function getBagsCategory()
