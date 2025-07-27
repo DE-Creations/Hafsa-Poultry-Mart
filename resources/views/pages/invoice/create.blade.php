@@ -51,7 +51,8 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-3 search-selection">
                                         <label class="form-label">Customer</label>
-                                        <select id="customer_id" class="form-control select2" onchange="getCustomerBalanceForward();">
+                                        <select id="customer_id" class="form-control select2"
+                                            onchange="getCustomerBalanceForward();">
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}
                                                 </option>
@@ -102,19 +103,27 @@
                                                             style="width: 100%; height:30px">
                                                             <option value="0">Select</option>
                                                             @foreach ($newInvoiceItems as $newInvoiceItem)
-                                                                <option value="{{ $newInvoiceItem->id }}"
-                                                                    data-description="{{ e($newInvoiceItem->description) }}"
-                                                                    data-unit_price="{{ $newInvoiceItem->unit_price }}">
-                                                                    {{ $newInvoiceItem->name }}
+                                                                <option value="{{ $newInvoiceItem['id'] }}"
+                                                                    data-description="{{ $newInvoiceItem['description'] }}"
+                                                                    data-unit_price="{{ $newInvoiceItem['unit_price'] }}">
+                                                                    {{ $newInvoiceItem['name'] }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control form-control-sm" name="t1_stock_date<?php echo $i; ?>" id="t1_stock_date<?php echo $i; ?>" style="width: 100%;height:30px;text-align: center;" disabled>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            name="t1_stock_date<?php echo $i; ?>"
+                                                            id="t1_stock_date<?php echo $i; ?>"
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            disabled>
                                                     </td>
                                                     <td>
-                                                        <input type="number" class="form-control form-control-sm" name="t1_balance<?php echo $i; ?>" id="t1_balance<?php echo $i; ?>" style="width: 100%;height:30px;text-align: center;" disabled>
+                                                        <input type="number" class="form-control form-control-sm"
+                                                            name="t1_balance<?php echo $i; ?>"
+                                                            id="t1_balance<?php echo $i; ?>"
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            disabled>
                                                     </td>
                                                     <td><input name="t1_weight<?php echo $i; ?>"
                                                             id="t1_weight<?php echo $i; ?>" type="number"
@@ -148,7 +157,8 @@
                                                 <tr>
                                                     <td colspan="3" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary "><i class="fa fa-eraser"></i>
+                                                            class="btn btn-sm btn-primary "><i
+                                                                class="fa fa-eraser"></i>
                                                             Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">
@@ -204,7 +214,8 @@
                                                         @foreach ($bags as $bag)
                                                             <tr>
                                                                 <td class="border">{{ $bag->name }}</td>
-                                                                <td class="border"><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                <td class="border"><input
+                                                                        name="t2_count<?php echo $t2NumRows; ?>"
                                                                         id="t2_count<?php echo $t2NumRows; ?>"
                                                                         type="number" step="1" min="0"
                                                                         class="form-control form-control-sm"
@@ -373,13 +384,15 @@
                                                                     style="width: 100%; height:30px">
                                                                     <option value="0">Select</option>
                                                                     @foreach ($newInvoiceItems as $newInvoiceItem)
-                                                                    <option value="{{ $newInvoiceItem->id }}" data-description="{{ e($newInvoiceItem->description) }}" data-unit_price="{{ $newInvoiceItem->unit_price }}">
-                                                                        {{ $newInvoiceItem->name }}
+                                                                    <option value="{{ $newInvoiceItem['id'] }}" data-description="{{ e($newInvoiceItem['description']) }}" data-unit_price="{{ $newInvoiceItem['unit_price'] }}">
+                                                                        {{ $newInvoiceItem['name'] }}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>`;
-            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date` + (item_row) + `" id="t1_stock_date` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
-            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance` + (item_row) + `" id="t1_balance` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
+            cell2.innerHTML = `<input type="text" class="form-control form-control-sm" name="t1_stock_date` + (item_row) +
+                `" id="t1_stock_date` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
+            cell3.innerHTML = `<input type="number" class="form-control form-control-sm" name="t1_balance` + (item_row) +
+                `" id="t1_balance` + (item_row) + `" style="width: 100%;height:30px;text-align: center;" disabled>`
             cell4.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
