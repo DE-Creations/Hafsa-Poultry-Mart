@@ -73,8 +73,12 @@
                 <div class="modal-body">
                     <div class="m-2">
                         <label class="form-label fw-bold">Item</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Item" name="item"
-                            id="add_item" />
+                        <select name="item" id="add_item" class="form-control mt-2">
+                            <option value="0">Select Item</option>
+                            @foreach ($output_items as $output_item)
+                                <option value="{{ $output_item->id }}">{{ $output_item->name }}</option>
+                            @endforeach
+                        </select>
                         <span class="text-danger" id="item_error"></span>
                     </div>
 
@@ -97,7 +101,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button onclick="addCustomer()" class="btn btn-primary">
+                    <button onclick="addStock()" class="btn btn-primary">
                         Save
                     </button>
                 </div>
@@ -150,9 +154,63 @@
             }, 1500);
         }
 
+        function resetAddInputFields() {
+            document.getElementById("add_item").value = "";
+            document.getElementById("add_price").value = "";
+            document.getElementById("add_qty").value = "";
+        }
+
+        function viewAddErrors(error) {
+            if (error.response.data.errors.output_item_id) {
+                document.getElementById("item_error").textContent = error.response.data.errors.output_item_id[0];
+            } else {
+                document.getElementById("item_error").textContent = "";
+            }
+            if (error.response.data.errors.unit_price) {
+                document.getElementById("price_error").textContent = error.response.data.errors.unit_price[0];
+            } else {
+                document.getElementById("price_error").textContent = "";
+            }
+            if (error.response.data.errors.balance) {
+                document.getElementById("qty_error").textContent = error.response.data.errors.balance[0];
+            } else {
+                document.getElementById("qty_error").textContent = "";
+            }
+        }
+
+        function addResetFields() {
+            document.getElementById("item_error").textContent = "";
+            document.getElementById("price_error").textContent = "";
+            document.getElementById("qty_error").textContent = "";
+        }
+
         function showStockAddModal() {
-            {{--  addResetFields();  --}}
+            addResetFields();
             openModal("addNewStockModal");
+        }
+
+        async function addStock() {
+            var item = document.getElementById("add_item").value;
+            var price = document.getElementById("add_price").value;
+            var qty = document.getElementById("add_qty").value;
+
+            add_stock_details = {
+                output_item_id: item,
+                unit_price: price,
+                balance: qty,
+            }
+
+            try {
+                const response = await axios.post("{{ url('/stock/store') }}/",
+                    add_stock_details);
+
+                resetAddInputFields();
+                getTableDetails();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Stock added successfully.");
+            } catch (error) {
+                viewAddErrors(error);
+            }
         }
 
         function goToInvoiceEdit(id) {

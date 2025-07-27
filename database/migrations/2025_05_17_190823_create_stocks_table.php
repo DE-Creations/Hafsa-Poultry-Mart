@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('output_item_id')->nullable();
             $table->decimal('unit_price', 15, 2)->nullable();
-            $table->decimal('balance', 15, 2)->nullable();
+            $table->decimal('balance', 15, 3)->nullable();
             $table->timestamps();
         });
     }
