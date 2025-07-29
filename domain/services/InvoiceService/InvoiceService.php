@@ -51,9 +51,8 @@ class InvoiceService
                 'stock_date' => $stock->updated_at->format('Y-m-d'),
             ];
         }
-        return collect($result);
-        // return $result;
-        // return response()->json($result);
+
+        return $result;
     }
 
     function getBagsCategory()
