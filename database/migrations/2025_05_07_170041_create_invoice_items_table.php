@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('invoice_id')->nullable();
             $table->string('item_name')->nullable();
+            $table->unsignedBigInteger('stock_id')->nullable();
             $table->text('description')->nullable();
             $table->decimal('weight', 6, 3)->nullable();
             $table->decimal('unit_price', 15, 2)->nullable();
