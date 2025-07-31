@@ -5,21 +5,18 @@ namespace domain\services\GRNService;
 use App\Models\Grn;
 use App\Models\GrnItem;
 use App\Models\GrnPay;
-use App\Models\InvoiceGrnCalculation;
 
 class GRNService
 {
     protected $grn;
     protected $grn_item;
     protected $grn_payment;
-    protected $invoice_grn_calculation;
 
     public function __construct()
     {
         $this->grn = new Grn();
         $this->grn_item = new GrnItem();
         $this->grn_payment = new GrnPay();
-        $this->invoice_grn_calculation = new InvoiceGrnCalculation();
     }
 
     public function store(array $data)
@@ -48,7 +45,6 @@ class GRNService
             }
         }
 
-        // dd($data);
         // insert invoice payments
         $payment_data = [
             'grn_id' => $created_grn->id,
@@ -63,19 +59,6 @@ class GRNService
             'memo' => $data['memo'],
         ];
         $this->grn_payment->create($payment_data);
-
-        // update the grn_total with weight
-        $total_grn_weight = 0;
-
-        if (isset($data['items']) && is_array($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $total_grn_weight += $item['weight'];
-            }
-        }
-
-        $calculation = $this->invoice_grn_calculation->first();
-        $data['grn_total'] = $calculation['grn_total'] + $total_grn_weight;
-        $calculation->update($data);
 
         return $created_grn->id;
     }
