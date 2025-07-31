@@ -104,6 +104,7 @@
                                                                 <option value="0">Select</option>
                                                                 @foreach ($newInvoiceItems as $newInvoiceItem)
                                                                 <option value="{{ $newInvoiceItem['id'] }}"
+                                                                    data-name_id="{{ $newInvoiceItem['name_id'] }}"
                                                                     data-stock_date="{{ $newInvoiceItem['stock_date'] }}"
                                                                     data-unit_price="{{ $newInvoiceItem['unit_price'] }}"
                                                                     data-balance="{{ $newInvoiceItem['balance'] }}">
@@ -385,7 +386,7 @@
                                                                     style="width: 100%; height:30px">
                                                                     <option value="0">Select</option>
                                                                     @foreach ($newInvoiceItems as $newInvoiceItem)
-                                                                    <option value="{{ $newInvoiceItem['id'] }}" data-stock_date="{{ $newInvoiceItem['stock_date'] }}" data-unit_price="{{ $newInvoiceItem['unit_price'] }}" data-balance="{{ $newInvoiceItem['balance'] }}" >
+                                                                    <option value="{{ $newInvoiceItem['id'] }}" data-name_id="{{ $newInvoiceItem['name_id'] }}" data-stock_date="{{ $newInvoiceItem['stock_date'] }}" data-unit_price="{{ $newInvoiceItem['unit_price'] }}" data-balance="{{ $newInvoiceItem['balance'] }}" >
                                                                         {{ $newInvoiceItem['name'] }}&nbsp;(Rs. {{ $newInvoiceItem['unit_price'] }})
                                                                     </option>
                                                                     @endforeach
@@ -441,20 +442,20 @@
                 if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() !=
                     '0') { //check if have element and select item
                     var item = {
-                        item_name: document.getElementById("t1_item" + i).value,
-                        // description: document.getElementById("t1_desc" + i).value,
+                        stock_id: document.getElementById("t1_item" + i).value,
+                        item_name: document.getElementById("t1_item" + i).getAttribute('data-name_id'),
                         weight: getNumber("t1_weight" + i),
                         unit_price: getNumber("t1_unit_price" + i),
                         amount: getNumber("t1_amount" + i),
                     };
 
-                    if (item.item_name != 0) {
+                    if (item.stock_id != 0) {
                         const select = document.getElementById("t1_item" + i);
                         const options = select.options;
                         var selectedItem;
 
                         for (let i = 0; i < options.length; i++) {
-                            if (item.item_name == options[i].value) {
+                            if (item.stock_id == options[i].value) {
                                 selectedItem = options[i].text;
                             }
                         }
@@ -481,7 +482,8 @@
                 showAlert("danger-modal", "danger-text", "Please Enter At least 1 Item to proceed");
                 return;
             }
-
+            console.log(items);
+            return;
 
             var bags = [];
             var t1NumRows = parseInt(document.getElementById("t2NumRows").value);
