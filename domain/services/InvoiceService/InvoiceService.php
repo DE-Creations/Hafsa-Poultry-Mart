@@ -17,7 +17,6 @@ class InvoiceService
     protected $invoice_item;
     protected $invoice_payment;
     protected $output_item;
-    protected $invoice_grn_calculation;
     protected $stock;
 
     protected $bags_category;
@@ -29,7 +28,6 @@ class InvoiceService
         $this->invoice_item = new InvoiceItem();
         $this->invoice_payment = new InvoicePayment();
         $this->output_item = new OutputItem();
-        $this->invoice_grn_calculation = new InvoiceGrnCalculation();
         $this->stock = new Stock();
 
         $this->bags_category = new BagsCategory();
@@ -45,6 +43,7 @@ class InvoiceService
             $result[] = [
                 'id' => $stock->id,
                 'name' => $stock->outputItem->name,
+                'name_id' => $stock->outputItem->id,
                 'description' => $stock->outputItem->description,
                 'unit_price' => $stock->unit_price,
                 'balance' => $stock->balance,
@@ -79,14 +78,32 @@ class InvoiceService
                 $item_data = [
                     'invoice_id' => $created_invoice->id,
                     'item_name' => $item['item_name'],
-                    'description' => $item['description'],
+                    'stock_id' => $item['stock_id'],
                     'weight' => $item['weight'],
                     'unit_price' => $item['unit_price'],
                     'amount' => $item['amount'],
                 ];
                 $this->invoice_item->create($item_data);
+
+                // update the stock table
+                $stock = $this->stock->where($item['stock_id'])->first();
+                if ($stock) {
+                    $stock->balance -= $item['weight'];
+                    $stock->save();
+                }
             }
         }
+
+        // update the stock table
+        // if (isset($data['items']) && is_array($data['items'])) {
+        //     foreach ($data['items'] as $item) {
+        //         $stock = $this->stock->where('output_item_id', $item['id'])->first();
+        //         if ($stock) {
+        //             $stock->balance -= $item['weight'];
+        //             $stock->save();
+        //         }
+        //     }
+        // }
 
         // insert bags count
         if (isset($data['bags']) && is_array($data['bags'])) {
@@ -114,19 +131,6 @@ class InvoiceService
             'memo' => $data['memo'],
         ];
         $this->invoice_payment->create($payment_data);
-
-        // update the invoice_total with weight
-        $total_invoice_weight = 0;
-
-        if (isset($data['items']) && is_array($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $total_invoice_weight += $item['weight'];
-            }
-        }
-
-        $calculation = $this->invoice_grn_calculation->first();
-        $data['invoice_total'] = $calculation['invoice_total'] + $total_invoice_weight;
-        $calculation->update($data);
 
         return $created_invoice->id;
     }
@@ -196,7 +200,6 @@ class InvoiceService
                         $item_data = [
                             'invoice_id' => $invoice_id,
                             'item_name' => $item['item_name'],
-                            'description' => $item['description'],
                             'weight' => $item['weight'],
                             'unit_price' => $item['unit_price'],
                             'amount' => $item['amount'],
