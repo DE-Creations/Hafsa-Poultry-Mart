@@ -76,7 +76,7 @@
                         <select name="item" id="add_item" class="form-control mt-2">
                             <option value="0">Select Item</option>
                             @foreach ($output_items as $output_item)
-                                <option value="{{ $output_item->id }}">{{ $output_item->name }}</option>
+                            <option value="{{ $output_item->id }}">{{ $output_item->name }}</option>
                             @endforeach
                         </select>
                         <span class="text-danger" id="item_error"></span>
@@ -90,8 +90,8 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Quantity</label>
-                        <input type="number" class="form-control mt-2" placeholder="Enter Email" name="qty"
+                        <label class="form-label fw-bold">Quantity (KG)</label>
+                        <input type="number" class="form-control mt-2" placeholder="Enter Quantity(KG)" name="qty"
                             id="add_qty" />
                         <span class="text-danger" id="qty_error"></span>
                     </div>
