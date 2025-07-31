@@ -5,7 +5,6 @@ namespace domain\services\InvoiceService;
 use App\Models\BagHistory;
 use App\Models\BagsCategory;
 use App\Models\Invoice;
-use App\Models\InvoiceGrnCalculation;
 use App\Models\InvoiceItem;
 use App\Models\InvoicePayment;
 use App\Models\OutputItem;
