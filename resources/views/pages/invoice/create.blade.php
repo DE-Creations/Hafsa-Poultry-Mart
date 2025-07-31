@@ -439,11 +439,14 @@
             var items = [];
             var t1NumRows = parseInt(document.getElementById("t1NumRows").value);
             for (var i = 0; i < t1NumRows; i++) {
-                if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() !=
-                    '0') { //check if have element and select item
+                if ($('#t1_item' + i).length > 0 && $('#t1_item' + i).val() != '0') { //check if have element and select item
+
+                    var selectElement = document.getElementById("t1_item" + i);
+                    var selectedOption = selectElement.selectedOptions[0]; // Get the selected option
+
                     var item = {
-                        stock_id: document.getElementById("t1_item" + i).value,
-                        item_name: document.getElementById("t1_item" + i).getAttribute('data-name_id'),
+                        stock_id: selectElement.value, // Value of the selected option
+                        item_name: selectedOption.getAttribute('data-name_id'), // Get data-name_id from selected option
                         weight: getNumber("t1_weight" + i),
                         unit_price: getNumber("t1_unit_price" + i),
                         amount: getNumber("t1_amount" + i),
@@ -482,8 +485,6 @@
                 showAlert("danger-modal", "danger-text", "Please Enter At least 1 Item to proceed");
                 return;
             }
-            console.log(items);
-            return;
 
             var bags = [];
             var t1NumRows = parseInt(document.getElementById("t2NumRows").value);
