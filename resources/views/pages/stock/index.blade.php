@@ -83,15 +83,15 @@
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Unit Price</label>
+                        <label class="form-label fw-bold">Unit Price (Rs)</label>
                         <input type="number" class="form-control mt-2" placeholder="Enter Price" name="price"
                             id="add_price" />
                         <span class="text-danger" id="price_error"></span>
                     </div>
 
                     <div class="m-2">
-                        <label class="form-label fw-bold">Quantity (KG)</label>
-                        <input type="number" class="form-control mt-2" placeholder="Enter Quantity(KG)" name="qty"
+                        <label class="form-label fw-bold">Quantity (kg)</label>
+                        <input type="number" class="form-control mt-2" placeholder="Enter Quantity (kg)" name="qty"
                             id="add_qty" />
                         <span class="text-danger" id="qty_error"></span>
                     </div>
@@ -118,7 +118,7 @@
                 <div class="modal-body p-4 text-center">
                     <h5 class="text-danger">Confirm Delete</h5>
                     <p class="mb-0">
-                        Are you sure you want to delete this invoice?
+                        Are you sure you want to delete this Stock?
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0 model-custom">
