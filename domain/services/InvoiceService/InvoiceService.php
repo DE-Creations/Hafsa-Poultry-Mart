@@ -85,7 +85,7 @@ class InvoiceService
                 $this->invoice_item->create($item_data);
 
                 // update the stock table
-                $stock = $this->stock->where($item['stock_id'])->first();
+                $stock = $this->stock->where('id', $item['stock_id'])->first();
                 if ($stock) {
                     $stock->balance -= $item['weight'];
                     $stock->save();
