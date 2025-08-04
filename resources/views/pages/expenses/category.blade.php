@@ -14,7 +14,8 @@
                             <i class="icon-house_siding lh-1"></i>
                             <a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a>
                         </li>
-                        <li class="breadcrumb-item">Expenses</li>
+                        <li class="breadcrumb-item"><a href="{{ route('expenses.index') }}">Expenses</a></li>
+                        <li class="breadcrumb-item">Categories</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -28,23 +29,21 @@
                         <div class="card-body">
                             <!-- Search container start -->
                             <div class="row mb-3">
-                                <div class="col">
+                                <div class="col-10">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
                                             onkeyup="getTableDetails()" />
                                     </div>
                                 </div>
-                                <div class="col text-end">
-                                    <a class="btn btn-warning" href="{{ route('expenses.category.index') }}">Expenses
-                                        Categories</a>
-                                    <a type="button" class="btn btn-primary" href="{{ route('expenses.create') }}">Add
-                                        new</a>
+                                <div class="col-2 text-end">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="showExpensesCategoriesAddModal()">Add new</button>
                                 </div>
                             </div>
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive" id="all_expense_table">
+                                <div class="table-responsive" id="all_expense_categories_table">
 
                                 </div>
                             </div>
@@ -62,7 +61,7 @@
     <!-- Modals -->
 
     <!-- Expenses Categories modal start -->
-    <div class="modal fade" id="expensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    <div class="modal fade" id="addExpensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -82,12 +81,6 @@
                             <button onclick="addExpensesCategory()" class="btn btn-primary">
                                 Save
                             </button>
-                        </div>
-                    </div>
-
-                    <div class="table-outer">
-                        <div class="table-responsive" id="all_expense_category_table">
-
                         </div>
                     </div>
                 </div>
@@ -146,12 +139,42 @@
             }, 1500);
         }
 
-        function goToExpenseEdit(id) {
-            window.location.href = '/expenses/edit/' + id;
+        function addResetFields() {
+            document.getElementById("name_error").textContent = "";
         }
 
-        function showDeleteExpenseModal(id) {
+        function editResetFields() {
+            document.getElementById("edit_name_error").textContent = "";
+        }
+
+        function showExpensesCategoriesAddModal() {
+            console.log("showExpensesCategoriesAddModal");
+            {{--  addResetFields();  --}}
+            openModal("addExpensesCategoriesModal");
+        }
+
+        {{--  function goToExpenseCategoryEdit(id) {
+            editResetFields();
+
+            try {
+                const response = await axios.get("{{ url('/customers/get') }}/" + id);
+                const customer = response.data;
+
+                var name = document.getElementById("edit_name");
+                name.value = customer.name;
+                selected_expense_id = customer.id;
+
+                openModal("editCustomerModal");
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Failed to fetch customer data.");
+            }
+        }  --}}
+
+        function showDeleteExpenseCategoryModal(id) {
             selected_expense_id = id;
+
+            console.log(selected_expense_id);
             openModal("deleteExpenseModal");
         }
 
@@ -180,7 +203,7 @@
 
             //$('#pre_stop').show();
             $.ajax({
-                url: '/expenses/ajax/list?page=' + page,
+                url: '/expenses/category/ajax/list?page=' + page,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -188,7 +211,7 @@
                 dataType: '',
                 data: data,
                 success: function(response) {
-                    $('#all_expense_table').html(response);
+                    $('#all_expense_categories_table').html(response);
                     //$('#pre_stop').hide();
                 }
             });
@@ -198,31 +221,11 @@
             openModal("expensesCategoriesModal");
         }
 
-        {{--  function getExpensesCategories() {
-            try {
-                $.ajax({
-                    url: '/expenses/category/list',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'GET',
-                    dataType: '',
-                    success: function(response) {
-                        console.log(response);
-                        $('#all_expense_category_table').html(response);
-                        //$('#pre_stop').hide();
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching expenses categories:", error);
-            }
-        }  --}}
-
         function resetAddInputFields() {
             document.getElementById("add_name").value = "";
         }
 
-        {{--  function addExpensesCategory() {
+        async function addExpensesCategory() {
             var name = document.getElementById("add_name").value;
 
             expenses_category_details = {
@@ -237,13 +240,10 @@
                 resetAddInputFields();
                 getExpensesCategories();
                 {{--  modal.hide();  --}}
-        showAlert("success-modal", "success-text", "Expense Category added successfully.");
-        }
-        catch (error) {
-            viewAddErrors(error);
-        }
-        }--
-        }
+                showAlert("success-modal", "success-text", "Expense Category added successfully.");
+            } catch (error) {
+                viewAddErrors(error);
+            }
         }
 
         window.addEventListener('load', () => {
