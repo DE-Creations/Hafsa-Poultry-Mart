@@ -1,6 +1,7 @@
 <table class="table table-striped align-middle m-0">
     <thead>
         <tr>
+            <th></th>
             <th>Name</th>
             <th>Actions</th>
         </tr>
@@ -8,6 +9,7 @@
     <tbody>
         @foreach ($expensesCategories as $expensesCategory)
             <tr>
+                <td>{{ $expensesCategory->id }}</td>
                 <td>{{ $expensesCategory->name }}</td>
                 <td>
                     <button class="btn btn-outline-primary btn-sm"

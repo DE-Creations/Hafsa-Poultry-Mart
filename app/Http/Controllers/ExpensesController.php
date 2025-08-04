@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Expense\StoreExpenseCategoryRequest;
 use App\Http\Requests\Expense\StoreExpenseRequest;
 use App\Models\Expense;
+use App\Models\ExpensesCategory;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\ExpenseFacade\ExpenseFacade;
@@ -70,6 +71,11 @@ class ExpensesController extends ParentController
         return ExpenseFacade::delete($expense_id);
     }
 
+    public function goToExpensesCategory()
+    {
+        return view('pages.expenses.category');
+    }
+
     public function loadExpensesCategories()
     {
         $response['expensesCategories'] = ExpenseFacade::getExpensesCategories();
@@ -79,5 +85,22 @@ class ExpensesController extends ParentController
     public function expenseCategorystore(StoreExpenseCategoryRequest $request)
     {
         return ExpenseFacade::expenseCategorystore($request->all());
+    }
+
+    public function loadExpensesCategory(Request $request)
+    {
+        $query = ExpensesCategory::query();
+
+        if (isset($request['search'])) {
+            $query = $query->where('name', 'like', '%' . $request['search'] . '%');
+        }
+
+        if (isset($request['count'])) {
+            $response['expensesCategories'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+        } else {
+            $response['expensesCategories'] = $query->orderBy('id', 'desc')->paginate(20);
+        }
+
+        return view('pages.expenses.components.expensesCategoryTable')->with($response);
     }
 }
