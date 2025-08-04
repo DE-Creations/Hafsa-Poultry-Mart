@@ -14,15 +14,15 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('customers*') ? 'active-link' : '' }}">
-                    <a class="nav-link" href="{{ route('customers.index') }}"><i
-                            class="icon-supervised_user_circle"></i>Customers
+                <li class="nav-item {{ request()->routeIs('invoice*') ? 'active-link' : '' }}">
+                    <a class="nav-link" href="{{ route('invoice.index') }}">
+                        <i class="icon-support_agent"></i>Invoice
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('suppliers*') ? 'active-link' : '' }}">
-                    <a class="nav-link" href="{{ route('suppliers.index') }}">
-                        <i class="icon-support_agent"></i>Suppliers
+                <li class="nav-item {{ request()->routeIs('customers*') ? 'active-link' : '' }}">
+                    <a class="nav-link" href="{{ route('customers.index') }}"><i
+                            class="icon-supervised_user_circle"></i>Customers
                     </a>
                 </li>
 
@@ -32,15 +32,15 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('invoice*') ? 'active-link' : '' }}">
-                    <a class="nav-link" href="{{ route('invoice.index') }}">
-                        <i class="icon-support_agent"></i>Invoice
-                    </a>
-                </li>
-
                 <li class="nav-item {{ request()->routeIs('grn*') ? 'active-link' : '' }}">
                     <a class="nav-link" href="{{ route('grn.index') }}">
                         <i class="icon-support_agent"></i>GRN
+                    </a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs('suppliers*') ? 'active-link' : '' }}">
+                    <a class="nav-link" href="{{ route('suppliers.index') }}">
+                        <i class="icon-support_agent"></i>Suppliers
                     </a>
                 </li>
 
