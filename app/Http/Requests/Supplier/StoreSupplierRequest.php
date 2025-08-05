@@ -22,9 +22,9 @@ class StoreSupplierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'nic' => ['required', 'string', 'max:12'],
-            'mobile' => ['required', 'string', 'max:15'],
+            'name' => ['required', 'string', 'max:255', 'unique:suppliers,name'],
+            // 'nic' => ['required', 'string', 'max:12'],
+            'mobile' => ['required', 'string', 'max:20', 'regex:/^(?:\+94|0)?7\d{8}$/'],
             'city' => ['required', 'string', 'max:100'],
         ];
     }

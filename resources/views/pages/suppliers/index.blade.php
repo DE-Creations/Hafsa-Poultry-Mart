@@ -79,12 +79,12 @@
                         <span class="text-danger" id="name_error"></span>
                     </div>
 
-                    <div class="m-2">
+                    {{--  <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter NIC" name="nic"
                             id="add_nic" />
                         <span class="text-danger" id="nic_error"></span>
-                    </div>
+                    </div>  --}}
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
@@ -133,12 +133,12 @@
                         <span class="text-danger" id="edit_name_error"></span>
                     </div>
 
-                    <div class="m-2">
+                    {{--  <div class="m-2">
                         <label class="form-label fw-bold">NIC</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter NIC" id="edit_nic"
                             name="nic" />
                         <span class="text-danger" id="edit_nic_error"></span>
-                    </div>
+                    </div>  --}}
 
                     <div class="m-2">
                         <label class="form-label fw-bold">Mobile</label>
@@ -204,28 +204,28 @@
 
         function resetAddInputFields() {
             document.getElementById("add_name").value = "";
-            document.getElementById("add_nic").value = "";
+            {{--  document.getElementById("add_nic").value = "";  --}}
             document.getElementById("add_mobile").value = "";
             document.getElementById("add_city").value = "";
         }
 
         function resetEditInputFields() {
             document.getElementById("edit_name").value = "";
-            document.getElementById("edit_nic").value = "";
+            {{--  document.getElementById("edit_nic").value = "";  --}}
             document.getElementById("edit_mobile").value = "";
             document.getElementById("edit_city").value = "";
         }
 
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
-            document.getElementById("nic_error").textContent = "";
+            {{--  document.getElementById("nic_error").textContent = "";  --}}
             document.getElementById("mobile_error").textContent = "";
             document.getElementById("city_error").textContent = "";
         }
 
         function editResetFields() {
             document.getElementById("edit_name_error").textContent = "";
-            document.getElementById("edit_nic_error").textContent = "";
+            {{--  document.getElementById("edit_nic_error").textContent = "";  --}}
             document.getElementById("edit_mobile_error").textContent = "";
             document.getElementById("edit_city_error").textContent = "";
         }
@@ -236,11 +236,11 @@
             } else {
                 document.getElementById("name_error").textContent = "";
             }
-            if (error.response.data.errors.nic) {
+            {{--  if (error.response.data.errors.nic) {
                 document.getElementById("nic_error").textContent = error.response.data.errors.nic[0];
             } else {
                 document.getElementById("nic_error").textContent = "";
-            }
+            }  --}}
             if (error.response.data.errors.mobile) {
                 document.getElementById("mobile_error").textContent = error.response.data.errors.mobile[0];
             } else {
@@ -259,11 +259,11 @@
             } else {
                 document.getElementById("edit_name_error").textContent = "";
             }
-            if (error.response.data.errors.nic) {
+            {{--  if (error.response.data.errors.nic) {
                 document.getElementById("edit_nic_error").textContent = error.response.data.errors.nic[0];
             } else {
                 document.getElementById("edit_nic_error").textContent = "";
-            }
+            }  --}}
             if (error.response.data.errors.mobile) {
                 document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
             } else {
@@ -294,13 +294,13 @@
 
         async function addSupplier() {
             var name = document.getElementById("add_name").value;
-            var nic = document.getElementById("add_nic").value;
+            {{--  var nic = document.getElementById("add_nic").value;  --}}
             var mobile = document.getElementById("add_mobile").value;
             var city = document.getElementById("add_city").value;
 
             add_supplier_details = {
                 name: name,
-                nic: nic,
+                {{--  nic: nic,  --}}
                 mobile: mobile,
                 city: city
             }
@@ -326,12 +326,12 @@
                 const supplier = response.data;
 
                 var name = document.getElementById("edit_name");
-                var nic = document.getElementById("edit_nic");
+                {{--  var nic = document.getElementById("edit_nic");  --}}
                 var mobile = document.getElementById("edit_mobile");
                 var city = document.getElementById("edit_city");
 
                 name.value = supplier.name;
-                nic.value = supplier.nic;
+                {{--  nic.value = supplier.nic;  --}}
                 mobile.value = supplier.mobile;
                 city.value = supplier.city;
                 selected_supplier_id = supplier.id;
@@ -346,13 +346,13 @@
 
         async function updateSupplier() {
             var name = document.getElementById("edit_name").value;
-            var nic = document.getElementById("edit_nic").value;
+            {{--  var nic = document.getElementById("edit_nic").value;  --}}
             var mobile = document.getElementById("edit_mobile").value;
             var city = document.getElementById("edit_city").value;
 
             edit_supplier_details = {
                 name: name,
-                nic: nic,
+                {{--  nic: nic,  --}}
                 mobile: mobile,
                 city: city
             }
