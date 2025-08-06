@@ -15,7 +15,7 @@
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('invoice*') ? 'active-link' : '' }}">
-                    <a class="nav-link" href="{{ route('invoice.index') }}">
+                    <a class="nav-link" href="{{ route('invoice.create') }}">
                         <i class="icon-support_agent"></i>Invoice
                     </a>
                 </li>
