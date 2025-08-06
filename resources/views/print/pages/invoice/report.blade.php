@@ -1,6 +1,6 @@
 @extends('print.layouts.template')
 @section('content')
-    <div style="padding: 20px">
+    <div style="padding: 20px; padding-left: 0px; padding-right: 0px">
         <div class="text-center" style="margin-top: 20px">INVOICE</div>
         <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
         <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
@@ -152,6 +152,8 @@
             <span style="font-size: 11px">RECEIVED BY</span>
         </div>
     </div>
+
+    <div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
 
     <style>
         .page_break {
