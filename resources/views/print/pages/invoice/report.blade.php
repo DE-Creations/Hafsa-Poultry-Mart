@@ -154,7 +154,7 @@
     </div>
 
     <div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
-    <div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 0789456123</div>
+    <div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 070 300 4483</div>
 
     <style>
         .page_break {
