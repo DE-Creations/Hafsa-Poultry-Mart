@@ -24,7 +24,7 @@ class UpdateCustomerRequest extends FormRequest
         $route_parameters = $this->route()->parameters();
 
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:customers,name,' . $route_parameters['customer_id']],
+            'name' => ['required', 'string', 'max:255', 'unique:customers,mobile,' . $route_parameters['customer_id']],
             'mobile' => ['required', 'string', 'max:20', 'regex:/^(?:\+94|0)?7\d{8}$/'],
             'email' => ['nullable', 'email', 'max:255'],
             'city' => ['nullable', 'string', 'max:255'],
