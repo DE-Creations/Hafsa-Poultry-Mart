@@ -55,8 +55,13 @@
                                         <select id="customer_id" class="form-control select2"
                                             onchange="getCustomerBalanceForward();">
                                             @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}
-                                                </option>
+                                                @if ($customer->id == '1')
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                @endif
+                                                @if ($customer->id != '1')
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }} -
+                                                        {{ $customer->mobile }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
