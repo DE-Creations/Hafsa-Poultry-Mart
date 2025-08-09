@@ -344,10 +344,6 @@
             }
         }
 
-        function goToStockEdit(id) {
-            window.location.href = '/stock/edit/' + id;
-        }
-
         function showDeleteStockModal(id) {
             selected_stock_id = id;
             openModal("deleteInvoiceModal");
@@ -364,33 +360,6 @@
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
             }
-        }
-
-        function showPrintInvoiceModal(invoice_id) {
-            selected_stock_id = invoice_id;
-            openModal("printInvoiceModal");
-        }
-
-        async function printInvoice() {
-            modal.hide();
-            try {
-                const response = await axios.post("{{ url('/invoice/print') }}/" + selected_stock_id, {}, {
-                    responseType: 'blob'
-                });
-
-                const blob = new Blob([response.data], {
-                    type: 'application/pdf'
-                });
-                const url = window.URL.createObjectURL(blob);
-                window.open(url, '_blank');
-            } catch (error) {
-                console.error(error);
-                showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
-            }
-        }
-
-        function viewInvoice(id) {
-            window.location.href = '/invoice/view/' + id;
         }
 
         function getTableDetails(page = 1) {
