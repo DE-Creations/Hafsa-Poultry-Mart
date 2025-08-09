@@ -4,6 +4,7 @@
             <th>Id</th>
             <th>Item</th>
             <th>Date</th>
+            <th>Last updated at</th>
             <th>Unit Price</th>
             <th>Balance</th>
             <th>Action</th>
@@ -16,22 +17,22 @@
                 <td style="cursor: pointer" onclick="viewInvoice({{ $stock->id }})">{{ $stock->outputItem->name }}</td>
                 <td style="cursor: pointer" onclick="viewInvoice({{ $stock->id }})">
                     {{ $stock->created_at->format('Y-m-d') }}</td>
+                <td style="cursor: pointer" onclick="viewInvoice({{ $stock->id }})">
+                    {{ $stock->updated_at->format('Y-m-d') }}</td>
                 <td style="cursor: pointer" onclick="viewInvoice({{ $stock->id }})">{{ $stock->unit_price }}</td>
                 <td style="cursor: pointer" onclick="viewInvoice({{ $stock->id }})">{{ $stock->balance }}</td>
-                {{--  <td style="cursor: pointer" onclick="viewInvoice({{ $invoice->id }})">
-                    {{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td> --}}
                 <td>
                     {{--  <?php
                     // if the invoice is relevant customer's last invoice, show the edit and delete buttons. otherwise, do not show them
                     $isLastInvoice = $invoice->customer->stocks->last()->id === $invoice->id;
                     ?>
                 @if ($isLastInvoice)  --}}
-                    <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $stock->id }})"
+                    <button class="btn btn-outline-primary btn-sm" onclick="showStockEditModal({{ $stock->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
                         data-bs-title="Edit">
                         <i class="icon-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteInvoiceModal({{ $stock->id }})"
+                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteStockModal({{ $stock->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
                         data-bs-title="Delete">
                         <i class="icon-trash"></i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Stock\StoreStockRequest;
+use App\Http\Requests\Stock\UpdateStockRequest;
 use App\Models\Stock;
 use domain\facades\StockFacade\StockFacade;
 use Illuminate\Http\Request;
@@ -41,5 +42,21 @@ class StockController extends Controller
     {
         $stock_id = StockFacade::store($request->all());
         return redirect()->route('stock.index');
+    }
+
+    public function get($stock_id)
+    {
+        $stock = StockFacade::get($stock_id);
+        return response()->json($stock);
+    }
+
+    public function update(UpdateStockRequest $request, $stock_id)
+    {
+        return StockFacade::update($request->all(), $stock_id);
+    }
+
+    public function delete($stock_id)
+    {
+        return StockFacade::delete($stock_id);
     }
 }

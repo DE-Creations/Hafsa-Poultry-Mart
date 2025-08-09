@@ -28,25 +28,25 @@ class StockService
         return $stock_id;
     }
 
-    // public function get($customer_id)
-    // {
-    //     return $this->customer->find($customer_id);
-    // }
+    public function get($stock_id)
+    {
+        return $this->stock->find($stock_id);
+    }
 
-    // public function update(array $data, $customer_id)
-    // {
-    //     $customer = $this->customer->find($customer_id);
-    //     return $customer->update($this->edit($customer, $data));
-    // }
+    public function update(array $data, $stock_id)
+    {
+        $stock = $this->stock->find($stock_id);
+        return $stock->update($this->edit($stock, $data));
+    }
 
-    // public function edit(Customer $customer, array $data)
-    // {
-    //     return array_merge($customer->toArray(), $data);
-    // }
+    public function edit(Stock $stock, array $data)
+    {
+        return array_merge($stock->toArray(), $data);
+    }
 
-    // public function delete($customer_id)
-    // {
-    //     $customer = $this->customer->find($customer_id);
-    //     return $customer->delete();
-    // }
+    public function delete($stock_id)
+    {
+        $stock = $this->stock->find($stock_id);
+        return $stock->delete();
+    }
 }
