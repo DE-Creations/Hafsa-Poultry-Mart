@@ -40,7 +40,7 @@ Route::prefix('suppliers')->group(function () {
 
 Route::prefix('stock')->group(function () {
     Route::get('/', [StockController::class, 'index'])->name('stock.index');
-    Route::get('ajax/list', [StockController::class, 'loadStocks'])->name('stock.all.list');
+    Route::get('/ajax/list', [StockController::class, 'loadStocks'])->name('stock.all.list');
     Route::post('/store', [StockController::class, 'store'])->name('stock.store');
     Route::get('/get/{stock_id}', [StockController::class, 'get'])->name('stock.get');
     Route::post('/update/{stock_id}', [StockController::class, 'update'])->name('stock.update');

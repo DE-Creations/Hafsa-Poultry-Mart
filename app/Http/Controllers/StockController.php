@@ -20,20 +20,19 @@ class StockController extends Controller
     {
         $query = Stock::query()->with('outputItem');
 
-        // if (isset($request['search'])) {
-        //     $query = $query->where('invoice_number', 'like', '%' . $request['search'] . '%')
-        //         ->orWhereHas('customer', function ($q) use ($request) {
-        //             $q->where('name', 'like', '%' . $request['search'] . '%');
-        //         })
-        //         ->orWhere('date', 'like', '%' . $request['search'] . '%');
-        // }
+        if (isset($request['search'])) {
+            $query = $query->where('balance', 'like', '%' . $request['search'] . '%')
+                ->orWhereHas('outputItem', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request['search'] . '%');
+                })
+                ->orWhere('unit_price', 'like', '%' . $request['search'] . '%');
+        }
 
         if (isset($request['count'])) {
             $response['stocks'] = $query->orderBy('id', 'desc')->paginate($request['count']);
         } else {
             $response['stocks'] = $query->orderBy('id', 'desc')->paginate(20);
         }
-        // dd($response['stocks']);
 
         return view('pages.stock.components.table')->with($response);
     }
