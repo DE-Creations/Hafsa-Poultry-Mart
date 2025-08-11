@@ -16,7 +16,7 @@
     <meta property="og:description" content="Hafsa Poultry Mart" />
     <meta property="og:type" content="Website" />
     <meta property="og:site_name" content="Bootstrap Gallery" />
-    <link rel="shortcut icon" href="assets/images/favicon.svg" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" />
 
     <!-- *************
        ************ CSS Files *************
