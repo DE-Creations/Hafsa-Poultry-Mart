@@ -163,7 +163,10 @@
 
         async function deleteInvoice() {
             try {
-                const response = await axios.delete("{{ url('/invoice/delete') }}/" + selected_invoice_id);
+                // Always restock when deleting an invoice
+                const response = await axios.delete("{{ url('/invoice/delete') }}/" + selected_invoice_id, {
+                    data: { restock: true }
+                });
                 const invoice = response.data;
 
                 getTableDetails();
