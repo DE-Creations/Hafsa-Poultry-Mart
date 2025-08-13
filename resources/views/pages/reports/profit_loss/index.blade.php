@@ -24,7 +24,10 @@
                 <div class="col-12">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="mb-3 fw-semibold">Summary</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0 fw-semibold">Summary</h5>
+                                <a href="{{ route('reports.profit_loss.print') }}" target="_blank" class="btn btn-primary btn-sm">Print Report</a>
+                            </div>
                             <div class="row text-center">
                                 <div class="col-md-4 mb-3">
                                     <div class="p-3 border rounded">

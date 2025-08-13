@@ -99,6 +99,7 @@ Route::prefix('expenses')->group(function () {
 Route::prefix('reports')->group(function () {
     Route::prefix('profit_loss')->group(function () {
         Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
+        Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
     });
 });
 
