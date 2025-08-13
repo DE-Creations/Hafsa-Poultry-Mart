@@ -58,7 +58,7 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="{{ route('reports.profit_loss.index') }}"><span>Profit &amp;
-                                    loss</span></a>
+                                    Loss</span></a>
                         </li>
                     </ul>
                 </li>
