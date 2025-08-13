@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
 use domain\facades\InvoiceFacade\InvoiceFacade;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class InvoiceController extends ParentController
 {
@@ -118,6 +118,6 @@ class InvoiceController extends ParentController
         // If you want to display the PDF in the browser, use:
         // return $pdf->stream("invoice.pdf");
         // If you want to display the PDF in the browser without downloading it, use:
-        return $pdf->stream("invoice.pdf", ["Attachment" => false]);
+        return $pdf->stream("invoice.pdf");
     }
 }
