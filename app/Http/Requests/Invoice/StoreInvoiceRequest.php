@@ -21,7 +21,6 @@ class StoreInvoiceRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this);
         return [
             'invoice_number' => ['required'],
             'invoice_date' => ['required', 'date'],
