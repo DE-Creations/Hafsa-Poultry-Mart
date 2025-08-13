@@ -24,33 +24,16 @@ class GrnPay extends Model
 
     public function grn()
     {
-        return $this->belongsTo(Grn::class, 'id', 'grn_id');
+        return $this->belongsTo(Grn::class, 'grn_id', 'id');
     }
-    //our code
+
     public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class, 'id', 'payment_method_id');
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
     }
-    //our code
+
     public function bankAccount()
     {
-        return $this->belongsTo(BankAccount::class, 'id', 'bank_acc_id');
+        return $this->belongsTo(BankAccount::class, 'bank_acc_id', 'id');
     }
-    //our code
-
-    // public function grn()
-    // {
-    //     return $this->belongsTo(Grn::class, 'grn_id', 'id');
-    // }
-    //AI code
-    // public function paymentMethod()
-    // {
-    //     return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
-    // }
-    //AI code
-    // public function bankAccount()
-    // {
-    //     return $this->belongsTo(BankAccount::class, 'bank_acc_id', 'id');
-    // }
-    //AI code
 }
