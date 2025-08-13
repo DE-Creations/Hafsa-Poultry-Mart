@@ -29,35 +29,18 @@ class InvoicePayment extends Model
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'id', 'invoice_id');
+        return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
     }
-    //our code
+
     public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class, 'id', 'payment_method');
+        return $this->belongsTo(PaymentMethod::class, 'payment_method', 'id');
     }
-    //our code
+
     public function bankAccount()
     {
-        return $this->belongsTo(BankAccount::class, 'id', 'bank_acc_id');
+        return $this->belongsTo(BankAccount::class, 'bank_acc_id', 'id');
     }
-    //our code
-
-    // public function invoice()
-    // {
-    //     return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
-    // }
-    //AI code
-    // public function paymentMethod()
-    // {
-    //     return $this->belongsTo(PaymentMethod::class, 'payment_method', 'id');
-    // }
-    //AI code
-    // public function bankAccount()
-    // {
-    //     return $this->belongsTo(BankAccount::class, 'bank_acc_id', 'id');
-    // }
-    //AI code
 
     public function getInvoiceAttribute()
     {

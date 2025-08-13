@@ -18,26 +18,12 @@ class GrnItem extends Model
 
     public function grn()
     {
-        return $this->belongsTo(Grn::class, 'id', 'grn_id');
+        return $this->belongsTo(Grn::class, 'grn_id', 'id');
     }
-    //our code
-
-    // public function grn()
-    // {
-    //     return $this->belongsTo(Grn::class, 'grn_id', 'id');
-    // }
-    //AI code
 
     public function inputItem()
     {
-        return $this->belongsTo(InputItem::class, 'id', 'input_item_id');
+        return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
     }
-    //our code
-
-    // public function inputItem()
-    // {
-    //     return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
-    // }
-    //AI code
 
 }

@@ -16,23 +16,11 @@ class StockValidationItem extends Model
 
     public function stockValidation()
     {
-        return $this->belongsTo(StockValidation::class, 'id', 'stock_validation_id');
+        return $this->belongsTo(StockValidation::class, 'stock_validation_id', 'id');
     }
-    //our code
+
     public function outputItem()
     {
-        return $this->belongsTo(OutputItem::class, 'id', 'output_item_id');
+        return $this->belongsTo(OutputItem::class, 'output_item_id', 'id');
     }
-    //our code
-    
-    // public function stockValidation()
-    // {
-    //     return $this->belongsTo(StockValidation::class, 'stock_validation_id', 'id');
-    // }
-    //AI code
-    // public function outputItem()
-    // {
-    //     return $this->belongsTo(OutputItem::class, 'output_item_id', 'id');
-    // }
-    //AI code
 }
