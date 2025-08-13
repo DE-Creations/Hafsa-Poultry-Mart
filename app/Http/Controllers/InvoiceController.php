@@ -35,7 +35,6 @@ class InvoiceController extends ParentController
         $response['customers'] = CustomerFacade::getCustomers();
         $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
         $response['bags'] = InvoiceFacade::getBagsCategory();
-        // dd($response['newInvoiceItems']);
         return view('pages.invoice.create', $response);
     }
 
