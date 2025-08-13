@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class ProfitLossReportController extends Controller
 {
     public function index(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $validated = $request->validate([
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
+        ]);
+
+        $startDate = $validated['start_date'] ?? Carbon::today()->toDateString();
+        $endDate = $validated['end_date'] ?? Carbon::today()->toDateString();
 
         $invoiceQuery = Invoice::query();
         $expenseQuery = Expense::query();
@@ -31,8 +37,13 @@ class ProfitLossReportController extends Controller
 
     public function print(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $validated = $request->validate([
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
+        ]);
+
+        $startDate = $validated['start_date'] ?? Carbon::today()->toDateString();
+        $endDate = $validated['end_date'] ?? Carbon::today()->toDateString();
 
         $invoiceQuery = Invoice::query();
         $expenseQuery = Expense::query();
@@ -54,7 +65,7 @@ class ProfitLossReportController extends Controller
             'net' => $net,
         ];
 
-        $pdf = PDF::loadView('print.pages.profit_loss.report', $data);
+        $pdf = Pdf::loadView('print.pages.profit_loss.report', $data);
         $pdf->setPaper('a4', 'portrait');
 
         return $pdf->stream('profit_loss.pdf', ['Attachment' => false]);

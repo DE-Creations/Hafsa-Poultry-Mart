@@ -173,14 +173,7 @@
         const start = document.getElementById('start-date').value;
         const end = document.getElementById('end-date').value;
         const url = `{{ route('reports.profit_loss.print') }}?start_date=${start}&end_date=${end}`;
-        try {
-            const response = await axios.get(url, { responseType: 'blob' });
-            const blob = new Blob([response.data], { type: 'application/pdf' });
-            const fileURL = window.URL.createObjectURL(blob);
-            window.open(fileURL, '_blank');
-        } catch (error) {
-            console.error(error);
-        }
+        window.open(url, '_blank');
     }
     </script>
 </x-app-layout>

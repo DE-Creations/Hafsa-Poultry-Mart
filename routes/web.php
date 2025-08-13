@@ -97,10 +97,8 @@ Route::prefix('expenses')->group(function () {
 });
 
 Route::prefix('reports')->group(function () {
-    Route::prefix('profit_loss')->group(function () {
-        Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
-        Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
-    });
+    Route::get('profit_loss', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
+    Route::get('profit_loss/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
 });
 
 Route::middleware('auth')->group(function () {
