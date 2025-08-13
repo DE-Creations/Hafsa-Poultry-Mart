@@ -182,9 +182,9 @@
             openModal("printInvoiceModal");
         }
 
-        async function printInvoice() {
-            modal.hide();
+        async function printInvoice(invoice_id) {
             try {
+                selected_invoice_id = invoice_id
                 const response = await axios.post("{{ url('/invoice/print') }}/" + selected_invoice_id, {}, {
                     responseType: 'blob'
                 });
