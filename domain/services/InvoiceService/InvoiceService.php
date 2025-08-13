@@ -136,16 +136,25 @@ class InvoiceService
 
     public function getCustomerBalanceForward($customer_id)
     {
-        if ($customer_id === "1") {
+        // Customer ID may be provided as either a string or integer. In some
+        // places of the codebase this special "cash" customer is referenced
+        // using the integer `1`. The previous implementation compared the
+        // value strictly against the string "1", which caused the condition
+        // to fail when an integer was supplied and resulted in unnecessary
+        // database queries.
+
+        // Cast the incoming value to an integer before comparison so that
+        // both "1" and 1 are treated identically.
+        if ((int) $customer_id === 1) {
             return 0;
-        } else {
-            $last_payment = $this->invoice_payment->where('customer_id', $customer_id)->orderBy('id', 'desc')->first();
-            if ($last_payment) {
-                return $last_payment->new_balance;
-            } else {
-                return "none";
-            }
         }
+
+        $last_payment = $this->invoice_payment
+            ->where('customer_id', $customer_id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        return $last_payment ? $last_payment->new_balance : "none";
     }
 
     public function get($id)
