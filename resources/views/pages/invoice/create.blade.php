@@ -139,7 +139,9 @@
                                                             step="any" min="0"
                                                             class="form-control form-control-sm" value=""
                                                             style="width: 100%;height:30px;text-align: center;"
-                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                            onchange="calAmount('<?php echo $i; ?>');"
+                                                            max=""
+></td>
                                                     <td><input name="t1_unit_price<?php echo $i; ?>"
                                                             id="t1_unit_price<?php echo $i; ?>" type="text"
                                                             step="any"
@@ -407,7 +409,8 @@
                                                                     step="any" min="0"
                                                                     class="form-control form-control-sm" value=""
                                                                     style="width: 100%;height:30px;text-align: center;"
-                                                                    onchange="calAmount('` + (item_row) + `');">`;
+                                                                    onchange="calAmount('` + (item_row) + `');"
+                                                                    max="">`;
             cell5.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
                                                                     id="t1_unit_price` + (item_row) + `" type="text"
                                                                     step="any"
@@ -569,6 +572,13 @@
             document.getElementById("t1_unit_price" + number).value = selectedOption.getAttribute('data-unit_price');
             document.getElementById("t1_stock_date" + number).value = selectedOption.getAttribute('data-stock_date');
             document.getElementById("t1_balance" + number).value = selectedOption.getAttribute('data-balance');
+
+            // Set max attribute for weight input
+            var balance = selectedOption.getAttribute('data-balance');
+            var weightInput = document.getElementById("t1_weight" + number);
+            if (weightInput && balance !== null) {
+                weightInput.setAttribute('max', balance);
+            }
 
             calAmount(number);
         }

@@ -35,6 +35,7 @@ class InvoiceController extends ParentController
         $response['customers'] = CustomerFacade::getCustomers();
         $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
         $response['bags'] = InvoiceFacade::getBagsCategory();
+        // dd($response['newInvoiceItems']);
         return view('pages.invoice.create', $response);
     }
 
@@ -86,7 +87,24 @@ class InvoiceController extends ParentController
     public function delete(Request $request, $invoice_id)
     {
         $restock = $request->input('restock', false);
-        return InvoiceFacade::delete($invoice_id, $restock);
+        $invoice = Invoice::with('invoiceItems')->find($invoice_id);
+        if (!$invoice) {
+            return response()->json(['error' => 'Invoice not found'], 404);
+        }
+
+        if ($restock) {
+            foreach ($invoice->invoiceItems as $item) {
+                // Adjust this block to match your actual stock model and fields
+                $stock = \App\Models\Stock::find($item->stock_id);
+                if ($stock) {
+                    $stock->quantity += $item->quantity;
+                    $stock->save();
+                }
+            }
+        }
+
+        $invoice->delete();
+        return response()->json(['success' => true]);
     }
 
     public function print(Request $request, $invoice_id)
@@ -118,6 +136,6 @@ class InvoiceController extends ParentController
         // If you want to display the PDF in the browser, use:
         // return $pdf->stream("invoice.pdf");
         // If you want to display the PDF in the browser without downloading it, use:
-        return $pdf->stream("invoice.pdf");
+        return $pdf->stream("invoice.pdf", ["Attachment" => false]);
     }
 }

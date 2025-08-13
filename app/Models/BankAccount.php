@@ -18,26 +18,13 @@ class BankAccount extends Model
 
     public function bank()
     {
-        return $this->belongsTo(Bank::class, 'id', 'bank_id');
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
-    //our code
-    // public function bank()
-    // {
-    //     return $this->belongsTo(Bank::class, 'bank_id', 'id');
-    // }
-    //AI Code
-    
+
     public function branch()
     {
-        return $this->belongsTo(BankBranch::class, 'id', 'branch_id');
+        return $this->belongsTo(BankBranch::class, 'branch_id', 'id');
     }
-    //our code
-
-    // public function branch()
-    // {
-    //     return $this->belongsTo(BankBranch::class, 'branch_id', 'id');
-    // }
-    //AI Code
     
     public function invoicePayement(){
         return $this->hasMany(InvoicePayment::class, 'bank_acc_id', 'id');

@@ -16,14 +16,8 @@ class BagHistory extends Model
 
     public function bagCategory()
     {
-        return $this->belongsTo(BagsCategory::class, 'id', 'bags_category_id');
+        return $this->belongsTo(BagsCategory::class, 'bags_category_id', 'id');
     }
-    //our code
-
-    // public function bagCategory()
-    // {
-    //     return $this->belongsTo(BagsCategory::class, 'bags_category_id', 'id');
-    // }ai code
 
 
 }

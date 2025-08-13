@@ -153,23 +153,43 @@ class InvoiceService
         return $this->invoice->with(['customer', 'invoicePayment', 'invoiceItems', 'bags'])->findOrFail($id);
     }
 
-    public function delete(int $invoice_id)
+    public function delete(int $invoice_id, $restock = false)
     {
+        // Delete invoice payment
         $invoice_payment = $this->invoice_payment->where('invoice_id', $invoice_id)->first();
-        $invoice_payment->delete();
+        if ($invoice_payment) {
+            $invoice_payment->delete();
+        }
 
+        // Get invoice items before deleting
         $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+
+        // Restock logic
+        if ($restock) {
+            foreach ($invoice_items as $item) {
+                // Find the stock record by id (stock_id is the PK in stocks table)
+                $stock = $this->stock->where('id', $item->stock_id)->first();
+                if ($stock) {
+                    $stock->balance += $item->weight;
+                    $stock->save();
+                }
+            }
+        }
+
+        // Delete invoice items
         foreach ($invoice_items as $item) {
             $item->delete();
         }
 
+        // Delete bags
         $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
         foreach ($bags as $bag) {
             $bag->delete();
         }
 
+        // Delete invoice
         $invoice = $this->invoice->find($invoice_id);
-        return $invoice->delete();
+        return $invoice ? $invoice->delete() : false;
     }
 
     public function update($data, $invoice_id)

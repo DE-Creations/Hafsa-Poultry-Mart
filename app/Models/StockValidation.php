@@ -18,15 +18,8 @@ class StockValidation extends Model
 
     public function inputItem()
     {
-        return $this->belongsTo(InputItem::class, 'id', 'input_item_id');
+        return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
     }
-    //our code
-    
-    // public function inputItem()
-    // {
-    //     return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
-    // }
-    //AI code
 
     public function stockvalidationitem()
     {
