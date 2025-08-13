@@ -63,7 +63,8 @@
                 <div class="col-12">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="mb-3 fw-semibold">Summary</h5>
+                            <h5 class="mb-1 fw-semibold">Summary</h5>
+                            <p class="text-muted mb-3">Report for {{ $startDate }} to {{ $endDate }}</p>
                             <div class="row text-center">
                                 <div class="col-md-4 mb-3">
                                     <div class="p-3 border rounded">
@@ -169,11 +170,11 @@
         @endif
     });
 
-    async function printReport() {
-        const start = document.getElementById('start-date').value;
-        const end = document.getElementById('end-date').value;
-        const url = `{{ route('reports.profit_loss.print') }}?start_date=${start}&end_date=${end}`;
-        window.open(url, '_blank');
-    }
+      async function printReport() {
+          const start = encodeURIComponent(document.getElementById('start-date').value);
+          const end = encodeURIComponent(document.getElementById('end-date').value);
+          const url = `{{ route('reports.profit_loss.print') }}?start_date=${start}&end_date=${end}`;
+          window.open(url, '_blank');
+      }
     </script>
 </x-app-layout>
