@@ -12,8 +12,8 @@ class InvoiceFacade extends Facade
         return InvoiceService::class;
     }
 
-    public static function delete($invoice_id, $restock = false)
-    {
-        return static::getFacadeRoot()->delete($invoice_id, $restock);
-    }
+    // public static function delete($invoice_id, $restock = false)
+    // {
+    //     return static::getFacadeRoot()->delete($invoice_id, $restock);
+    // }
 }
