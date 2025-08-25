@@ -26,4 +26,9 @@ class InvoiceItem extends Model
     {
         return $this->belongsTo(StockItem::class, 'stock_item_id', 'id');
     }
+    
+    public function outputItem()
+    {
+        return $this->belongsTo(OutputItem::class, 'item_name', 'id');
+    }
 }

@@ -36,7 +36,6 @@ class InvoiceService
     function getSavedInvoiceItems()
     {
         $stocks = $this->stock->with('outputItem')->where('balance', '>', 0)->get();
-
         $result = [];
         foreach ($stocks as $stock) {
             $result[] = [
@@ -50,6 +49,22 @@ class InvoiceService
             ];
         }
 
+        return $result;
+    }
+
+    function getSavedInvoiceItemsForView($invoice_id)
+    {
+        $invoice_items = $this->invoice_item->with('outputItem')->where('invoice_id', $invoice_id)->get();
+        $result = [];
+        foreach ($invoice_items as $invoice_item) {
+            $result[] = [
+                'id' => $invoice_item->id,
+                'name' => $invoice_item->outputItem->name,
+                'weight' => $invoice_item->weight,
+                'unit_price' => $invoice_item->unit_price,
+                'amount' => $invoice_item->amount
+            ];
+        }
         return $result;
     }
 
