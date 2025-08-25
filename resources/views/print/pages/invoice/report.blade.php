@@ -1,129 +1,130 @@
 @extends('print.layouts.template')
 @section('content')
-    <div style="padding: 20px; padding-left: 0px; padding-right: 0px">
-        <div class="text-center" style="margin-top: 20px">INVOICE</div>
-        <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
-        <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
-        <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
+<div style="padding: 20px; padding-left: 0px; padding-right: 0px">
+    <div class="text-center" style="margin-top: 20px">INVOICE</div>
+    <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
+    <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
+    <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
 
-        {{--  1  --}}
-        {{--  <div style="font-size: 14px; margin-top: 20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
+    {{-- 1  --}}
+    {{-- <div style="font-size: 14px; margin-top: 20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
         <div>
             <div class="text-left" style="margin-top: 5px;"><span><u>SML</u></span></div>
             <div style="margin-top: -100px" class="text-right"><span><b>Inv. No:</b> 10</span></div>
         </div>  --}}
-        {{--  1  --}}
+    {{-- 1  --}}
 
-        {{--  2  --}}
-        <div style="margin-top: 20px;">
-            <div style="font-size: 12px" class="text-left"><span><b>INV. No:</b> {{ $data->invoice_number }}</span></div>
-            <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b>
-                {{ \Carbon\Carbon::parse($data->invoice_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}</div>
+    {{-- 2  --}}
+    <div style="margin-top: 20px;">
+        <div style="font-size: 12px" class="text-left"><span><b>INV. No:</b> {{ $data->invoice_number }}</span></div>
+        <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b>
+            {{ \Carbon\Carbon::parse($data->invoice_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}
         </div>
-        @if ($data->customer_name != 'Walking Customer')
-            <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>CUSTOMER:</b> {{ $data->customer_name }}
-            </div>
-        @endif
-        {{--  2  --}}
     </div>
+    @if ($data->customer_name != 'Walking Customer')
+    <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>CUSTOMER:</b> {{ $data->customer_name }}
+    </div>
+    @endif
+    {{-- 2  --}}
+</div>
 
-    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
-        <thead>
-            <tr class="row-bg-head"
-                style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
-                <th width="20%" align="left" style="font-size: 10px;">
-                    NO
-                </th>
-                <th width="20%" align="left" style="font-size: 10px;">
-                    ITEM
-                </th>
-                <th width="20%" align="center" style="font-size: 10px;">
-                    QTY
-                </th>
-                <th width="20%" align="center" style="font-size: 10px;">
-                    PRICE
-                </th>
-                <th width="20%" align="right" style="font-size: 10px;">
-                    AMOUNT
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($data->invoiceItems as $item)
-                <tr class="row-bg">
-                    <td align="left" class="td-style">
-                        {{ $loop->iteration }}
-                    </td>
-                    <td align="left" class="td-style">
-                        {{ $item->item_name }}
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->weight, 3) }}
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->unit_price, 2) }}
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->amount, 2) }}
-                    </td>
-                </tr>
-            @endforeach
+<table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
+    <thead>
+        <tr class="row-bg-head"
+            style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+            <th width="20%" align="left" style="font-size: 10px;">
+                NO
+            </th>
+            <th width="20%" align="left" style="font-size: 10px;">
+                ITEM
+            </th>
+            <th width="20%" align="center" style="font-size: 10px;">
+                QTY
+            </th>
+            <th width="20%" align="center" style="font-size: 10px;">
+                PRICE
+            </th>
+            <th width="20%" align="right" style="font-size: 10px;">
+                AMOUNT
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($data->invoiceItems as $item)
+        <tr class="row-bg">
+            <td align="left" class="td-style">
+                {{ $loop->iteration }}
+            </td>
+            <td align="left" class="td-style">
+                {{ $item->outputItem->name }}
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->weight, 3) }}
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->unit_price, 2) }}
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->amount, 2) }}
+            </td>
+        </tr>
+        @endforeach
 
-            {{--  <tr class="row-bg " style="border-top: 2px dotted #eee;">
+        {{-- <tr class="row-bg " style="border-top: 2px dotted #eee;">
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>  --}}
-        </tbody>
+    </tbody>
 
-        <tfoot class="row-bg-footer"
-            style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
-            @foreach ($data->invoicePayment as $item)
-                <tr class="row-bg">
-                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                        <b>TOTAL</b>
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->sub_total, 2) }}
-                    </td>
-                </tr>
-                <tr class="row-bg">
-                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                        <b>DISCOUNT</b>
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->discount_amount, 2) }}
-                    </td>
-                </tr>
-                <tr class="row-bg">
-                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                        <b>BALANCE FORWARD</b>
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->previous_balance_forward, 2) }}
-                    </td>
-                </tr>
-                <tr class="row-bg">
-                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                        <b>CASH RECEIVED</b>
-                    </td>
-                    <td align="right" class="td-style">
-                        {{ number_format($item->paid_amount, 2) }}
-                    </td>
-                </tr>
-                <tr class="row-bg">
-                    <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                        <b>BALANCE</b>
-                    </td>
-                    <td align="right" class="td-style row-bg-balance">
-                        {{ number_format($item->new_balance, 2) }}
-                    </td>
-                </tr>
-            @endforeach
-        </tfoot>
-    </table>
+    <tfoot class="row-bg-footer"
+        style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+        @foreach ($data->invoicePayment as $item)
+        <tr class="row-bg">
+            <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                <b>TOTAL</b>
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->sub_total, 2) }}
+            </td>
+        </tr>
+        <tr class="row-bg">
+            <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                <b>DISCOUNT</b>
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->discount_amount, 2) }}
+            </td>
+        </tr>
+        <tr class="row-bg">
+            <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                <b>BALANCE FORWARD</b>
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->previous_balance_forward, 2) }}
+            </td>
+        </tr>
+        <tr class="row-bg">
+            <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                <b>CASH RECEIVED</b>
+            </td>
+            <td align="right" class="td-style">
+                {{ number_format($item->paid_amount, 2) }}
+            </td>
+        </tr>
+        <tr class="row-bg">
+            <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                <b>BALANCE</b>
+            </td>
+            <td align="right" class="td-style row-bg-balance">
+                {{ number_format($item->new_balance, 2) }}
+            </td>
+        </tr>
+        @endforeach
+    </tfoot>
+</table>
 
-    {{--  <table cellspacing="0" cellpadding="0" border="0" width="100%">
+{{-- <table cellspacing="0" cellpadding="0" border="0" width="100%">
         <tbody>
 
             @if ($payment->note != null)
@@ -131,430 +132,430 @@
                     <div style="opacity: 0.5;padding-left: 0; font-size: 12px; padding-top: 40px;">NOTE</div>
                     <div class="remark-content" style="font-size: 14px;">
                         {{ $payment->note }}
-                    </div>
-                </tr>
-            @endif
-            <tr class="row-bg">
-                <div class="remark-content" style="font-size: 14px; padding-top: 50px; text-align: center;">
-                    Thank you for your payment!
-                </div>
-            </tr>
-        </tbody>
-    </table>  --}}
-
-    <div style="padding: 20px">
-        <div style="margin-top: 20px; width: 40%" class="text-center">
-            <hr style="background-color: black">
-            <span style="font-size: 11px">ISSUED BY</span>
-        </div>
-        <div style="margin-top: -37.5px;width: 40%; margin-left: 60%" class="text-center">
-            <hr style="background-color: black">
-            <span style="font-size: 11px">RECEIVED BY</span>
-        </div>
+</div>
+</tr>
+@endif
+<tr class="row-bg">
+    <div class="remark-content" style="font-size: 14px; padding-top: 50px; text-align: center;">
+        Thank you for your payment!
     </div>
+</tr>
+</tbody>
+</table> --}}
 
-    <div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
-    <div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 070 300 4483</div>
+<div style="padding: 20px">
+    <div style="margin-top: 20px; width: 40%" class="text-center">
+        <hr style="background-color: black">
+        <span style="font-size: 11px">ISSUED BY</span>
+    </div>
+    <div style="margin-top: -37.5px;width: 40%; margin-left: 60%" class="text-center">
+        <hr style="background-color: black">
+        <span style="font-size: 11px">RECEIVED BY</span>
+    </div>
+</div>
 
-    <style>
-        .page_break {
-            page-break-before: always;
-        }
+<div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
+<div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 070 300 4483</div>
 
-        .ql-cursor {
-            display: none;
-        }
+<style>
+    .page_break {
+        page-break-before: always;
+    }
 
-        .right-text {
-            text-align: right;
-            padding-right: 5px;
-        }
+    .ql-cursor {
+        display: none;
+    }
 
-        .row-style {
-            padding-left: 0px;
-            padding-right: 0px;
-            padding-top: 0px;
-            padding-bottom: 0px;
-        }
+    .right-text {
+        text-align: right;
+        padding-right: 5px;
+    }
 
-        .row-bg-head {
-            border: 1px solid #000000;
-            border-left: none;
-            border-right: none;
-        }
+    .row-style {
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 
-        .row-bg-footer {
-            border: 1px solid #000000;
-            border-bottom: none;
-            border-left: none;
-            border-right: none;
-        }
+    .row-bg-head {
+        border: 1px solid #000000;
+        border-left: none;
+        border-right: none;
+    }
 
-        .row-bg-balance {
-            border-top: 1px solid #000000;
-            border-bottom: 3px double #000000;
-            border-left: none;
-            border-right: none;
-        }
+    .row-bg-footer {
+        border: 1px solid #000000;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+    }
 
-        .row-bg {
-            background-color: transparent;
-        }
+    .row-bg-balance {
+        border-top: 1px solid #000000;
+        border-bottom: 3px double #000000;
+        border-left: none;
+        border-right: none;
+    }
 
-        .invoice_table th,
-        td {
-            padding: 0px;
-        }
+    .row-bg {
+        background-color: transparent;
+    }
 
-        .parameter-table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-        }
+    .invoice_table th,
+    td {
+        padding: 0px;
+    }
 
-        .parameter-td-style-head {
-            font-size: 11px;
-            opacity: 0.5;
-            width: 25%;
-            /* height: 20px; */
-            padding: 0.4%;
-        }
+    .parameter-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
 
-        .parameter-td-customer-style {
-            font-size: 11px;
-            word-wrap: break-word;
-            width: 80%;
-            margin-left: 10%;
-            margin-top: -35px;
-            /* height: 20px; */
-            padding: 0.4%;
-        }
+    .parameter-td-style-head {
+        font-size: 11px;
+        opacity: 0.5;
+        width: 25%;
+        /* height: 20px; */
+        padding: 0.4%;
+    }
 
-        ..invoice_table td {
-            padding: 0px;
-        }
+    .parameter-td-customer-style {
+        font-size: 11px;
+        word-wrap: break-word;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: -35px;
+        /* height: 20px; */
+        padding: 0.4%;
+    }
 
-        .invoice_table {
-            margin-top: 0px;
-            border-collapse: collapse;
-        }
+    ..invoice_table td {
+        padding: 0px;
+    }
 
-        .row-bg-subtotal {
-            background-color: #e8e8e8c4;
-        }
+    .invoice_table {
+        margin-top: 0px;
+        border-collapse: collapse;
+    }
 
-        .row-white {
-            background-color: #ffffff;
-        }
+    .row-bg-subtotal {
+        background-color: #e8e8e8c4;
+    }
 
-        .td-style {
-            font-size: 10px;
-            line-height: 1;
-            white-space: nowrap;
-            vertical-align: top;
-        }
+    .row-white {
+        background-color: #ffffff;
+    }
 
-        .td-style-total {
-            font-size: 11px;
-            line-height: 1;
-            margin: 10px;
-            padding: 10px;
-            white-space: nowrap;
-            vertical-align: top;
-            font-weight: bold;
-            color: #252323;
-        }
+    .td-style {
+        font-size: 10px;
+        line-height: 1;
+        white-space: nowrap;
+        vertical-align: top;
+    }
 
-        .td-style-head {
-            font-size: 11px;
-            opacity: 0.5;
-        }
+    .td-style-total {
+        font-size: 11px;
+        line-height: 1;
+        margin: 10px;
+        padding: 10px;
+        white-space: nowrap;
+        vertical-align: top;
+        font-weight: bold;
+        color: #252323;
+    }
 
-        .td-customer-style {
-            font-size: 11px;
-            line-height: 1;
-        }
+    .td-style-head {
+        font-size: 11px;
+        opacity: 0.5;
+    }
 
-        .company_data {
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
+    .td-customer-style {
+        font-size: 11px;
+        line-height: 1;
+    }
 
-        .td-style-gt {
-            font-family: arial;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 17px;
-            padding-left: 10px;
-            padding-bottom: 6px;
-            padding-top: 6px;
-        }
+    .company_data {
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
 
-        .signature {
-            text-align: center;
-            line-height: 10px;
-        }
+    .td-style-gt {
+        font-family: arial;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        padding-left: 10px;
+        padding-bottom: 6px;
+        padding-top: 6px;
+    }
 
-        .signature-section {
-            margin-top: 50px;
-        }
+    .signature {
+        text-align: center;
+        line-height: 10px;
+    }
 
-        .material-img {
-            height: 120px;
-            position: fixed;
-            right: 150px;
-            top: 160px;
-            z-index: 999999;
-            padding: 5px 0px 5px 0px;
-        }
+    .signature-section {
+        margin-top: 50px;
+    }
 
-        .border-mb {
-            border-bottom: #000000 solid 1px;
-        }
+    .material-img {
+        height: 120px;
+        position: fixed;
+        right: 150px;
+        top: 160px;
+        z-index: 999999;
+        padding: 5px 0px 5px 0px;
+    }
 
-        .border-mt {
-            border-top: #000000 solid 1px;
-        }
+    .border-mb {
+        border-bottom: #000000 solid 1px;
+    }
 
-        .border-b {
-            border-bottom: #000000 solid 2px;
-        }
+    .border-mt {
+        border-top: #000000 solid 1px;
+    }
 
-        .border-t {
-            border-top: #000000 solid 2px;
-        }
+    .border-b {
+        border-bottom: #000000 solid 2px;
+    }
 
-        .border-l {
-            border-left: #000000 solid 2px;
-        }
+    .border-t {
+        border-top: #000000 solid 2px;
+    }
 
-        .border-r {
-            border-right: #000000 solid 2px;
-        }
+    .border-l {
+        border-left: #000000 solid 2px;
+    }
 
-        .brand-logo {
-            width: 150px;
-            padding-bottom: 20px;
-            padding-top: 2px;
-        }
+    .border-r {
+        border-right: #000000 solid 2px;
+    }
 
-        .heading-bg {
-            background-color: #e8e8e8c4;
-        }
+    .brand-logo {
+        width: 150px;
+        padding-bottom: 20px;
+        padding-top: 2px;
+    }
 
-        .heading-bg-po {
-            background-color: #ffffff7d;
-            color: #2b2b2b;
-        }
+    .heading-bg {
+        background-color: #e8e8e8c4;
+    }
 
-        .total-bg {
-            background-color: #e8e8e8c4;
-            padding-right: 10px;
-            font-family: arial;
-            font-size: 10px;
-            font-weight: 400;
-            line-height: 20px;
-            padding-left: 10px;
-            padding-bottom: 5px;
-        }
+    .heading-bg-po {
+        background-color: #ffffff7d;
+        color: #2b2b2b;
+    }
 
-        .total-txt {
-            text-align: left;
-            padding-left: 10px;
-            font-family: arial;
-            font-size: 10px;
-            font-weight: 400;
-            line-height: 20px;
-            font-weight: bold;
-        }
+    .total-bg {
+        background-color: #e8e8e8c4;
+        padding-right: 10px;
+        font-family: arial;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 20px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+    }
 
-        .total-value {
-            text-align: right;
-            font-family: arial;
-            font-size: 10px;
-            font-weight: 400;
-            line-height: 20px;
-            font-weight: bold;
-        }
+    .total-txt {
+        text-align: left;
+        padding-left: 10px;
+        font-family: arial;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 20px;
+        font-weight: bold;
+    }
 
-        .table-heading {
-            padding-left: 15px;
-            font-size: 12px;
-        }
+    .total-value {
+        text-align: right;
+        font-family: arial;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 20px;
+        font-weight: bold;
+    }
 
-        .remark-content {
-            text-align: left;
-            font-size: 11px;
-            text-align: justify;
+    .table-heading {
+        padding-left: 15px;
+        font-size: 12px;
+    }
 
-            p {
-                line-height: 1px;
-                margin-bottom: 0px;
-            }
+    .remark-content {
+        text-align: left;
+        font-size: 11px;
+        text-align: justify;
 
-        }
-
-        .remark-content p {
-            line-height: 1;
+        p {
+            line-height: 1px;
             margin-bottom: 0px;
-            margin-top: 0px
         }
 
-        .remark-note {
-            /* text-align: center; */
-            text-align: center
-        }
+    }
 
-        .section-table {
-            margin-bottom: 20px;
-        }
+    .remark-content p {
+        line-height: 1;
+        margin-bottom: 0px;
+        margin-top: 0px
+    }
 
-        .section-footer {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
+    .remark-note {
+        /* text-align: center; */
+        text-align: center
+    }
 
-        .section-table {
-            margin-bottom: 20px;
-        }
+    .section-table {
+        margin-bottom: 20px;
+    }
 
-        .note-area {
-            border-bottom: #c8c8c8ab solid 1px;
-            border-top: #c8c8c8ab solid 1px;
-            border-left: #c8c8c8ab solid 1px;
-            border-right: #c8c8c8ab solid 1px;
-            border-radius: 5px;
-            margin-top: 50px;
-        }
+    .section-footer {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
 
-        .text {
-            text-align: left;
-            margin-top: 20px;
-            padding-bottom: 20px;
-            margin-left: 20px;
-        }
+    .section-table {
+        margin-bottom: 20px;
+    }
 
-        .text-head {
-            font-size: 17px;
-        }
+    .note-area {
+        border-bottom: #c8c8c8ab solid 1px;
+        border-top: #c8c8c8ab solid 1px;
+        border-left: #c8c8c8ab solid 1px;
+        border-right: #c8c8c8ab solid 1px;
+        border-radius: 5px;
+        margin-top: 50px;
+    }
 
-        .text-body {
-            font-family: Cambria;
-            font-size: 15px;
-        }
+    .text {
+        text-align: left;
+        margin-top: 20px;
+        padding-bottom: 20px;
+        margin-left: 20px;
+    }
 
-        .text-tc {
-            font-size: 12px;
-            line-height: 20px;
-        }
+    .text-head {
+        font-size: 17px;
+    }
 
-        .vendor-info {
-            font-size: 0.8rem;
-            line-height: 5px;
-        }
+    .text-body {
+        font-family: Cambria;
+        font-size: 15px;
+    }
 
-        .signature-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 3rem;
-            padding: 10px 0;
-            text-align: center;
-        }
+    .text-tc {
+        font-size: 12px;
+        line-height: 20px;
+    }
 
-        .signature-label {
-            margin-left: 10px;
-            font-size: 11px;
-        }
+    .vendor-info {
+        font-size: 0.8rem;
+        line-height: 5px;
+    }
 
-        .signature-dots {
-            font-size: 14px;
-            margin: 0 10px;
-            flex-grow: 1;
-        }
+    .signature-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+        padding: 10px 0;
+        text-align: center;
+    }
 
-        .customer-section-name {
-            vertical-align: text-top;
-        }
+    .signature-label {
+        margin-left: 10px;
+        font-size: 11px;
+    }
 
-        .customer-section-description {
-            padding-right: 10;
-            vertical-align: text-top;
-        }
+    .signature-dots {
+        font-size: 14px;
+        margin: 0 10px;
+        flex-grow: 1;
+    }
 
-        .date-row {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 5px;
-        }
+    .customer-section-name {
+        vertical-align: text-top;
+    }
 
-        .note {
-            margin-top: -50px !important;
-        }
+    .customer-section-description {
+        padding-right: 10;
+        vertical-align: text-top;
+    }
 
-        .row-bg {
-            background-color: #ffffff;
-        }
+    .date-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 5px;
+    }
 
-        .invoice_table th,
-        td {
-            padding-top: 5px;
-            padding-bottom: 5px;
-        }
+    .note {
+        margin-top: -50px !important;
+    }
 
-        .row-bg-subtotal {
-            background-color: #e8e8e8c4;
-        }
+    .row-bg {
+        background-color: #ffffff;
+    }
 
-        .company_data {
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
+    .invoice_table th,
+    td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
 
+    .row-bg-subtotal {
+        background-color: #e8e8e8c4;
+    }
 
-        .signature {
-            text-align: center;
-            line-height: 10px;
-        }
-
-        .signature-section {
-            margin-top: 50px;
-        }
+    .company_data {
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
 
 
-        .brand-logo {
-            width: 150px;
-            padding-bottom: 20px;
-            padding-top: 2px;
-        }
+    .signature {
+        text-align: center;
+        line-height: 10px;
+    }
 
-        .text {
-            text-align: left;
-            margin-top: 20px;
-            padding-bottom: 20px;
-            margin-left: 20px;
-        }
+    .signature-section {
+        margin-top: 50px;
+    }
 
-        .text-head {
-            font-size: 17px;
-        }
 
-        .text-center {
-            text-align: center;
-        }
+    .brand-logo {
+        width: 150px;
+        padding-bottom: 20px;
+        padding-top: 2px;
+    }
 
-        .text-left {
-            text-align: left;
-        }
+    .text {
+        text-align: left;
+        margin-top: 20px;
+        padding-bottom: 20px;
+        margin-left: 20px;
+    }
 
-        .text-right {
-            text-align: right;
-        }
+    .text-head {
+        font-size: 17px;
+    }
 
-        .d-flex {
-            display: flex;
-        }
-    </style>
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+</style>
 @endsection

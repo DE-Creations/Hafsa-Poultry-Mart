@@ -23,8 +23,9 @@ class InvoiceController extends ParentController
     {
         $response['invoice'] = InvoiceFacade::get($invoice_id);
         $response['customers'] = CustomerFacade::getCustomers();
-        $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItems();
+        $response['newInvoiceItems'] = InvoiceFacade::getSavedInvoiceItemsForView($invoice_id);
         $response['bags'] = InvoiceFacade::getBagsCategory();
+        // dd($response);
         return view('pages.invoice.view', $response);
     }
 
@@ -91,7 +92,7 @@ class InvoiceController extends ParentController
 
     public function print(Request $request, $invoice_id)
     {
-        $query = Invoice::with(['customer', 'invoicePayment', 'invoiceItems'])->find($invoice_id);
+        $query = Invoice::with(['customer', 'invoicePayment', 'invoiceItems.outputItem'])->find($invoice_id);
 
         // $payments_data = $payload->get()->toArray();
 
@@ -106,7 +107,6 @@ class InvoiceController extends ParentController
             'invoicePayment' => $query->invoicePayment,
             'invoiceItems' => $query->invoiceItems,
         ];
-
         $data = (object) $data;
 
         // Generate the PDF 3 inch width
