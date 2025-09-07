@@ -52,6 +52,22 @@ class InvoiceService
         return $result;
     }
 
+    function getSavedStockItems($invoice_id)
+    {
+        $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+        $result = [];
+        foreach ($invoice_items as $invoice_item) {
+            $stock = $this->stock->where('id', $invoice_item->stock_id)->first();
+            if ($stock) {
+                $result[] = [
+                    'stock_id' => $stock->id,
+                    'stock_date' => $stock->updated_at->format('Y-m-d'),
+                ];
+            }
+        }
+        return $result;
+    }
+
     function getSavedInvoiceItemsForView($invoice_id)
     {
         $invoice_items = $this->invoice_item->with('outputItem')->where('invoice_id', $invoice_id)->get();
