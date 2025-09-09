@@ -13,7 +13,7 @@
                     <ol class="breadcrumb mb-3">
                         <li class="breadcrumb-item">
                             <i class="icon-house_siding lh-1"></i>
-                            <a href="index.html" class="text-decoration-none">Home</a>
+                            <a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a>
                         </li>
                         <li class="breadcrumb-item">Invoice</li>
                         <li class="breadcrumb-item">Create New Invoice</li>
