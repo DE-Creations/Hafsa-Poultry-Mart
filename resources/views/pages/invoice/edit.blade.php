@@ -54,11 +54,11 @@
                                         <select id="customer_id" class="form-control"
                                             onchange="// getCustomerBalanceForward();" disabled>
                                             @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}" <?php if ($customer->id == $invoice->customer_id) {
-                                                                                    echo 'selected';
-                                                                                } ?>>
-                                                {{ $customer->name }}
-                                            </option>
+                                                <option value="{{ $customer->id }}" <?php if ($customer->id == $invoice->customer_id) {
+                                                    echo 'selected';
+                                                } ?>>
+                                                    {{ $customer->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -112,49 +112,49 @@
                                                 for ($i = 0; $i < $t1NumRows; $i++) {
                                                     $invoiceItem = $invoiceItems[$i];
                                                 ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <input name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm"
-                                                                value="{{ $output_items_array[$invoiceItem->item_name]  }}"
-                                                                style="width: 100%;height:30px;text-align: left;"
-                                                                onchange="calAmount('<?php echo $i; ?>');" disabled>
-                                                        </td>
-                                                        <td>
-                                                            <input name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm"
-                                                                value="{{ $stockIdToDate[$invoiceItem->stock_id] }}"
-                                                                style="width: 100%;height:30px;text-align: left;"
-                                                                onchange="calAmount('<?php echo $i; ?>');" disabled>
-                                                        </td>
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm"
-                                                                value="{{ $invoiceItem->weight }}"
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('<?php echo $i; ?>');" disabled></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value="{{ $invoiceItem->unit_price }}"
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('<?php echo $i; ?>');" disabled></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value="{{ $invoiceItem->amount }}"
-                                                                style="width: 100%;height:30px;text-align: right;" disabled>
-                                                        </td>
-                                                        <td class="text-center"> 
-                                                            <!-- <button type="button"
+                                                    <td>
+                                                        <input name="t1_item<?php echo $i; ?>"
+                                                            id="t1_item<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm"
+                                                            value="{{ $output_items_array[$invoiceItem->item_name] }}"
+                                                            style="width: 100%;height:30px;text-align: left;"
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <input name="t1_item<?php echo $i; ?>"
+                                                            id="t1_item<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm"
+                                                            value="{{ $stockIdToDate[$invoiceItem->stock_id] }}"
+                                                            style="width: 100%;height:30px;text-align: left;"
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled>
+                                                    </td>
+                                                    <td><input name="t1_weight<?php echo $i; ?>"
+                                                            id="t1_weight<?php echo $i; ?>" type="number"
+                                                            step="any" min="0"
+                                                            class="form-control form-control-sm"
+                                                            value="{{ $invoiceItem->weight }}"
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled></td>
+                                                    <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                            id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                            step="any"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value="{{ $invoiceItem->unit_price }}"
+                                                            style="width: 100%;height:30px;text-align: right;"
+                                                            onchange="calAmount('<?php echo $i; ?>');" disabled></td>
+                                                    <td><input name="t1_amount<?php echo $i; ?>"
+                                                            id="t1_amount<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value="{{ $invoiceItem->amount }}"
+                                                            style="width: 100%;height:30px;text-align: right;" disabled>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <!-- <button type="button"
                                                                 class="btn btn-outline-danger btn-sm"
                                                                 onclick="deleteTableRow('invoice_item_table','<?php echo $i; ?>')"><i
                                                                     class="icon-trash" ></i></button> -->
-                                                                </td>
-                                                    </tr>
+                                                    </td>
+                                                </tr>
                                                 <?php
                                                 }
                                                 ?>
@@ -222,23 +222,23 @@
                                                         }
                                                         ?>
                                                         @foreach ($bags as $bag)
-                                                        <tr>
-                                                            <td>{{ $bag->name }}</td>
-                                                            <td><input name="t2_count<?php echo $t2NumRows; ?>"
-                                                                    id="t2_count<?php echo $t2NumRows; ?>"
-                                                                    type="number" step="1" min="0"
-                                                                    class="form-control form-control-sm"
-                                                                    value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
-                                                                    style="width: 100%;height:30px;text-align: center;"
-                                                                    onchange="bags_caltotal();">
+                                                            <tr>
+                                                                <td>{{ $bag->name }}</td>
+                                                                <td><input name="t2_count<?php echo $t2NumRows; ?>"
+                                                                        id="t2_count<?php echo $t2NumRows; ?>"
+                                                                        type="number" step="1" min="0"
+                                                                        class="form-control form-control-sm"
+                                                                        value="<?php echo isset($bagsCount[$bag->id]) ? $bagsCount[$bag->id] : 0; ?>"
+                                                                        style="width: 100%;height:30px;text-align: center;"
+                                                                        onchange="bags_caltotal();">
 
-                                                                <input name="t2_id<?php echo $t2NumRows; ?>"
-                                                                    id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
-                                                                    value="{{ $bag->id }}">
+                                                                    <input name="t2_id<?php echo $t2NumRows; ?>"
+                                                                        id="t2_id<?php echo $t2NumRows; ?>" type="hidden"
+                                                                        value="{{ $bag->id }}">
 
-                                                            </td>
-                                                        </tr>
-                                                        <?php $t2NumRows += 1; ?>
+                                                                </td>
+                                                            </tr>
+                                                            <?php $t2NumRows += 1; ?>
                                                         @endforeach
 
                                                     </tbody>
@@ -465,7 +465,6 @@
                     '0') { //check if have element and select item
                     var item = {
                         item_name: document.getElementById("t1_item" + i).value,
-                        description: document.getElementById("t1_desc" + i).value,
                         weight: getNumber("t1_weight" + i),
                         unit_price: getNumber("t1_unit_price" + i),
                         amount: getNumber("t1_amount" + i),
