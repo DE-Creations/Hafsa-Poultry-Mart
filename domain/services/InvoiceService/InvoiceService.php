@@ -241,22 +241,22 @@ class InvoiceService
                 $invoice_payment->update($this->editPayment($invoice_payment, $data['invoice_payment']));
 
                 // delete all invoice items and create new invoice items
-                $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
-                foreach ($invoice_items as $item) {
-                    $item->delete();
-                }
-                if (isset($data['items']) && is_array($data['items'])) {
-                    foreach ($data['items'] as $item) {
-                        $item_data = [
-                            'invoice_id' => $invoice_id,
-                            'item_name' => $item['item_name'],
-                            'weight' => $item['weight'],
-                            'unit_price' => $item['unit_price'],
-                            'amount' => $item['amount'],
-                        ];
-                        $this->invoice_item->create($item_data);
-                    }
-                }
+                // $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+                // foreach ($invoice_items as $item) {
+                //     $item->delete();
+                // }
+                // if (isset($data['items']) && is_array($data['items'])) {
+                //     foreach ($data['items'] as $item) {
+                //         $item_data = [
+                //             'invoice_id' => $invoice_id,
+                //             'item_name' => $item['item_name'],
+                //             'weight' => $item['weight'],
+                //             'unit_price' => $item['unit_price'],
+                //             'amount' => $item['amount'],
+                //         ];
+                //         $this->invoice_item->create($item_data);
+                //     }
+                // }
 
                 // delete all bags and create new bags
                 $bags = $this->bags_history->where('invoice_id', $invoice_id)->get();
