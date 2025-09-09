@@ -27,7 +27,7 @@
                             <!-- Row start -->
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="mb-3">Sales in May</h3>
+                                    <h3 class="mb-3">Sales in {{ \Carbon\Carbon::now()->format('F') }}</h3>
                                     {{--  <p class="w-50">
                                         You have resolved
                                         <span class="text-success fw-bold">85%</span> more
