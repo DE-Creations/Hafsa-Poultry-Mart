@@ -24,53 +24,31 @@
                 <div class="col-12">
                     <div class="card mb-3">
                         <div class="card-body">
+                            <div class="mb-4">
+                                <div class="row g-2 align-items-end">
+                                    <div class="col-md-4">
+                                        <label for="from_date" class="form-label">From Date</label>
+                                        <input id="from_date" name="from_date" type="date" class="form-control"
+                                            onchange="getTableDetails()"
+                                            value="{{ \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="to_date" class="form-label">To Date</label>
+                                        <input id="to_date" name="to_date" type="date" class="form-control"
+                                            onchange="getTableDetails()"
+                                            value="{{ \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="mb-0 fw-semibold">Summary</h5>
-                                <a href="{{ route('reports.profit_loss.print') }}" target="_blank" class="btn btn-primary btn-sm">Print Report</a>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-md-4 mb-3">
-                                    <div class="p-3 border rounded">
-                                        <h6 class="mb-1">Total Revenue</h6>
-                                        <p class="mb-0 fs-5">{{ number_format($totalSales, 2) }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="p-3 border rounded">
-                                        <h6 class="mb-1">Total Expenses</h6>
-                                        <p class="mb-0 fs-5">{{ number_format($totalExpenses, 2) }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="p-3 border rounded">
-                                        <h6 class="mb-1">Net {{ $net >= 0 ? 'Profit' : 'Loss' }}</h6>
-                                        <p class="mb-0 fs-5 {{ $net >= 0 ? 'text-success' : 'text-danger' }}">{{ number_format($net, 2) }}</p>
-                                    </div>
-                                </div>
+                                <a href="{{ route('reports.profit_loss.print') }}" target="_blank"
+                                    class="btn btn-primary btn-sm">Print Report</a>
                             </div>
 
-                            <table class="table table-bordered mt-4">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th class="text-end">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Total Revenue</td>
-                                        <td class="text-end">{{ number_format($totalSales, 2) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Expenses</td>
-                                        <td class="text-end">{{ number_format($totalExpenses, 2) }}</td>
-                                    </tr>
-                                    <tr class="{{ $net >= 0 ? 'table-success' : 'table-danger' }}">
-                                        <td><strong>Net {{ $net >= 0 ? 'Profit' : 'Loss' }}</strong></td>
-                                        <td class="text-end"><strong>{{ number_format($net, 2) }}</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div id="report_table">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,4 +57,56 @@
         </div>
         <!-- Container ends -->
     </div>
+
+    <script>
+        function loadDates() {
+            const now = new Date();
+            const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0'); // +1 because months are 0-indexed
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            document.getElementById('from_date').value = formatDate(firstDay);
+            document.getElementById('to_date').value = formatDate(lastDay);
+        };
+
+        function getTableDetails(page = 1) {
+            //$('#pre_stop').show();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+
+            var data = {
+                from_date: from_date,
+                to_date: to_date,
+            };
+
+            //$('#pre_stop').show();
+            $.ajax({
+                url: '/reports/profit_loss/loadReport',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#report_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadDates();
+            }, 1000);
+            {{--  loadDates();  --}}
+            getTableDetails();
+        });
+    </script>
 </x-app-layout>

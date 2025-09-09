@@ -44,7 +44,7 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
-                                        <input id="invoice_date" type="date" class="form-control"
+                                        <input id="invoice_date" type="date" class="form-control datepicker"
                                             value="{{ $invoice->date }}" disabled />
                                     </div>
                                 </div>
