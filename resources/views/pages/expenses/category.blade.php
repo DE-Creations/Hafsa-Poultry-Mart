@@ -128,7 +128,7 @@
             </div>
         </div>
     </div>
-    <!-- Expenses Categories modal end -->
+    <!-- Expenses Categories edit modal end -->
 
     <!-- Delete modal start -->
     <div class="modal center fade" id="deleteExpenseModal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -154,10 +154,8 @@
     </div>
     <!-- Delete modal end -->
 
-
-   // <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        var selected_expenses_id = 0;
+        var selected_expense_id = 0;
         var modal;
 
         function openModal(modalName) {
@@ -177,7 +175,6 @@
         }
 
         function showExpensesCategoriesAddModal() {
-            //alert("Add Expenses Category Modal");
             openModal("addExpensesCategoriesModal");
             addResetFields();
         }
@@ -261,7 +258,7 @@
         try {
                 const response = await axios.get("{{ url('/expenses/category/get') }}/" + id);
                 const editCategory = response.data;
-
+                console.log(editCategory);
                 var name = document.getElementById("edit_name");
                 name.value = editCategory.name;
                 selected_expense_id = editCategory.id;
@@ -281,7 +278,7 @@
             };
 
             try {
-                const response = await axios.post("{{ url('expenses/category/edit') }}/" + selected_expenses_id,
+                const response = await axios.post("{{ url('expenses/category/edit') }}/" + selected_expense_id,
                     expenses_category_details);
                 const expensesCategory = response.data;
 
@@ -290,7 +287,6 @@
                 modal.hide();
                 showAlert("success-modal", "success-text", "Expenses Category updated successfully.");
             } catch (error) {
-               // viewEditErrors(error);
                console.log(error);
             }
         }
@@ -299,14 +295,26 @@
             document.getElementById("edit_name_error").textContent = "";
         }
 
+        function showDeleteExpenseCategoryModal(id) {
+            selected_expense_id = id;
+            openModal("deleteExpenseModal");
+        }
+
+        async function deleteExpense() {
+            try {
+                const response = await axios.delete("{{ url('/expenses/category/delete') }}/" + selected_expense_id);
+                const customer = response.data;
+
+                getExpensesCategories();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Expense deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }
+        }
 
         window.addEventListener('load', () => {
             getExpensesCategories();
         });
-
-        {{--  document.getElementById('TriggerAddnewModel').addEventListener('click', function() {
-            var myModal = new bootstrap.Modal(document.getElementById('addExpensesCategoriesModal'));
-            myModal.show();
-        });  --}}
     </script>
 </x-app-layout>

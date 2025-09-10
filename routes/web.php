@@ -89,7 +89,7 @@ Route::prefix('expenses')->group(function () {
 
 
         Route::post('/edit/{expenses_category_id}', [ExpensesController::class, 'editExpenseCategory'])->name('expenses.category.edit');
-        // Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('reports.profit_loss.delete');
+        Route::delete('/delete/{expenses_category_id}', [ExpensesController::class, 'deleteExpensesCategory'])->name('expenses.category.delete');
     });
 
 
