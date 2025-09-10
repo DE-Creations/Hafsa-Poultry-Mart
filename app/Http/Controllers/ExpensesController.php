@@ -115,5 +115,10 @@ class ExpensesController extends ParentController
         //dd($request->all());
         return ExpenseFacade::editExpenseCategory($request->all(), $expenses_category_id);
     }
+
+    public function deleteExpensesCategory($expenses_category_id)
+    {
+        return ExpenseFacade::deleteCategory($expenses_category_id);
+    }
 }
 
