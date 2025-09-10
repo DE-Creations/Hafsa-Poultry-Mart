@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Expense\StoreExpenseCategoryRequest;
 use App\Http\Requests\Expense\StoreExpenseRequest;
+use App\Http\Requests\Expense\UpdateExpenseRequest;
 use App\Models\Expense;
 use App\Models\ExpensesCategory;
 use Carbon\Carbon;
@@ -40,9 +41,9 @@ class ExpensesController extends ParentController
         }
 
         if (isset($request['count'])) {
-            $response['expenses'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+            $response['expenses'] = $query->with('expenseCategory')->orderBy('id', 'desc')->paginate($request['count']);
         } else {
-            $response['expenses'] = $query->orderBy('id', 'desc')->paginate(20);
+            $response['expenses'] = $query->with('expenseCategory')->orderBy('id', 'desc')->paginate(20);
         }
 
         return view('pages.expenses.components.table')->with($response);
@@ -61,8 +62,20 @@ class ExpensesController extends ParentController
 
     public function edit($expense_id)
     {
-        $expense = ExpenseFacade::get($expense_id);
-        return view('pages.expenses.edit')->with(['expense' => $expense]);
+        $response['expenses_categories'] = ExpenseFacade::getExpensesCategories();
+        $response['expense'] = ExpenseFacade::get($expense_id);
+        return view('pages.expenses.edit')->with($response);
+    }
+
+    public function update(UpdateExpenseRequest $request, $expense_id)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '.' . $file->extension();
+            $file->move(public_path('storage/expenses'), $fileName);
+            $request['file_path'] = 'storage/expenses/' . $fileName;
+        }
+        return ExpenseFacade::update($expense_id, $request->all());
     }
 
     public function delete($expense_id)

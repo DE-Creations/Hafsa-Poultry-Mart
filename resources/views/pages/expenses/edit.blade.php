@@ -36,10 +36,13 @@
                                         <div class="col-12">
                                             <label class="form-label">Category</label>
                                             <select class="form-select" id="expense_category">
-                                                <option selected>Select category</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                <option value="Select category">Select category</option>
+                                                @foreach ($expenses_categories as $expense_category)
+                                                    <option value="{{ $expense_category->id }}"
+                                                        {{ $expense->expense_category_id == $expense_category->id ? 'selected' : '' }}>
+                                                        {{ $expense_category->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             <span class="text-danger" id="expense_category_error"></span>
                                         </div>
@@ -68,7 +71,7 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Note</label>
-                                            <textarea class="form-control" placeholder="Expense note" rows="3" id="expense_note" value="{{ $expense->note }}"></textarea>
+                                            <textarea class="form-control" placeholder="Expense note" rows="3" id="expense_note">{{ $expense->note }}</textarea>
                                             <span class="text-danger" id="expense_note_error"></span>
                                         </div>
                                     </div>
@@ -198,7 +201,7 @@
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="addExpense()">
+                                    <button type="submit" class="btn btn-primary" onclick="updateExpense()">
                                         Update Expense
                                     </button>
                                 </div>
@@ -223,20 +226,6 @@
             modal.show();
         }
 
-        {{--  function resetAddInputFields() {
-            document.getElementById("add_name").value = "";
-            document.getElementById("add_email").value = "";
-            document.getElementById("add_mobile").value = "";
-            document.getElementById("add_address").value = "";
-        }  --}}
-
-        {{--  function resetEditInputFields() {
-            document.getElementById("edit_name").value = "";
-            document.getElementById("edit_email").value = "";
-            document.getElementById("edit_mobile").value = "";
-            document.getElementById("edit_address").value = "";
-        }  --}}
-
         function addResetFields() {
             document.getElementById("expense_category_error").textContent = "";
             document.getElementById("expense_date_error").textContent = "";
@@ -245,39 +234,39 @@
             document.getElementById("expense_note_error").textContent = "";
         }
 
-        {{--  function editResetFields() {
-            document.getElementById("edit_name_error").textContent = "";
-            document.getElementById("edit_email_error").textContent = "";
-            document.getElementById("edit_mobile_error").textContent = "";
-            document.getElementById("edit_address_error").textContent = "";
-        }  --}}
-
         function viewAddErrors(error) {
             if (error.response.data.errors.expense_category_id) {
                 document.getElementById("expense_category_error").textContent = error.response.data.errors
                     .expense_category_id[0];
+            } else {
+                document.getElementById("expense_category_error").textContent = "";
             }
+
             if (error.response.data.errors.date) {
                 document.getElementById("expense_date_error").textContent = error.response.data.errors.date[0];
+            } else {
+                document.getElementById("expense_date_error").textContent = "";
             }
+
             if (error.response.data.errors.description) {
                 document.getElementById("expense_description_error").textContent = error.response.data.errors.
                 description[0];
+            } else {
+                document.getElementById("expense_description_error").textContent = "";
             }
+
             if (error.response.data.errors.amount) {
                 document.getElementById("expense_amount_error").textContent = error.response.data.errors.amount[0];
+            } else {
+                document.getElementById("expense_amount_error").textContent = "";
             }
+
             if (error.response.data.errors.note) {
                 document.getElementById("expense_note_error").textContent = error.response.data.errors.note[0];
+            } else {
+                document.getElementById("expense_note_error").textContent = "";
             }
         }
-
-        {{--  function viewEditErrors(error) {
-            document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
-            document.getElementById("edit_email_error").textContent = error.response.data.errors.email[0];
-            document.getElementById("edit_mobile_error").textContent = error.response.data.errors.mobile[0];
-            document.getElementById("edit_address_error").textContent = error.response.data.errors.address[0];
-        }  --}}
 
         function showAlert(alertType, alertSpan, alertText) {
             document.getElementById(alertSpan).textContent = alertText;
@@ -289,99 +278,6 @@
                 alert.classList.add("d-none");
             }, 1500);
         }
-
-        {{--  function showCustomerAddModal() {
-            addResetFields();
-            openModal("addNewCustomerModal");
-        }  --}}
-
-        {{--  async function showCustomerEditModal(id) {
-            editResetFields();
-
-            try {
-                const response = await axios.get("{{ url('/customers/get') }}/" + id);
-                const customer = response.data;
-
-                var name = document.getElementById("edit_name");
-                var email = document.getElementById("edit_email");
-                var mobile = document.getElementById("edit_mobile");
-                var address = document.getElementById("edit_address");
-                name.value = customer.name;
-                email.value = customer.email;
-                mobile.value = customer.mobile;
-                address.value = customer.address;
-                selected_customer_id = customer.id;
-
-                openModal("editCustomerModal");
-            } catch (error) {
-                console.error(error);
-                showAlert("danger-modal", "danger-text", "Failed to fetch customer data.");
-            }
-        }  --}}
-
-        {{--  async function updateCustomer() {
-            var name = document.getElementById("edit_name").value;
-            var email = document.getElementById("edit_email").value;
-            var mobile = document.getElementById("edit_mobile").value;
-            var address = document.getElementById("edit_address").value;
-
-            edit_customer_details = {
-                name: name,
-                email: email,
-                mobile: mobile,
-                address: address
-            }
-
-            try {
-                const response = await axios.post("{{ url('/customers/update') }}/" + selected_customer_id,
-                    edit_customer_details);
-                const customer = response.data;
-
-                resetEditInputFields();
-                getCustomers();
-                modal.hide();
-                showAlert("success-modal", "success-text", "Customer updated successfully.");
-            } catch (error) {
-                viewEditErrors(error);
-            }
-        }  --}}
-
-        {{--  function showDeleteCustomerModal(id) {
-            selected_customer_id = id;
-            openModal("deleteCustomerModal");
-        }  --}}
-
-        {{--  async function deleteCustomer() {
-            try {
-                const response = await axios.delete("{{ url('/customers/delete') }}/" + selected_customer_id);
-                const customer = response.data;
-
-                getCustomers();
-                modal.hide();
-                showAlert("success-modal", "success-text", "Customer deleted successfully.");
-            } catch (error) {
-                showAlert("danger-modal", "danger-text", error);
-            }
-        }  --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         function openImageFile() {
             var expense_category = document.getElementById('expense_category').value;
@@ -445,7 +341,7 @@
             reader.readAsDataURL(file);
         }
 
-        async function addExpense() {
+        async function updateExpense() {
             addResetFields();
 
             var expense_category = document.getElementById("expense_category").value;
@@ -457,9 +353,14 @@
             const imagePreview = document.getElementById('imagePreview');
             const pdfPreview = document.getElementById('pdfPreview');
 
+            {{--  console.log(imagePreview.src);  --}}
+            {{--  console.log(pdfPreview.src);  --}}
+            {{--  console.log(placeholderImage);  --}}
+
+
             var imageUrl = "";
 
-            if (imagePreview.src === placeholderImage) {
+            {{--  if (imagePreview.src === placeholderImage) {
                 console.log("image added");
                 imageUrl = imagePreview.files[0];
             } else if (pdfPreview.src === placeholderImage) {
@@ -467,7 +368,7 @@
                 imageUrl = pdfPreview.files[0];
             } else {
                 console.log("no image or pdf added");
-            }
+            }  --}}
 
             add_expense_details = {
                 expense_category_id: expense_category,
@@ -475,18 +376,19 @@
                 description: expense_description,
                 amount: expense_amount,
                 note: expense_note,
-                image: imageUrl,
+                {{--  image: imageUrl,  --}}
             }
 
             try {
-                const response = await axios.post("{{ url('/expenses/store') }}",
+                const response = await axios.post("{{ url('/expenses/update') }}/" + {{ $expense->id }},
                     add_expense_details, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     });
-                {{--  window.location.href = "/expenses";  --}}
+                window.location.href = "/expenses";
             } catch (error) {
+                console.log(error);
                 viewAddErrors(error);
             }
         }
