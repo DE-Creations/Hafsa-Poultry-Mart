@@ -32,11 +32,11 @@
                                 <div class="col-10">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
-                                            onkeyup="getTableDetails()" />
+                                            onkeyup="getExpensesCategories()" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary" id="TriggerAddnewModel"
                                         onclick="showExpensesCategoriesAddModal()">Add new</button>
                                 </div>
                             </div>
@@ -95,6 +95,41 @@
     </div>
     <!-- Expenses Categories modal end -->
 
+    <!-- Expenses Categories edit modal start -->
+    <div class="modal fade" id="editExpensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Expenses Categories
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-2">
+                        <label class="form-label fw-bold">Add new Expense Category</label>
+                        <div class="d-flex mt-2">
+                            <input type="text" class="form-control" placeholder="Enter Name" name="name"
+                                id="edit_name" />
+                            <span class="text-danger" id="edit_name_error"></span>
+                            <button onclick="updateCategory()" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Expenses Categories modal end -->
+
     <!-- Delete modal start -->
     <div class="modal center fade" id="deleteExpenseModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="deleteExpenseModalLabel" aria-hidden="true">
@@ -119,8 +154,10 @@
     </div>
     <!-- Delete modal end -->
 
+
+   // <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        var selected_expense_id = 0;
+        var selected_expenses_id = 0;
         var modal;
 
         function openModal(modalName) {
@@ -139,59 +176,59 @@
             }, 1500);
         }
 
+        function showExpensesCategoriesAddModal() {
+            //alert("Add Expenses Category Modal");
+            openModal("addExpensesCategoriesModal");
+            addResetFields();
+        }
+
+        function viewAddErrors(error) {
+            if (error.response.data.errors.name) {
+                document.getElementById("name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("name_error").textContent = "";
+            }
+        }
+
+        function viewEditErrors(error) {
+            if (error.response.data.errors.name) {
+                document.getElementById("edit_name_error").textContent = error.response.data.errors.name[0];
+            } else {
+                document.getElementById("edit_name_error").textContent = "";
+            }
+        }
+
         function addResetFields() {
             document.getElementById("name_error").textContent = "";
         }
 
-        function editResetFields() {
-            document.getElementById("edit_name_error").textContent = "";
-        }
+        async function addExpensesCategory() {
+            var name = document.getElementById("add_name").value;
 
-        function showExpensesCategoriesAddModal() {
-            console.log("showExpensesCategoriesAddModal");
-            {{--  addResetFields();  --}}
-            openModal("addExpensesCategoriesModal");
-        }
-
-        {{--  function goToExpenseCategoryEdit(id) {
-            editResetFields();
-
-            try {
-                const response = await axios.get("{{ url('/customers/get') }}/" + id);
-                const customer = response.data;
-
-                var name = document.getElementById("edit_name");
-                name.value = customer.name;
-                selected_expense_id = customer.id;
-
-                openModal("editCustomerModal");
-            } catch (error) {
-                console.error(error);
-                showAlert("danger-modal", "danger-text", "Failed to fetch customer data.");
+            expenses_category_details = {
+                name: name,
             }
-        }  --}}
 
-        function showDeleteExpenseCategoryModal(id) {
-            selected_expense_id = id;
-
-            console.log(selected_expense_id);
-            openModal("deleteExpenseModal");
-        }
-
-        async function deleteExpense() {
             try {
-                const response = await axios.delete("{{ url('/expenses/delete') }}/" + selected_expense_id);
-                const customer = response.data;
+                const response = await axios.post("{{ url('/expenses/category/store') }}/",
+                    expenses_category_details);
+                const expensesCategory = response.data;
 
-                getTableDetails();
+                alert("Expense Category added successfully.");
+                resetAddInputFields();
+                getExpensesCategories();
                 modal.hide();
-                showAlert("success-modal", "success-text", "Expense deleted successfully.");
+                showAlert("success-modal", "success-text", "Expense Category added successfully.");
             } catch (error) {
-                showAlert("danger-modal", "danger-text", error);
+                viewAddErrors(error);
             }
         }
 
-        function getTableDetails(page = 1) {
+        function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+        }
+
+        function getExpensesCategories(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
             var count = 25;
@@ -217,37 +254,59 @@
             });
         }
 
-        function openExpensesCategoriesModal() {
-            openModal("expensesCategoriesModal");
+        async function goToExpenseCategoryEdit(id) {
+
+         editResetFields();
+
+        try {
+                const response = await axios.get("{{ url('/expenses/category/get') }}/" + id);
+                const editCategory = response.data;
+
+                var name = document.getElementById("edit_name");
+                name.value = editCategory.name;
+                selected_expense_id = editCategory.id;
+
+                openModal("editExpensesCategoriesModal");
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Failed to fetch customer data.");
+            }
         }
 
-        function resetAddInputFields() {
-            document.getElementById("add_name").value = "";
-        }
-
-        async function addExpensesCategory() {
-            var name = document.getElementById("add_name").value;
+        async function updateCategory() {
+            var name = document.getElementById("edit_name").value;
 
             expenses_category_details = {
                 name: name,
-            }
+            };
 
             try {
-                const response = await axios.post("{{ url('/expenses/category/store') }}/",
+                const response = await axios.post("{{ url('expenses/category/edit') }}/" + selected_expenses_id,
                     expenses_category_details);
                 const expensesCategory = response.data;
 
-                resetAddInputFields();
+                editResetFields();
                 getExpensesCategories();
-                {{--  modal.hide();  --}}
-                showAlert("success-modal", "success-text", "Expense Category added successfully.");
+                modal.hide();
+                showAlert("success-modal", "success-text", "Expenses Category updated successfully.");
             } catch (error) {
-                viewAddErrors(error);
+               // viewEditErrors(error);
+               console.log(error);
             }
         }
 
+        function editResetFields() {
+            document.getElementById("edit_name_error").textContent = "";
+        }
+
+
         window.addEventListener('load', () => {
-            getTableDetails();
+            getExpensesCategories();
         });
+
+        {{--  document.getElementById('TriggerAddnewModel').addEventListener('click', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('addExpensesCategoriesModal'));
+            myModal.show();
+        });  --}}
     </script>
 </x-app-layout>

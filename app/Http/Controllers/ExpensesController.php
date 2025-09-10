@@ -83,6 +83,7 @@ class ExpensesController extends ParentController
 
     public function expenseCategorystore(StoreExpenseCategoryRequest $request)
     {
+        //dd($request->all());
         return ExpenseFacade::expenseCategorystore($request->all());
     }
 
@@ -102,4 +103,17 @@ class ExpensesController extends ParentController
 
         return view('pages.expenses.components.expensesCategoryTable')->with($response);
     }
+
+    public function getExpensesCategory($expenses_category_id)
+    {
+        return ExpenseFacade::getCategory($expenses_category_id);
+    }
+
+    public function editExpenseCategory(Request $request, $expenses_category_id)
+
+    {
+        //dd($request->all());
+        return ExpenseFacade::editExpenseCategory($request->all(), $expenses_category_id);
+    }
 }
+
