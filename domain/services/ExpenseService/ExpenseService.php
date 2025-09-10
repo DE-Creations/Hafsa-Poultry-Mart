@@ -115,7 +115,14 @@ class ExpenseService
         return $this->expense_category->findOrFail($id);
     }
 
-    public function updateCategory($id, $data)
+    public function expenseCategorystore(array $data)
+    {
+        $created_expense_category = $this->expense_category->create($data);
+        $created_expense_category->save();
+        return $created_expense_category->id;
+    }
+
+    public function editExpenseCategory($data, $id)
     {
         $category = $this->expense_category->findOrFail($id);
         return $category->update($data);
@@ -125,7 +132,6 @@ class ExpenseService
     {
         return $this->expense_category->find($product_id)->delete();
     }
-
 
 
 

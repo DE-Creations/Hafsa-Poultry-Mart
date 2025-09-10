@@ -80,20 +80,21 @@ Route::prefix('expenses')->group(function () {
 
     Route::prefix('/category')->group(function () {
         Route::get('/', [ExpensesController::class, 'goToExpensesCategory'])->name('expenses.category.index');
-        // Route::get('/create', [ExpensesController::class, 'create'])->name('reports.profit_loss.create');
+        Route::get('/get/{expenses_category_id}', [ExpensesController::class, 'getExpensesCategory'])->name('expenses.category.get');
+        //Route::get('/create', [ExpensesController::class, 'create'])->name('reports.profit_loss.create');
         Route::get('ajax/list', [ExpensesController::class, 'loadExpensesCategory'])->name('expenses.category.all.list');
         // Route::get('/list', [ExpensesController::class, 'loadExpensesCategories'])->name('reports.profit_loss.category.list');
-        // Route::post('/store', [ExpensesController::class, 'expenseCategorystore'])->name('reports.profit_loss.category.store');
+        Route::post('/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
 
 
 
-        // Route::get('/edit/{expense_id}', [ExpensesController::class, 'edit'])->name('reports.profit_loss.edit');
+        Route::post('/edit/{expenses_category_id}', [ExpensesController::class, 'editExpenseCategory'])->name('expenses.category.edit');
         // Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('reports.profit_loss.delete');
     });
 
 
     // Route::get('/category/list', [ExpensesController::class, 'loadExpensesCategories'])->name('expenses.category.list');
-    // Route::post('/category/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
+    //Route::post('/category/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
 });
 
 Route::prefix('reports')->group(function () {
