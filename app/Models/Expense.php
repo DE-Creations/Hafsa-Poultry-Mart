@@ -41,10 +41,10 @@ class Expense extends Model
     //     return $this->expenseCategory ? $this->expenseCategory->name : 'N/A';
     // }
 
-    // public function ExpenseCategory()
-    // {
-    //     return $this->hasOne(ExpenseCategory::class, 'id', 'expense_category_id');
-    // }
+    public function expenseCategory()
+    {
+        return $this->hasOne(ExpensesCategory::class, 'id', 'expense_category_id');
+    }
 
     public function getFormattedAmountAttribute()
     {

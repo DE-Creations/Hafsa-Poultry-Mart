@@ -76,6 +76,7 @@ Route::prefix('expenses')->group(function () {
     Route::get('ajax/list', [ExpensesController::class, 'loadExpenses'])->name('expenses.all.list');
     Route::post('/store', [ExpensesController::class, 'store'])->name('expenses.store');
     Route::get('/edit/{expense_id}', [ExpensesController::class, 'edit'])->name('expenses.edit');
+    Route::post('/update/{expense_id}', [ExpensesController::class, 'update'])->name('expenses.update');
     Route::delete('/delete/{expense_id}', [ExpensesController::class, 'delete'])->name('expenses.delete');
 
     Route::prefix('/category')->group(function () {

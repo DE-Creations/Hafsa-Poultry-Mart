@@ -168,6 +168,55 @@
             }
         }
 
+        {{--  function openExpensesCategoriesModal() {
+            openModal("expensesCategoriesModal");
+        }  --}}
+
+        {{--  function getExpensesCategories() {
+            try {
+                $.ajax({
+                    url: '/expenses/category/list',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'GET',
+                    dataType: '',
+                    success: function(response) {
+                        console.log(response);
+                        $('#all_expense_category_table').html(response);
+                        //$('#pre_stop').hide();
+                    }
+                });
+            } catch (error) {
+                console.error("Error fetching expenses categories:", error);
+            }
+        }  --}}
+
+        {{--  function resetAddInputFields() {
+            document.getElementById("add_name").value = "";
+        }  --}}
+
+        {{--  async function addExpensesCategory() {
+            var name = document.getElementById("add_name").value;
+
+            expenses_category_details = {
+                name: name,
+            }
+
+            try {
+                const response = await axios.post("{{ url('/expenses/category/store') }}/",
+                    expenses_category_details);
+                const expensesCategory = response.data;
+
+                resetAddInputFields();
+                getExpensesCategories();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Expense Category added successfully.");
+            } catch (error) {
+                viewAddErrors(error);
+            }
+        }  --}}
+
         function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
@@ -192,58 +241,6 @@
                     //$('#pre_stop').hide();
                 }
             });
-        }
-
-        function openExpensesCategoriesModal() {
-            openModal("expensesCategoriesModal");
-        }
-
-        {{--  function getExpensesCategories() {
-            try {
-                $.ajax({
-                    url: '/expenses/category/list',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'GET',
-                    dataType: '',
-                    success: function(response) {
-                        console.log(response);
-                        $('#all_expense_category_table').html(response);
-                        //$('#pre_stop').hide();
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching expenses categories:", error);
-            }
-        }  --}}
-
-        function resetAddInputFields() {
-            document.getElementById("add_name").value = "";
-        }
-
-        {{--  function addExpensesCategory() {
-            var name = document.getElementById("add_name").value;
-
-            expenses_category_details = {
-                name: name,
-            }
-
-            try {
-                const response = await axios.post("{{ url('/expenses/category/store') }}/",
-                    expenses_category_details);
-                const expensesCategory = response.data;
-
-                resetAddInputFields();
-                getExpensesCategories();
-                {{--  modal.hide();  --}}
-        showAlert("success-modal", "success-text", "Expense Category added successfully.");
-        }
-        catch (error) {
-            viewAddErrors(error);
-        }
-        }--
-        }
         }
 
         window.addEventListener('load', () => {
