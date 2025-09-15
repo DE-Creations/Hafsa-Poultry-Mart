@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Expense\StoreExpenseCategoryRequest;
 use App\Http\Requests\Expense\StoreExpenseRequest;
+use App\Http\Requests\Expense\UpdateExpenseCategoryRequest;
 use App\Http\Requests\Expense\UpdateExpenseRequest;
 use App\Models\Expense;
 use App\Models\ExpensesCategory;
@@ -122,7 +123,7 @@ class ExpensesController extends ParentController
         return ExpenseFacade::getCategory($expenses_category_id);
     }
 
-    public function editExpenseCategory(Request $request, $expenses_category_id)
+    public function editExpenseCategory(UpdateExpenseCategoryRequest $request, $expenses_category_id)
 
     {
         //dd($request->all());

@@ -154,6 +154,8 @@
     </div>
     <!-- Delete modal end -->
 
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var selected_expense_id = 0;
         var modal;
