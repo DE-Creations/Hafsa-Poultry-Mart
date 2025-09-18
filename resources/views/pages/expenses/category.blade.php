@@ -106,7 +106,7 @@
                 <div class="modal-body">
                     <div class="m-2">
 
-                        <label class="form-label fw-bold">Edit Category Name</label>
+                        <label class="form-label fw-bold">Category Name</label>
                         <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
                             id="edit_name" />
                         <span class="text-danger" id="edit_name_error"></span>
@@ -285,7 +285,7 @@
                 modal.hide();
                 showAlert("success-modal", "success-text", "Expenses Category updated successfully.");
             } catch (error) {
-                console.log(error);
+                viewEditErrors(error);
             }
         }
 
