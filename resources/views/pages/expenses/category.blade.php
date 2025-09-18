@@ -60,40 +60,37 @@
 
     <!-- Modals -->
 
-    <!-- Expenses Categories modal start -->
+    <!-- Expenses Categories add modal start -->
     <div class="modal fade" id="addExpensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">
-                        Expenses Categories
+                        Add Expenses Categories
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="m-2">
-                        <label class="form-label fw-bold">Add new Expense Category</label>
-                        <div class="d-flex mt-2">
-                            <input type="text" class="form-control" placeholder="Enter Name" name="name"
-                                id="add_name" />
-                            <span class="text-danger" id="name_error"></span>
-                            <button onclick="addExpensesCategory()" class="btn btn-primary">
-                                Save
-                            </button>
-                        </div>
+                        <label class="form-label fw-bold">Category Name</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                            id="add_name" />
+                        <span class="text-danger" id="name_error"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button onclick="addExpensesCategory()" class="btn btn-primary">
+                        Save
+                    </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- Expenses Categories modal end -->
+    <!-- Expenses Categories add modal end -->
 
     <!-- Expenses Categories edit modal start -->
     <div class="modal fade" id="editExpensesCategoriesModal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -102,28 +99,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">
-                        Expenses Categories
+                        Edit Expenses Categories
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="m-2">
-                        <label class="form-label fw-bold">Add new Expense Category</label>
-                        <div class="d-flex mt-2">
-                            <input type="text" class="form-control" placeholder="Enter Name" name="name"
-                                id="edit_name" />
-                            <span class="text-danger" id="edit_name_error"></span>
-                            <button onclick="updateCategory()" class="btn btn-primary">
-                                Save
-                            </button>
-                        </div>
+
+                        <label class="form-label fw-bold">Edit Category Name</label>
+                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                            id="edit_name" />
+                        <span class="text-danger" id="edit_name_error"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button onclick="updateCategory()" class="btn btn-primary">
+                        Save
+                    </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-
                 </div>
             </div>
         </div>
@@ -142,7 +137,8 @@
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0 model-custom">
-                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteExpense()">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
+                        onclick="deleteExpense()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
@@ -155,7 +151,7 @@
     <!-- Delete modal end -->
 
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var selected_expense_id = 0;
         var modal;
@@ -255,9 +251,9 @@
 
         async function goToExpenseCategoryEdit(id) {
 
-         editResetFields();
+            editResetFields();
 
-        try {
+            try {
                 const response = await axios.get("{{ url('/expenses/category/get') }}/" + id);
                 const editCategory = response.data;
                 console.log(editCategory);
@@ -289,7 +285,7 @@
                 modal.hide();
                 showAlert("success-modal", "success-text", "Expenses Category updated successfully.");
             } catch (error) {
-               console.log(error);
+                console.log(error);
             }
         }
 
