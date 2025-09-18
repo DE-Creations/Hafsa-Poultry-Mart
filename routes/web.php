@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfitLossReportController;
 use App\Http\Controllers\StockController;
@@ -103,6 +104,13 @@ Route::prefix('reports')->group(function () {
         Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
         Route::post('/loadReport', [ProfitLossReportController::class, 'loadReport'])->name('reports.profit_loss.loadReport');
         Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
+    });
+
+    Route::prefix('invoice')->group(function () {
+        Route::get('/', [InvoiceReportController::class, 'index'])->name('reports.invoice.index');
+        // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
+        // Route::post('/loadReport', [ReportController::class, 'loadReport'])->name('report.invoice.loadReport');
+        // Route::get('/print', [ReportController::class, 'print'])->name('report.invoice.print');
     });
 });
 
