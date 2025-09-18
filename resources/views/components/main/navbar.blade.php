@@ -57,6 +57,18 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
+                            <a class="dropdown-item"
+                                href="{{ route('reports.invoice.index') }}"><span>Invoice</span></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('reports.profit_loss.index') }}"><span>Expenses</span></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('reports.profit_loss.index') }}"><span>Sales</span></a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="{{ route('reports.profit_loss.index') }}"><span>Profit &amp;
                                     Loss</span></a>
                         </li>
