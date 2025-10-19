@@ -109,7 +109,7 @@ Route::prefix('reports')->group(function () {
     Route::prefix('invoice')->group(function () {
         Route::get('/', [InvoiceReportController::class, 'index'])->name('reports.invoice.index');
         // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
-        // Route::post('/loadReport', [ReportController::class, 'loadReport'])->name('report.invoice.loadReport');
+        Route::post('/loadReport', [InvoiceReportController::class, 'loadReport'])->name('report.invoice.loadReport');
         // Route::get('/print', [ReportController::class, 'print'])->name('report.invoice.print');
     });
 });
