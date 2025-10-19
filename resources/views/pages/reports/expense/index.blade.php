@@ -12,7 +12,7 @@
                             <a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a>
                         </li>
                         <li class="breadcrumb-item">Reports</li>
-                        <li class="breadcrumb-item">Invoice</li>
+                        <li class="breadcrumb-item">Expenses</li>
                     </ol>
                     <!-- Breadcrumb end -->
                 </div>
@@ -95,17 +95,15 @@
             //$('#pre_stop').show();
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
-            var customer = document.getElementById("customer_id").value;
 
             var data = {
                 from_date: from_date,
                 to_date: to_date,
-                customer: customer,
             };
 
             //$('#pre_stop').show();
             $.ajax({
-                url: '/reports/invoice/loadReport',
+                url: '/reports/profit_loss/loadReport',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
