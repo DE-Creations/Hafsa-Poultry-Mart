@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseReportController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\InvoiceController;
@@ -111,6 +112,13 @@ Route::prefix('reports')->group(function () {
         // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
         Route::post('/loadReport', [InvoiceReportController::class, 'loadReport'])->name('report.invoice.loadReport');
         Route::post('/print', [InvoiceReportController::class, 'print'])->name('report.invoice.print');
+    });
+
+    Route::prefix('expense')->group(function () {
+        Route::get('/', [ExpenseReportController::class, 'index'])->name('reports.expense.index');
+        // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
+        Route::post('/loadReport', [ExpenseReportController::class, 'loadReport'])->name('report.expense.loadReport');
+        // Route::get('/print', [ReportController::class, 'print'])->name('report.invoice.print');
     });
 });
 

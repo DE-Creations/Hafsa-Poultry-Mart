@@ -7,7 +7,7 @@ use domain\facades\CustomerFacade\CustomerFacade;
 use Illuminate\Http\Request;
 use PDF;
 
-class InvoiceReportController extends Controller
+class InvoiceReportController extends ParentController
 {
     public function index()
     {

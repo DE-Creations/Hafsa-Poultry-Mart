@@ -39,17 +39,16 @@
                                             value="{{ \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" />
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="customer_id" class="form-label">Customer</label>
-                                        <select id="customer_id" class="form-control select2"
+                                        <label for="expense_category_id" class="form-label">Expense Category</label>
+                                        <select id="expense_category_id" class="form-control select2"
                                             onchange="getTableDetails();">
-                                            <option value="select">Select Customer</option>
-                                            @foreach ($customers as $customer)
-                                                @if ($customer->id == '1')
-                                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            <option value="select">Select Expense Category</option>
+                                            @foreach ($categories as $category)
+                                                @if ($category->id == '1')
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endif
-                                                @if ($customer->id != '1')
-                                                    <option value="{{ $customer->id }}">{{ $customer->name }} -
-                                                        {{ $customer->mobile }}</option>
+                                                @if ($category->id != '1')
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -95,15 +94,17 @@
             //$('#pre_stop').show();
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
+            var expense_category_id = document.getElementById('expense_category_id').value;
 
             var data = {
                 from_date: from_date,
                 to_date: to_date,
+                expense_category_id: expense_category_id
             };
 
             //$('#pre_stop').show();
             $.ajax({
-                url: '/reports/profit_loss/loadReport',
+                url: '/reports/expense/loadReport',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

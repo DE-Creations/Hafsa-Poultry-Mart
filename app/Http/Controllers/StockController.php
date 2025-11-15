@@ -8,7 +8,7 @@ use App\Models\Stock;
 use domain\facades\StockFacade\StockFacade;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class StockController extends ParentController
 {
     public function index()
     {

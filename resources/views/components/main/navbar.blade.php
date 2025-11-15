@@ -62,7 +62,7 @@
                         </li>
                         <li>
                             <a class="dropdown-item"
-                                href="{{ route('reports.profit_loss.index') }}"><span>Expenses</span></a>
+                                href="{{ route('reports.expense.index') }}"><span>Expenses</span></a>
                         </li>
                         <li>
                             <a class="dropdown-item"
