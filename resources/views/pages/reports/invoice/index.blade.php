@@ -58,7 +58,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="mb-0 fw-semibold">Summary</h5>
-                                <a href="{{ route('reports.profit_loss.print') }}" target="_blank"
+                                <a onclick="printReport();"
                                     class="btn btn-primary btn-sm">Print Report</a>
                             </div>
 
@@ -114,6 +114,32 @@
                 data: data,
                 success: function(response) {
                     $('#report_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
+
+        function printReport() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            var customer = document.getElementById("customer_id").value;
+
+            var data = {
+                from_date: from_date,
+                to_date: to_date,
+                customer: customer,
+            };
+
+            $.ajax({
+                url: '/reports/invoice/print',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    //$('#report_table').html(response);
                     //$('#pre_stop').hide();
                 }
             });
