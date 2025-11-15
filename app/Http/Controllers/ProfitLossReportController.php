@@ -7,7 +7,7 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use PDF;
 
-class ProfitLossReportController extends Controller
+class ProfitLossReportController extends ParentController
 {
     public function index()
     {

@@ -6,7 +6,7 @@ use App\Models\Invoice;
 use domain\facades\CustomerFacade\CustomerFacade;
 use Illuminate\Http\Request;
 
-class InvoiceReportController extends Controller
+class InvoiceReportController extends ParentController
 {
     public function index()
     {
