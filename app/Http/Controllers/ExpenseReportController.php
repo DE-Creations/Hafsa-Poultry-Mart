@@ -48,7 +48,7 @@ class ExpenseReportController extends ParentController
     {
         $from = $request['from_date'] ?? null;
         $to = $request['to_date'] ?? null;
-        $expense_category_id = $request['expense_category_id'] ?? null;
+        $expense = $request['expense_category_id'] ?? null;
 
         $query = Expense::query();
 
@@ -58,18 +58,18 @@ class ExpenseReportController extends ParentController
         if ($to) {
             $query->whereDate('date', '<=', $to);
         }
-        if ($expense_category_id && $expense_category_id != 'select') {
-            $query->where('expense_category_id', $expense_category_id);
+        if ($expense && $expense != 'select') {
+            $query->where('expense_category_id', $expense);
         }
 
-        //$total = $query('sub_total');
         $expenses = $query->with('expenseCategory')->orderBy('id', 'desc')->get();
 
-        // $pdf = PDF::loadView('print.pages.invoice_report.report', compact('invoices', 'from', 'to', 'customer'));
-        // $pdf->setPaper('A4', 'portrait');
-        // return $pdf->stream('invoice.pdf', ['Attachment' => false]);
+        if ($expense !== 'select') {
+            $expenseModel = ExpenseFacade::get($expense);
+            $expense = $expenseModel->name;
+        }
 
-        $pdf = PDF::loadView('print.pages.expense_report.report', compact('expenses', 'from', 'to', 'expense_category_id'));
+        $pdf = PDF::loadView('print.pages.expense_report.report', compact('expenses', 'from', 'to', 'expense'));
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream("invoice.pdf");
     }
