@@ -9,6 +9,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfitLossReportController;
+use App\Http\Controllers\SalesReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
@@ -119,6 +120,13 @@ Route::prefix('reports')->group(function () {
         // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
         Route::post('/loadReport', [ExpenseReportController::class, 'loadReport'])->name('report.expense.loadReport');
         Route::post('/print', [ExpenseReportController::class, 'print'])->name('report.expense.print');
+    });
+
+    Route::prefix('sales')->group(function () {
+        Route::get('/', [SalesReportController::class, 'index'])->name('reports.sales.index');
+        // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
+        Route::post('/loadReport', [SalesReportController::class, 'loadReport'])->name('report.sales.loadReport');
+        Route::post('/print', [SalesReportController::class, 'print'])->name('report.sales.print');
     });
 });
 
