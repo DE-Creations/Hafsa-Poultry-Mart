@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use domain\facades\CustomerFacade\CustomerFacade;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class InvoiceReportController extends ParentController
 {
@@ -65,10 +65,12 @@ class InvoiceReportController extends ParentController
         //$total = $query('sub_total');
         $invoices = $query->with(['customer', 'invoicePayment'])->orderBy('id', 'desc')->get();
 
+        // $pdf = PDF::loadView('print.pages.invoice_report.report', compact('invoices', 'from', 'to', 'customer'));
+        // $pdf->setPaper('A4', 'portrait');
+        // return $pdf->stream('invoice.pdf', ['Attachment' => false]);
 
         $pdf = PDF::loadView('print.pages.invoice_report.report', compact('invoices', 'from', 'to', 'customer'));
         $pdf->setPaper('A4', 'portrait');
-
-        return $pdf->stream('invoice.pdf', ['Attachment' => false]);
+        return $pdf->stream("invoice.pdf");
     }
 }
