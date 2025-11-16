@@ -10,7 +10,7 @@
             <td style="padding: 8px; text-align: right;">{{ $data->customer }}</td>  --}}
         </tr>
         <tr>
-            <td style="padding: 8px;">Total Expenses</td>
+            <td style="padding: 8px;">Expenses Report</td>
             <td style="padding: 8px; text-align: right;">{{ $from }}</td>
         </tr>
         <tr>

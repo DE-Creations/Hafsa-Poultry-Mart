@@ -58,8 +58,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="mb-0 fw-semibold">Summary</h5>
-                                <a onclick="printReport();"
-                                    class="btn btn-primary btn-sm">Print Report</a>
+                                <a onclick="printReport();" class="btn btn-primary btn-sm">Print Report</a>
                             </div>
 
                             <div id="report_table">
@@ -119,7 +118,7 @@
             });
         }
 
-        function printReport() {
+        async function printReport() {
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
             var customer = document.getElementById("customer_id").value;
@@ -130,7 +129,7 @@
                 customer: customer,
             };
 
-            $.ajax({
+            {{--  $.ajax({
                 url: '/reports/invoice/print',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -142,7 +141,22 @@
                     //$('#report_table').html(response);
                     //$('#pre_stop').hide();
                 }
-            });
+            });  --}}
+            console.log(data);
+            try {
+                const response = await axios.post("{{ url(path: '/reports/invoice/print') }}", data, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the report.");
+            }
         }
 
         window.addEventListener('load', () => {
