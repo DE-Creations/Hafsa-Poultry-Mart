@@ -42,8 +42,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="mb-0 fw-semibold">Summary</h5>
-                                <a href="{{ route('reports.profit_loss.print') }}" target="_blank"
-                                    class="btn btn-primary btn-sm">Print Report</a>
+                                <a onclick="printReport();" class="btn btn-primary btn-sm">Print Report</a>
                             </div>
 
                             <div id="report_table">
@@ -87,7 +86,7 @@
 
             //$('#pre_stop').show();
             $.ajax({
-                url: '/reports/profit_loss/loadReport',
+                url: '/reports/sales/loadReport',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -101,11 +100,49 @@
             });
         }
 
+        async function printReport() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+
+            var data = {
+                from_date: from_date,
+                to_date: to_date,
+            };
+
+            {{--  $.ajax({
+                url: '/reports/sales/print',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    //$('#report_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });  --}}
+            console.log(data);
+            try {
+                const response = await axios.post("{{ url(path: '/reports/sales/print') }}", data, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the report.");
+            }
+        }
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loadDates();
             }, 1000);
-            {{--  loadDates();  --}}
             getTableDetails();
         });
     </script>

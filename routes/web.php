@@ -102,12 +102,6 @@ Route::prefix('expenses')->group(function () {
 });
 
 Route::prefix('reports')->group(function () {
-    Route::prefix('profit_loss')->group(function () {
-        Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
-        Route::post('/loadReport', [ProfitLossReportController::class, 'loadReport'])->name('reports.profit_loss.loadReport');
-        Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
-    });
-
     Route::prefix('invoice')->group(function () {
         Route::get('/', [InvoiceReportController::class, 'index'])->name('reports.invoice.index');
         // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
@@ -127,6 +121,12 @@ Route::prefix('reports')->group(function () {
         // Route::get('/', [ReportController::class, 'invoice'])->name('report.invoice.index');
         Route::post('/loadReport', [SalesReportController::class, 'loadReport'])->name('report.sales.loadReport');
         Route::post('/print', [SalesReportController::class, 'print'])->name('report.sales.print');
+    });
+
+    Route::prefix('profit_loss')->group(function () {
+        Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
+        Route::post('/loadReport', [ProfitLossReportController::class, 'loadReport'])->name('reports.profit_loss.loadReport');
+        Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
     });
 });
 
