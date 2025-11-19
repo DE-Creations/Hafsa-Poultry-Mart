@@ -26,6 +26,11 @@
                 <span style="padding: 8px;">{{ $expense }}</span>
             </div>
         @endif
+        <br />
+        <div>
+            <span style="padding: 8px; width: 50px">Printed At :</span>
+            <span style="padding: 8px;">{{ date('F d, Y h:i A') }}</span>
+        </div>
     </div>
 
     <table cellspacing="0" cellpadding="0" border="0" width="90%" class="invoice_table"

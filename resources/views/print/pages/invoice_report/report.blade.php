@@ -6,6 +6,7 @@
             <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
             <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
             <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
+            <div class="text-center" style="font-size: 10px">Printed at - {{ date('F d, Y h:i A') }}</div>
 
             {{-- 1  --}}
             {{-- <div style="font-size: 14px; margin-top: 20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>

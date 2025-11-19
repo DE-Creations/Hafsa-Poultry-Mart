@@ -8,7 +8,6 @@
 
     <div style="text-align: center; margin-top: 5px;">
         <h2>Profit &amp; Loss Report</h2>
-        {{--  <span>{{ date('F d, Y') }}</span>  --}}
     </div>
 
     <div width="90%" style="margin-left: 5%; margin-top: 25px; border-collapse: collapse;">
@@ -19,6 +18,11 @@
         <div>
             <span style="padding: 8px; width: 50px">To Date :</span>
             <span style="padding: 8px;">{{ $to }}</span>
+        </div>
+        <br />
+        <div>
+            <span style="padding: 8px; width: 50px">Printed At :</span>
+            <span style="padding: 8px;">{{ date('F d, Y h:i A') }}</span>
         </div>
     </div>
 
