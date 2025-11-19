@@ -126,7 +126,7 @@ Route::prefix('reports')->group(function () {
     Route::prefix('profit_loss')->group(function () {
         Route::get('/', [ProfitLossReportController::class, 'index'])->name('reports.profit_loss.index');
         Route::post('/loadReport', [ProfitLossReportController::class, 'loadReport'])->name('reports.profit_loss.loadReport');
-        Route::get('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
+        Route::post('/print', [ProfitLossReportController::class, 'print'])->name('reports.profit_loss.print');
     });
 });
 

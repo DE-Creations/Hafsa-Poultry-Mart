@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class ProfitLossReportController extends ParentController
 {
@@ -38,13 +38,33 @@ class ProfitLossReportController extends ParentController
         return view('pages.reports.profit_loss.components.table')->with($response);
     }
 
-    public function print()
+    public function print(Request $request)
     {
-        $totalSales = Invoice::sum('sub_total');
-        $totalExpenses = Expense::sum('amount');
+
+        $from = $request['from_date'] ?? null;
+        $to = $request['to_date'] ?? null;
+
+        $totalSalesQuery = Invoice::query();
+        if ($from) {
+            $totalSalesQuery->whereDate('date', '>=', $from);
+        }
+        if ($to) {
+            $totalSalesQuery->whereDate('date', '<=', $to);
+        }
+        $totalSales = $totalSalesQuery->sum('sub_total');
+
+        $totalExpensesQuery = Expense::query();
+        if ($from) {
+            $totalExpensesQuery->whereDate('date', '>=', $from);
+        }
+        if ($to) {
+            $totalExpensesQuery->whereDate('date', '<=', $to);
+        }
+        $totalExpenses = $totalExpensesQuery->sum('amount');
+
         $net = $totalSales - $totalExpenses;
 
-        $pdf = PDF::loadView('print.pages.profit_loss.report', compact('totalSales', 'totalExpenses', 'net'));
+        $pdf = PDF::loadView('print.pages.profit_loss.report', compact('totalSales', 'totalExpenses', 'net', 'from', 'to'));
         $pdf->setPaper('A4', 'portrait');
 
         return $pdf->stream('profit_loss_report.pdf', ['Attachment' => false]);
