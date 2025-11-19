@@ -44,9 +44,9 @@
                                             onchange="getTableDetails();">
                                             <option value="select">Select Customer</option>
                                             @foreach ($customers as $customer)
-                                                @if ($customer->id == '1')
+                                                {{--  @if ($customer->id == '1')
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                                @endif
+                                                @endif  --}}
                                                 @if ($customer->id != '1')
                                                     <option value="{{ $customer->id }}">{{ $customer->name }} -
                                                         {{ $customer->mobile }}</option>

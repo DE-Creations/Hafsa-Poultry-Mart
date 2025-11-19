@@ -288,4 +288,21 @@ class InvoiceService
     {
         return array_merge($invoicePayment->toArray(), $data);
     }
+
+    function getAllInvoicesForTheSalesReport($startDate = null, $endDate = null)
+    {
+        $query = $this->invoice->newQuery();
+
+        if ($startDate) {
+            $query->whereDate('date', '>=', $startDate);
+        }
+        if ($endDate) {
+            $query->whereDate('date', '<=', $endDate);
+        }
+        // if ($customer && $customer != 'select') {
+        //     $query->where('customer_id', $customer);
+        // }
+
+        return $query->with(['customer', 'invoicePayment'])->orderBy('id', 'desc')->get();
+    }
 }
