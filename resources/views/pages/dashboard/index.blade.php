@@ -55,7 +55,7 @@
                                         <img src="{{ asset('assets/images/custom/hen.png') }}" alt="">
                                     </div>
                                     <div class="ms-2">
-                                        <h3 class="m-0">3000kg</h3>
+                                        <h3 class="m-0" id="total-weight">0kg</h3>
                                         <p class="m-0 text-primary">Total weight</p>
                                     </div>
                                 </div>
@@ -135,33 +135,45 @@
             chart.render();
         };
 
-        document.addEventListener("DOMContentLoaded", function() {
-            var options = {
-                chart: {
-                    type: 'donut',
-                    height: 250
-                },
-                series: [2500, 500], // e.g., 70% blue, 30% light blue
-                labels: ['Sold', 'Wastage'],
-                colors: ['#019202', '#ce0303'], // blue, light blue
-                legend: {
-                    show: false
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            size: '70%'
+        async function getTotalSales() {
+            try {
+                const response = await axios.get("{{ url('/totalSales') }}");
+                const revenue = parseFloat(response.data.revenue) || 0;
+                const expenses = parseFloat(response.data.expenses) || 0;
+
+                var options = {
+                    chart: {
+                        type: 'donut',
+                        height: 250
+                    },
+                    series: [revenue, expenses],
+                    labels: ['Revenue', 'Expenses'],
+                    colors: ['#019202', '#ce0303'],
+                    legend: {
+                        show: false
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                size: '70%'
+                            }
                         }
                     }
-                }
-            };
+                };
 
-            var chart = new ApexCharts(document.querySelector("#total_sales"), options);
-            chart.render();
-        });
+                const container = document.querySelector("#total_sales");
+                if (container) {
+                    container.innerHTML = ''; // clear previous chart if any
+                    var chart = new ApexCharts(container, options);
+                    chart.render();
+                }
+            } catch (error) {
+                console.error("Error fetching total sales:", error);
+            }
+        }
 
         function renderMonthlySalesChart(monthly_sales) {
             var options = {
@@ -205,11 +217,18 @@
             chart.render();
         };
 
+        function setTotalWeight(value) {
+            totalWeight = Number(value) || 0;
+            const roundedWeight = Math.round(totalWeight);
+            document.getElementById("total-weight").textContent = roundedWeight.toLocaleString('en-US') + 'kg';
+        }
+
         async function getDashboardDetails() {
             try {
                 const response = await axios.get("{{ url('/dashboardDetails') }}");
                 renderSalesInMonth(response.data.sales_in_month, response.data.month_dates, response.data.year);
                 renderMonthlySalesChart(response.data.monthly_sales);
+                setTotalWeight(response.data.grnTotal);
             } catch (error) {
                 console.error("Error fetching dashboard details :", error);
             }
@@ -224,7 +243,6 @@
                 $.ajax({
                     url: '/paymentsToCollect',
                     success: function(response) {
-                        console.log(response);
                         $('#payments_to_collect_table').html(response);
                         //$('#pre_stop').hide();
                     }
@@ -242,7 +260,6 @@
             $.ajax({
                 url: '/customers/ajax/list?page=',
                 success: function(response) {
-                    console.log(response);
                     $('#payments_to_collect_table').html(response);
                     //$('#pre_stop').hide();
                 }
@@ -252,6 +269,7 @@
         window.addEventListener("load", function() {
             getDashboardDetails();
             getPaymentsToCollect();
+            getTotalSales();
         });
     </script>
 </x-app-layout>

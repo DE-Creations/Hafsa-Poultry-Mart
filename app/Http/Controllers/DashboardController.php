@@ -26,12 +26,14 @@ class DashboardController extends ParentController
 
         $sales_in_month = DashboardFacade::getSalesInMonth();
         $monthly_sales = DashboardFacade::getMonthlySales();
+        $grn_total = DashboardFacade::getGrnTotal();
 
         $data = [
             'month_dates' => $days,
             'year' => $year,
             'sales_in_month' => $sales_in_month,
             'monthly_sales' => $monthly_sales,
+            'grnTotal' => $grn_total,
         ];
 
         return response()->json($data);
@@ -41,5 +43,11 @@ class DashboardController extends ParentController
     {
         $response['payments'] = DashboardFacade::getPaymentsToCollect();
         return view('pages.dashboard.components.paymentTable')->with($response);
+    }
+
+    public function totalSales()
+    {
+        $data = DashboardFacade::getTotalSales();
+        return response()->json($data);
     }
 }

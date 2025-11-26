@@ -19,6 +19,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('/')->group(function () {
     Route::get('dashboardDetails', [DashboardController::class, 'dashboardDetails'])->name('dashboard.dashboard_details');
     Route::get('paymentsToCollect', [DashboardController::class, 'paymentsToCollect'])->name('dashboard.payments_to_collect');
+    Route::get('totalSales', [DashboardController::class, 'totalSales'])->name('dashboard.total_sales');
 });
 
 Route::prefix('customers')->group(function () {

@@ -2,6 +2,9 @@
 
 namespace domain\services\DashboardService;
 
+use App\Models\Expense;
+use App\Models\Grn;
+use App\Models\Invoice;
 use App\Models\InvoicePayment;
 use Carbon\Carbon;
 use domain\facades\CustomerFacade\CustomerFacade;
@@ -79,6 +82,17 @@ class DashboardService
         return $totals;
     }
 
+    public function getGrnTotal()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
+        $endOfMonth = Carbon::now()->endOfMonth()->toDateString();
+
+        return \DB::table('grn_items')
+            ->join('grns', 'grn_items.grn_id', '=', 'grns.id')
+            ->whereBetween('grns.date', [$startOfMonth, $endOfMonth])
+            ->sum('grn_items.weight');
+    }
+
     public function getPaymentsToCollect()
     {
         $payments = [];
@@ -94,5 +108,34 @@ class DashboardService
         }
 
         return $payments;
+    }
+
+    public function getTotalSales()
+    {
+        $salesQuery = Invoice::query();
+        $expensesQuery = Expense::query();
+
+        $from = Carbon::now()->startOfMonth()->toDateString();
+        $salesQuery->whereDate('date', '>=', $from);
+        $expensesQuery->whereDate('date', '>=', $from);
+
+        $to = Carbon::now()->endOfMonth()->toDateString();
+        $salesQuery->whereDate('date', '<=', $to);
+        $expensesQuery->whereDate('date', '<=', $to);
+
+        $totalSales = $salesQuery->sum('sub_total');
+        $totalExpenses = $expensesQuery->sum('amount');
+
+        // include GRN payments in total expenses (use same date range)
+        $grnPayments = Grn::whereDate('date', '>=', $from)
+            ->whereDate('date', '<=', $to)
+            ->sum('total');
+
+        $totalExpenses += $grnPayments;
+
+        return [
+            'revenue' => $totalSales,
+            'expenses' => $totalExpenses,
+        ];
     }
 }

@@ -1,8 +1,8 @@
 <table class="table table-striped align-middle m-0">
     <thead>
         <tr>
-            <th>Invoice No.</th>
-            <th>Customer</th>
+            <th>GRN No.</th>
+            <th>Supplier</th>
             <th>Date</th>
             <th>Total</th>
             <th>Paid Amount</th>
@@ -12,21 +12,21 @@
     </thead>
     <tbody>
         @foreach ($grns as $grn)
-            {{ $invoice }}
+            {{ $grn }}
             <tr>
-                <td>{{ $grn->invoice_number }}</td>
-                <td>{{ $grn->customer->name }}</td>
+                <td>{{ $grn->grn_number }}</td>
+                <td>{{ $grn->supplier->name }}</td>
                 <td>{{ $grn->date }}</td>
                 <td>{{ $grn->total }}</td>
-                <td>{{ $grn->invoice_number }}</td>
-                <td>{{ $grn->invoice_number }}</td>
+                <td>{{ $grn->paid_amount }}</td>
+                <td>{{ $grn->due_amount }}</td>
                 <td>
-                    <button class="btn btn-outline-primary btn-sm" onclick="goToInvoiceEdit({{ $grn->id }})"
+                    <button class="btn btn-outline-primary btn-sm" onclick="goToGrnEdit({{ $grn->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
                         data-bs-title="Edit">
                         <i class="icon-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteInvoiceModal({{ $grn->id }})"
+                    <button class="btn btn-outline-danger btn-sm" onclick="showDeleteGrnModal({{ $grn->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
                         data-bs-title="Delete">
                         <i class="icon-trash"></i>
