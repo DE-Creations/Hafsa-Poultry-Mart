@@ -90,10 +90,9 @@ Route::prefix('expenses')->group(function () {
         // Route::get('/list', [ExpensesController::class, 'loadExpensesCategories'])->name('reports.profit_loss.category.list');
         Route::post('/store', [ExpensesController::class, 'expenseCategorystore'])->name('expenses.category.store');
 
-
-
         Route::post('/edit/{expenses_category_id}', [ExpensesController::class, 'editExpenseCategory'])->name('expenses.category.edit');
         Route::delete('/delete/{expenses_category_id}', [ExpensesController::class, 'deleteExpensesCategory'])->name('expenses.category.delete');
+        Route::post('/restore/{expenses_category_id}', [ExpensesController::class, 'restoreExpensesCategory'])->name('expenses.category.restore');
     });
 
 

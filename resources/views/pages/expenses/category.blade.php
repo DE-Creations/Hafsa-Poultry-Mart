@@ -150,6 +150,30 @@
     </div>
     <!-- Delete modal end -->
 
+    <!-- Restore modal start -->
+    <div class="modal center fade" id="restoreExpenseModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="restoreExpenseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="text-warning">Confirm Restore</h5>
+                    <p class="mb-0">
+                        Are you sure you want to restore this expense?
+                    </p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0 model-custom">
+                    <button type="button" class="btn text-warning fs-6 col-6 m-0 border-end"
+                        onclick="restoreExpense()">
+                        <strong>Restore</strong>
+                    </button>
+                    <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
+                        <strong>Cancel</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Restore modal end -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -301,11 +325,27 @@
         async function deleteExpense() {
             try {
                 const response = await axios.delete("{{ url('/expenses/category/delete') }}/" + selected_expense_id);
-                const customer = response.data;
 
                 getExpensesCategories();
                 modal.hide();
                 showAlert("success-modal", "success-text", "Expense deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }
+        }
+
+        function showRestoreExpenseCategoryModal(id) {
+            selected_expense_id = id;
+            openModal("restoreExpenseModal");
+        }
+
+        async function restoreExpense() {
+            try {
+                const response = await axios.post("{{ url('/expenses/category/restore') }}/" + selected_expense_id);
+
+                getExpensesCategories();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Expense restored successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
             }
