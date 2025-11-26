@@ -133,6 +133,13 @@ class ExpenseService
         return $this->expense_category->find($product_id)->delete();
     }
 
+    public function restoreCategory(int $category_id)
+    {
+        $deleted_category = $this->expense_category->withTrashed()->find($category_id);
+        $deleted_category->deleted_at = null;
+        return $deleted_category->save();
+    }
+
 
 
 

@@ -42,9 +42,19 @@ class ExpensesController extends ParentController
         }
 
         if (isset($request['count'])) {
-            $response['expenses'] = $query->with('expenseCategory')->orderBy('id', 'desc')->paginate($request['count']);
+            $response['expenses'] = $query
+                ->with(['expenseCategory' => function ($q) {
+                    $q->withTrashed();
+                }])
+                ->orderBy('id', 'desc')
+                ->paginate($request['count']);
         } else {
-            $response['expenses'] = $query->with('expenseCategory')->orderBy('id', 'desc')->paginate(20);
+            $response['expenses'] = $query
+                ->with(['expenseCategory' => function ($q) {
+                    $q->withTrashed();
+                }])
+                ->orderBy('id', 'desc')
+                ->paginate(20);
         }
 
         return view('pages.expenses.components.table')->with($response);
@@ -103,7 +113,7 @@ class ExpensesController extends ParentController
 
     public function loadExpensesCategory(Request $request)
     {
-        $query = ExpensesCategory::query();
+        $query = ExpensesCategory::query()->withTrashed();
 
         if (isset($request['search'])) {
             $query = $query->where('name', 'like', '%' . $request['search'] . '%');
@@ -134,5 +144,9 @@ class ExpensesController extends ParentController
     {
         return ExpenseFacade::deleteCategory($expenses_category_id);
     }
-}
 
+    public function restoreExpensesCategory($expenses_category_id)
+    {
+        return ExpenseFacade::restoreCategory($expenses_category_id);
+    }
+}
