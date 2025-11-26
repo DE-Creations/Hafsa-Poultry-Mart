@@ -29,12 +29,12 @@ class Grn extends Model
         return 'GRN00001';
     }
 
-    public function grnpay()
+    public function grnPay()
     {
-        return $this->hasMany(GrnPay::class, 'id', 'grn_id');
+        return $this->hasOne(GrnPay::class, 'id', 'grn_id');
     }
 
-    public function grnitem()
+    public function grnItem()
     {
         return $this->hasMany(GrnItem::class, 'id', 'grn_id');
     }

@@ -27,18 +27,18 @@ class GRNController extends ParentController
     {
         $query = Grn::query();
 
-        // if (isset($request['search'])) {
-        //     $query = $query->where('code', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('description', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('note', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('date', 'like', '%' . $request['search'] . '%')
-        //         ->orWhere('amount', 'like', '%' . $request['search'] . '%');
-        // }
+        if (isset($request['search'])) {
+            $query = $query->where('code', 'like', '%' . $request['search'] . '%')
+                ->orWhere('description', 'like', '%' . $request['search'] . '%')
+                ->orWhere('note', 'like', '%' . $request['search'] . '%')
+                ->orWhere('date', 'like', '%' . $request['search'] . '%')
+                ->orWhere('amount', 'like', '%' . $request['search'] . '%');
+        }
 
         if (isset($request['count'])) {
-            $response['invoices'] = $query->orderBy('id', 'desc')->paginate($request['count']);
+            $response['grns'] = $query->with(['supplier', 'grnPay'])->orderBy('id', 'desc')->paginate($request['count']);
         } else {
-            $response['invoices'] = $query->orderBy('id', 'desc')->paginate(20);
+            $response['grns'] = $query->with(['supplier', 'grnPay'])->orderBy('id', 'desc')->paginate(20);
         }
 
         return view('pages.grn.components.table')->with($response);

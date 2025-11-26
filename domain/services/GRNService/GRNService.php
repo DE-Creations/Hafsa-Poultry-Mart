@@ -27,6 +27,7 @@ class GRNService
             'date' => $data['grn_date'],
             'supplier_id' => $data['supplier_id'],
             'sub_total' => $data['sub_total'],
+            'total' => $data['to_pay'],
         ];
 
         $created_grn = $this->grn->create($grn_data);

@@ -34,308 +34,15 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <a type="button" class="btn btn-primary" href="{{route('grn.create')}}">Add new</a>
+                                    <a type="button" class="btn btn-primary" href="{{ route('grn.create') }}">Add
+                                        new</a>
                                 </div>
                             </div>
                             <!-- Search container end -->
 
                             <div class="table-outer">
-                                <div class="table-responsive">
-                                    <table class="table table-striped align-middle m-0">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Tickets</th>
-                                                <th>Status</th>
-                                                <th>Country</th>
-                                                <th>Email Sent</th>
-                                                <th>Calls</th>
-                                                <th>Reviews</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option1" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Araceli Zhang
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>248</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>United States</td>
-                                                <td>98</td>
-                                                <td>86</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option2" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user1.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Carmen Mccall
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>230</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>India</td>
-                                                <td>65</td>
-                                                <td>39</td>
-                                                <td>
-                                                    <div class="starReadOnly2 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option3" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Gino Watson
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>200</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-dark fs-5"></i>
-                                                        Offline
-                                                    </div>
-                                                </td>
-                                                <td>Turkey</td>
-                                                <td>76</td>
-                                                <td>44</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="option4" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user3.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Edwardo Manning
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>198</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>Indonesia</td>
-                                                <td>72</td>
-                                                <td>39</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        value="option5" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user4.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Rolf Weeks
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>187</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>Brazil</td>
-                                                <td>44</td>
-                                                <td>12</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        value="option6" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user5.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Maria Oliver
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>181</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>Saudi Arabia</td>
-                                                <td>73</td>
-                                                <td>33</td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        value="option2" />
-                                                </th>
-                                                <td>
-                                                    <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
-                                                        alt="Bootstrap Gallery" />
-                                                    Mitzi Stark
-                                                </td>
-                                                <td>info@example.com</td>
-                                                <td>176</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="icon-circle1 me-2 text-success fs-5"></i>
-                                                        Online
-                                                    </div>
-                                                </td>
-                                                <td>France</td>
-                                                <td>65</td>
-                                                <td>39</td>
-                                                <td>
-                                                    <div class="starReadOnly2 rating-stars"></div>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                        <i class="icon-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                        <i class="icon-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="table-responsive" id="all_grns_table">
+
                                 </div>
                             </div>
                         </div>
@@ -352,8 +59,8 @@
     <!-- Modals -->
 
     <!-- Customer add modal start -->
-    <div class="modal fade" id="addNewCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -376,7 +83,7 @@
     </div>
     <!-- Customer add modal end -->
 
-     <!-- Delete modal start -->
+    <!-- Delete modal start -->
     <div class="modal center fade" id="deleteCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -388,8 +95,7 @@
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0 model-custom">
-                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end"
-                        onclick="deleteCustomer()">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteCustomer()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
@@ -401,4 +107,35 @@
     </div>
     <!-- Delete modal end -->
 
+    <script>
+        function getTableDetails(page = 1) {
+            //$('#pre_stop').show();
+            var search = $('#search').val();
+            var count = 25;
+
+            var data = {
+                search: search,
+                count: count,
+            };
+
+            //$('#pre_stop').show();
+            $.ajax({
+                url: '/grn/ajax/list?page=' + page,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#all_grns_table').html(response);
+                    //$('#pre_stop').hide();
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            getTableDetails();
+        });
+    </script>
 </x-app-layout>

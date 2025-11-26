@@ -1,12 +1,11 @@
 <table class="table table-striped align-middle m-0">
     <thead>
         <tr>
-            <th></th>
-            <th>Name</th>
-            <th>NIC</th>
-            <th>Mobile</th>
-            <th>City</th>
-            <th>Actions</th>
+            <th width="10%">ID</th>
+            <th width="25%">Name</th>
+            <th width="25%">Mobile</th>
+            <th width="25%">City</th>
+            <th width="15%">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +13,6 @@
             <tr>
                 <td>{{ $supplier->id }}</td>
                 <td>{{ $supplier->name }}</td>
-                <td>{{ $supplier->nic }}</td>
                 <td>{{ $supplier->mobile }}</td>
                 <td>{{ $supplier->city }}</td>
                 <td>
