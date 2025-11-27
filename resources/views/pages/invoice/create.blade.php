@@ -548,7 +548,6 @@
 
         async function createAndPrintInvoice() {
             var x = await createInvoice();
-            console.log(x);
             printInvoice(x.data);
         }
 
@@ -692,7 +691,6 @@
                 window.open(url, '_blank');
                 window.location.reload();
             } catch (error) {
-                console.error(error);
                 showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
             }
         }
@@ -705,7 +703,6 @@
             const customerId = document.getElementById("customer_id").value;
             try {
                 const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
-                // console.log(response.data);
 
                 if (response.data == "none") {
                     document.getElementById("t1_pre_bal_for").disabled = false;
