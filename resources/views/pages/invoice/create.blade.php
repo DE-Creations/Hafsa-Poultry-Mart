@@ -140,8 +140,7 @@
                                                             class="form-control form-control-sm" value=""
                                                             style="width: 100%;height:30px;text-align: center;"
                                                             onchange="calAmount('<?php echo $i; ?>');"
-                                                            max=""
-></td>
+                                                            max=""></td>
                                                     <td><input name="t1_unit_price<?php echo $i; ?>"
                                                             id="t1_unit_price<?php echo $i; ?>" type="text"
                                                             step="any"
@@ -153,7 +152,8 @@
                                                             id="t1_amount<?php echo $i; ?>" type="text"
                                                             class="form-control form-control-sm formatNumber"
                                                             value=""
-                                                            style="width: 100%;height:30px;text-align: right;" disabled>
+                                                            style="width: 100%;height:30px;text-align: right;"
+                                                            disabled>
                                                     </td>
                                                     <td class="text-center"> <button type="button"
                                                             class="btn btn-outline-danger btn-sm"
@@ -333,8 +333,12 @@
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
                                         <button type="button" class="btn btn-primary col-3"
-                                            onclick="createInvoice()">
+                                            onclick="onlyCreateInvoice()">
                                             Create
+                                        </button>
+                                        <button type="button" class="btn btn-success col-3"
+                                            onclick="createAndPrintInvoice()">
+                                            Create & Print
                                         </button>
                                     </div>
                                 </div>
@@ -531,11 +535,20 @@
             try {
                 const response = await axios.post("{{ url('/invoice/store') }}/",
                     add_invoice_details);
-                // printInvoice(response.data.invoice_id);
-                window.location.reload();
+                return response;
             } catch (error) {
                 viewAddErrors(error);
             }
+        }
+
+        function onlyCreateInvoice() {
+            createInvoice();
+            window.location.reload();
+        }
+
+        async function createAndPrintInvoice() {
+            var x = await createInvoice();
+            printInvoice(x.data);
         }
 
         //  set description & unit price
@@ -676,8 +689,8 @@
                 });
                 const url = window.URL.createObjectURL(blob);
                 window.open(url, '_blank');
+                window.location.reload();
             } catch (error) {
-                console.error(error);
                 showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
             }
         }
@@ -690,7 +703,6 @@
             const customerId = document.getElementById("customer_id").value;
             try {
                 const response = await axios.get("{{ url('/invoice/customer/balance') }}/" + customerId);
-                // console.log(response.data);
 
                 if (response.data == "none") {
                     document.getElementById("t1_pre_bal_for").disabled = false;
