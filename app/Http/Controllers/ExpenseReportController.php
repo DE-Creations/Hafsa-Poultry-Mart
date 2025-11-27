@@ -69,7 +69,8 @@ class ExpenseReportController extends ParentController
             $expense = $expenseModel->name;
         }
 
-        $pdf = PDF::loadView('print.pages.expense_report.report', compact('expenses', 'from', 'to', 'expense'));
+        $total_expense = $expenses->sum('amount');
+        $pdf = PDF::loadView('print.pages.expense_report.report', compact('expenses', 'from', 'to', 'expense', 'total_expense'));
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream("invoice.pdf");
     }

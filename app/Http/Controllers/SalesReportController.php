@@ -54,7 +54,10 @@ class SalesReportController extends ParentController
 
         $invoices = $query->with(['customer', 'invoicePayment'])->orderBy('id', 'desc')->get();
 
-        $pdf = PDF::loadView('print.pages.sales.report', compact('invoices', 'from', 'to'));
+        $total_invoice = $invoices->sum(function($invoice) {
+            return $invoice->invoicePayment->first()->to_pay ?? 0;
+        });
+        $pdf = PDF::loadView('print.pages.sales.report', compact('invoices', 'from', 'to', 'total_invoice'));
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream("sales_report.pdf");
     }

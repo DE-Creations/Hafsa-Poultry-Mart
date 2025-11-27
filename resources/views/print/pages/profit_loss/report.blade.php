@@ -13,11 +13,11 @@
     <div width="90%" style="margin-left: 5%; margin-top: 25px; border-collapse: collapse;">
         <div>
             <span style="padding: 8px; width: 50px">From Date :</span>
-            <span style="padding: 8px;">{{ $from }}</span>
+            <span style="padding: 8px;">{{ \Carbon\Carbon::parse($from)->format('d M, Y') }}</span>
         </div>
         <div>
             <span style="padding: 8px; width: 50px">To Date :</span>
-            <span style="padding: 8px;">{{ $to }}</span>
+            <span style="padding: 8px;">{{ \Carbon\Carbon::parse($to)->format('d M, Y') }}</span>
         </div>
         <br />
         <div>
