@@ -28,13 +28,13 @@
                                 <div class="row g-2 align-items-end">
                                     <div class="col-md-4">
                                         <label for="from_date" class="form-label">From Date</label>
-                                        <input id="from_date" name="from_date" type="date" class="form-control"
+                                        <input id="from_date" name="from_date" type="date" class="form-control datepicker"
                                             onchange="getTableDetails()"
                                             value="{{ \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}" />
                                     </div>
                                     <div class="col-md-4">
                                         <label for="to_date" class="form-label">To Date</label>
-                                        <input id="to_date" name="to_date" type="date" class="form-control"
+                                        <input id="to_date" name="to_date" type="date" class="form-control datepicker"
                                             onchange="getTableDetails()"
                                             value="{{ \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') }}" />
                                     </div>

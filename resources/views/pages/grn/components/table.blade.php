@@ -4,6 +4,7 @@
             <th>GRN No.</th>
             <th>Supplier</th>
             <th>Date</th>
+            <th>Qty</th>
             <th>Total</th>
             <th>Paid Amount</th>
             <th>Due Amount</th>
@@ -17,6 +18,7 @@
                 <td>{{ $grn->grn_number }}</td>
                 <td>{{ $grn->supplier->name }}</td>
                 <td>{{ $grn->date }}</td>
+                <td>{{ $grn->qty }}</td>
                 <td>{{ $grn->total }}</td>
                 <td>{{ $grn->paid_amount }}</td>
                 <td>{{ $grn->due_amount }}</td>

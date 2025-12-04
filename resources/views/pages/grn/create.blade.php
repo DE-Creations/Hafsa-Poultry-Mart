@@ -44,14 +44,14 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
-                                        <input id="grn_date" type="date" class="form-control"
+                                        <input id="grn_date" type="date" class="form-control datepicker"
                                             value="{{ $grn_date }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Suppliers</label>
-                                        <select id="supplier_id" class="form-control"
+                                        <select id="supplier_id" class="form-control select2"
                                             onchange="getSupplierBalanceForward();">
                                             @foreach ($suppliers as $supplier)
                                             <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
@@ -98,7 +98,8 @@
                                                                 class="form-control form-control-sm"
                                                                 onchange="getItemData(this ,'<?php echo $i; ?>');"
                                                                 style="width: 100%;">
-                                                                <option value="Live Chicken">Live Chicken</option>
+                                                                <option value="Live Chicken - B">Live Chicken - B</option>
+                                                                <option value="Live Chicken - S">Live Chicken - S</option>
                                                             </select>
                                                         </td>
                                                         <!-- <td >
@@ -253,7 +254,7 @@
     <script>
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function deleteTableRow(tableID, rownum) {
-            // $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove(); // removed 
+            // $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove(); // removed
 
             calculateSubTotal();
             // calculateSubTotalWhenDeleteRow();

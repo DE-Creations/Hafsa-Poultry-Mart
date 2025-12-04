@@ -14,13 +14,7 @@ return new class extends Migration
         Schema::create('input_items', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->text('description')->nullable();
-            $table->boolean('is_active')->default(0);
             $table->timestamps();
-
-            // 'name',
-            // 'description',
-            // 'is_active',
         });
     }
 

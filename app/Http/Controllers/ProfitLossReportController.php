@@ -22,18 +22,22 @@ class ProfitLossReportController extends ParentController
 
         $salesQuery = Invoice::query();
         $expensesQuery = Expense::query();
+        $totalGrnQuery = Grn::query();
 
         if ($from) {
             $salesQuery->whereDate('date', '>=', $from);
             $expensesQuery->whereDate('date', '>=', $from);
+            $totalGrnQuery->whereDate('date', '>=', $from);
         }
         if ($to) {
             $salesQuery->whereDate('date', '<=', $to);
             $expensesQuery->whereDate('date', '<=', $to);
+            $totalGrnQuery->whereDate('date', '<=', $to);
         }
 
         $response['totalSales'] = $salesQuery->sum('sub_total');
-        $response['totalExpenses'] = $expensesQuery->sum('amount');
+        $response['totalGrn'] = $totalGrnQuery->sum('total');
+        $response['totalExpenses'] = $expensesQuery->sum('amount')+$response['totalGrn'];
         $response['net'] = $response['totalSales'] - $response['totalExpenses'];
 
         return view('pages.reports.profit_loss.components.table')->with($response);
