@@ -347,8 +347,7 @@
             dateFormat: "Y-m-d",
             allowInput: true,
             altInput: true,
-            altFormat: "F j, Y",
-            defaultDate: "today"
+            altFormat: "F j, Y"
         });
     </script>
 
