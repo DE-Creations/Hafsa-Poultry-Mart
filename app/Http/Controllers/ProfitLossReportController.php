@@ -70,7 +70,7 @@ class ProfitLossReportController extends ParentController
         if ($to) {
             $totalGrnQuery->whereDate('date', '<=', $to);
         }
-        $totalGrn = $totalGrnQuery->sum('amount');
+        $totalGrn = $totalGrnQuery->sum('total');
 
         $net = $totalSales - $totalExpenses - $totalGrn;
 
