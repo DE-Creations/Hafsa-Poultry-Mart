@@ -31,7 +31,7 @@ class Grn extends Model
 
     public function grnPay()
     {
-        return $this->hasOne(GrnPay::class, 'id', 'grn_id');
+        return $this->hasOne(GrnPay::class, 'grn_id', 'id');
     }
 
     public function grnItem()

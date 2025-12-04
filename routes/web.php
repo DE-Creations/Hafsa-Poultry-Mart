@@ -70,8 +70,8 @@ Route::prefix('grn')->group(function () {
     Route::get('/create', [GRNController::class, 'create'])->name('grn.create');
     Route::get('ajax/list', [GRNController::class, 'loadGrns'])->name('grn.all.list');
     Route::post('/store', [GRNController::class, 'store'])->name('grn.store');
-    Route::get('/edit/{expense_id}', [GRNController::class, 'edit'])->name('grn.edit');
-    Route::delete('/delete/{expense_id}', [GRNController::class, 'delete'])->name('grn.delete');
+    Route::get('/edit/{grn_id}', [GRNController::class, 'edit'])->name('grn.edit');
+    Route::delete('/delete/{grn_id}', [GRNController::class, 'delete'])->name('grn.delete');
     Route::get('/customer/balance/{customer_id}', [GRNController::class, 'getCustomerBalanceForward'])->name('grn.customer.balance');
 });
 

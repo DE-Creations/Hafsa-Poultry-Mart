@@ -84,18 +84,18 @@
     <!-- Customer add modal end -->
 
     <!-- Delete modal start -->
-    <div class="modal center fade" id="deleteCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+    <div class="modal center fade" id="deleteGRNModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="deleteGRNModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body p-4 text-center">
                     <h5 class="text-danger">Confirm Delete</h5>
                     <p class="mb-0">
-                        Are you sure you want to delete this customer?
+                        Are you sure you want to delete this GRN?
                     </p>
                 </div>
                 <div class="modal-footer flex-nowrap p-0 model-custom">
-                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteCustomer()">
+                    <button type="button" class="btn text-danger fs-6 col-6 m-0 border-end" onclick="deleteGRN()">
                         <strong>Delete</strong>
                     </button>
                     <button type="button" class="btn text-secondary fs-6 col-6 m-0" data-bs-dismiss="modal">
@@ -108,6 +108,59 @@
     <!-- Delete modal end -->
 
     <script>
+        var selected_invoice_id = 0;
+        var modal;
+
+        function openModal(modalName) {
+            modal = new bootstrap.Modal(document.getElementById(modalName));
+            modal.show();
+        }
+
+        function goToInvoiceEdit(id) {
+            window.location.href = '/invoice/edit/' + id;
+        }
+
+        function showDeleteGRNModal(id) {
+            selected_invoice_id = id;
+            openModal("deleteGRNModal");
+        }
+
+        async function deleteGRN() {
+            try {
+                // Always restock when deleting an GRN
+                const response = await axios.delete("{{ url(path: '/grn/delete') }}/" + selected_invoice_id, {
+                    data: {
+                        restock: true
+                    }
+                });
+                const invoice = response.data;
+
+                getTableDetails();
+                modal.hide();
+                showAlert("success-modal", "success-text", "Invoice deleted successfully.");
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", error);
+            }
+        }
+
+        async function printInvoice(invoice_id) {
+            try {
+                selected_invoice_id = invoice_id
+                const response = await axios.post("{{ url(path: '/invoice/print') }}/" + selected_invoice_id, {}, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } catch (error) {
+                console.error(error);
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
+            }
+        }
+
         function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
