@@ -28,16 +28,18 @@
                         <div class="card-body">
                             <!-- Search container start -->
                             <div class="row mb-3">
-                                <div class="col">
+                                <div class="col-8">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
                                             onkeyup="getTableDetails()" />
                                     </div>
                                 </div>
-                                <div class="col text-end">
-                                    <a class="btn btn-warning" href="{{ route('expenses.category.index') }}">Expenses
+                                <div class="col-2 text-end">
+                                    <a class="col-10 btn btn-warning" href="{{ route('expenses.category.index') }}">Expenses
                                         Categories</a>
-                                    <a type="button" class="btn btn-primary" href="{{ route('expenses.create') }}">Add
+                                </div>
+                                <div class="col-2 text-end">
+                                    <a type="button" class="col-10 btn btn-primary" href="{{ route('expenses.create') }}">Add
                                         new</a>
                                 </div>
                             </div>
