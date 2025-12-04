@@ -138,4 +138,25 @@ class DashboardService
             'expenses' => $totalExpenses,
         ];
     }
+
+    public function getNotifications()
+    {
+        $payments = [];
+
+        $customers = CustomerFacade::getCustomers();
+        foreach ($customers as $customer) {
+            if ($customer->id != 1) {
+                $oneWeekAgo = Carbon::now()->subWeek()->toDateString();
+                $payment = InvoicePayment::where('customer_id', $customer->id)
+                    ->whereDate('invoice_date', '<=', $oneWeekAgo)
+                    ->orderBy('id', 'desc')
+                    ->first();
+                if ($payment != null && $payment->new_balance != 0) {
+                    $payments[] = $payment;
+                }
+            }
+        }
+
+        return $payments;
+    }
 }
