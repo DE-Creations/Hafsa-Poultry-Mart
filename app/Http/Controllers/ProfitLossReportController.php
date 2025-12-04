@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\Grn;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -62,7 +63,16 @@ class ProfitLossReportController extends ParentController
         }
         $totalExpenses = $totalExpensesQuery->sum('amount');
 
-        $net = $totalSales - $totalExpenses;
+        $totalGrnQuery = Grn::query();
+        if ($from) {
+            $totalGrnQuery->whereDate('date', '>=', $from);
+        }
+        if ($to) {
+            $totalGrnQuery->whereDate('date', '<=', $to);
+        }
+        $totalGrn = $totalGrnQuery->sum('amount');
+
+        $net = $totalSales - $totalExpenses - $totalGrn;
 
         $pdf = PDF::loadView('print.pages.profit_loss.report', compact('totalSales', 'totalExpenses', 'net', 'from', 'to'));
         $pdf->setPaper('A4', 'portrait');
