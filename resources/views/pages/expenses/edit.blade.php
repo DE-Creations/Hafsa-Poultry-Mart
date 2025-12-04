@@ -35,7 +35,7 @@
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <label class="form-label">Category</label>
-                                            <select class="form-select" id="expense_category">
+                                            <select class="form-select select2" id="expense_category">
                                                 <option value="Select category">Select category</option>
                                                 @foreach ($expenses_categories as $expense_category)
                                                     <option value="{{ $expense_category->id }}"
@@ -49,7 +49,7 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Date</label>
-                                            <input type="date" class="form-control" id="expense_date"
+                                            <input type="date" class="form-control datepicker" id="expense_date"
                                                 value="{{ $expense->date }}" />
                                             <span class="text-danger" id="expense_date_error"></span>
                                         </div>

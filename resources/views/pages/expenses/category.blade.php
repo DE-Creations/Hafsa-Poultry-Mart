@@ -29,14 +29,17 @@
                         <div class="card-body">
                             <!-- Search container start -->
                             <div class="row mb-3">
-                                <div class="col-10">
+                                <div class="col-8">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
                                             onkeyup="getExpensesCategories()" />
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <button type="button" class="btn btn-primary" id="TriggerAddnewModel"
+                                    <button type="button" class="col-10 btn btn-warning" onclick="window.history.back()">Back</button>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <button type="button" class="col-10 btn btn-primary" id="TriggerAddnewModel"
                                         onclick="showExpensesCategoriesAddModal()">Add new</button>
                                 </div>
                             </div>
@@ -233,7 +236,6 @@
                     expenses_category_details);
                 const expensesCategory = response.data;
 
-                alert("Expense Category added successfully.");
                 resetAddInputFields();
                 getExpensesCategories();
                 modal.hide();
