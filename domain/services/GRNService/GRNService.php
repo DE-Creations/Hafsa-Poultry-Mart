@@ -5,18 +5,35 @@ namespace domain\services\GRNService;
 use App\Models\Grn;
 use App\Models\GrnItem;
 use App\Models\GrnPay;
+use App\Models\InputItem;
 
 class GRNService
 {
     protected $grn;
     protected $grn_item;
     protected $grn_payment;
+    protected $input_item;
 
     public function __construct()
     {
         $this->grn = new Grn();
         $this->grn_item = new GrnItem();
         $this->grn_payment = new GrnPay();
+        $this->input_item = new InputItem();
+    }
+
+    function getSavedGrnItems()
+    {
+        $input_items = $this->input_item->get();
+        $result = [];
+        foreach ($input_items as $input_item) {
+            $result[] = [
+                'id' => $input_item->id,
+                'name' => $input_item->name,
+            ];
+        }
+
+        return $result;
     }
 
     public function store(array $data)
@@ -64,6 +81,13 @@ class GRNService
         return $created_grn->id;
     }
 
+    public function delete(int $grn_id)
+    {
+        $grn = $this->grn->find($grn_id);
+        return $grn->delete();
+    }
+
+
     public function getCustomerBalanceForward($supplier_id)
     {
         $last_payment = $this->grn_payment->where('supplier_id', $supplier_id)->orderBy('id', 'desc')->first();
@@ -95,11 +119,7 @@ class GRNService
         return $expense;
     }
 
-    public function delete(int $expense_id)
-    {
-        $expense = $this->expense->find($expense_id);
-        return $expense->delete();
-    }
+
 
     public function restoreExpense(int $expense_id)
     {

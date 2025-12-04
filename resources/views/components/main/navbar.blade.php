@@ -33,7 +33,7 @@
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('grn*') ? 'active-link' : '' }}">
-                    <a class="nav-link" href="{{ route('grn.index') }}">
+                    <a class="nav-link" href="{{ route('grn.create') }}">
                         <i class="icon-support_agent"></i>GRN
                     </a>
                 </li>

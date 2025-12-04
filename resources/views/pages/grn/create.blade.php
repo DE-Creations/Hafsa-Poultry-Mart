@@ -27,8 +27,9 @@
             <div class="row gx-3">
                 <div class="col-xxl-12">
                     <div class="card mb-3">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title">GRN</h5>
+                            <a class="btn btn-warning" href="{{ route('grn.index') }}">GRN History</a>
                         </div>
                         <div class="card-body">
 
@@ -54,7 +55,7 @@
                                         <select id="supplier_id" class="form-control select2"
                                             onchange="getSupplierBalanceForward();">
                                             @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -92,44 +93,43 @@
                                                 for ($i = 0; $i < $t1NumRows; $i++) {
 
                                                 ?> <tr id="tr<?php echo $i; ?>">
-                                                        <td>
-                                                            <select name="t1_item<?php echo $i; ?>"
-                                                                id="t1_item<?php echo $i; ?>"
-                                                                class="form-control form-control-sm"
-                                                                onchange="getItemData(this ,'<?php echo $i; ?>');"
-                                                                style="width: 100%;">
-                                                                <option value="Live Chicken - B">Live Chicken - B</option>
-                                                                <option value="Live Chicken - S">Live Chicken - S</option>
-                                                            </select>
-                                                        </td>
-                                                        <!-- <td >
-                                                            <textarea name="t1_desc<?php echo $i; ?>" id="t1_desc<?php echo $i; ?>" class="form-control form-control-sm"
-                                                                rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>
-                                                        </td> -->
-                                                        <td><input name="t1_weight<?php echo $i; ?>"
-                                                                id="t1_weight<?php echo $i; ?>" type="number"
-                                                                step="any" min="0"
-                                                                class="form-control form-control-sm" value=""
-                                                                style="width: 100%;height:30px;text-align: center;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_unit_price<?php echo $i; ?>"
-                                                                id="t1_unit_price<?php echo $i; ?>" type="text"
-                                                                step="any"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;"
-                                                                onchange="calAmount('<?php echo $i; ?>');"></td>
-                                                        <td><input name="t1_amount<?php echo $i; ?>"
-                                                                id="t1_amount<?php echo $i; ?>" type="text"
-                                                                class="form-control form-control-sm formatNumber"
-                                                                value=""
-                                                                style="width: 100%;height:30px;text-align: right;" disabled>
-                                                        </td>
-                                                        <td class="text-center"> <button type="button"
-                                                                class="btn btn-outline-danger btn-sm"
-                                                                onclick="deleteTableRow('grn_item_table','<?php echo $i; ?>')"><i
-                                                                    class="icon-trash"></i></button></td>
-                                                    </tr>
+                                                    <td>
+                                                        <select name="t1_item<?php echo $i; ?>"
+                                                            id="t1_item<?php echo $i; ?>"
+                                                            class="form-control form-control-sm select2"
+                                                            onchange="getItemData(this ,'<?php echo $i; ?>');"
+                                                            style="width: 100%;">
+                                                            <option value="0">Select</option>
+                                                            @foreach ($newGrnItems as $newGrnItem)
+                                                                <option value="{{ $newGrnItem['id'] }}">
+                                                                    {{ $newGrnItem['name'] }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td><input name="t1_weight<?php echo $i; ?>"
+                                                            id="t1_weight<?php echo $i; ?>" type="number"
+                                                            step="any" min="0"
+                                                            class="form-control form-control-sm" value=""
+                                                            style="width: 100%;height:30px;text-align: center;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_unit_price<?php echo $i; ?>"
+                                                            id="t1_unit_price<?php echo $i; ?>" type="text"
+                                                            step="any"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value=""
+                                                            style="width: 100%;height:30px;text-align: right;"
+                                                            onchange="calAmount('<?php echo $i; ?>');"></td>
+                                                    <td><input name="t1_amount<?php echo $i; ?>"
+                                                            id="t1_amount<?php echo $i; ?>" type="text"
+                                                            class="form-control form-control-sm formatNumber"
+                                                            value=""
+                                                            style="width: 100%;height:30px;text-align: right;" disabled>
+                                                    </td>
+                                                    <td class="text-center"> <button type="button"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="deleteTableRow('grn_item_table','<?php echo $i; ?>')"><i
+                                                                class="icon-trash"></i></button></td>
+                                                </tr>
                                                 <?php
                                                 }
                                                 ?>
@@ -138,7 +138,8 @@
                                                 <tr>
                                                     <td colspan="2" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary " style="display: none;"><i class="fa fa-eraser"></i>
+                                                            class="btn btn-sm btn-primary " style="display: none;"><i
+                                                                class="fa fa-eraser"></i>
                                                             Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">

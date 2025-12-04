@@ -20,6 +20,7 @@ class GRNController extends ParentController
         $response['grn_date'] = now()->format('Y-m-d');
         $response['grn_number'] = Grn::generateGrnNumber();
         $response['suppliers'] = SupplierFacade::getSuppliers();
+        $response['newGrnItems'] = GRNFacade::getSavedGrnItems();
         return view('pages.grn.create', $response);
     }
 
@@ -55,8 +56,8 @@ class GRNController extends ParentController
         return view('pages.invoice.edit')->with(['invoice' => $invoice]);
     }
 
-    public function delete($invoice_id)
+    public function delete($grn_id)
     {
-        return InvoiceFacade::delete($invoice_id);
+        return GRNFacade::delete($grn_id);
     }
 }
