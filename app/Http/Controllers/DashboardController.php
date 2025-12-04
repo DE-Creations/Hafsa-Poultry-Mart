@@ -50,4 +50,10 @@ class DashboardController extends ParentController
         $data = DashboardFacade::getTotalSales();
         return response()->json($data);
     }
+
+    public function notificationDetails()
+    {
+        $response['notifications'] = DashboardFacade::getNotifications();
+        return view('layouts.notification')->with($response);
+    }
 }

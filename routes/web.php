@@ -20,6 +20,7 @@ Route::prefix('/')->group(function () {
     Route::get('dashboardDetails', [DashboardController::class, 'dashboardDetails'])->name('dashboard.dashboard_details');
     Route::get('paymentsToCollect', [DashboardController::class, 'paymentsToCollect'])->name('dashboard.payments_to_collect');
     Route::get('totalSales', [DashboardController::class, 'totalSales'])->name('dashboard.total_sales');
+    Route::get('notificationDetails', [DashboardController::class, 'notificationDetails'])->name('dashboard.notification_details');
 });
 
 Route::prefix('customers')->group(function () {
