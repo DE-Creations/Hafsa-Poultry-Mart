@@ -12,4 +12,9 @@ class InputItem extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function getById($id)
+    {
+        return $this->where('id', $id)->first();
+    }
 }

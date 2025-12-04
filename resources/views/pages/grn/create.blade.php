@@ -98,7 +98,8 @@
                                                                 class="form-control form-control-sm"
                                                                 onchange="getItemData(this ,'<?php echo $i; ?>');"
                                                                 style="width: 100%;">
-                                                                <option value="Live Chicken">Live Chicken</option>
+                                                                <option value="Live Chicken - B">Live Chicken - B</option>
+                                                                <option value="Live Chicken - S">Live Chicken - S</option>
                                                             </select>
                                                         </td>
                                                         <!-- <td >
