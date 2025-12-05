@@ -151,7 +151,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="3" class="text-right">
+                                                    <td colspan="2" class="text-right">
                                                         <!-- <button type="button" onclick="addNewLineT1();"
                                                             class="btn btn-sm btn-primary "><i
                                                                 class="fa fa-eraser"></i>
@@ -228,14 +228,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 col-12">
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label class="form-label">Payment Method</label>
                                                 <select class="form-control">
                                                     <option value="1">Cash</option>
                                                     <option value="2">Bank</option>
                                                     <option value="3">Card</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-3">
