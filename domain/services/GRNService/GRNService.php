@@ -95,7 +95,7 @@ class GRNService
         foreach ($grn_items as $grn_item) {
             $result[] = [
                 'id' => $grn_item->id,
-                'name' => $grn_item->inputItem->name,
+                'name' => $grn_item->inputItem ? $grn_item->inputItem->name : ($grn_item->item_name ?? null),
                 'weight' => $grn_item->weight,
                 'unit_price' => $grn_item->unit_price,
                 'amount' => $grn_item->amount
