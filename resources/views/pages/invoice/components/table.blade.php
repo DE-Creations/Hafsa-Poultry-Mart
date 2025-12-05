@@ -13,13 +13,13 @@
     <tbody>
         {{ $invoices }}
         @foreach ($invoices as $invoice)
-            <tr class="text-center" style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">
-                <td>{{ $invoice->invoice_number }}</td>
-                <td style="text-align: left; padding-left: 4%;">{{ $invoice->customer->name }}</td>
-                <td>{{ $invoice->date }}</td>
-                <td style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}</td>
-                <td style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
-                <td style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
+            <tr class="text-center" style="cursor: pointer")">
+                <td onclick="viewInvoice('{{ $invoice->id }}')">{{ $invoice->invoice_number }}</td>
+                <td onclick="viewInvoice('{{ $invoice->id }}')" style="text-align: left; padding-left: 4%;">{{ $invoice->customer->name }}</td>
+                <td onclick="viewInvoice('{{ $invoice->id }}')">{{ $invoice->date }}</td>
+                <td onclick="viewInvoice('{{ $invoice->id }}')" style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}</td>
+                <td onclick="viewInvoice('{{ $invoice->id }}')" style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
+                <td onclick="viewInvoice('{{ $invoice->id }}')" style="text-align: right; padding-right: 4%;">{{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
                 <td>
                     <button class="btn btn-outline-secondary btn-sm"
                         onclick="printInvoice('{{ $invoice->id }}')" data-bs-toggle="tooltip"
