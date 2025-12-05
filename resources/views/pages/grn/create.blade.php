@@ -95,7 +95,7 @@
                                                     <td>
                                                         <select name="t1_item<?php echo $i; ?>"
                                                             id="t1_item<?php echo $i; ?>"
-                                                            class="form-control form-control-sm select2"
+                                                            class="form-control form-control-sm"
                                                             onchange="getItemData(this ,'<?php echo $i; ?>');"
                                                             style="width: 100%;">
                                                             <option value="0">Select</option>
@@ -281,7 +281,7 @@
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
                                                                     id="t1_item` + (item_row) + `"
-                                                                    class="form-control form-control-sm select2"
+                                                                    class="form-control form-control-sm"
                                                                     onchange="getItemData(this ,` + (item_row) + `);"
                                                                     style="width: 100%;">
                                                                     <option value="0">Select</option>
