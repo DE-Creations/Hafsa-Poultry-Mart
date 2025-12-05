@@ -67,6 +67,7 @@ Route::prefix('invoice')->group(function () {
 
 Route::prefix('grn')->group(function () {
     Route::get('/', [GRNController::class, 'index'])->name('grn.index');
+    Route::get('/view/{grn_id}', [GRNController::class, 'view'])->name('grn.view');
     Route::get('/create', [GRNController::class, 'create'])->name('grn.create');
     Route::get('ajax/list', [GRNController::class, 'loadGrns'])->name('grn.all.list');
     Route::post('/store', [GRNController::class, 'store'])->name('grn.store');

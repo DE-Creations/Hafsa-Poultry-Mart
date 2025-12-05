@@ -16,6 +16,15 @@ class GRNController extends ParentController
         return view('pages.grn.index');
     }
 
+    public function view($grn_id)
+    {
+        $response['grn'] = GRNFacade::get($grn_id);
+        $response['suppliers'] = SupplierFacade::getSuppliers();
+        $response['newGrnItems'] = GRNFacade::getSavedGrnItemsForView($grn_id);
+        // dd($response);
+        return view('pages.grn.view', $response);
+    }
+
     public function create()
     {
         $response['grn_date'] = now()->format('Y-m-d');
