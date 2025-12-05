@@ -55,6 +55,7 @@ class GRNService
             foreach ($data['items'] as $item) {
                 $item_data = [
                     'grn_id' => $created_grn->id,
+                    'item_name' => $item['item_name'],
                     'weight' => $item['weight'],
                     'unit_price' => $item['unit_price'],
                     'amount' => $item['amount'],

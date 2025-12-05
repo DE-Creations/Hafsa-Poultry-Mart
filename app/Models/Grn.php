@@ -34,9 +34,9 @@ class Grn extends Model
         return $this->hasOne(GrnPay::class, 'grn_id', 'id');
     }
 
-    public function grnItem()
+    public function grnItems()
     {
-        return $this->hasMany(GrnItem::class, 'id', 'grn_id');
+        return $this->hasMany(GrnItem::class, 'grn_id', 'id');
     }
 
     public function supplier()

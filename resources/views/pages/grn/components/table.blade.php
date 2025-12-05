@@ -31,6 +31,11 @@
                 <td>{{ number_format($newBalance, 2) }}</td>
                 <td>{{ $grn->due_amount }}</td>
                 <td>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="printGrn('{{ $grn->id }}')"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
+                        data-bs-title="Print">
+                        <i class="icon-printer"></i>
+                    </button>
                     <button class="btn btn-outline-primary btn-sm" onclick="goToGrnEdit({{ $grn->id }})"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
                         data-bs-title="Edit">

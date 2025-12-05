@@ -108,7 +108,7 @@
     <!-- Delete modal end -->
 
     <script>
-        var selected_invoice_id = 0;
+        var selected_grn_id = 0;
         var modal;
 
         function openModal(modalName) {
@@ -121,32 +121,32 @@
         }
 
         function showDeleteGRNModal(id) {
-            selected_invoice_id = id;
+            selected_grn_id = id;
             openModal("deleteGRNModal");
         }
 
         async function deleteGRN() {
             try {
                 // Always restock when deleting an GRN
-                const response = await axios.delete("{{ url(path: '/grn/delete') }}/" + selected_invoice_id, {
+                const response = await axios.delete("{{ url(path: '/grn/delete') }}/" + selected_grn_id, {
                     data: {
                         restock: true
                     }
                 });
-                const invoice = response.data;
+                const grn = response.data;
 
                 getTableDetails();
                 modal.hide();
-                showAlert("success-modal", "success-text", "Invoice deleted successfully.");
+                showAlert("success-modal", "success-text", "GRN deleted successfully.");
             } catch (error) {
                 showAlert("danger-modal", "danger-text", error);
             }
         }
 
-        async function printInvoice(invoice_id) {
+        async function printGRN(grn_id) {
             try {
-                selected_invoice_id = invoice_id
-                const response = await axios.post("{{ url(path: '/invoice/print') }}/" + selected_invoice_id, {}, {
+                selected_grn_id = grn_id;
+                const response = await axios.post("{{ url(path: '/grn/print') }}/" + selected_grn_id, {}, {
                     responseType: 'blob'
                 });
 
@@ -157,7 +157,7 @@
                 window.open(url, '_blank');
             } catch (error) {
                 console.error(error);
-                showAlert("danger-modal", "danger-text", "Something went wrong while generating the invoice.");
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the grn.");
             }
         }
 

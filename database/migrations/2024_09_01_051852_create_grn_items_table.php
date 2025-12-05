@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('grn_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('grn_id')->nullable();
+            $table->string('item_name')->nullable();
             $table->decimal('weight', 15, 3)->nullable();
             $table->decimal('unit_price', 15, 2)->nullable();
             $table->decimal('amount', 15, 2)->nullable();
