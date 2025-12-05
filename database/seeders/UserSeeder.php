@@ -24,12 +24,12 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
-                'password' => '123456789',
+                'password' => '987654321',
             ],
             [
                 'name' => 'Super Admin',
                 'email' => 'superadmin@gmail.com',
-                'password' => '123456789',
+                'password' => '987654321',
             ],
         ];
 
