@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @foreach ($grns as $grn)
-            <tr class="text-center">
+            <tr class="text-center" style="cursor: pointer;">
                 <td onclick="viewGrn('{{ $grn->id }}')">{{ $grn->grn_number }}</td>
                 <td onclick="viewGrn('{{ $grn->id }}')" style="text-align: left; padding-left: 4%;">
                     {{ $grn->supplier->name }}</td>
