@@ -88,11 +88,11 @@ class GRNService
     }
 
 
-    public function getCustomerBalanceForward($supplier_id)
+    public function getSupplierBalanceForward($supplier_id)
     {
         $last_payment = $this->grn_payment->where('supplier_id', $supplier_id)->orderBy('id', 'desc')->first();
         if ($last_payment) {
-            return $last_payment->balance;
+            return $last_payment->new_balance;
         } else {
             return 0;
         }
