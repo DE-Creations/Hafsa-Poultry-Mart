@@ -253,7 +253,7 @@
     <script>
         // Delete rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function deleteTableRow(tableID, rownum) {
-            // $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove(); // removed
+            $('#' + tableID + ' tbody #tr' + rownum).closest('tr').remove();
 
             calculateSubTotal();
             // calculateSubTotalWhenDeleteRow();
