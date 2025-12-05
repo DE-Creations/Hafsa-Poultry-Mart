@@ -88,6 +88,21 @@ class GRNService
         return $grn->delete();
     }
 
+    function getSavedGrnItemsForView($grn_id)
+    {
+        $grn_items = $this->grn_item->with('inputItem')->where('grn_id', $grn_id)->get();
+        $result = [];
+        foreach ($grn_items as $grn_item) {
+            $result[] = [
+                'id' => $grn_item->id,
+                'name' => $grn_item->inputItem->name,
+                'weight' => $grn_item->weight,
+                'unit_price' => $grn_item->unit_price,
+                'amount' => $grn_item->amount
+            ];
+        }
+        return $result;
+    }
 
     public function getSupplierBalanceForward($supplier_id)
     {
@@ -101,7 +116,7 @@ class GRNService
 
     public function get($id)
     {
-        return $this->expense->withTrashed()->findOrFail($id);
+        return $this->grn->with(['supplier', 'grnPay', 'grnItems'])->findOrFail($id);
     }
 
     public function update($id, $data)

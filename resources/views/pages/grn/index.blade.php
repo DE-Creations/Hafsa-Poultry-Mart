@@ -161,6 +161,10 @@
             }
         }
 
+        function viewGrn(id) {
+            window.location.href = '/grn/view/' + id;
+        }
+
         function getTableDetails(page = 1) {
             //$('#pre_stop').show();
             var search = $('#search').val();
