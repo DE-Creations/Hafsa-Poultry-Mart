@@ -1,27 +1,27 @@
 <table class="table table-striped align-middle m-0">
     <thead>
-        <tr>
-            <th>Invoice No.</th>
-            <th>Customer</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Paid Amount</th>
-            <th>Due Amount</th>
+        <tr class="text-center">
+            <th width="10%">Invoice No.</th>
+            <th width="18%">Customer</th>
+            <th width="18%">Date</th>
+            <th width="18%">Total</th>
+            <th width="18%">Paid Amount</th>
+            <th width="18%">Due Amount</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($invoices as $invoice)
-            <tr>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">{{ $invoice->invoice_number }}
+            <tr class="text-center">
+                <td>{{ $invoice->invoice_number }}
                 </td>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">{{ $invoice->customer->name }}
+                <td style="text-align: left; padding-left: 6%;">{{ $invoice->customer->name }}
                 </td>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">{{ $invoice->date }}</td>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">
+                <td>{{ $invoice->date }}</td>
+                <td style="text-align: right; padding-right: 6%;">
                     {{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}</td>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">
+                <td style="text-align: right; padding-right: 6%;">
                     {{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}</td>
-                <td style="cursor: pointer" onclick="viewInvoice('{{ $invoice->id }}')">
+                <td style="text-align: right; padding-right: 6%;">
                     {{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}</td>
             </tr>
         @endforeach
