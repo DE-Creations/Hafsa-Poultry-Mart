@@ -119,36 +119,55 @@ class GRNService
         return $this->grn->with(['supplier', 'grnPay', 'grnItems'])->findOrFail($id);
     }
 
-    public function update($id, $data)
+    public function update($data, $grn_id)
     {
-        $dateString = $data['date'];
-        $formattedDate = Carbon::parse($dateString);
+        $last_grn = $this->grn_payment->where('supplier_id', $data['grn']['supplier_id'])
+            ->orderBy('id', 'desc')
+            ->first();
+        if (!$last_grn) {
+            return 'This supplier has no previous GRNs.';
+        } else {
+            if ($last_grn->grn_id != $grn_id) {
+                return 'This GRN is not the last GRN of this supplier. You cannot update it.';
+            } else {
+                $grn = $this->grn->find($grn_id);
+                $grn->update($this->editGRN($grn, $data['grn']));
 
-        if (isset($data['date'])) {
-            $data['date'] = $formattedDate;
-            $data['created_at'] = $formattedDate;
+                $grn_payment = $this->grn_payment->where('grn_id', $grn_id)->first();
+                $grn_payment->update($this->editPayment($grn_payment, $data['grn_payment']));
+
+                // delete all invoice items and create new invoice items
+                // $invoice_items = $this->invoice_item->where('invoice_id', $invoice_id)->get();
+                // foreach ($invoice_items as $item) {
+                //     $item->delete();
+                // }
+                // if (isset($data['items']) && is_array($data['items'])) {
+                //     foreach ($data['items'] as $item) {
+                //         $item_data = [
+                //             'invoice_id' => $invoice_id,
+                //             'item_name' => $item['item_name'],
+                //             'weight' => $item['weight'],
+                //             'unit_price' => $item['unit_price'],
+                //             'amount' => $item['amount'],
+                //         ];
+                //         $this->invoice_item->create($item_data);
+                //     }
+                // }
+
+                // delete all bags and create new bags
+                return 'GRN updated successfully';
+            }
         }
-        $expense = $this->expense->findOrFail($id);
-        $expense->update($data);
-        $expense->created_at = $expense->date;
-        $expense->save();
-        return $expense;
     }
 
-
-
-    public function restoreExpense(int $expense_id)
+    public function editGRN(Grn $grn, array $data)
     {
-        $deleted_expense = $this->expense->withTrashed()->find($expense_id);
-        $deleted_expense->deleted_at = null;
-        return $deleted_expense->save();
+        return array_merge($grn->toArray(), $data);
     }
 
-    public function removeImage(int $id)
+    public function editPayment(GrnPay $grnPayment, array $data)
     {
-        $details = $this->expense->find($id);
-        $details->image_id = null;
-        return $details->save();
+        return array_merge($grnPayment->toArray(), $data);
     }
 
     public function calculateTotals($expenses)
@@ -162,37 +181,5 @@ class GRNService
         }
 
         return $totals;
-    }
-
-    public function newCategory(array $data)
-    {
-        $data['tenant_id'] = Auth::user()->tenant_id;
-        $expense_category = $this->expense_category->where('name', $data['name'])->where('tenant_id', $data['tenant_id'])->first();
-        if (!$expense_category) {
-            return $this->expense_category->create($data);
-        } else {
-            return "This category already exists";
-        }
-    }
-
-    public function getCategory($id)
-    {
-        return $this->expense_category->findOrFail($id);
-    }
-
-    public function updateCategory($id, $data)
-    {
-        $category = $this->expense_category->findOrFail($id);
-        return $category->update($data);
-    }
-
-    public function deleteCategory(int $product_id)
-    {
-        return $this->expense_category->find($product_id)->delete();
-    }
-
-    public function categorySelectAll()
-    {
-        return $this->expense_category->where('tenant_id', Auth::user()->tenant_id)->orderBy('name', 'asc')->get();
     }
 }

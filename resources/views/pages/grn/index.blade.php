@@ -34,7 +34,8 @@
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <a type="button" class="col-11 btn btn-primary" href="{{ route('grn.create') }}">Add
+                                    <a type="button" class="col-11 btn btn-primary"
+                                        href="{{ route('grn.create') }}">Add
                                         new</a>
                                 </div>
                             </div>
@@ -116,8 +117,8 @@
             modal.show();
         }
 
-        function goToInvoiceEdit(id) {
-            window.location.href = '/invoice/edit/' + id;
+        function goToGrnEdit(id) {
+            window.location.href = '/grn/edit/' + id;
         }
 
         function showDeleteGRNModal(id) {

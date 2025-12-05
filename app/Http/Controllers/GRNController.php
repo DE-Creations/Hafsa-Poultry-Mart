@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GRN\StoreGRNRequest;
+use App\Http\Requests\GRN\UpdateGRNRequest;
 use App\Models\Grn;
+use App\Models\InputItem;
 use domain\facades\GRNFacade\GRNFacade;
 use domain\facades\SupplierFacade\SupplierFacade;
 use Illuminate\Http\Request;
@@ -65,10 +67,18 @@ class GRNController extends ParentController
         return GRNFacade::getSupplierBalanceForward($supplier_id);
     }
 
-    public function edit($invoice_id)
+    public function edit($grn_id)
     {
-        $invoice = InvoiceFacade::get($invoice_id);
-        return view('pages.invoice.edit')->with(['invoice' => $invoice]);
+        $response['grn'] = GRNFacade::get($grn_id);
+        $response['suppliers'] = SupplierFacade::getSuppliers();
+        $response['newGrnItems'] = GRNFacade::getSavedGrnItems($grn_id);
+        $response['input_items'] = InputItem::all();
+        return view('pages.grn.edit', $response);
+    }
+
+    public function update(UpdateGRNRequest $request, $grn_id)
+    {
+        return GRNFacade::update($request->all(), $grn_id);
     }
 
     public function delete($grn_id)
