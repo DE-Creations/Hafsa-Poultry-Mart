@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <a type="button" class="btn btn-primary" href="{{ route('invoice.create') }}">Add
+                                    <a type="button" class="col-10 btn btn-primary" href="{{ route('invoice.create') }}">Add
                                         new</a>
                                 </div>
                             </div>
