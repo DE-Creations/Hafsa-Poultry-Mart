@@ -12,23 +12,24 @@
     </thead>
     <tbody>
         @foreach ($grns as $grn)
-        {{ $grn }}
-            <tr class="text-center">
-            <td>{{ $grn->grn_number }}</td>
-            <td style="text-align: left; padding-left: 4%;">{{ $grn->supplier->name }}</td>
-            <td>{{ $grn->date }}</td>
-            <td style="text-align: right; padding-right: 4%;">{{ number_format((float) (optional($grn->grn_pay)->sub_total ?? $grn->sub_total), 2) }}</td>
-            <td style="text-align: right; padding-right: 4%;">{{  }}</td>
-            @php
-                $paid = (float) ($grn->total ?? 0);
-                $subTotal = (float) (optional($grn->grn_pay)->sub_total ?? ($grn->sub_total ?? 0));
-                $newBalance = optional($grn->grn_pay)->new_balance;
-                if ($newBalance === null) {
-                $newBalance = $paid - $subTotal;
-                } else {
-                $newBalance = (float) $newBalance;
-                }
-            @endphp
+            {{ $grn }}
+            <tr class="text-center" onclick="viewGrn('{{ $grn->id }}')">
+                <td>{{ $grn->grn_number }}</td>
+                <td style="text-align: left; padding-left: 4%;">{{ $grn->supplier->name }}</td>
+                <td>{{ $grn->date }}</td>
+                <td style="text-align: right; padding-right: 4%;">
+                    {{ number_format((float) (optional($grn->grn_pay)->sub_total ?? $grn->sub_total), 2) }}</td>
+                <td style="text-align: right; padding-right: 4%;">{{ }}</td>
+                @php
+                    $paid = (float) ($grn->total ?? 0);
+                    $subTotal = (float) (optional($grn->grn_pay)->sub_total ?? ($grn->sub_total ?? 0));
+                    $newBalance = optional($grn->grn_pay)->new_balance;
+                    if ($newBalance === null) {
+                        $newBalance = $paid - $subTotal;
+                    } else {
+                        $newBalance = (float) $newBalance;
+                    }
+                @endphp
                 <td style="text-align: right; padding-right: 4%;">{{ number_format($newBalance, 2) }}</td>
                 <td style="text-align: right; padding-right: 4%;">{{ $grn->due_amount }}</td>
                 <td>
