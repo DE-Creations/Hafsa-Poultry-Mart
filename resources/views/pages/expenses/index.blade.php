@@ -35,11 +35,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <a class="col-10 btn btn-warning" href="{{ route('expenses.category.index') }}">Expenses
+                                    <a class="col-11 btn btn-warning" href="{{ route('expenses.category.index') }}">Expenses
                                         Categories</a>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <a type="button" class="col-10 btn btn-primary" href="{{ route('expenses.create') }}">Add
+                                    <a type="button" class="col-11 btn btn-primary" href="{{ route('expenses.create') }}">Add
                                         new</a>
                                 </div>
                             </div>

@@ -28,14 +28,14 @@
                         <div class="card-body">
                             <!-- Search container start -->
                             <div class="row mb-3">
-                                <div class="col-10">
+                                <div class="col-8">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" id="search"
                                             onkeyup="getTableDetails()" />
                                     </div>
                                 </div>
-                                <div class="col-2 text-end">
-                                    <button type="button" class="btn btn-primary" onclick="showStockAddModal()">
+                                <div class="col-4 text-end">
+                                    <button type="button" class="col-11 btn btn-primary" onclick="showStockAddModal()">
                                         Add new</button>
                                 </div>
                             </div>

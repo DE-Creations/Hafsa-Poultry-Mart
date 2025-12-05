@@ -1,6 +1,6 @@
 <table class="table table-striped align-middle m-0">
     <thead>
-        <tr>
+        <tr class="text-center">
             <th width="10%">ID</th>
             <th width="25%">Name</th>
             <th width="25%">Mobile</th>
@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         @foreach ($suppliers as $supplier)
-            <tr>
+            <tr class="text-center">
                 <td>{{ $supplier->id }}</td>
-                <td>{{ $supplier->name }}</td>
+                <td style="text-align: left; padding-left: 10%;">{{ $supplier->name }}</td>
                 <td>{{ $supplier->mobile }}</td>
-                <td>{{ $supplier->city }}</td>
+                <td style="text-align: left; padding-left: 10%;">{{ $supplier->city }}</td>
                 <td>
                     <button class="btn btn-outline-primary btn-sm edit-customer-btn"
                         onclick="showSupplierEditModal({{ $supplier->id }})" data-bs-toggle="tooltip"

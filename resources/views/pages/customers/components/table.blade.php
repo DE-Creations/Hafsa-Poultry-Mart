@@ -1,22 +1,22 @@
 <table class="table table-striped align-middle m-0">
     <thead>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>City</th>
-            <th>Actions</th>
+        <tr class="text-center">
+            <th width="10%">No.</th>
+            <th width="20%">Name</th>
+            <th width="20%">Mobile</th>
+            <th width="20%">Email</th>
+            <th width="20%">City</th>
+            <th width="10%">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($customers as $customer)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $customer->name }}</td>
-                <td>{{ $customer->mobile }}</td>
-                <td>{{ $customer->email }}</td>
-                <td>{{ $customer->city }}</td>
+            <tr class="text-center">
+                <td >{{ $loop->iteration }}</td>
+                <td style="text-align: left; padding-left: 8%;">{{ $customer->name }}</td>
+                <td style="text-align: left; padding-left: 8%;">{{ $customer->mobile }}</td>
+                <td style="text-align: left; padding-left: 8%;">{{ $customer->email }}</td>
+                <td style="text-align: left; padding-left: 8%;">{{ $customer->city }}</td>
                 <td>
                     <button class="btn btn-outline-primary btn-sm" onclick="showCustomerEditModal('{{ $customer->id }}')"
                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
