@@ -68,7 +68,6 @@
                                             class="table table-bordered table-striped table-hover table-responsive ">
                                             <colgroup>
                                                 <col style="width: 37%;">
-                                                <!-- <col style="width: 27%;"> -->
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
@@ -138,8 +137,7 @@
                                                 <tr>
                                                     <td colspan="2" class="text-right">
                                                         <button type="button" onclick="addNewLineT1();"
-                                                            class="btn btn-sm btn-primary " style="display: none;"><i
-                                                                class="fa fa-eraser"></i>
+                                                            class="btn btn-sm btn-primary "><i class="fa fa-eraser"></i>
                                                             Add new item</button>
                                                     </td>
                                                     <td style="text-align: right">
@@ -262,7 +260,6 @@
         }
         // Add rows ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         function addNewLineT1() {
-            return;
             var item_row = parseInt(document.getElementById("t1NumRows").value);
 
             var table = document.querySelector('#grn_item_table tbody');
@@ -279,39 +276,39 @@
 
             cell1.innerHTML = `<select name="t1_item` + (item_row) + `"
                                                                     id="t1_item` + (item_row) + `"
-                                                                    class="form-control form-control-sm"
+                                                                    class="form-control form-control-sm select2"
                                                                     onchange="getItemData(this ,` + (item_row) + `);"
                                                                     style="width: 100%;">
-                                                                    <option value="Live Chicken">Live Chicken</option>
+                                                                    <option value="0">Select</option>
+                                                                    @foreach ($newGrnItems as $newGrnItem)
+                                                                <option value="{{ $newGrnItem['id'] }}">
+                                                                    {{ $newGrnItem['name'] }}</option>
+                                                            @endforeach
                                                                 </select>`;
-            cell2.innerHTML = `<textarea name="t1_desc` + (item_row) + `" id="t1_desc` + (item_row) +
-                `" class="form-control form-control-sm"
-                                                                    rows="1" style="width:100%;height:28px;font-size: 9;padding: 0;"></textarea>`
-            cell2.style.display = "none";
-            cell3.innerHTML = `<input name="t1_weight` + (item_row) + `"
+            cell2.innerHTML = `<input name="t1_weight` + (item_row) + `"
                                                                     id="t1_weight` + (item_row) + `" type="number"
                                                                     step="any" min="0"
                                                                     class="form-control form-control-sm" value=""
                                                                     style="width: 100%;height:30px;text-align: center;"
                                                                     onchange="calAmount('` + (item_row) + `');">`;
-            cell4.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
+            cell3.innerHTML = `<input name="t1_unit_price` + (item_row) + `"
                                                                     id="t1_unit_price` + (item_row) + `" type="text"
                                                                     step="any"
                                                                     class="form-control form-control-sm formatNumber"
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     onchange="calAmount('` + (item_row) + `');">`;
-            cell5.innerHTML = `<input name="t1_amount` + (item_row) + `"
+            cell4.innerHTML = `<input name="t1_amount` + (item_row) + `"
                                                                     id="t1_amount` + (item_row) + `" type="text"
                                                                     class="form-control form-control-sm formatNumber"
                                                                     value=""
                                                                     style="width: 100%;height:30px;text-align: right;"
                                                                     disabled>`;
-            cell6.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm"
+            cell5.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm"
                                                                     onclick="deleteTableRow('grn_item_table','` + (
                 item_row) + `')"><i
                                                                         class="icon-trash"></i></button>`;
-            cell6.className = "text-center";
+            cell5.className = "text-center";
 
             document.getElementById("t1NumRows").value = item_row + 1;
 
@@ -515,7 +512,7 @@
             const supplierId = document.getElementById("supplier_id").value;
             try {
                 const response = await axios.get("{{ url('/grn/supplier/balance') }}/" + supplierId);
-                // console.log(response.data);
+                console.log(response.data);
 
                 if (response.data == "none") {
                     document.getElementById("t1_pre_bal_for").disabled = false;

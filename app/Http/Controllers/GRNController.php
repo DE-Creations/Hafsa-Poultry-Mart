@@ -50,6 +50,11 @@ class GRNController extends ParentController
         return GRNFacade::store($request->all());
     }
 
+    public function getsupplierBalanceForward($supplier_id)
+    {
+        return GRNFacade::getSupplierBalanceForward($supplier_id);
+    }
+
     public function edit($invoice_id)
     {
         $invoice = InvoiceFacade::get($invoice_id);

@@ -72,7 +72,7 @@ Route::prefix('grn')->group(function () {
     Route::post('/store', [GRNController::class, 'store'])->name('grn.store');
     Route::get('/edit/{grn_id}', [GRNController::class, 'edit'])->name('grn.edit');
     Route::delete('/delete/{grn_id}', [GRNController::class, 'delete'])->name('grn.delete');
-    Route::get('/customer/balance/{customer_id}', [GRNController::class, 'getCustomerBalanceForward'])->name('grn.customer.balance');
+    Route::get('/supplier/balance/{supplier_id}', [GRNController::class, 'getSupplierBalanceForward'])->name('grn.supplier.balance');
 });
 
 Route::prefix('expenses')->group(function () {
