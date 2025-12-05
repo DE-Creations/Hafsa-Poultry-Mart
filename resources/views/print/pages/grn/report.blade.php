@@ -1,135 +1,119 @@
 @extends('print.layouts.template')
 @section('content')
-    @foreach ($data->invoices as $item)
-        <div style="padding: 20px; padding-left: 80px; padding-right: 80px">
-            <div class="text-center" style="margin-top: 20px">GRN</div>
-            <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
-            <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
-            <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
-            <div class="text-center" style="font-size: 10px">Printed at - {{ date('F d, Y h:i A') }}</div>
+    <div style="padding: 20px; padding-left: 80px; padding-right: 80px">
+        <div class="text-center" style="margin-top: 20px">GRN</div>
+        <div class="text-center" style="margin-top: 20px"><b>HAFSA POULTRY MART</b></div>
+        <div class="text-center" style="font-size: 10px">Wholesale & Retails Dealers in Chicken.</div>
+        <div class="text-center" style="font-size: 11px">TEL:- 0777 188 008, 0777 252 155</div>
+        <div class="text-center" style="font-size: 10px">Printed at - {{ date('F d, Y h:i A') }}</div>
 
-            {{-- 1  --}}
-            {{-- <div style="font-size: 14px; margin-top: 20px;" class="text-right"><b>DATE:</b> 7-Jul-24</div>
-        <div>
-            <div class="text-left" style="margin-top: 5px;"><span><u>SML</u></span></div>
-            <div style="margin-top: -100px" class="text-right"><span><b>Inv. No:</b> 10</span></div>
-        </div>  --}}
-            {{-- 1  --}}
-
-            {{-- 2  --}}
-            <div style="margin-top: 20px;">
-                <div style="font-size: 12px" class="text-left"><span><b>GRN. No:</b>
-                        {{ data_get($item, 'invoice_number') }}</span>
-                </div>
-                <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b>
-                    {{ \Carbon\Carbon::parse(data_get($item, 'invoice_date'))->setTimezone('Asia/Colombo')->format('d M, Y') }}
-                </div>
+        <div style="margin-top: 20px;">
+            <div style="font-size: 12px" class="text-left"><span><b>GRN. No:</b> {{ $data->grn_number }}</span>
             </div>
-            @if (data_get($item, 'customer_name') != 'Walking Customer')
-                <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>Supplier:</b>
-                    {{ data_get($item, 'customer_name') }}
-                </div>
-            @endif
-            {{-- 2  --}}
+            <div style="font-size: 12px; margin-top: -20px;" class="text-right"><b>DATE:</b>
+                {{ \Carbon\Carbon::parse($data->grn_date)->setTimezone('Asia/Colombo')->format('d M, Y') }}
+            </div>
         </div>
+        <div class="text-left" style="margin-top: 5px; font-size: 12px"><b>Supplier:</b>
+            {{ $data->supplier_name }}
+        </div>
+    </div>
 
-        <table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
-            <thead>
-                <tr class="row-bg-head"
-                    style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
-                    <th width="20%" align="left" style="font-size: 10px;">
-                        NO
-                    </th>
-                    <th width="20%" align="left" style="font-size: 10px;">
-                        ITEM
-                    </th>
-                    <th width="20%" align="center" style="font-size: 10px;">
-                        QTY
-                    </th>
-                    <th width="20%" align="center" style="font-size: 10px;">
-                        PRICE
-                    </th>
-                    <th width="20%" align="right" style="font-size: 10px;">
-                        AMOUNT
-                    </th>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="invoice_table">
+        <thead>
+            <tr class="row-bg-head"
+                style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+                <th width="20%" align="left" style="font-size: 10px;">
+                    NO
+                </th>
+                <th width="20%" align="left" style="font-size: 10px;">
+                    ITEM
+                </th>
+                <th width="20%" align="center" style="font-size: 10px;">
+                    QTY
+                </th>
+                <th width="20%" align="center" style="font-size: 10px;">
+                    PRICE
+                </th>
+                <th width="20%" align="right" style="font-size: 10px;">
+                    AMOUNT
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data->grnItems as $grnItem)
+                <tr class="row-bg">
+                    <td align="left" class="td-style">
+                        {{ $loop->iteration }}
+                    </td>
+                    <td align="left" class="td-style">
+                        {{ $grnItem->inputItem->name }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($grnItem->weight, 3) }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($grnItem->unit_price, 2) }}
+                    </td>
+                    <td align="right" class="td-style">
+                        {{ number_format($grnItem->amount, 2) }}
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (data_get($item, 'invoiceItems') as $invoiceItem)
-                    <tr class="row-bg">
-                        <td align="left" class="td-style">
-                            {{ $loop->iteration }}
-                        </td>
-                        <td align="left" class="td-style">
-                            {{ data_get($invoiceItem, 'output_item_name') }}
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($invoiceItem, 'weight', 0), 3) }}
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($invoiceItem, 'unit_price', 0), 2) }}
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($invoiceItem, 'amount', 0), 2) }}
-                        </td>
-                    </tr>
-                @endforeach
+            @endforeach
 
-                {{-- <tr class="row-bg " style="border-top: 2px dotted #eee;">
+            {{-- <tr class="row-bg " style="border-top: 2px dotted #eee;">
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>  --}}
-            </tbody>
+        </tbody>
 
-            <tfoot class="row-bg-footer"
-                style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
-                @foreach (data_get($item, 'invoicePayment', []) as $payment)
-                    <tr class="row-bg">
-                        <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                            <b>TOTAL</b>
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($payment, 'sub_total', 0), 2) }}
-                        </td>
-                    </tr>
-                    <tr class="row-bg">
-                        <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                            <b>DISCOUNT</b>
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($payment, 'discount_amount', 0), 2) }}
-                        </td>
-                    </tr>
-                    <tr class="row-bg">
-                        <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                            <b>BALANCE FORWARD</b>
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($payment, 'previous_balance_forward', 0), 2) }}
-                        </td>
-                    </tr>
-                    <tr class="row-bg">
-                        <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                            <b>CASH RECEIVED</b>
-                        </td>
-                        <td align="right" class="td-style">
-                            {{ number_format(data_get($payment, 'paid_amount', 0), 2) }}
-                        </td>
-                    </tr>
-                    <tr class="row-bg">
-                        <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
-                            <b>BALANCE</b>
-                        </td>
-                        <td align="right" class="td-style row-bg-balance">
-                            {{ number_format(data_get($payment, 'new_balance', 0), 2) }}
-                        </td>
-                    </tr>
-                @endforeach
-            </tfoot>
-        </table>
+        <tfoot class="row-bg-footer"
+            style="line-height:1; white-space:nowrap; color: #000000; background-color: #000000,20;">
+            <tr class="row-bg">
+                <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                    <b>TOTAL</b>
+                </td>
+                <td align="right" class="td-style">
+                    {{ number_format($data->grnPay->sub_total, 2) }}
+                </td>
+            </tr>
+            <tr class="row-bg">
+                <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                    <b>DISCOUNT</b>
+                </td>
+                <td align="right" class="td-style">
+                    {{ number_format($data->grnPay->discount_amount, 2) }}
+                </td>
+            </tr>
+            <tr class="row-bg">
+                <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                    <b>BALANCE FORWARD</b>
+                </td>
+                <td align="right" class="td-style">
+                    {{ number_format($data->grnPay->previous_balance_forward, 2) }}
+                </td>
+            </tr>
+            <tr class="row-bg">
+                <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                    <b>CASH RECEIVED</b>
+                </td>
+                <td align="right" class="td-style">
+                    {{ number_format($data->grnPay->paid_amount, 2) }}
+                </td>
+            </tr>
+            <tr class="row-bg">
+                <td align="right" class="td-style" colspan="4" style="font-size: 10px; padding-right: 10px">
+                    <b>BALANCE</b>
+                </td>
+                <td align="right" class="td-style row-bg-balance">
+                    {{ number_format($data->grnPay->new_balance, 2) }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 
-        {{-- <table cellspacing="0" cellpadding="0" border="0" width="100%">
+    {{-- <table cellspacing="0" cellpadding="0" border="0" width="100%">
         <tbody>
 
             @if ($payment->note != null)
@@ -148,23 +132,19 @@
 </tbody>
 </table> --}}
 
-        <div style="padding: 80px; padding-top: 50px; padding-bottom: 20px">
-            <div style="margin-top: 20px; width: 40%" class="text-center">
-                <hr style="background-color: black">
-                <span style="font-size: 11px">ISSUED BY</span>
-            </div>
-            <div style="margin-top: -37.5px;width: 40%; margin-left: 60%" class="text-center">
-                <hr style="background-color: black">
-                <span style="font-size: 11px">RECEIVED BY</span>
-            </div>
+    <div style="padding: 80px; padding-top: 50px; padding-bottom: 20px">
+        <div style="margin-top: 20px; width: 40%" class="text-center">
+            <hr style="background-color: black">
+            <span style="font-size: 11px">ISSUED BY</span>
         </div>
+        <div style="margin-top: -37.5px;width: 40%; margin-left: 60%" class="text-center">
+            <hr style="background-color: black">
+            <span style="font-size: 11px">RECEIVED BY</span>
+        </div>
+    </div>
 
-        <div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
-        <div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 070 300 4483</div>
-        @if (!$loop->last)
-            <div class="page_break"></div>
-        @endif
-    @endforeach
+    <div class="text-center" style="margin-top: 16px; font-size: 12px">Thank you! Come again!</div>
+    <div class="text-center" style="margin-top: 15px; font-size: 8px">DE CREATIONS&reg; | 070 300 4483</div>
 
     <style>
         .page_break {

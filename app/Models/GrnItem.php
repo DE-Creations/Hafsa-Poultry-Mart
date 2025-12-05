@@ -11,6 +11,7 @@ class GrnItem extends Model
 
     protected $fillable = [
         'grn_id',
+        'item_name',
         'weight',
         'unit_price',
         'amount',
@@ -23,7 +24,6 @@ class GrnItem extends Model
 
     public function inputItem()
     {
-        return $this->belongsTo(InputItem::class, 'input_item_id', 'id');
+        return $this->belongsTo(InputItem::class, 'item_name', 'id');
     }
-
 }

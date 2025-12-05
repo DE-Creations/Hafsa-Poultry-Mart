@@ -232,8 +232,13 @@
 
                                 <div class="col-12 mt-3">
                                     <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-primary col-3" onclick="createGrn()">
+                                        <button type="button" class="btn btn-primary col-3"
+                                            onclick="onlyCreateGrn()">
                                             Create
+                                        </button>
+                                        <button type="button" class="btn btn-success col-3"
+                                            onclick="createAndPrintGRN()">
+                                            Create & Print
                                         </button>
                                     </div>
                                 </div>
@@ -388,12 +393,21 @@
             try {
                 const response = await axios.post("{{ url('/grn/store') }}/",
                     add_grn_details);
-                window.location.reload();
+                return response;
             } catch (error) {
                 viewAddErrors(error);
             }
         }
 
+        function onlyCreateGrn() {
+            createGrn();
+            window.location.reload();
+        }
+
+        async function createAndPrintGRN() {
+            var x = await createGrn();
+            printGRN(x.data);
+        }
 
         //  set description & unit price
         function getItemData(selectElement, number) {
@@ -503,6 +517,22 @@
                 (); // ------------------------------------------------------------------------------------------------------------------------------
         }
 
+        async function printGRN(grn_id) {
+            try {
+                const response = await axios.post("{{ url('/grn/print') }}/" + grn_id, {}, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                });
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+                window.location.reload();
+            } catch (error) {
+                showAlert("danger-modal", "danger-text", "Something went wrong while generating the GRN.");
+            }
+        }
 
         window.addEventListener('load', () => {
             getSupplierBalanceForward();
