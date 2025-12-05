@@ -17,13 +17,13 @@
             <td>{{ $invoice->customer->name }}
             </td>
             <td>{{ $invoice->date }}</td>
-            <td>
+            <td style="text-align: right; padding-right: 4%;">
                 {{ $invoice->invoicePayment->first()->to_pay ?? 'N/A' }}
             </td>
-            <td>
+            <td style="text-align: right; padding-right: 4%;">
                 {{ $invoice->invoicePayment->first()->paid_amount ?? 'N/A' }}
             </td>
-            <td>
+            <td style="text-align: right; padding-right: 4%;">
                 {{ $invoice->invoicePayment->first()->new_balance ?? 'N/A' }}
             </td>
         </tr>
