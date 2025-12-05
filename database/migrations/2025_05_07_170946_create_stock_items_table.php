@@ -18,10 +18,6 @@ return new class extends Migration
             $table->decimal('selling_price', 15, 2)->nullable();
             $table->integer('available_qty')->nullable();
             $table->timestamps();
-        // 'stock_id',
-        // 'output_item_id',
-        // 'selling_price',
-        // 'available_qty',
         });
     }
 
