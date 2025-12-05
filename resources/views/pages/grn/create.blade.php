@@ -512,7 +512,6 @@
             const supplierId = document.getElementById("supplier_id").value;
             try {
                 const response = await axios.get("{{ url('/grn/supplier/balance') }}/" + supplierId);
-                console.log(response.data);
 
                 if (response.data == "none") {
                     document.getElementById("t1_pre_bal_for").disabled = false;
