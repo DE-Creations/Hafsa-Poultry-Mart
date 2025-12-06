@@ -72,39 +72,42 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="m-2">
-                        <label class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
-                            id="add_name" />
-                        <span class="text-danger" id="name_error"></span>
-                    </div>
+                    <form id="addCustomerForm" method="POST" action="{{ url('/customers/store') }}">
+                        @csrf
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Name</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Name" name="name"
+                                id="add_name" />
+                            <span class="text-danger" id="name_error"></span>
+                        </div>
 
-                    <div class="m-2">
-                        <label class="form-label fw-bold">Mobile</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
-                            id="add_mobile" />
-                        <span class="text-danger" id="mobile_error"></span>
-                    </div>
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Mobile</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter Mobile" name="mobile"
+                                id="add_mobile" />
+                            <span class="text-danger" id="mobile_error"></span>
+                        </div>
 
-                    <div class="m-2">
-                        <label class="form-label fw-bold">Email (Optional)</label>
-                        <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
-                            id="add_email" />
-                        <span class="text-danger" id="email_error"></span>
-                    </div>
+                        <div class="m-2">
+                            <label class="form-label fw-bold">Email (Optional)</label>
+                            <input type="email" class="form-control mt-2" placeholder="Enter Email" name="email"
+                                id="add_email" />
+                            <span class="text-danger" id="email_error"></span>
+                        </div>
 
-                    <div class="m-2">
-                        <label class="form-label fw-bold">City (Optional)</label>
-                        <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
-                            id="add_city" />
-                        <span class="text-danger" id="city_error"></span>
-                    </div>
+                        <div class="m-2">
+                            <label class="form-label fw-bold">City (Optional)</label>
+                            <input type="text" class="form-control mt-2" placeholder="Enter City" name="city"
+                                id="add_city" />
+                            <span class="text-danger" id="city_error"></span>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button onclick="addCustomer()" class="btn btn-primary">
+                    <button type="submit" form="addCustomerForm" class="btn btn-primary">
                         Save
                     </button>
                 </div>
@@ -284,33 +287,6 @@
         function showCustomerAddModal() {
             addResetFields();
             openModal("addNewCustomerModal");
-        }
-
-        async function addCustomer() {
-            var name = document.getElementById("add_name").value;
-            var email = document.getElementById("add_email").value;
-            var mobile = document.getElementById("add_mobile").value;
-            var city = document.getElementById("add_city").value;
-
-            add_customer_details = {
-                name: name,
-                email: email,
-                mobile: mobile,
-                city: city
-            }
-
-            try {
-                const response = await axios.post("{{ url('/customers/store') }}/",
-                    add_customer_details);
-                const customer = response.data;
-
-                resetAddInputFields();
-                getTableDetails();
-                modal.hide();
-                showAlert("success-modal", "success-text", "Customer added successfully.");
-            } catch (error) {
-                viewAddErrors(error);
-            }
         }
 
         async function showCustomerEditModal(id) {
