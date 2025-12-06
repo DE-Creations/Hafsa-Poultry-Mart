@@ -72,7 +72,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addCustomerForm" method="POST" action="{{ url('/customers/store') }}">
+                    <form id="addCustomerForm" method="POST" action="{{ url('/customers/store') }}" onsubmit="addCustomer()">
                         @csrf
                         <div class="m-2">
                             <label class="form-label fw-bold">Name</label>
@@ -270,6 +270,15 @@
                 document.getElementById("edit_city_error").textContent = error.response.data.errors.city[0];
             } else {
                 document.getElementById("edit_city_error").textContent = "";
+            }
+        }
+
+        async function addCustomer() {
+            try {
+                modal.hide();
+                showAlert("success-modal", "success-text", "Customer updated successfully.");
+            } catch (error) {
+                viewEditErrors(error);
             }
         }
 
